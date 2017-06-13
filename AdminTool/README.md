@@ -1,3 +1,4 @@
 #AdminTool
 
-Web verktøy som skal brukes til å oppdatere OrdBase-n
+Web verktøy som skal brukes til å oppdatere språkdatabasen
+
