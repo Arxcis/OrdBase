@@ -12,6 +12,7 @@ namespace OrdBase.Controllers
 
         public ActionResult Index()
         {   
+            ViewBag.Title = "Home";
             //
             // @brief Building IndexViewModel
             // @doc stackoverflow - https://stackoverflow.com/questions/9881790/how-to-design-viewmodel
@@ -25,6 +26,7 @@ namespace OrdBase.Controllers
 
         public ActionResult App(string client="Javazoneer")
         {
+            ViewBag.Title = "App - Translation";
             //
             // @brief Building IndexViewModel
             // Building ViewModel

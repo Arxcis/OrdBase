@@ -7,10 +7,12 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
+    <script type="text/javascript" src="@Url.Content("~/Scripts/Navigation.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/App.js")"></script>
 
+
 </head>
-<body onkeydown="App.KeyHandler(event)">
+<body onkeydown="App.HandleKeys(event)">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
