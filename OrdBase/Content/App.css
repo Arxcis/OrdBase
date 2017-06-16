@@ -16,6 +16,10 @@
 #translationList {  }
 
 
+.NavigationSelected {
+	background-color: #7aadff;
+}
+
 .ListItem 
 {
 	height: 4rem;

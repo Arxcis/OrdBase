@@ -11,12 +11,13 @@
             <h3>Categories</h3>
             <ul id="categoryList" class="DynamicList">
             @{
-                var i = 0;
+                var i = 1;
                 foreach (var o in Model.Categories) 
                 {
-                    <li id="cat@(i)" class="ListItem CategoryListItem">@o.Name</li>
+                    <li id="category@(i)" class="ListItem CategoryListItem">@o.Name</li>
                     i++;
                 }
+                <li id="category0" style="display:none;"></li> @*Invisible starting ground*@
             }
             </ul>
         </section>
@@ -24,12 +25,13 @@
             <h3>Translations</h3>
             <ul id="translationList" class="DynamicList">
             @{
-                var j = 0;
+                var j = 1;
                 foreach (var o in Model.Translations)
                 {
-                    <li id="trans@(j)" class="ListItem TranslationListItem">@o.Key - @o.Value - @o.Language.ShortName</li>
+                    <li id="translation@(j)" class="ListItem TranslationListItem">@o.Key - @o.Value - @o.Language.ShortName</li>
                     j++;
                 }
+                <li id="translation0" style="display:none;"></li> @*Invisible starting ground*@
             }
             </ul>
         </section>

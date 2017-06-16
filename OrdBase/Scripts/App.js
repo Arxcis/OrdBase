@@ -29,36 +29,28 @@ var App = (function () {
         	case 38:
         	case 87:  //'w'
         		console.log("Up");
-        		Navigation.MoveUp(function(row, col){
-
-        		});
+        		Navigation.MoveUp();
         		break;
 
         	// @note LEFT movement
         	case 37:
         	case 65:  // 'a'
         		console.log("Left");
-        		Navigation.MoveLeft(function(row, col){
-
-        		});
+        		Navigation.MoveLeft();
         		break;
 
         	// @note RIGHT Movement
         	case 39:
         	case 68: // 'd'
         		console.log("Right");
-        		Navigation.MoveRight(function(row, col){
-
-        		});
+        		Navigation.MoveRight();
         		break;
 
         	// @note DOWN Movement
         	case 40:
         	case 83: // 's'
         		console.log("Down");
-        		Navigation.MoveDown(function(row, col){
-
-        		});
+        		Navigation.MoveDown();
         		break;
 
         	// @note ENTER Movement
@@ -68,6 +60,7 @@ var App = (function () {
 
         	// @note BACKSPACE movement
         	case 8:
+        		Navigation.ResetSelect();
         		console.log("Backspace");
         		break;
 
