@@ -2,29 +2,57 @@
 @doc https://css-tricks.com/snippets/css/a-guide-to-flexbox/
 */
 
-#AppMain
-{
-}
+#appMain       {}
+#clientHeading {}
 
-#ClientHeading 
-{
-	width: 100%;
-}
-
-#DynamicBody 
+.ActiveList 
 {
 	display: flex;
+	flex-direction: column;
+	padding-left: 0px;
 }
 
-#CategorySection 
+#categoryList    {  }
+#translationList {  }
+
+
+.ListItem 
+{
+	height: 4rem;
+	margin: 0.3rem;
+	padding: 1rem;
+	border-width: 1px;
+	border-radius: 5px;
+	border-style: solid;
+	border-color: #A9A9A9;
+	list-style-type: none;
+	/*align-content: flex-end;*/
+}
+
+.CategoryListItem    {}
+.TranslationListItem {}
+
+
+#dynamicBody { display: flex; }
+
+/* Sections */
+#categorySection 
 {
 	flex-basis: 150px;
 	flex-shrink: 0;
+	padding-right: 2rem;
+	border-width: 0px 1px 0px 0px;
+	border-style: solid;
+	border-color: #A9A9A9;
 }
 
-#TranslationSection 
+#translationSection 
 {
 	flex-basis: 200px;
 	flex-grow: 1;
 	flex-shrink: 1;
+	margin-left: 2rem;
 }
+
+#translationSection h3 { padding-left: 10px; }
+#categorySection    h3 { padding-left: 10px; }
