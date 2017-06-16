@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 namespace DatabaseAPI
 {
     class RegisteredClient
-    {
-
-        private string password;          // @note This is private because it should be generated in the constructor
-        public string Password { get;  }
+    { 
+        public Guid ClientID { get;  }
         public string Name { get; set; }
     }
 }
