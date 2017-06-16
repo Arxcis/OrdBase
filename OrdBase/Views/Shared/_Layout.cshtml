@@ -6,8 +6,11 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/App.js")"></script>
+
 </head>
-<body>
+<body onkeydown="App.KeyHandler(event)">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">

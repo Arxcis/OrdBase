@@ -25,9 +25,9 @@ namespace OrdBase
 
 
             // Javascript code for App.html
-            bundles.Add(new ScriptBundle(
-                "~/bundles/App").Include(
-                    "~/Scripts/App.js"));
+           // bundles.Add(new ScriptBundle(
+           //     "~/bundles/App").Include(
+           //         "~/Scripts/App.js"));
 
             bundles.Add(new StyleBundle(
                 "~/Content/css").Include(
