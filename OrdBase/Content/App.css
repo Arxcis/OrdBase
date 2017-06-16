@@ -1,0 +1,30 @@
+/* 
+@doc https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+*/
+
+#AppMain
+{
+}
+
+#ClientHeading 
+{
+	width: 100%;
+}
+
+#DynamicBody 
+{
+	display: flex;
+}
+
+#CategorySection 
+{
+	flex-basis: 150px;
+	flex-shrink: 0;
+}
+
+#TranslationSection 
+{
+	flex-basis: 200px;
+	flex-grow: 1;
+	flex-shrink: 1;
+}

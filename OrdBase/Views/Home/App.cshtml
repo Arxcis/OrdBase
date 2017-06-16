@@ -1,0 +1,38 @@
+﻿@using OrdBase.ViewModels
+@model AppViewModel
+
+<main id="AppMain">
+    <section id="ClientHeading">
+        <h2>Client: @Model.ClientName</h2>
+    </section>
+
+    <group id="DynamicBody">
+        <section id="CategorySection">
+            <h3>Categories</h3>
+            <ul>
+            @{
+                var i = 0;
+                foreach (var o in Model.Categories) 
+                {
+                    <li id="cat@(i)">@o.Name</li>
+                    i++;
+                }
+            }
+            </ul>
+        </section>
+        <section id="TranslationSection">
+            <h3>Translations</h3>
+            <ul>
+            @{
+                var j = 0;
+                foreach (var o in Model.Translations)
+                {
+                    <li id="trans@(j)">@o.Key - @o.Value - @o.Language.ShortName</li>
+                    j++;
+                }
+            }
+            <h1> TEST!</h1>
+            </ul>
+        </section>
+    </group>
+</main>
