@@ -1,0 +1,80 @@
+/* 
+    @project OrdBase
+    @file App.css
+    @created 16.06.17
+    @creator Jonas Solsvik
+
+     @brief Main css file for OrdBase-app
+
+    @doc flexbox: https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+    @doc rem vs em: http://kyleschaeffer.com/development/css-font-size-em-vs-px-vs-pt-vs/
+    @doc color-picker: https://www.w3schools.com/colors/colors_picker.asp
+*/
+
+html, body {
+    font-size: 1.5rem;
+}
+
+
+li  { list-style-type: none;}
+
+#appMain       {}
+#clientHeading {}
+
+.ActiveList 
+{
+    display: flex;
+    flex-direction: column;
+    padding-left: 0px;
+}
+
+#categoryList    {  }
+#translationList {  }
+
+
+.NavigationSelected {
+    background-color: #7aadff !important;
+}
+
+.ListButton {
+    font-size: 1em;
+    border: none;
+    width: 100%;
+    height: 100%;
+    background: none;
+    padding: 1rem;
+
+    margin: 0.3rem;
+    border-width: 1px;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: #A9A9A9;
+}
+
+.CategoryListButton    {}
+.TranslationListButton {}
+
+
+#dynamicBody { display: flex; }
+
+/* Sections */
+#categorySection 
+{
+    flex-basis: 150px;
+    flex-shrink: 0;
+    padding-right: 2rem;
+    border-width: 0px 1px 0px 0px;
+    border-style: solid;
+    border-color: #A9A9A9;
+}
+
+#translationSection 
+{
+    flex-basis: 200px;
+    flex-grow: 1;
+    flex-shrink: 1;
+    margin-left: 2rem;
+}
+
+#translationSection h3 { padding-left: 10px; }
+#categorySection    h3 { padding-left: 10px; }
