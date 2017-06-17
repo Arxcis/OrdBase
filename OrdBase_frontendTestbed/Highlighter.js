@@ -1,10 +1,10 @@
 //
 // @project OrdBase
-// @file Navigation.js
+// @file Highlighter.js  (renamed from Navigation.js 17.06.17)
 // @creator Jonas Solsvik
 // @created 16.06.2017
 //
-//  @brief A moudule which updates the Navigation data structure. Let's the user move around in the
+//  @brief A moudule which updates the 'Highlighter' data structure. Let's the user move around in the
 //         app using arrow keys. up,down,left,right or  w , a , s , d. 
 //
 // @doc classList: https://developer.mozilla.org/en-US/docs/Web/API/Element/classList
@@ -13,10 +13,10 @@
 //
 
 //
-// @module Navigation
-// @brief holds the state of the keyboard navigation of the app.
+// @module Highlighter
+// @brief holds the state of the keyboard Highlighter of the app.
 //
-var Navigation = (function() {
+var Highlighter = (function() {
 
     //
     // PRIVATE
@@ -45,8 +45,8 @@ var Navigation = (function() {
 
     var DrawNewActiveElement = function (oldElement, newElement) { 
         if(oldElement) 
-            oldElement.classList.remove("NavigationSelected"); 
-        newElement.classList.add("NavigationSelected");
+            oldElement.classList.remove("Highlighted"); 
+        newElement.classList.add("Highlighted");
     }
 
     var UpdateActiveElement = function(row, col) {
@@ -86,7 +86,7 @@ var Navigation = (function() {
 
         UnselectActiveElement : function(){
             activeElement.blur();
-            activeElement.classList.remove("NavigationSelected");
+            activeElement.classList.remove("Highlighted");
             activeElementOld = activeElement = null;
             activeRow = 0;
             activeColumn = 1;

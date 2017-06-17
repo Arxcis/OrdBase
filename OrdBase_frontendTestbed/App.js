@@ -38,12 +38,12 @@ var App = (function () {
         //
         Initialize : function () {
             HelloWorld();
-            Navigation.Initialize(4, 7);
+            Highlighter.Initialize(4, 7);
         },
 
         //
         // @function OnKeyDown
-        //  @brief EventHandler for OnKeyDown html5 events, mostly for navigation in the menu.
+        //  @brief EventHandler for OnKeyDown html5 events, mostly for Highlighter in the menu.
         //
         OnKeyDown : function(key) {
 
@@ -53,27 +53,27 @@ var App = (function () {
             switch(keyCode) {
                 case Key.UP:
                 case Key.w:  
-                    Navigation.MoveUp();
+                    Highlighter.MoveUp();
                     break;
 
                 case Key.DOWN:
                 case Key.s:  
-                    Navigation.MoveDown();
+                    Highlighter.MoveDown();
                     break;
 
                 case Key.LEFT:
                 case Key.a:  
-                    Navigation.MoveLeft();
+                    Highlighter.MoveLeft();
                     break;
 
                 case Key.RIGHT:
                 case Key.d:  
-                    Navigation.MoveRight();
+                    Highlighter.MoveRight();
                     break;
 
                 case Key.ESC:
                 case Key.BACKSPACE:
-                    Navigation.UnselectActiveElement();
+                    Highlighter.UnselectActiveElement();
                     break;
 
                 default:
@@ -91,12 +91,10 @@ var App = (function () {
             let keyCode = key.which || key.keyCode; 
             switch(keyCode) {
                 case Key.TAB:
-                    Navigation.SetActiveElement(document.activeElement);
+                    Highlighter.SetActiveElement(document.activeElement);
                     break;
             }
         },
-
-
 
         // 
         // @function OnCategoryClick()
@@ -106,7 +104,8 @@ var App = (function () {
         //
         OnCategoryClick : function (button) {
             console.log("Clicked " + button.id);
-            Navigation.SetActiveElement(button);
+            Highlighter.SetActiveElement(button);
+
         },
 
         //
@@ -116,7 +115,21 @@ var App = (function () {
         //
         OnTranslationClick : function (button) {
             console.log("Clicked " + button.id);
-            Navigation.SetActiveElement(button);
+            Highlighter.SetActiveElement(button);
+        },
+
+        //
+        // @function LoadEditor()
+        //  @brief Supposed to load in a partial view and dynamicly change the single page app
+        //
+        LoadEditor() {
+            // document.getElementById("selectionGroup").innerHTML='';
+            // document.getElementById("editorGroup").innerHTML='<object type="text/html" data="Editor.html"></object>';
+        },
+
+        QuitEditor() {
+            // document.getElementById("selectionGroup").innerHTML='<object type="text/html" data="Selection.html"></object>';
+            // document.getElementById("editorGroup").innerHTML='';
         },
     }
 })();
