@@ -2,41 +2,89 @@
 @model AppViewModel
 
 <main id="appMain">
-    <section id="clientHeading">
+    <section id="appHeading">
         <h2></h2>
     </section>
 
-    <group id="dynamicBody">
-        <section id="categorySection">
+    <!-- _______________________________ PARTIAL VIEW: SELECTOR  _________________________________-->
+    <group id="selectorGroup">
+       
+
+        <section id="categorySelector" class="CategoryColumn">
             <h3>Categories</h3>
-            <ul id="categoryList" class="DynamicList">
+            <ul id="selectorCategoryList" class="DynamicList CategoryList">
             @{
                 var i = 1;
                 foreach (var o in Model.Categories) 
                 {
-                    <li id="category@(i)" class="ListItem CategoryListItem">@o.Name</li>
+                <li><button id="category@(i)" class="ListButton CategoryListButton" onclick="App.OnCategoryClick(this)">Category no.@(i) - @o.Name</button></li>
                     i++;
                 }
                 <li id="category0" style="display:none;"></li> @*Invisible starting ground*@
             }
             </ul>
         </section>
-        <section id="translationSection">
+
+
+        <section id="translationSelector" class="TranslationColumn">
             <h3>Translations</h3>
-            <ul id="translationList" class="DynamicList">
+            <ul id="selectorTranslationList" class="DynamicList TranslationList">
             @{
                 var j = 1;
                 foreach (var o in Model.Translations)
                 {
-                    <li id="translation@(j)" class="ListItem TranslationListItem">@o.Key - @o.Value - @o.Language.ShortName</li>
+                    <li><button id="translation@(j)" class="ListButton TranslationListButton" onclick="App.OnTranslationClick(this)">Translation no.@(j) - @o.Key - @o.Value - @o.Language.ShortName</button></li>
                     j++;
                 }
-                <li id="translation0" style="display:none;"></li> @*Invisible starting ground*@
+                <li id="translation0" style="display:none;"></li>  @*Invisible starting ground*@
             }
             </ul>
         </section>
-    <script type="text/javascript">
-        Navigation.Initialize(@(i), @(j));
-    </script>
     </group>
+    <!--_____________________________________ PARTIAL VIEW END ___________________________________-->
+
+
+
+
+    <!-- __________________________________ PARTIAL VIEW: EDTIOR  _________________________________-->
+    <group id="editorGroup" style="display: none;">
+
+        
+        <section id="categoryEditor" class="categorySelection">
+            <h3>Translation categories</h3>
+        </section>
+
+
+        <section id="translationsEdit" class="translationSelection">
+            <h3>Translation editor</h3>
+
+            <form>
+                <label for="inputAccess">API Access key</label></br>
+                <input id="inputAccess" style="font-size: .8em; type="" name=""></br>
+
+                <fieldset style="border: none; ">
+                    <legend>Translations</legend>
+
+                    <label for="inputNorwegian">Bokmål</label> </br>
+                    <textarea id="inputNorwegian" style="font-size: .8em;">ksadfasfsf</textarea></br>
+
+                    <label for="inputNorwegian">Nynorsk</label> </br>
+                    <textarea id="inputNorwegian" style="font-size: .8em;">ksadfasfsf</textarea></br>
+
+                    <label for="inputNorwegian">Samisk</label> </br>
+                    <textarea id="inputNorwegian" style="font-size: .8em;">ksadfasfsf</textarea></br>
+
+                    <label for="inputSamisk">Engelsk</label></br>
+                    <textarea id="inputSamisk" style="font-size: .8em;">sadfsdfsdf</textarea></br>
+                </fieldset>
+
+                <button onclick="App.OnEditorCancelClick()" style="background: red;   color: white; ">Cancel</button>
+                <button onclick="App.OnEditorSubmitClick()" style="background: green; color: white; ">Submit</button>
+            </form>
+        </section>
+
+
+    </group>
+    <!--_______________________________ PARTIAL VIEW END ___________________________________-->
+    
 </main>
