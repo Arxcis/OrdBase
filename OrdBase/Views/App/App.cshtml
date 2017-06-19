@@ -3,7 +3,7 @@
 
 <main id="appMain">
     <section id="appHeading">
-        <h2></h2>
+        <h2>@Model.ClientName</h2>
     </section>
 
     <!-- _______________________________ PARTIAL VIEW: SELECTOR  _________________________________-->
@@ -26,7 +26,7 @@
         </section>
 
 
-        <section id="translationSelector" class="TranslationColumn">
+        <section id="translationSelector">
             <h3>Translations</h3>
             <ul id="selectorTranslationList" class="DynamicList TranslationList">
             @{
@@ -40,6 +40,8 @@
             }
             </ul>
         </section>
+
+        
     </group>
     <!--_____________________________________ PARTIAL VIEW END ___________________________________-->
 
@@ -50,12 +52,12 @@
     <group id="editorGroup" style="display: none;">
 
         
-        <section id="categoryEditor" class="categorySelection">
+        <section id="categoryEditor" class="CategoryColumn">
             <h3>Translation categories</h3>
         </section>
 
 
-        <section id="translationsEdit" class="translationSelection">
+        <section id="translationEditor">
             <h3>Translation editor</h3>
 
             <form>
@@ -65,17 +67,17 @@
                 <fieldset style="border: none; ">
                     <legend>Translations</legend>
 
-                    <label for="inputNorwegian">Bokmål</label> </br>
-                    <textarea id="inputNorwegian" style="font-size: .8em;">ksadfasfsf</textarea></br>
+                    <label for="inputBokmal">Bokmål</label> </br>
+                    <textarea id="inputBokmal" style="font-size: .8em;">ksadfasfsf</textarea></br>
 
-                    <label for="inputNorwegian">Nynorsk</label> </br>
-                    <textarea id="inputNorwegian" style="font-size: .8em;">ksadfasfsf</textarea></br>
+                    <label for="inputNynorsk">Nynorsk</label> </br>
+                    <textarea id="inputNynorsk" style="font-size: .8em;">ksadfasfsf</textarea></br>
 
-                    <label for="inputNorwegian">Samisk</label> </br>
-                    <textarea id="inputNorwegian" style="font-size: .8em;">ksadfasfsf</textarea></br>
+                    <label for="inputSamisk">Samisk</label> </br>
+                    <textarea id="inputSamisk" style="font-size: .8em;">ksadfasfsf</textarea></br>
 
-                    <label for="inputSamisk">Engelsk</label></br>
-                    <textarea id="inputSamisk" style="font-size: .8em;">sadfsdfsdf</textarea></br>
+                    <label for="inputEngelsk">Engelsk</label></br>
+                    <textarea id="inputEngelsk" style="font-size: .8em;">sadfsdfsdf</textarea></br>
                 </fieldset>
 
                 <button onclick="App.OnEditorCancelClick()" style="background: red;   color: white; ">Cancel</button>
@@ -86,5 +88,5 @@
 
     </group>
     <!--_______________________________ PARTIAL VIEW END ___________________________________-->
-    
+
 </main>

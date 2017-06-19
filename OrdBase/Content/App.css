@@ -1,62 +1,81 @@
 /* 
-@doc https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+    @project OrdBase
+    @file App.css
+    @created 16.06.17
+    @creator Jonas Solsvik
+
+     @brief Main css file for OrdBase-app
+
+    @doc flexbox: https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+    @doc rem vs em: http://kyleschaeffer.com/development/css-font-size-em-vs-px-vs-pt-vs/
+    @doc color-picker: https://www.w3schools.com/colors/colors_picker.asp
 */
+
+html, body {
+    font-size: 1.5rem;
+}
+
+button { font-size: 1em; }
+
+li  { list-style-type: none;}
 
 #appMain       {}
 #clientHeading {}
 
 .ActiveList 
 {
-	display: flex;
-	flex-direction: column;
-	padding-left: 0px;
+    display: flex;
+    flex-direction: column;
+    padding-left: 0px;
 }
 
 #categoryList    {  }
 #translationList {  }
 
 
-.NavigationSelected {
-	background-color: #7aadff;
+.Highlighted {
+    background-color: #7aadff !important;
 }
 
-.ListItem 
-{
-	height: 4rem;
-	margin: 0.3rem;
-	padding: 1rem;
-	border-width: 1px;
-	border-radius: 5px;
-	border-style: solid;
-	border-color: #A9A9A9;
-	list-style-type: none;
-	/*align-content: flex-end;*/
+.ListButton {
+    border: none;
+    width: 100%;
+    height: 100%;
+    background: none;
+    padding: 1rem;
+
+    margin: 0.3rem;
+    border-width: 1px;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: #A9A9A9;
 }
 
-.CategoryListItem    {}
-.TranslationListItem {}
+.CategoryListButton    {}
+.TranslationListButton {}
 
 
-#dynamicBody { display: flex; }
+#selectionGroup { display: flex; }
+#editGroup      { display: flex; }
 
 /* Sections */
-#categorySection 
+.categorySelection 
 {
-	flex-basis: 150px;
-	flex-shrink: 0;
-	padding-right: 2rem;
-	border-width: 0px 1px 0px 0px;
-	border-style: solid;
-	border-color: #A9A9A9;
+    flex-basis: 150px;
+    flex-shrink: 0;
+    padding-right: 100px;
+    border-width: 0px 1px 0px 0px;
+    border-style: solid;
+    border-color: #A9A9A9;
 }
 
-#translationSection 
+.translationSelection 
 {
-	flex-basis: 200px;
-	flex-grow: 1;
-	flex-shrink: 1;
-	margin-left: 2rem;
+    flex-basis: 200px;
+    flex-grow: 1;
+    flex-shrink: 1;
+    margin-left: 100px;
 }
 
-#translationSection h3 { padding-left: 10px; }
-#categorySection    h3 { padding-left: 10px; }
+#translationSelection h3 { padding-left: 10px; }
+#categorySelection    h3 { padding-left: 10px; }
