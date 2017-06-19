@@ -10,9 +10,10 @@ namespace OrdBase.Models
         [Key]
         [Column(Order = 1)]
         [ForeignKey("RegisteredClient")]
-        public int RegisteredClientId { get; set; }
+        public string ClientName { get; set; }
         public RegisteredClient RegisteredClient { get; set; }
 
+        [MaxLength(32), MinLength(0)]
         [Key]
         [Column(Order = 2)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -21,9 +22,10 @@ namespace OrdBase.Models
         [Key]
         [Column(Order = 3)]
         [ForeignKey("Language")]
-        public int LanguageId { get; set; }
+        public string LanguageShortName { get; set; }
         public Language Language { get; set; }
 
+        [MaxLength(2048), MinLength(0)]
         [Required]
         public string Text { get; set; }
         
