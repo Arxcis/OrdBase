@@ -1,17 +1,34 @@
-using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OrdBase.Models 
 {
-	public class Translation 
-	{
-		public int TranslationId { get; set; }
-		public int LanguageId { get; set; }
-		public int RegisteredClientId { get; set; }
+    public class Translation
+    {
+        [Key]
+        [Column(Order = 1)]
+        [ForeignKey("RegisteredClient")]
+        public int RegisteredClientId { get; set; }
+        public RegisteredClient RegisteredClient { get; set; }
 
-		public string Key { get; set; }
-		public string Value { get; set; }
+        [Key]
+        [Column(Order = 2)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public string AccessKey { get; set; }
 
-		public virtual Language Language { get; set; }
-		public virtual RegisteredClient RegisteredClient { get; set; }
-	}
+        [Key]
+        [Column(Order=3)]
+        [ForeignKey("Language")]
+        public int LanguageId { get; set; }
+        public Language Language { get; set; }
+
+        [ForeignKey("TranslationSet")]
+        public int TranslationSetId { get; set; }
+        public TranslationSet TranslationSet { get; set; }
+
+        [Required]
+        public string Text { get; set; }
+        [Required]
+        public bool IsComplete { get; set; }
+    }
 }

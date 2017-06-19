@@ -8,7 +8,10 @@
 4. CHECK - Restructure CSS code to the same pattern.
 	+ CHECK - Fix CSS code ID-names.
 5. Add partial views Selector and Editor to backend, so that backend can serve front-end, following the same schema.
-	+ Actually decide what the Editor and Selector and App ViewModels is going to be.
+	+ CHECK - Actually decide what the Editor and Selector and App ViewModels is going to be.
+	+ CHECK - Update ViewModels
+	
+	+ Create ViewModel builders in AppController
 	+ Create Ajax calls on front-end which pulls in the partial views "asyncly".
 
 ### Fredag 16.06.2017 - Jonas 

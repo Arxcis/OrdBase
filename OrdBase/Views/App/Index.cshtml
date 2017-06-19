@@ -6,87 +6,9 @@
         <h2>@Model.ClientName</h2>
     </section>
 
-    <!-- _______________________________ PARTIAL VIEW: SELECTOR  _________________________________-->
-    <group id="selectorGroup">
-       
-
-        <section id="categorySelector" class="CategoryColumn">
-            <h3>Categories</h3>
-            <ul id="selectorCategoryList" class="DynamicList CategoryList">
-            @{
-                var i = 1;
-                foreach (var o in Model.Categories) 
-                {
-                <li><button id="category@(i)" class="ListButton CategoryListButton" onclick="App.OnCategoryClick(this)">Category no.@(i) - @o.Name</button></li>
-                    i++;
-                }
-                <li id="category0" style="display:none;"></li> @*Invisible starting ground*@
-            }
-            </ul>
-        </section>
-
-
-        <section id="translationSelector">
-            <h3>Translations</h3>
-            <ul id="selectorTranslationList" class="DynamicList TranslationList">
-            @{
-                var j = 1;
-                foreach (var o in Model.Translations)
-                {
-                    <li><button id="translation@(j)" class="ListButton TranslationListButton" onclick="App.OnTranslationClick(this)">Translation no.@(j) - @o.Key - @o.Value - @o.Language.ShortName</button></li>
-                    j++;
-                }
-                <li id="translation0" style="display:none;"></li>  @*Invisible starting ground*@
-            }
-            </ul>
-        </section>
-
-        
-    </group>
-    <!--_____________________________________ PARTIAL VIEW END ___________________________________-->
-
-
-
-
-    <!-- __________________________________ PARTIAL VIEW: EDTIOR  _________________________________-->
-    <group id="editorGroup" style="display: none;">
-
-        
-        <section id="categoryEditor" class="CategoryColumn">
-            <h3>Translation categories</h3>
-        </section>
-
-
-        <section id="translationEditor">
-            <h3>Translation editor</h3>
-
-            <form>
-                <label for="inputAccess">API Access key</label></br>
-                <input id="inputAccess" style="font-size: .8em; type="" name=""></br>
-
-                <fieldset style="border: none; ">
-                    <legend>Translations</legend>
-
-                    <label for="inputBokmal">Bokmål</label> </br>
-                    <textarea id="inputBokmal" style="font-size: .8em;">ksadfasfsf</textarea></br>
-
-                    <label for="inputNynorsk">Nynorsk</label> </br>
-                    <textarea id="inputNynorsk" style="font-size: .8em;">ksadfasfsf</textarea></br>
-
-                    <label for="inputSamisk">Samisk</label> </br>
-                    <textarea id="inputSamisk" style="font-size: .8em;">ksadfasfsf</textarea></br>
-
-                    <label for="inputEngelsk">Engelsk</label></br>
-                    <textarea id="inputEngelsk" style="font-size: .8em;">sadfsdfsdf</textarea></br>
-                </fieldset>
-
-                <button onclick="App.OnEditorCancelClick()" style="background: red;   color: white; ">Cancel</button>
-                <button onclick="App.OnEditorSubmitClick()" style="background: green; color: white; ">Submit</button>
-            </form>
-        </section>
-
-
-    </group>
-    <!--_______________________________ PARTIAL VIEW END ___________________________________-->
+    @{
+        Html.RenderPartial("Selector")
+        Html.RenderPartial("Editor")
+    }
 
 </main>

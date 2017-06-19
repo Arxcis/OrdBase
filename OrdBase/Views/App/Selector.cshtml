@@ -1,0 +1,40 @@
+@using OrdBase.ViewModels
+@model SelectorViewModel
+    <!-- _______________________________ PARTIAL VIEW: SELECTOR  _________________________________-->
+    <group id="selectorGroup">
+       
+
+        <section id="categorySelector" class="CategoryColumn">
+            <h3>Categories</h3>
+            <ul id="selectorCategoryList" class="DynamicList CategoryList">
+            @{
+                var i = 1;
+                foreach (var o in Model.Categories) 
+                {
+                <li><button id="category@(i)" class="ListButton CategoryListButton" onclick="App.OnCategoryClick(this)">Category no.@(i) - @o.Name</button></li>
+                    i++;
+                }
+                <li id="category0" style="display:none;"></li> @*Invisible starting ground*@
+            }
+            </ul>
+        </section>
+
+
+        <section id="translationSelector">
+            <h3>Translations</h3>
+            <ul id="selectorTranslationList" class="DynamicList TranslationList">
+            @{
+                var j = 1;
+                foreach (var o in Model.Translations)
+                {
+                    <li><button id="translation@(j)" class="ListButton TranslationListButton" onclick="App.OnTranslationClick(this)">Translation no.@(j) - @o.Key - @o.Value - @o.Language.ShortName</button></li>
+                    j++;
+                }
+                <li id="translation0" style="display:none;"></li>  @*Invisible starting ground*@
+            }
+            </ul>
+        </section>
+
+        
+    </group>
+    <!--_____________________________________ PARTIAL VIEW END ___________________________________-->

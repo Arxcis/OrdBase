@@ -1,11 +1,15 @@
-using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace OrdBase.Models
 {
 	public class Language 
 	{
-		public int LanguageId { get; set; }
+        [Key]
+		public uint LanguageId { get; set; }
+
+        [Required]
 		public string Name { get; set; }
-		public string ShortName { get; set; } 
+        [Required]
+        public string ShortName { get; set; } 
 	}
 }

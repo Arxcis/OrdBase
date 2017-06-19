@@ -20,19 +20,35 @@ namespace OrdBase.Controllers
             var appViewModel = new AppViewModel
             {
                 ClientName = client,
-                Translations = db.Translation
-                    .Where(o => o.RegisteredClient.Name.Equals(client)) as IEnumerable<Translation>,
-                Categories = db.StringCategory
-                    .Where(o => o.RegisteredClient.Name.Equals(client)) as IEnumerable<StringCategory>
-            };
 
+                TranslationCount = db
+                    .Translation
+                    .Where(o => o.RegisteredClient.Name.Equals(client))
+                    .Count(),
+
+                TranslationCompleteCount = db
+                    .Translation
+                    .Where(o => o.IsComplete)
+                    .Count(),
+            };
             return View(appViewModel);
         }
 
 
         public ActionResult Editor(string client)
         {
-            return PartialView();
+
+
+
+            var selectorViewModel = new SelectorViewModel {
+                ClientCategory = db
+                    .Category
+                    .Where(o => o.RegisteredClientId.Equals(client),
+
+
+            } 
+
+            return PartialView(selectorViewModel);
         }
 
         public ActionResult Selector(string client)

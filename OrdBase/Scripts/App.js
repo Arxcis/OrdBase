@@ -30,6 +30,24 @@ var App = (function () {
     }
 
     //
+    // @function LoadSelector()
+    //  @brief Content to the selector should be loaded on start of app, and then again whenever
+    //           any content is updated.
+    //
+    var LoadSelector = function() {
+
+    } 
+
+    //
+    // @function LoadSelector()
+    //  @brief Make sure that the selector is saved in cache somehow, so that it can be quickly
+    //          reloaded at a later point.
+    //
+    var QuitSelector = function() {
+
+    }
+
+    //
     // @function LoadEditor()
     //  @brief Supposed to load in editView, editing a single translation.
     //          while keeping the state of the selectionView.
