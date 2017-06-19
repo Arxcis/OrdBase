@@ -207,6 +207,7 @@
     <Compile Include="Models\Translation.cs" />
     <Compile Include="Models\TranslationDb.cs" />
     <Compile Include="Models\TranslationCategory.cs" />
+    <Compile Include="Models\TranslationSet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AppViewModel.cs" />
     <Compile Include="ViewModels\EditorViewModel.cs" />

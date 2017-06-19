@@ -40,14 +40,7 @@ namespace OrdBase.Controllers
 
 
 
-            var selectorViewModel = new SelectorViewModel {
-                ClientCategory = db
-                    .Category
-                    .Where(o => o.RegisteredClientId.Equals(client),
-
-
-            } 
-
+          
             return PartialView(selectorViewModel);
         }
 
