@@ -22,10 +22,6 @@ namespace OrdBase.Models
         public int LanguageId { get; set; }
         public Language Language { get; set; }
 
-        [ForeignKey("TranslationSet")]
-        public int TranslationSetId { get; set; }
-        public TranslationSet TranslationSet { get; set; }
-
         [Required]
         public string Text { get; set; }
         

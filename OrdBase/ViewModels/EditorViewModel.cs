@@ -14,7 +14,7 @@ namespace OrdBase.ViewModels
     public class EditorViewModel
     {
         public string TranslationKey { get; set; }
-        public TranslationSet TranslationSet { get; set; }
+        
         public List<Category> TranslationCategories { get; set; }
         public List<Category> ClientCategories { get; set; }
     }

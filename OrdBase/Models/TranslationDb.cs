@@ -18,8 +18,7 @@ namespace OrdBase.Models
         public DbSet<Language> Language { get; set; }
         public DbSet<Category> Category { get; set; }
         public DbSet<Translation> Translation { get; set; }
-        public DbSet<TranslationSet> TranslationSet { get; set; }
-        public DbSet<TranslationSetCategory> TranslationSetCategory { get; set; }
+        public DbSet<TranslationCategory> TranslationCategory { get; set; }
 
 
         //

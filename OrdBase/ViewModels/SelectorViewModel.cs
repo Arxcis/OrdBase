@@ -7,7 +7,6 @@ using OrdBase.Models;
 
 namespace OrdBase.ViewModels
 {
-
     //
     // @class SelectorViewModel
     //  @brief Simply all the data that the SelectorView will need, in the correct format.
@@ -15,6 +14,5 @@ namespace OrdBase.ViewModels
     public class SelectorViewModel
     {
         public List<string> ClientCategory { get; set; }
-        public List<TranslationSet> TranslationSets { get; set; }  
     }
 }

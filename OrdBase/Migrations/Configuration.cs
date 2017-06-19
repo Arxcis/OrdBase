@@ -38,16 +38,7 @@ namespace OrdBase.Migrations
             var translation3 = new Models.Translation {  RegisteredClient = client2, AccessKey = "this_is_me",  Language = language4, Text = "This is me!"   , IsComplete = false, };
             var translation4 = new Models.Translation {  RegisteredClient = client2, AccessKey = "this_is_me",  Language = language1, Text = "Dette er meg!" , IsComplete = true,  };
             
-            var translationSet1 = new TranslationSet { new List<Translation> { translation1, translation2 } };
-            var translationSet2 = new TranslationSet { new List<Translation> { translation3, translation4 } };
-
-            translation1.TranslationSetId = translationSet1.TranslationSetId;
-            translation2.TranslationSetId = translationSet1.TranslationSetId;
-            translation3.TranslationSetId = translationSet2.TranslationSetId;
-            translation4.TranslationSetId = translationSet2.TranslationSetId;
-
             context.Translation.AddOrUpdate( translation1, translation2, translation3, translation4);
-            context.TranslationSet.AddOrUpdate( translationSet1, translationSet2 );
         }
     }
 }
