@@ -16,10 +16,7 @@ namespace OrdBase.Controllers
         public ActionResult Index(string client = "FMSF")
         {
             ViewBag.Title = "App - Translation";
-            //
-            // @brief Building IndexViewModel
-            // Building ViewModel
-            // 
+
             var appViewModel = new AppViewModel
             {
                 ClientName = client,
@@ -30,6 +27,17 @@ namespace OrdBase.Controllers
             };
 
             return View(appViewModel);
+        }
+
+
+        public ActionResult Editor(string client)
+        {
+            return PartialView();
+        }
+
+        public ActionResult Selector(string client)
+        {
+            return PartialView();
         }
     }
 }
