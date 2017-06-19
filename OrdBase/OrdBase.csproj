@@ -263,7 +263,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\App\App.cshtml" />
+    <Content Include="Views\App\Index.cshtml" />
     <Content Include="Views\App\Editor.cshtml" />
     <Content Include="Views\App\Selector.cshtml" />
   </ItemGroup>
