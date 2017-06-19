@@ -28,6 +28,7 @@ namespace OrdBase.Models
 
         [Required]
         public string Text { get; set; }
+        
         [Required]
         public bool IsComplete { get; set; }
     }

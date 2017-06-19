@@ -1,3 +1,8 @@
+//
+// @Documentation Entity Framework
+// MSDN Annotaions          - https://msdn.microsoft.com/en-us/library/jj591583(v=vs.113).aspx
+//  Foreign key collections - http://www.entityframeworktutorial.net/code-first/foreignkey-dataannotations-attribute-in-code-first.aspx
+
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 

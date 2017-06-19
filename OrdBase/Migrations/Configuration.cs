@@ -14,34 +14,40 @@ namespace OrdBase.Migrations
 
         protected override void Seed(OrdBase.Models.TranslationDb context)
         {
-            context.Language.AddOrUpdate(
-                new Language { LanguageId = 1, Name = "Norwegian", ShortName = "NOR" },
-                new Language { LanguageId = 2, Name = "Swedish", ShortName = "SWE" },
-                new Language { LanguageId = 3, Name = "Danish", ShortName = "DAN" },
-                new Language { LanguageId = 4, Name = "English", ShortName = "EN" }
-            );
+            var language1 = new Language { Name = "Norwegian", ShortName = "NOR" };
+            var language2 = new Language { Name = "Swedish",   ShortName = "SWE" };
+            var language3 = new Language { Name = "Danish",    ShortName = "DAN" };
+            var language4 = new Language { Name = "English",   ShortName = "EN"  };
 
-            context.Category.AddOrUpdate(
-                new Category { CategoryId = 1, RegisteredClientId = 1, Name = "HeaderText"},
-                new Category { CategoryId = 2, RegisteredClientId = 1, Name = "MainText"},
-                new Category { CategoryId = 3, RegisteredClientId = 1, Name = "FooterText"}
-            );
+            context.Language.AddOrUpdate( language1, language2, language3, language4 );
 
-            context.RegisteredClient.AddOrUpdate(
+            var client1 = new RegisteredClient { Name = "FMSF" , ApiKey = "1"};
+            var client2 = new RegisteredClient { Name = "DIFI" , ApiKey = "2"};
+
+            context.RegisteredClient.AddOrUpdate( client1, client2 );
+
+            var category1 = new Category { Name = "Front Page" , RegisteredClient = Client1 };
+            var category3 = new Category { Name = "Editor" ,     RegisteredClient = Client1 };
+            var category2 = new Category { Name = "Front Page",  RegisteredClient = Client2 };
+            var category4 = new Category { Name = "Editor" ,     RegisteredClient = Client2 };
+
+            context.Category.AddOrUpdate( category1, category2, category3, category4);
+
+            var translation1 = new Models.Translation {  RegisteredClient = client1, AccessKey = "hello_world", Language = language4, Text = "Hello World"   , IsComplete = true,  };
+            var translation2 = new Models.Translation {  RegisteredClient = client1, AccessKey = "hello_world", Language = language1, Text = "Hallo verden"  , IsComplete = false, };
+            var translation3 = new Models.Translation {  RegisteredClient = client2, AccessKey = "this_is_me",  Language = language4, Text = "This is me!"   , IsComplete = false, };
+            var translation4 = new Models.Translation {  RegisteredClient = client2, AccessKey = "this_is_me",  Language = language1, Text = "Dette er meg!" , IsComplete = true,  };
             
-                new RegisteredClient { RegisteredClientId = 1, Name = "FMSF" ,  ApiKey = "238904239084390840java"  , LastAccess = new DateTime (2008, 10, 10 ) },
-                new RegisteredClient { RegisteredClientId = 2, Name = "DIFI",   ApiKey = "238904239084390840csharp", LastAccess = new DateTime ( 2008, 12, 12 ) }
-            );
+            var translationSet1 = new TranslationSet { new List<Translation> { translation1, translation2 } };
+            var translationSet2 = new TranslationSet { new List<Translation> { translation3, translation4 } };
 
-            context.Translation.AddOrUpdate(
-                
-                // @wtf @buf - Why do I have to explicitly define Models.Translation here?? Is it a naming-conflict?
-                new Models.Translation { TranslationId = 1, LanguageId = 4, RegisteredClientId = 1, Key = "hello_world", Value = "Hello World"   , IsComplete = false, },
-                new Models.Translation { TranslationId = 2, LanguageId = 1, RegisteredClientId = 1, Key = "hello_world", Value = "Hallo verden"  , IsComplete = false, },
-                new Models.Translation { TranslationId = 3, LanguageId = 4, RegisteredClientId = 1, Key = "this_is_me",  Value = "This is me!"   , IsComplete = false, },
-                new Models.Translation { TranslationId = 4, LanguageId = 1, RegisteredClientId = 1, Key = "this_is_me",  Value = "Dette er meg!" , IsComplete = false, }
-            );
-            
+            translation1.TranslationSetId = translationSet1.TranslationSetId;
+            translation2.TranslationSetId = translationSet1.TranslationSetId;
+            translation3.TranslationSetId = translationSet2.TranslationSetId;
+            translation4.TranslationSetId = translationSet2.TranslationSetId;
+
+            context.Translation.AddOrUpdate( translation1, translation2, translation3, translation4);
+            context.TranslationSet.AddOrUpdate( translationSet1, translationSet2 );
         }
     }
 }

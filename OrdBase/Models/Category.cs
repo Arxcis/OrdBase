@@ -6,13 +6,13 @@ namespace OrdBase.Models
 	public class Category 
 	{
         [Key]
-		public int CategoryId { get; set; }
-
-        [Required]
-        public string Name { get; set; }
-
+        [Column(Order = 1)]
         [ForeignKey("RegisteredClient")]
         public int RegisteredClientId { get; set; }
-		public RegisteredClient RegisteredClient { get; set; }
+        public RegisteredClient RegisteredClient { get; set; }
+
+        [Key]
+        [Column(Order = 2)]
+        public string Name { get; set; }
 	}
 }

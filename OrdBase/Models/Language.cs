@@ -5,11 +5,10 @@ namespace OrdBase.Models
 	public class Language 
 	{
         [Key]
-		public uint LanguageId { get; set; }
-
-        [Required]
-		public string Name { get; set; }
-        [Required]
+        [MaxLength(3), MinLength(3)] // NOR, SWE ...
         public string ShortName { get; set; } 
+
+        [Index(IsUnique = True)]
+        public string Name { get; set; }
 	}
 }
