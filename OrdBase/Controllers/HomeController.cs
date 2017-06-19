@@ -8,8 +8,6 @@ namespace OrdBase.Controllers
 {
     public class HomeController : Controller
     {
-        private TranslationDb db = new TranslationDb();
-
         public ActionResult Index()
         {   
             ViewBag.Title = "Home";
@@ -21,26 +19,6 @@ namespace OrdBase.Controllers
                 .Select(o => new IndexViewModel { Name = o.Name }) as IEnumerable<IndexViewModel>;
 
             return View(indexModels);
-        }
-
-
-        public ActionResult App(string client="Javazoneer")
-        {
-            ViewBag.Title = "App - Translation";
-            //
-            // @brief Building IndexViewModel
-            // Building ViewModel
-            // 
-            var appViewModel = new AppViewModel
-            {
-                ClientName = client,
-                Translations = db.Translation
-                    .Where(o => o.RegisteredClient.Name.Equals(client)) as IEnumerable<Translation>,
-                Categories = db.StringCategory
-                    .Where(o => o.RegisteredClient.Name.Equals(client)) as IEnumerable<StringCategory>
-            };
-
-            return View(appViewModel);
         }
     }
 }
