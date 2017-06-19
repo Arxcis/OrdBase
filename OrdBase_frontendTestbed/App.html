@@ -10,24 +10,22 @@
 </head>
 <body onkeydown="App.OnKeyDown(event)" onkeyup="App.OnKeyUp(event)">
     <main id="appMain">
-        <section id="clientHeading">
-            <h2></h2>
-        </section>
+        <h2 style="width: 100%;" id="clientHeading"></h2>
 
         <group id="selectionGroup">
-            <section id="categorySelection">
+            <section id="categorySelection" class="categorySelection">
                 <h3>Categories</h3>
                 <ul id="categoryList" class="DynamicList">
 
                     <li><button id="category1" class="ListButton CategoryListButton" onclick="App.OnCategoryClick(this)">Category no.1</button></li>
-                    <li><button id="category2" class="ListButton CategoryListButton" onclick="App.OnCategoryClick(this)">Category no.</button></li>
+                    <li><button id="category2" class="ListButton CategoryListButton" onclick="App.OnCategoryClick(this)">Category no.2</button></li>
                     <li><button id="category3" class="ListButton CategoryListButton" onclick="App.OnCategoryClick(this)">Category no.3</button></li>
                     <li><button id="category4" class="ListButton CategoryListButton" onclick="App.OnCategoryClick(this)">Category no.4</button></li>
 
                     <li id="category0" style="display:none;"></li> 
                 </ul>
             </section>
-            <section id="translationSelection">
+            <section id="translationSelection" class="translationSelection">
                 <h3>Translations</h3>
                 <ul id="translationList" class="DynamicList">
                     <li><button id="translation1" class="ListButton TranslationListButton" onclick="App.OnTranslationClick(this)">Translation no.1</button></li>
@@ -44,11 +42,36 @@
         </group>
 
         <group id="editGroup" style="display: none;">
-            <section id="categoriesEdit">
-                <h1>Edit categories</h1>
+            <section id="categoriesEdit" class="categorySelection">
+                <h3>Edit categories</h3>
             </section>
-            <section id="translationsEdit">
-                <h1>Edit translations</h1>
+            <section id="translationsEdit" class="translationSelection">
+                <h3>Edit translations</h3>
+
+                <form>
+                    <label for="inputAccess">API Access key</label></br>
+                    <input id="inputAccess" style="font-size: .8em; type="" name=""></br>
+
+                    <fieldset style="border: none; ">
+                        <legend>Translations</legend>
+
+                        <label for="inputNorwegian">Bokmål</label> </br>
+                        <textarea id="inputNorwegian" style="font-size: .8em;">ksadfasfsf</textarea></br>
+
+                        <label for="inputNorwegian">Nynorsk</label> </br>
+                        <textarea id="inputNorwegian" style="font-size: .8em;">ksadfasfsf</textarea></br>
+
+                        <label for="inputNorwegian">Samisk</label> </br>
+                        <textarea id="inputNorwegian" style="font-size: .8em;">ksadfasfsf</textarea></br>
+
+                        <label for="inputSamisk">Engelsk</label></br>
+                        <textarea id="inputSamisk" style="font-size: .8em;">sadfsdfsdf</textarea></br>
+                    </fieldset>
+
+                    <button onclick="App.OnEditorCancelClick()" style="background: red;   color: white; ">Cancel</button>
+                    <button onclick="App.OnEditorSubmitClick()" style="background: green; color: white; ">Submit</button>
+                </form>
+
             </section>
         </group>
 

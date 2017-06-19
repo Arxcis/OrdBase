@@ -79,7 +79,7 @@ var Highlighter = (function() {
     return {
         DrawNewActiveElement: DrawNewActiveElement,
 
-        Initialize : function(categoryCount, translationCount) {
+        Run : function(categoryCount, translationCount) {
             maxCategoryCount    = categoryCount;
             currentTranslationCount = translationCount;
         },

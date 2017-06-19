@@ -17,7 +17,6 @@
 //
 var App = (function () {
 
-    let oldActiveElement;
     //
     // PRIVATE   
     //
@@ -29,16 +28,38 @@ var App = (function () {
     }
 
     //
+    // @function LoadEditor()
+    //  @brief Supposed to load in editView, editing a single translation.
+    //          while keeping the state of the selectionView.
+    //
+    var LoadEditor = function(categoryId) {
+        document.getElementById("selectionGroup").style.display = 'none'
+        document.getElementById("editGroup").style.display = 'flex';
+        document.getElementById("clientHeading").innerHTML = 'Editing ' + categoryId;
+    }
+
+    //
+    // @function LoadEditor()
+    //  @brief Supposed to quit the editView, restoring the selectionView, to it's stored state,
+    //          loading in changes if they occured.
+    //
+    var QuitEditor = function() {
+        document.getElementById("editGroup").style.display = 'none';
+        document.getElementById("selectionGroup").style.display = 'flex'
+        document.getElementById("clientHeading").innerHTML = 'Client evil';
+    }
+
+    //
     // PUBLIC
     //
     return {
         //
-        // @function Initialize 
+        // @function Run 
         //  @brief This runs first when the app starts.
         //
-        Initialize : function () {
+        Run : function () {
             HelloWorld();
-            Highlighter.Initialize(4, 7);
+            Highlighter.Run(4, 7);
         },
 
         //
@@ -116,27 +137,22 @@ var App = (function () {
         OnTranslationClick : function (button) {
             console.log("Clicked " + button.id);
             Highlighter.SetActiveElement(button);
+            LoadEditor(button.id);
         },
 
-        //
-        // @function LoadEditor()
-        //  @brief Supposed to load in a partial view and dynamicly change the single page app
-        //
-        LoadEditor() {
-            // document.getElementById("selectionGroup").innerHTML='';
-            // document.getElementById("editorGroup").innerHTML='<object type="text/html" data="Editor.html"></object>';
+        OnEditorSubmitClick : function () {
+            QuitEditor();
         },
 
-        QuitEditor() {
-            // document.getElementById("selectionGroup").innerHTML='<object type="text/html" data="Selection.html"></object>';
-            // document.getElementById("editorGroup").innerHTML='';
+        OnEditorCancelClick : function () {
+            QuitEditor();
         },
     }
 })();
 
 //
-// @brief Makes sure all the modules are finished before we call App.initialize
+// @brief Makes sure all the modules are finished before we call App.Run
 //
 document.addEventListener("DOMContentLoaded", function(event) { 
-  App.Initialize();
+  App.Run();
 });

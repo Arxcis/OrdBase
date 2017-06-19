@@ -15,6 +15,7 @@ html, body {
     font-size: 1.5rem;
 }
 
+button { font-size: 1em; }
 
 li  { list-style-type: none;}
 
@@ -37,7 +38,6 @@ li  { list-style-type: none;}
 }
 
 .ListButton {
-    font-size: 1em;
     border: none;
     width: 100%;
     height: 100%;
@@ -59,22 +59,22 @@ li  { list-style-type: none;}
 #editGroup      { display: flex; }
 
 /* Sections */
-#categorySelection 
+.categorySelection 
 {
     flex-basis: 150px;
     flex-shrink: 0;
-    padding-right: 2rem;
+    padding-right: 100px;
     border-width: 0px 1px 0px 0px;
     border-style: solid;
     border-color: #A9A9A9;
 }
 
-#translationSelection 
+.translationSelection 
 {
     flex-basis: 200px;
     flex-grow: 1;
     flex-shrink: 1;
-    margin-left: 2rem;
+    margin-left: 100px;
 }
 
 #translationSelection h3 { padding-left: 10px; }
