@@ -2,7 +2,9 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OrdBase.Models 
-{
+{   
+    // @doc speed up search by proper column order - https://stackoverflow.com/questions/3048154/indexes-and-multi-column-primary-keys
+    // @doc mysql multicolumn indexes https://dev.mysql.com/doc/refman/5.7/en/multiple-column-indexes.html
     public class Translation
     {
         [Key]
@@ -17,7 +19,7 @@ namespace OrdBase.Models
         public string AccessKey { get; set; }
 
         [Key]
-        [Column(Order=3)]
+        [Column(Order = 3)]
         [ForeignKey("Language")]
         public int LanguageId { get; set; }
         public Language Language { get; set; }

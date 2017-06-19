@@ -8,13 +8,12 @@ namespace OrdBase.Models
     //  @doc [Column] - http://www.entityframeworktutorial.net/code-first/column-dataannotations-attribute-in-code-first.aspx
     //  @doc [Key]    - http://www.entityframeworktutorial.net/code-first/key-dataannotations-attribute-in-code-first.aspx
     //
-    public class TranslationCategory
+    public class AccessKeyCategory
 	{
         [Key]
         [Column(Order = 1)]
-        [ForeignKey("Translation")]
-        public int Translation { get; set; }
-        public TranslationSet Translation { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public string AccessKey { get; set; }
 
         [Key]
         [Column(Order = 2)]
