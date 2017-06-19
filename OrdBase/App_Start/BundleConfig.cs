@@ -27,6 +27,7 @@ namespace OrdBase
             // In-house javascript code
             bundles.Add(new ScriptBundle(
                 "~/bundles/App").Include(
+                    "~/Scripts/KeyCodes.js",
                     "~/Scripts/App.js",
                     "~/Scripts/Selector.js",
                     "~/Scripts/Editor.js"));

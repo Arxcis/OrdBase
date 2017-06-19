@@ -52,7 +52,6 @@ var Selector = (function() {
     var UpdateActiveElement = function(row, col) {
         let cell = GetNextActiveElement(row, col);
 
-        Debug(row, col);
         if (cell) {
             activeElementOld = activeElement;
             activeElement = cell;
@@ -61,12 +60,15 @@ var Selector = (function() {
         }
         else {
             console.log("FATAL ERROR, out of bounds! Asserting....");
-            assert(0); 
         }
     }
 
-    var Debug = function (row, col) {
-        console.log("ActiveColumn: " + row + " ActiveRow: " + col);
+    var Debug = function () {
+        console.log(  "\nSELECTOR DATA:"
+                    + "\n ActiveColumn: "   + activeRow 
+                    + "\n ActiveRow: "      + activeColumn
+                    + "\n MaxCategory:  "   + maxCategoryCount 
+                    + "\n MaxTranslation: " + maxTranslationCount);
     }
 
     var isValidButton = function(element) {
@@ -78,10 +80,12 @@ var Selector = (function() {
     //
     return {
         DrawNewActiveElement: DrawNewActiveElement,
+        Debug: Debug,
 
         Run : function(categoryCount, translationCount) {
             maxCategoryCount    = categoryCount;
-            currentTranslationCount = translationCount;
+            currentTranslationCount = maxTranslationCount = translationCount;
+            Debug();
         },
 
         UnselectActiveElement : function(){

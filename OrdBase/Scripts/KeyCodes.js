@@ -25,6 +25,7 @@ var Key = {
     UP_ALT    : this.s,
     DOWN_ALT  : this.d,
 
+    SPACE     : 32,
     BACKSPACE : 8,
     ESC       : 27,
     TAB       : 9,

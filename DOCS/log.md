@@ -1,10 +1,12 @@
 ### Monday 19.06.2017 - Jonas
 
 1. CHECK - Merge weekend work with work computer 
+	CHECK + Build and run project with new work
 2. Restructure Front-end javascript code to 3 modules, App, Selector and Editor.
 3. Restructure HTML code to the same pattern.
 4. Restructure CSS code to the same pattern.
-4. Add partial views Selector and Editor to backend, so that backend can serve front-end, following the same schema.
+	+ Fix CSS code ID-names.
+5. Add partial views Selector and Editor to backend, so that backend can serve front-end, following the same schema.
 
 
 ### Fredag 16.06.2017 - Jonas 

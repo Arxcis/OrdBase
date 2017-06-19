@@ -15,10 +15,8 @@ namespace OrdBase.Controllers
             // @brief Building IndexViewModel
             // @doc stackoverflow - https://stackoverflow.com/questions/9881790/how-to-design-viewmodel
             //
-            var indexModels =  db.Language
-                .Select(o => new IndexViewModel { Name = o.Name }) as IEnumerable<IndexViewModel>;
 
-            return View(indexModels);
+            return View();
         }
     }
 }

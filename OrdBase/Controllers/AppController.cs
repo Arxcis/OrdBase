@@ -12,7 +12,8 @@ namespace OrdBase.Controllers
     public class AppController : Controller
     {
         private TranslationDb db = new TranslationDb();
-        public ActionResult App(string client = "Javazoneer")
+
+        public ActionResult Index(string client = "FMSF")
         {
             ViewBag.Title = "App - Translation";
             //
