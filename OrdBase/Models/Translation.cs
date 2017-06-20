@@ -11,7 +11,7 @@ namespace OrdBase.Models
         public string ClientName { get; set; }
         public RegisteredClient RegisteredClient { get; set; }
 
-        [MaxLength(32), MinLength(0)]
+        [StringLength(32)]
         [Key]
         [Column(Order = 2)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -23,7 +23,7 @@ namespace OrdBase.Models
         public string LanguageShortName { get; set; }
         public Language Language { get; set; }
 
-        [MaxLength(2048), MinLength(0)]
+        [StringLength(2048)]
         [Required]
         public string Text { get; set; }
         

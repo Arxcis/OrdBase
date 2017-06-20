@@ -15,7 +15,7 @@ namespace OrdBase.Models
         public string ShortName { get; set; } 
 
         [Required]
-        [MaxLength(32), MinLength(0)]
+        [StringLength(32)]
         [Index(IsUnique = true)]
         public string Name { get; set; }
 	}

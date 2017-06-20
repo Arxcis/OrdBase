@@ -14,7 +14,7 @@ namespace OrdBase.Models
                 public RegisteredClient RegisteredClient { get; set; }
                 
                 // @example: ud890fgudf1904rtyhgn
-                [MaxLength(32), MinLength(0)]
+                [StringLength(32)]
                 [Key]
                 [Column(Order = 2)]
                 [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -22,7 +22,7 @@ namespace OrdBase.Models
                 
                 // @example: Editor view
                 [Index("IndexClientCategories", 2, IsUnique = true)]
-                [MaxLength(32), MinLength(0)]
+                [StringLength(32)]
                 [Key]
                 [Column(Order = 3)]
                 public string Name { get; set; }

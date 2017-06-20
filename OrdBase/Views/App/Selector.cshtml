@@ -1,40 +1,57 @@
 @using OrdBase.ViewModels
 @model SelectorViewModel
-    <!-- _______________________________ PARTIAL VIEW: SELECTOR  _________________________________-->
-    <group id="selectorGroup">
-       
 
+    <group id="selectorGroup">
         <section id="categorySelector" class="CategoryColumn">
             <h3>Categories</h3>
             <ul id="selectorCategoryList" class="DynamicList CategoryList">
             @{
                 var i = 1;
-                foreach (var o in Model.Categories) 
+                foreach (var str in Model.ClientCategories) 
                 {
-                <li><button id="category@(i)" class="ListButton CategoryListButton" onclick="App.OnCategoryClick(this)">Category no.@(i) - @o.Name</button></li>
+                    <li>
+                        <button id="category@(i)" 
+                                class="ListButton CategoryListButton" 
+                                onclick="App.OnCategoryClick(this)">
+
+                            Category no.@(i) - @str
+
+                        </button>
+                    </li>
                     i++;
                 }
-                <li id="category0" style="display:none;"></li> @*Invisible starting ground*@
+                <li id="category0" style="display:none;"></li> 
             }
             </ul>
         </section>
-
 
         <section id="translationSelector">
             <h3>Translations</h3>
             <ul id="selectorTranslationList" class="DynamicList TranslationList">
             @{
                 var j = 1;
-                foreach (var o in Model.Translations)
+                foreach (var s in Model.TranslationSets)
                 {
-                    <li><button id="translation@(j)" class="ListButton TranslationListButton" onclick="App.OnTranslationClick(this)">Translation no.@(j) - @o.Key - @o.Value - @o.Language.ShortName</button></li>
+                    <li>
+                        <button id="translation@(j)" 
+                                class="ListButton TranslationListButton" 
+                                onclick="App.OnTranslationClick(this)">
+
+                            Translation @(j): @(s.Translations.First().Text) ... 
+                            @foreach(var t in s.Translations) {
+                                if (t.Complete) {
+                                    <button type="btn-success">@(t.Language.ShortName) OK</button>
+                                }
+                                else {
+                                    <button type="btn-danger">@(t.Language.ShortName) MISSING</button>
+                                }
+                            }
+                        </button>
+                    </li>
                     j++;
                 }
                 <li id="translation0" style="display:none;"></li>  @*Invisible starting ground*@
             }
             </ul>
         </section>
-
-        
     </group>
-    <!--_____________________________________ PARTIAL VIEW END ___________________________________-->

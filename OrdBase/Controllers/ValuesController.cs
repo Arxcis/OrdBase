@@ -7,8 +7,10 @@ using System.Web.Http;
 
 namespace OrdBase.Controllers
 {
+    // @doc Return JSON strings - https://stackoverflow.com/questions/35937118/build-json-response-in-web-api-controller
     public class ValuesController : ApiController
     {
+
         // GET api/values
         public IEnumerable<string> Get()
         {

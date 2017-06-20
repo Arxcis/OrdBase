@@ -6,12 +6,12 @@ namespace OrdBase.Models
 {
 	public class RegisteredClient 
 	{   
-        [MaxLength(32), MinLength(0)]
+        [StringLength(32)]
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
 		public string Name { get; set; }
 
-        [MaxLength(64), MinLength(0)]
+        [StringLength(64)]
 		[Index(IsUnique = true)]
 		public string ApiKey { get; set; }
 

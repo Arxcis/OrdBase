@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Net.Http.Headers;
 
 namespace OrdBase
 {
@@ -19,6 +20,13 @@ namespace OrdBase
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            // Make JSON default return value
+            // @doc https://stackoverflow.com/questions/9847564/how-do-i-get-asp-net-web-api-to-return-json-instead-of-xml-using-chrome
+            config.Formatters
+                  .JsonFormatter
+                  .SupportedMediaTypes
+                  .Add(new MediaTypeHeaderValue("text/html") );
         }
     }
 }
