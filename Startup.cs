@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
+using Microsoft.EntityFrameworkCore;
+using OrdBaseCore.Models;
+
 namespace OrdBaseCore
 {
     public class Startup
@@ -16,6 +19,8 @@ namespace OrdBaseCore
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<TranslationDb>(opt => opt.UseInMemoryDatabase());
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
