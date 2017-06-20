@@ -4,15 +4,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OrdBase.Models 
 {
-	public class RegisteredClient 
+	public class Client 
 	{   
-        [StringLength(32)]
         [Key]
+        [StringLength(32)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
 		public string Name { get; set; }
 
         [StringLength(64)]
 		[Index(IsUnique = true)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
 		public string ApiKey { get; set; }
 
 		public DateTime? LastAccess { get; set; }

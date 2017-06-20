@@ -7,21 +7,28 @@ namespace OrdBase.Models
     {
         [Key]
         [Column(Order = 1)]
-        [ForeignKey("RegisteredClient")]
+        [ForeignKey("Client")]
         public string ClientName { get; set; }
-        public RegisteredClient RegisteredClient { get; set; }
+        public Client Client { get; set; }
 
-        [StringLength(32)]
         [Key]
         [Column(Order = 2)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public string AccessKey { get; set; }
-
-        [Key]
-        [Column(Order = 3)]
         [ForeignKey("Language")]
         public string LanguageShortName { get; set; }
         public Language Language { get; set; }
+
+        [Key]
+        [Column(Order = 3)]
+        [StringLength(32)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public string Namespace { get; set; }
+
+        [Key]
+        [Column(Order = 4)]
+        [StringLength(32)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public string AccessKey { get; set; }
+
 
         [StringLength(2048)]
         [Required]
