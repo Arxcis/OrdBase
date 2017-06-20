@@ -1,6 +1,5 @@
 ﻿
 using System.Collections.Generic;
-
 using OrdBase.Models;
 
 namespace OrdBase.ViewModels
@@ -14,7 +13,7 @@ namespace OrdBase.ViewModels
     //
     public class SelectorViewModel
     {
-        public List<Category> Categories { get; set; }
+        public List<string> ClientCategories { get; set; }
         public List<TranslationSet> TranslationSets { get; set; }
     }
 }
