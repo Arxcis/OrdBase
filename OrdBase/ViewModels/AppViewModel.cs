@@ -10,7 +10,5 @@ namespace OrdBase.ViewModels
 	public class AppViewModel 
 	{
         public string ClientName { get; set; }
-        public int TranslationCount { get; set; }
-        public int TranslationCompleteCount { get; set; }
 	}
 }

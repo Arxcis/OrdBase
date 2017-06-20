@@ -1,21 +1,20 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
 using OrdBase.Models;
 
 namespace OrdBase.ViewModels
 {
     //
     // @class EditorViewModel
-    //  @brief Simply all the data the EditorView will need, in the correct format.
+    //  @brief For the EditorView we need the following data attributes:
+    //          - A collection of all the categories given the client.
+    //          - A collection of all the categories given the translation.
+    //          - A translation set, consisting of all translations for the given accesskey
+    //          - AccessKey
     //
     public class EditorViewModel
     {
-        public string TranslationKey { get; set; }
-        
-        public List<Category> TranslationCategories { get; set; }
+        public TranslationSet TranslationSet { get; set; }
         public List<Category> ClientCategories { get; set; }
     }
 }

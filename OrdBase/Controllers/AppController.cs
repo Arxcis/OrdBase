@@ -15,22 +15,8 @@ namespace OrdBase.Controllers
 
         public ActionResult Index(string client = "FMSF")
         {
-            ViewBag.Title = "App - Translation";
-
-            var appViewModel = new AppViewModel
-            {
-                ClientName = client,
-
-                TranslationCount = db
-                    .Translation
-                    .Where(o => o.RegisteredClient.Name.Equals(client))
-                    .Count(),
-
-                TranslationCompleteCount = db
-                    .Translation
-                    .Where(o => o.IsComplete)
-                    .Count(),
-            };
+            ViewBag.Title = "OrdBase - Admin";
+            var appViewModel = new AppViewModel { ClientName = client, };
             return View(appViewModel);
         }
 
