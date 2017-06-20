@@ -188,17 +188,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706151545260_TranslationDb.cs" />
-    <Compile Include="Migrations\201706151545260_TranslationDb.Designer.cs">
-      <DependentUpon>201706151545260_TranslationDb.cs</DependentUpon>
+    <Compile Include="Migrations\201706200711213_Translation.cs" />
+    <Compile Include="Migrations\201706200711213_Translation.Designer.cs">
+      <DependentUpon>201706200711213_Translation.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706191122373_Translation.cs" />
-    <Compile Include="Migrations\201706191122373_Translation.Designer.cs">
-      <DependentUpon>201706191122373_Translation.cs</DependentUpon>
+    <Compile Include="Migrations\201706200717506_TranslationDb.cs" />
+    <Compile Include="Migrations\201706200717506_TranslationDb.Designer.cs">
+      <DependentUpon>201706200717506_TranslationDb.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706191149510_Translation1.cs" />
-    <Compile Include="Migrations\201706191149510_Translation1.Designer.cs">
-      <DependentUpon>201706191149510_Translation1.cs</DependentUpon>
+    <Compile Include="Migrations\201706200728558_TranslationDb1.cs" />
+    <Compile Include="Migrations\201706200728558_TranslationDb1.Designer.cs">
+      <DependentUpon>201706200728558_TranslationDb1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Language.cs" />
@@ -206,8 +206,6 @@
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Translation.cs" />
     <Compile Include="Models\TranslationDb.cs" />
-    <Compile Include="Models\TranslationCategory.cs" />
-    <Compile Include="Models\TranslationSet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AppViewModel.cs" />
     <Compile Include="ViewModels\EditorViewModel.cs" />
@@ -271,20 +269,20 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201706151545260_TranslationDb.resx">
-      <DependentUpon>201706151545260_TranslationDb.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706191122373_Translation.resx">
-      <DependentUpon>201706191122373_Translation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706191149510_Translation1.resx">
-      <DependentUpon>201706191149510_Translation1.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\App\Index.cshtml" />
     <Content Include="Views\App\Editor.cshtml" />
     <Content Include="Views\App\Selector.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201706200711213_Translation.resx">
+      <DependentUpon>201706200711213_Translation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706200717506_TranslationDb.resx">
+      <DependentUpon>201706200717506_TranslationDb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706200728558_TranslationDb1.resx">
+      <DependentUpon>201706200728558_TranslationDb1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

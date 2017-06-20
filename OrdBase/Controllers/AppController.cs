@@ -38,10 +38,7 @@ namespace OrdBase.Controllers
         public ActionResult Editor(string client)
         {
 
-
-
-          
-            return PartialView(selectorViewModel);
+            return PartialView();
         }
 
         public ActionResult Selector(string client)

@@ -5,23 +5,26 @@ namespace OrdBase.Models
 {
         public class Category 
         {       
+                // @example: Difi, FMSF
+                [Index("IndexClientCategories", 1, IsUnique = true)]
                 [Key]
                 [Column(Order = 1)]
                 [ForeignKey("RegisteredClient")]
-                [Index("IndexClientCategories", 1, IsUnique=True)]
                 public string ClientName { get; set; }
                 public RegisteredClient RegisteredClient { get; set; }
-
+                
+                // @example: ud890fgudf1904rtyhgn
                 [MaxLength(32), MinLength(0)]
                 [Key]
                 [Column(Order = 2)]
                 [DatabaseGenerated(DatabaseGeneratedOption.None)]
                 public string AccessKey { get; set; }
-
+                
+                // @example: Editor view
+                [Index("IndexClientCategories", 2, IsUnique = true)]
                 [MaxLength(32), MinLength(0)]
                 [Key]
                 [Column(Order = 3)]
-                [Index("IndexClientCategories", 2, IsUnique=True)]
                 public string Name { get; set; }
         }
 }

@@ -1,9 +1,14 @@
+### Tuesday 20.06.2017 - Jonas
+
+1. Build with new entity Framework
+
+
 ### Monday 19.06.2017 - Jonas
 
-1. CHECK - Merge weekend work with work computer 
-	+CHECK - Build and run project with new work
-2. CHECK - Restructure Front-end javascript code to 3 modules, App, Selector and Editor.
-3. Restructure HTML code to the same pattern.
+1. Merge weekend work with work computer - CHECK
+	- Build and run project with new work - CHECK
+2. Restructure Front-end javascript code to 3 modules, App, Selector and Editor. - CHECK
+3. Restructure HTML code to the same pattern. - CHECK
 	+ Do point 5 first.
 4. CHECK - Restructure CSS code to the same pattern.
 	+ CHECK - Fix CSS code ID-names.

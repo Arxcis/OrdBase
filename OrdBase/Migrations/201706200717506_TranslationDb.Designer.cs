@@ -7,13 +7,13 @@ namespace OrdBase.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Translation1 : IMigrationMetadata
+    public sealed partial class TranslationDb : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Translation1));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(TranslationDb));
         
         string IMigrationMetadata.Id
         {
-            get { return "201706191149510_Translation1"; }
+            get { return "201706200717506_TranslationDb"; }
         }
         
         string IMigrationMetadata.Source

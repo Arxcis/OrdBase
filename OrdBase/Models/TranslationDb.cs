@@ -4,6 +4,8 @@
 //  Foreign key collections - http://www.entityframeworktutorial.net/code-first/foreignkey-dataannotations-attribute-in-code-first.aspx
 //  [Column]                - http://www.entityframeworktutorial.net/code-first/column-dataannotations-attribute-in-code-first.aspx
 //  [Key]                   - http://www.entityframeworktutorial.net/code-first/key-dataannotations-attribute-in-code-first.aspx
+//  speed up search by proper column order - https://stackoverflow.com/questions/3048154/indexes-and-multi-column-primary-keys
+//  mysql multicolumn indexes https://dev.mysql.com/doc/refman/5.7/en/multiple-column-indexes.html
 //
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
