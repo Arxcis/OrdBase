@@ -1,30 +1,29 @@
 ﻿using System.Web.Http;
 
 using OrdBase.Models;
-using OrdBase.IDataStores;
+using OrdBase.IData;
 
 namespace OrdBase.Controllers
 {
-	[RoutePrefix("api/client")]
-    public class ClientController : ApiController
+    public class ClientController : ApiController, IClientData
     {
-        private IDataStoreClient _clientRepo { get; }
+        private readonly IClientData _clientRepo;
 
-        public ClientController(IDataStoreClient clientRepo)
+        public ClientController(IClientData clientRepo)
         {
             _clientRepo = clientRepo;
         }
 
-    	[Route("")]
+    	[Route("api/client")]
     	public Client[] GetAll()
     	{
     		return _clientRepo.GetAll();
     	}
 
-    	[Route("{name}")]
-    	public Client[] Get(string name) 
+    	[Route("api/{client}")]
+    	public Client[] Get(string client) 
     	{
-            return _clientRepo.Get(name);
+            return _clientRepo.Get(client);
     	}
     }
 }

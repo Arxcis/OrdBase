@@ -1,16 +1,32 @@
-﻿using System;
+﻿using System.Linq;
 
 using OrdBase.Models;
+using OrdBase.IData;
 
 namespace OrdBase.Services
 {
-    public class LanguageRepository : IDataStore<Language>, IDisposable
+	// 
+	// @class LanguageRepository
+	//  @brief Get language data
+	//
+    public class LanguageRepository : ILanguageData
     {
-        public TranslationDb Context{ get; private set; }
-        public LanguageRepository() { Context = new TranslationDb { };  }
+        private readonly TranslationDb _context;
+        public LanguageRepository() { _context = new TranslationDb { };  }
 
-        public Language Get() { return new Language{}; } // @dummy
+        public Language[] GetAll()
+        {
+            return _context.Language.ToArray();
+        }
 
-    	public void Dispose() { Context.Dispose();  }
+        public Language[] GetOnClient(string client)
+        {
+            return (from t in _context.Translation
+                    join l in _context.Language on t.LanguageShortName equals l.ShortName
+                    join c in _context.Client on t.ClientName equals c.Name
+                    where c.Name == client
+                    select l)
+                        .ToArray();
+        }
     }
 }

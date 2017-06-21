@@ -7,16 +7,16 @@ using System.Web.Http;
 
 using OrdBase.Models;
 using OrdBase.Services;
-using OrdBase.IDataStores;
+using OrdBase.IData;
 
 namespace OrdBase.Controllers
 {	
 	[RoutePrefix("api/{client}/container")]
-    public class ContainerController : ApiController
+    public class ContainerController : ApiController, IContainerData
     {
-        private IDataStoreLanguage _containerRepo { get; }
+        private readonly IContainerData _containerRepo;
 
-        public ContainerController(IDataStoreContainer containerRepo)
+        public ContainerController(IContainerData containerRepo)
         {
             _containerRepo = containerRepo;
         }
@@ -24,13 +24,13 @@ namespace OrdBase.Controllers
     	[Route("")]
     	public string[] GetOnClient(string client) 
     	{
-    		return _containerRepo.GetOnClient(client); }
+    		return _containerRepo.GetOnClient(client); 
     	}
 
     	[Route("{accesskey}")]
     	public string[] Get(string client, string accesskey) 
     	{
-    		return _containerRepo.Get(client, accesskey); }
+    		return _containerRepo.Get(client, accesskey); 
     	} 
     }
 }

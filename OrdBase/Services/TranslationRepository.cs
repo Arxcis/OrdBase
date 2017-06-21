@@ -1,20 +1,18 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 using OrdBase.Models;
-using OrdBase.IDataStores;
+using OrdBase.IData;
 
 namespace OrdBase.Services
 {
-    public class TranslationRepository : IDataStoreTranslation, IDisposable
+    public class TranslationRepository : ITranslationData
     {
-        public TranslationDb Context{ get; }
-        public TranslationRepository() { Context = new TranslationDb { };  }
-        public void Dispose() { Context.Dispose(); }
+        private readonly TranslationDb _context;
+        public TranslationRepository() { _context = new TranslationDb { };  }
 
         public Translation[] Get (string client, string language, string container, string accessKey)
         {
-            return (from t in Context.Translation
+            return (from t in _context.Translation
 
                     where t.ClientName == client &&
                           t.LanguageShortName == language &&
@@ -27,7 +25,7 @@ namespace OrdBase.Services
 
         public Translation[] GetOnClient   (string client)
         {
-            return (from t in Context.Translation
+            return (from t in _context.Translation
 
                     where t.ClientName == client
                     select t)
@@ -36,7 +34,7 @@ namespace OrdBase.Services
         
         public Translation[] GetOnContainer (string client, string container) 
         {
-            return (from t in Context.Translation
+            return (from t in _context.Translation
 
                     where t.ClientName == client &&
                           t.Container == container
@@ -46,7 +44,7 @@ namespace OrdBase.Services
 
         public Translation[] GetOnContainer (string client, string language, string container) 
         {
-            return (from t in Context.Translation
+            return (from t in _context.Translation
 
                     where t.ClientName == client &&
                           t.LanguageShortName == language &&
@@ -57,7 +55,7 @@ namespace OrdBase.Services
 
         public Translation[] GetOnAccessKey(string client, string accesskey)
         {
-            return (from t in Context.Translation
+            return (from t in _context.Translation
 
                     where t.ClientName == client &&
                           t.AccessKey == accesskey
@@ -67,7 +65,7 @@ namespace OrdBase.Services
 
         public Translation[] GetOnLanguage(string client, string language)
         {
-            return (from t in Context.Translation
+            return (from t in _context.Translation
 
                     where t.ClientName == client &&
                           t.LanguageShortName == language

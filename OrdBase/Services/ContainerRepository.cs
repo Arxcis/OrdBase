@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 
 using OrdBase.Models;
+using OrdBase.IData;
 
 namespace OrdBase.Services
 {	
@@ -11,14 +9,14 @@ namespace OrdBase.Services
 	// @class ContainerRepository
 	//  @brief Gets the names of containers
 	//
-    public class ContainerRepository : IDataStoreContainer
+    public class ContainerRepository : IContainerData
     {
-        public TranslationDb Context{ get; private set; }
-        public ContainerRepository() { Context = new TranslationDb { };  }
+        private readonly TranslationDb _context;
+        public ContainerRepository() { _context = new TranslationDb { };  }
 
         public string[] Get(string client, string accesskey) 
         { 
-            return (from t in Context.Translation
+            return (from t in _context.Translation
 
                     where t.ClientName == client &&
                           t.AccessKey == accesskey
@@ -30,7 +28,7 @@ namespace OrdBase.Services
 
         public string[] GetOnClient(string client) 
         {
-            return (from t in Context.Translation
+            return (from t in _context.Translation
 
                     where t.ClientName == client
                     select t.Container)

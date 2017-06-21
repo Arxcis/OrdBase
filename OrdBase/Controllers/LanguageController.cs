@@ -1,23 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+﻿using System.Web.Http;
 
-using OrdBase.Services;
-using OrdBase.IDataStores;
+using OrdBase.Models;
+using OrdBase.IData;
 
 namespace OrdBase.Controllers
 {
-	[RoutePrefix("api/{client}/language")]
-    public class LanguageController : ApiController
+    public class LanguageController : ApiController, ILanguageData
     {
-        private IDataStoreLanguage _languageRepo { get; }
+        private readonly ILanguageData _languageRepo;
 
-        public LanguageController(IDataStoreLanguage languageRepo)
+        public LanguageController(ILanguageData languageRepo)
         {
             _languageRepo = languageRepo;
+        }
+
+        [Route("api/language")]
+        public Language[] GetAll()
+        {
+            return _languageRepo.GetAll();
+        }
+
+        [Route("api/{client}/language")]
+        public Language[] GetOnClient(string client) 
+        {
+            return _languageRepo.GetOnClient(client);
         }
     }
 }

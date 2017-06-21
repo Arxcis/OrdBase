@@ -1,18 +1,18 @@
-﻿using System;
+﻿using System.Linq;
 
 using OrdBase.Models;
-using OrdBase.IDataStores;
+using OrdBase.IData;
 
 namespace OrdBase.Services
 {
-    public class ClientRepository : IDataStoreClient
+    public class ClientRepository : IClientData
     {
-        public readonly TranslationDb Context{ get; }
-        public ClientRepository() { Context = new TranslationDb { };  }
+        private readonly TranslationDb _context;
+        public ClientRepository() { _context = new TranslationDb { };  }
 
         public Client[] Get(string name) 
         {
-        	return (from c in Context.Client
+        	return (from c in _context.Client
         			where c.Name == name
         			select c)
         				.ToArray();
@@ -20,7 +20,7 @@ namespace OrdBase.Services
 
         public Client[] GetAll() 
         {
-        	return Context.Client.ToArray();
+        	return _context.Client.ToArray();
         }
     }
 }
