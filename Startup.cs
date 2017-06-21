@@ -31,7 +31,6 @@ namespace OrdBaseCore
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile("config.json", optional: true, reloadOnChange: true);
                 
             Configuration = builder.Build();
@@ -42,17 +41,18 @@ namespace OrdBaseCore
             var sqlConnectionString = Configuration.GetConnectionString("DataAccessMySqlProvider");
 
             services.AddDbContext<TranslationDb>(options => 
-                options.UseMySql(
+                //options.UseInMemoryDatabase()
+                 options.UseMySql(
                     sqlConnectionString,
-                    b => b.MigrationsAssembly("OrdBaseCore")
-                )
+                   b => b.MigrationsAssembly("OrdBaseCore") )
+                
             );
             services.AddMvc();
 
-            services.AddTransient<IClientData,      ClientRepository>();
-            services.AddTransient<IContainerData,   ContainerRepository>();
-            services.AddTransient<ILanguageData,    LanguageRepository>();
-            services.AddTransient<ITranslationData, TranslationRepository>();
+            services.AddSingleton<IClientData,      ClientRepository>();
+            services.AddSingleton<IContainerData,   ContainerRepository>();
+            services.AddSingleton<ILanguageData,    LanguageRepository>();
+            services.AddSingleton<ITranslationData, TranslationRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,11 +64,7 @@ namespace OrdBaseCore
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World!");
-            });
+            app.UseMvc();
         }
     }
 }

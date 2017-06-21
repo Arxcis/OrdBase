@@ -8,8 +8,11 @@ namespace OrdBaseCore.Services
     public class ClientRepository : IClientData
     {
         private readonly TranslationDb _context;
+
         public ClientRepository(TranslationDb context) 
-        { _context = context;  }
+        { 
+            _context = context; 
+        }
 
         public Client[] Get(string name) 
         {
@@ -22,6 +25,15 @@ namespace OrdBaseCore.Services
         public Client[] GetAll() 
         {
         	return _context.Client.ToArray();
+        }
+
+        public void AddTestData(TranslationDb context)
+        {
+            context.AddRange(
+                new Client { Name = "FMSF",         ApiKey = "1"},
+                new Client { Name = "DIFI",         ApiKey = "2"},
+                new Client { Name = "Skatteetaten", ApiKey = "3"}
+            );
         }
     }
 }

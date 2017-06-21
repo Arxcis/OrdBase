@@ -13,8 +13,10 @@ namespace OrdBaseCore.Services
     {
         private readonly TranslationDb _context;
         public LanguageRepository(TranslationDb context) 
-        { _context = context;  }
-
+        { 
+            _context = context; 
+            AddTestData(context);
+        }
         public Language[] GetAll()
         {
             return _context.Language.ToArray();
@@ -28,6 +30,16 @@ namespace OrdBaseCore.Services
                     where c.Name == client
                     select l)
                         .ToArray();
+        }
+        
+        public void AddTestData(TranslationDb context) 
+        {
+            context.AddRange(
+                new Language { Name = "Norwegian", ShortName = "no-nb" },
+                new Language { Name = "Swedish",   ShortName = "sv"    },
+                new Language { Name = "Danish",    ShortName = "da"    },
+                new Language { Name = "English",   ShortName = "en"    }
+            );
         }
     }
 }

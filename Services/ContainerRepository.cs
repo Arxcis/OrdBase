@@ -12,9 +12,9 @@ namespace OrdBaseCore.Services
     public class ContainerRepository : IContainerData
     {
         private readonly TranslationDb _context;
-        public ContainerRepository(TranslationDb context) 
-        { _context = context;  }
 
+        public ContainerRepository (TranslationDb context) 
+        { _context = context; }
         public string[] Get(string client, string accesskey) 
         { 
             return (from t in _context.Translation

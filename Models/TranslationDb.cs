@@ -13,11 +13,17 @@ namespace OrdBaseCore.Models
         public DbSet<Translation> Translation { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+        {   
+            // @note
+            // Have to use fluent API in two cases, as data annotations are not supported yet for:
+            // - indexes 
+            // - Composite keys
+            //
             modelBuilder.Entity<Client>()
                 .HasIndex(row => row.ApiKey)
                 .IsUnique();
 
+            
             modelBuilder.Entity<Translation>()
             .HasKey(t => new { 
                 t.ClientName, 
