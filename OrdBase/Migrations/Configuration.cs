@@ -28,6 +28,7 @@ namespace OrdBase.Migrations
 
                 var client1 = new Client { Name = "FMSF" , ApiKey = "1"};
                 var client2 = new Client { Name = "DIFI" , ApiKey = "2"};
+                var client3 = new Client { Name = "Skatteetaten" , ApiKey = "2"};
 
                 context.Client.AddOrUpdate( client1, client2 );
 
