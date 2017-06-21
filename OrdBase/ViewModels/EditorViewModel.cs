@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using OrdBase.Models;
 
 namespace OrdBase.ViewModels
@@ -15,6 +14,6 @@ namespace OrdBase.ViewModels
     public class EditorViewModel
     {
         public TranslationSet TranslationSet { get; set; }
-        public List<string> ClientCategories { get; set; }
+        public List<string> ClientNamespaces { get; set; }
     }
 }

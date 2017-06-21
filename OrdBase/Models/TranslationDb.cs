@@ -18,7 +18,7 @@ namespace OrdBase.Models
     //
     public class TranslationDb : DbContext
     {
-        public DbSet<RegisteredClient> Client { get; set; }
+        public DbSet<Client> Client { get; set; }
         public DbSet<Language> Language { get; set; }
         public DbSet<Translation> Translation { get; set; }
 

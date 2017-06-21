@@ -20,28 +20,21 @@ namespace OrdBase.Migrations
                 // @doc html lan codes - https://www.w3schools.com/tags/ref_language_codes.asp
                 //
                 var language1 = new Language { Name = "Norwegian", ShortName = "no-nb" };
-                var language2 = new Language { Name = "Swedish",   ShortName = "sv" };
-                var language3 = new Language { Name = "Danish",    ShortName = "da" };
-                var language4 = new Language { Name = "English",   ShortName = "en"  };
+                var language2 = new Language { Name = "Swedish",   ShortName = "sv"    };
+                var language3 = new Language { Name = "Danish",    ShortName = "da"    };
+                var language4 = new Language { Name = "English",   ShortName = "en"    };
 
                 context.Language.AddOrUpdate( language1, language2, language3, language4 );
 
-                var client1 = new RegisteredClient { Name = "FMSF" , ApiKey = "1"};
-                var client2 = new RegisteredClient { Name = "DIFI" , ApiKey = "2"};
+                var client1 = new Client { Name = "FMSF" , ApiKey = "1"};
+                var client2 = new Client { Name = "DIFI" , ApiKey = "2"};
 
-                context.RegisteredClient.AddOrUpdate( client1, client2 );
+                context.Client.AddOrUpdate( client1, client2 );
 
-                var category1 = new Category { Name = "Front Page" , RegisteredClient = client1, AccessKey = "hello_world" };
-                var category3 = new Category { Name = "Editor" ,     RegisteredClient = client1, AccessKey = "this_is_me"  };
-                var category2 = new Category { Name = "Front Page",  RegisteredClient = client2, AccessKey = "hello_world" };
-                var category4 = new Category { Name = "Editor" ,     RegisteredClient = client2, AccessKey = "this_is_me"  };
-
-                context.Category.AddOrUpdate( category1, category2, category3, category4);
-
-                var translation1 = new Models.Translation {  RegisteredClient = client1, AccessKey = "hello_world", Language = language4, Text = "Hello World"   , IsComplete = true,  };
-                var translation2 = new Models.Translation {  RegisteredClient = client1, AccessKey = "hello_world", Language = language1, Text = "Hallo verden"  , IsComplete = false, };
-                var translation3 = new Models.Translation {  RegisteredClient = client2, AccessKey = "this_is_me",  Language = language4, Text = "This is me!"   , IsComplete = false, };
-                var translation4 = new Models.Translation {  RegisteredClient = client2, AccessKey = "this_is_me",  Language = language1, Text = "Dette er meg!" , IsComplete = true,  };
+                var translation1 = new Models.Translation {  Client = client1, Language = language4,  Namespace = "Main"   , AccessKey = "hello_world",  Text = "Hello World"   , IsComplete = true,  };
+                var translation2 = new Models.Translation {  Client = client1, Language = language1,  Namespace = "Main"   , AccessKey = "hello_world",  Text = "Hallo verden"  , IsComplete = false, };
+                var translation3 = new Models.Translation {  Client = client2, Language = language4,  Namespace = "Special", AccessKey = "this_is_me",   Text = "This is me!"   , IsComplete = false, };
+                var translation4 = new Models.Translation {  Client = client2, Language = language1,  Namespace = "Special", AccessKey = "this_is_me",   Text = "Dette er meg!" , IsComplete = true,  };
             
                 context.Translation.AddOrUpdate( translation1, translation2, translation3, translation4);
 

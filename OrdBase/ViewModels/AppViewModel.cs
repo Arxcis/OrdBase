@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using OrdBase.Models;
-
 namespace OrdBase.ViewModels
 {
     //
@@ -8,7 +5,9 @@ namespace OrdBase.ViewModels
     //  @brief The shared state that the App needs across SelectorView and EditorView
     //
 	public class AppViewModel 
-	{
+	{	
+		public string AppName { get; set; }
+		public string AccessLevel { get; set; }
         public string ClientName { get; set; }
 	}
 }

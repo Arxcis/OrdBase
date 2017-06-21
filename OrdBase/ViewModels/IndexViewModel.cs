@@ -1,10 +1,9 @@
-﻿
-
-namespace OrdBase.ViewModels
+﻿namespace OrdBase.ViewModels
 {
-    //
-    // @doc p. 54 , ASP.NET MVC 4
-    //
+	//
+	// @class IndexViewModel
+	//  @brief Just a dummy model used for testing.
+	//
     public class IndexViewModel
     {
         public string Name { get; set; }
