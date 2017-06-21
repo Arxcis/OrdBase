@@ -7,6 +7,7 @@ using System.Web.Http;
 
 namespace OrdBase.Controllers
 {
+	[RoutePrefix("api/{client}/language")]
     public class LanguageController : ApiController
     {
     }

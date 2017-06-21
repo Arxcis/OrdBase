@@ -9,14 +9,33 @@ namespace OrdBase.Services
 {	
 	// 
 	// @class ContainerRepository
-	//  @brief Manages Translation-containers logic
+	//  @brief Gets the names of containers
 	//
     public class ContainerRepository : IDataStore<string>, IDisposable
     {
         public TranslationDb Context{ get; private set; }
         public ContainerRepository() { Context = new TranslationDb { };  }
 
-        public string Get() { return "hello"; } // @dummy
+        public string[] Get(string client, string accesskey) 
+        { 
+            return (from t in Context.Translation
+
+                    where t.ClientName == client &&
+                          t.AccessKey == accesskey
+
+                    group t by t.Container into grp
+                    select grp.Key )
+                        .ToArray();
+        }
+
+        public string[] GetOnClient(string client) 
+        {
+            return (from t in Context.Translation
+
+                    where t.ClientName == client
+                    select t.Container)
+                        .ToArray();
+        }
 
     	public void Dispose() { Context.Dispose();  }
     }
