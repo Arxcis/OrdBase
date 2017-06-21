@@ -5,7 +5,7 @@ using System.Web;
 
 namespace OrdBase.Services
 {
-    public class TranslationRepository
+    public class TranslationRepository : IDataStore
     {
     }
 }
