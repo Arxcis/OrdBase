@@ -1,11 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 
-
 namespace OrdBaseCore.Models 
 {
     public class TranslationDb : DbContext 
     {
-
         public TranslationDb(DbContextOptions<TranslationDb> options)
             :base(options)
         {}
@@ -19,6 +17,14 @@ namespace OrdBaseCore.Models
             modelBuilder.Entity<Client>()
                 .HasIndex(row => row.ApiKey)
                 .IsUnique();
+
+            modelBuilder.Entity<Translation>()
+            .HasKey(t => new { 
+                t.ClientName, 
+                t.LanguageShortName,
+                t.Container,
+                t.AccessKey
+            });
         }
     }
 }

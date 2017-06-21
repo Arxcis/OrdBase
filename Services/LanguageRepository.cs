@@ -3,7 +3,7 @@ using System.Linq;
 using OrdBaseCore.Models;
 using OrdBaseCore.IData;
 
-namespace OrdBase.Services
+namespace OrdBaseCore.Services
 {
 	// 
 	// @class LanguageRepository
