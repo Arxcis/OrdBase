@@ -6,11 +6,15 @@ using System.Web;
 using OrdBase.Models;
 
 namespace OrdBase.Services
-{
-    public class NamespaceRepository : IDataStore<string>, IDisposable
+{	
+	// 
+	// @class ContainerRepository
+	//  @brief Manages Translation-containers logic
+	//
+    public class ContainerRepository : IDataStore<string>, IDisposable
     {
         public TranslationDb Context{ get; private set; }
-        public NamespaceRepository() { Context = new TranslationDb { };  }
+        public ContainerRepository() { Context = new TranslationDb { };  }
 
         public string Get() { return "hello"; } // @dummy
 

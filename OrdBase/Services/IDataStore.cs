@@ -9,6 +9,6 @@ namespace OrdBase.Services
     interface IDataStore<T>
     {
     	TranslationDb Context { get; }
-    	T Get();
+    	//T Get();
     }	
 }

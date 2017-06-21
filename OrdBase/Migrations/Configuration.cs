@@ -26,19 +26,18 @@ namespace OrdBase.Migrations
 
                 context.Language.AddOrUpdate( language1, language2, language3, language4 );
 
-                var client1 = new Client { Name = "FMSF" , ApiKey = "1"};
-                var client2 = new Client { Name = "DIFI" , ApiKey = "2"};
-                var client3 = new Client { Name = "Skatteetaten" , ApiKey = "2"};
+                var client1 = new Client { Name = "FMSF",         ApiKey = "1"};
+                var client2 = new Client { Name = "DIFI",         ApiKey = "2"};
+                var client3 = new Client { Name = "Skatteetaten", ApiKey = "3"};
 
                 context.Client.AddOrUpdate( client1, client2 );
 
-                var translation1 = new Models.Translation {  Client = client1, Language = language4,  Namespace = "Main"   , AccessKey = "hello_world",  Text = "Hello World"   , IsComplete = true,  };
-                var translation2 = new Models.Translation {  Client = client1, Language = language1,  Namespace = "Main"   , AccessKey = "hello_world",  Text = "Hallo verden"  , IsComplete = false, };
-                var translation3 = new Models.Translation {  Client = client2, Language = language4,  Namespace = "Special", AccessKey = "this_is_me",   Text = "This is me!"   , IsComplete = false, };
-                var translation4 = new Models.Translation {  Client = client2, Language = language1,  Namespace = "Special", AccessKey = "this_is_me",   Text = "Dette er meg!" , IsComplete = true,  };
+                var translation1 = new Models.Translation {  Client = client1, Language = language4,  Container = "Main"   , AccessKey = "hello_world",  Text = "Hello World"   , IsComplete = true,  };
+                var translation2 = new Models.Translation {  Client = client1, Language = language1,  Container = "Main"   , AccessKey = "hello_world",  Text = "Hallo verden"  , IsComplete = false, };
+                var translation3 = new Models.Translation {  Client = client2, Language = language4,  Container = "Special", AccessKey = "this_is_me",   Text = "This is me!"   , IsComplete = false, };
+                var translation4 = new Models.Translation {  Client = client2, Language = language1,  Container = "Special", AccessKey = "this_is_me",   Text = "Dette er meg!" , IsComplete = true,  };
             
                 context.Translation.AddOrUpdate( translation1, translation2, translation3, translation4);
-
                 context.SaveChanges();
 
             }

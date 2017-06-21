@@ -6,25 +6,56 @@ using OrdBase.Models;
 
 namespace OrdBase.Controllers
 {
-	[RoutePrefix("api/translation")]
+	[RoutePrefix("api/{client}/translation")]
     public class TranslationController : ApiController
-    {
-    	[Route("{client}/{language}/{accessKey}")]
-    	public Translation Get(string client, string language, string accessKey)
-    	{
-    		using (var repo = new TranslationRepository()) 
-    		{
-    			return repo.Get();
-    		}
-    	}
+    {   
+        [Route("dummy")]
+        public Translation Get()
+        {
+            using (var translationRepo = new TranslationRepository()) 
+            { return translationRepo.GetDummy(); }
+        }
 
-    	[Route("{client}/{language}")]
-    	public IEnumerable<Translation> Get(string client, string language)
-    	{
-    		using (var repo = new TranslationRepository()) 
-    		{
-    			return new Translation [] {};
-    		}
-    	}
+        [Route("{container}/{accessKey}/{language}")]
+    	public Translation[] Get(string client, string language, string container, string accesskey)
+        {
+            using (var translationRepo = new TranslationRepository())
+            { return translationRepo.Get(client, language, container, accesskey); }
+        }
+        
+        [Route("")]
+        public Translation[] GetOnClient(string client)
+        {
+            using (var translationRepo = new TranslationRepository()) 
+            { return translationRepo.GetOnClient(client); }
+        }
+        
+        [Route("container/{container}")]
+        public Translation[] GetOnContainer(string client, string container)
+        {
+            using (var translationRepo = new TranslationRepository()) 
+            { return translationRepo.GetOnContainer(client, container); }
+        }
+
+        [Route("container/{container}/{language}")]
+        public Translation[] GetOnContainer(string client, string language, string container)
+        {
+            using (var translationRepo = new TranslationRepository()) 
+            { return translationRepo.GetOnContainer(client, language, container); }
+        }
+
+        [Route("accesskey/{accesskey}")]
+        public Translation[] GetOnAccessKey(string client, string accesskey)
+        {
+            using (var translationRepo = new TranslationRepository()) 
+            { return translationRepo.GetOnAccessKey(client, accesskey); }
+        }
+
+        [Route("language/{language}")]
+        public Translation[] GetOnLanguage(string client, string language)
+        {
+            using (var translationRepo = new TranslationRepository()) 
+            { return translationRepo.GetOnLanguage(client, language); }
+        }
     }
 }

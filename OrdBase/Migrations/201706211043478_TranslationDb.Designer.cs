@@ -13,7 +13,7 @@ namespace OrdBase.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201706200717506_TranslationDb"; }
+            get { return "201706211043478_TranslationDb"; }
         }
         
         string IMigrationMetadata.Source

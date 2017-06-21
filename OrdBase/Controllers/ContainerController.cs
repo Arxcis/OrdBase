@@ -7,7 +7,7 @@ using System.Web.Http;
 
 namespace OrdBase.Controllers
 {
-    public class NamespaceController : ApiController
+    public class ContainerController : ApiController
     {
     }
 }
