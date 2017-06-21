@@ -223,9 +223,7 @@
     <Compile Include="Services\TranslationRepository.cs" />
     <Compile Include="Services\TranslationSetRepository.cs" />
     <Compile Include="ViewModels\AppViewModel.cs" />
-    <Compile Include="ViewModels\EditorViewModel.cs" />
     <Compile Include="ViewModels\IndexViewModel.cs" />
-    <Compile Include="ViewModels\SelectorViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
