@@ -1,16 +1,26 @@
 ﻿using System;
 
 using OrdBase.Models;
+using OrdBase.IDataStores;
 
 namespace OrdBase.Services
 {
-    public class ClientRepository : IDataStore<Client>, IDisposable
+    public class ClientRepository : IDataStoreClient
     {
-        public TranslationDb Context{ get; private set; }
+        public readonly TranslationDb Context{ get; }
         public ClientRepository() { Context = new TranslationDb { };  }
 
-        public Client Get() { return new Client{}; } // @dummy
+        public Client[] Get(string name) 
+        {
+        	return (from c in Context.Client
+        			where c.Name == name
+        			select c)
+        				.ToArray();
+        } 
 
-    	public void Dispose() { Context.Dispose();  }
+        public Client[] GetAll() 
+        {
+        	return Context.Client.ToArray();
+        }
     }
 }

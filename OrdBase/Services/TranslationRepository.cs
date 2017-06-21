@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Linq;
+
 using OrdBase.Models;
+using OrdBase.IDataStores;
 
 namespace OrdBase.Services
 {
-    public class TranslationRepository : IDataStore<Translation>, IDisposable
+    public class TranslationRepository : IDataStoreTranslation, IDisposable
     {
         public TranslationDb Context{ get; }
         public TranslationRepository() { Context = new TranslationDb { };  }
         public void Dispose() { Context.Dispose(); }
-
-        public Translation GetDummy() { return new Translation { }; }
 
         public Translation[] Get (string client, string language, string container, string accessKey)
         {

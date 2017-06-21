@@ -11,7 +11,7 @@ namespace OrdBase.Services
 	// @class ContainerRepository
 	//  @brief Gets the names of containers
 	//
-    public class ContainerRepository : IDataStore<string>, IDisposable
+    public class ContainerRepository : IDataStoreContainer
     {
         public TranslationDb Context{ get; private set; }
         public ContainerRepository() { Context = new TranslationDb { };  }
@@ -36,7 +36,5 @@ namespace OrdBase.Services
                     select t.Container)
                         .ToArray();
         }
-
-    	public void Dispose() { Context.Dispose();  }
     }
 }
