@@ -14,7 +14,7 @@ namespace OrdBase.Controllers
     	{
     		using (var repo = new TranslationRepository()) 
     		{
-    			return new Translation {};
+    			return repo.Get();
     		}
     	}
 

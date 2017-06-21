@@ -6,8 +6,9 @@ using OrdBase.Models;
 
 namespace OrdBase.Services
 {
-    interface IDataStore
+    interface IDataStore<T>
     {
     	TranslationDb Context { get; }
+    	T Get();
     }	
 }
