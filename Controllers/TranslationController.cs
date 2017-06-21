@@ -1,36 +1,53 @@
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
+
 using OrdBaseCore.Models;
+using OrdBaseCore.IData;
 
-namespace OrdBaseCore.Controllers 
+namespace OrdBaseCore.Controllers
 {
-    [Route("api/[controller]")]
-    public class TranslationController : Controller
-    {
-        private readonly TranslationDb _db;
+    public class TranslationController : Controller, ITranslationData
+    {   
+        private readonly ITranslationData _translationRepo;
 
-        public TranslationController(TranslationDb db) 
+        public TranslationController(ITranslationData translationRepo)
         {
-            _db = db;
+            _translationRepo = translationRepo;
         }
 
-        // api/translation
-        [HttpGet]
-        public IEnumerable<Translation> GetAll()
+        [Route("api/{client}/{container}/{accessKey}/{language}")]
+    	public Translation[] Get(string client, string language, string container, string accesskey)
         {
-            return _db.Translation.ToList();
+            return _translationRepo.Get(client, language, container, accesskey); 
+        }
+        
+        [Route("api/{client}")]
+        public Translation[] GetOnClient(string client)
+        {
+            return _translationRepo.GetOnClient(client); 
+        }
+        
+        [Route("api/{client}/container/{container}")]
+        public Translation[] GetOnContainer(string client, string container)
+        {
+            return _translationRepo.GetOnContainer(client, container); 
         }
 
-        // api/translation/{id}
-        [HttpGet("{id}", Name = "GetTranslation")]
-        public IActionResult GetById(string accessKey)
+        [Route("api/{client}/container/{container}/{language}")]
+        public Translation[] GetOnContainer(string client, string language, string container)
         {
-            var item = _db.Translation.FirstOrDefault(t => t.AccessKey == accessKey);
-            if (item == null) 
-            { return NotFound(); }
+            return _translationRepo.GetOnContainer(client, language, container); 
+        }
 
-            return new ObjectResult(item);
+        [Route("api/{client}/accesskey/{accesskey}")]
+        public Translation[] GetOnAccessKey(string client, string accesskey)
+        {
+            return _translationRepo.GetOnAccessKey(client, accesskey); 
+        }
+
+        [Route("api/{client}/language/{language}")]
+        public Translation[] GetOnLanguage(string client, string language)
+        {
+            return _translationRepo.GetOnLanguage(client, language); 
         }
     }
 }
