@@ -15,13 +15,13 @@ namespace OrdBaseCore.Controllers
             _containerRepo = containerRepo;
         }
 
-    	[Route("api/{client}")]
+    	[Route("api/{client}/container")]
     	public string[] GetOnClient(string client) 
     	{
     		return _containerRepo.GetOnClient(client); 
     	}
 
-    	[Route("api/{client}/{accesskey}")]
+    	[Route("api/{client}/container/{accesskey}")]
     	public string[] Get(string client, string accesskey) 
     	{
     		return _containerRepo.Get(client, accesskey); 

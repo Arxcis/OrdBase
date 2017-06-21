@@ -12,7 +12,6 @@ namespace OrdBaseCore.Services
         public ClientRepository(TranslationDb context) 
         { 
             _context = context; 
-            AddTestData(_context);
         }
 
         public Client[] Get(string name) 
@@ -28,9 +27,9 @@ namespace OrdBaseCore.Services
         	return _context.Client.ToArray();
         }
 
-        public void AddTestData(TranslationDb context)
+        public static void AddTestData(TranslationDb context)
         {
-            context.AddRange(
+            context.Client.AddRange(
                 new Client { Name = "FMSF",         ApiKey = "1"},
                 new Client { Name = "DIFI",         ApiKey = "2"},
                 new Client { Name = "Skatteetaten", ApiKey = "3"}

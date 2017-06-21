@@ -12,16 +12,15 @@ namespace OrdBaseCore.Services
         public TranslationRepository(TranslationDb context) 
         { 
             _context = context; 
-            AddTestData(_context); 
         }
         public Translation[] Get (string client, string language, string container, string accessKey)
         {
             return (from t in _context.Translation
 
-                    where t.ClientName == client &&
-                          t.LanguageShortName == language &&
-                          t.Container == container &&
-                          t.AccessKey == accessKey
+                    where t.CId == client &&
+                          t.Lang == language &&
+                          t.Box == container &&
+                          t.Key == accessKey
 
                     select t)
                         .ToArray();        
@@ -31,7 +30,7 @@ namespace OrdBaseCore.Services
         {
             return (from t in _context.Translation
 
-                    where t.ClientName == client
+                    where t.CId == client
                     select t)
                         .ToArray();
         }
@@ -40,8 +39,8 @@ namespace OrdBaseCore.Services
         {
             return (from t in _context.Translation
 
-                    where t.ClientName == client &&
-                          t.Container == container
+                    where t.CId == client &&
+                          t.Box == container
                     select t)
                         .ToArray();
         }
@@ -50,9 +49,9 @@ namespace OrdBaseCore.Services
         {
             return (from t in _context.Translation
 
-                    where t.ClientName == client &&
-                          t.LanguageShortName == language &&
-                          t.Container == container
+                    where t.CId == client &&
+                          t.Lang == language &&
+                          t.Box == container
                     select t)
                         .ToArray();
         }
@@ -61,8 +60,8 @@ namespace OrdBaseCore.Services
         {
             return (from t in _context.Translation
 
-                    where t.ClientName == client &&
-                          t.AccessKey == accesskey
+                    where t.CId == client &&
+                          t.Key == accesskey
                     select t)
                         .ToArray();
         }
@@ -71,19 +70,19 @@ namespace OrdBaseCore.Services
         {
             return (from t in _context.Translation
 
-                    where t.ClientName == client &&
-                          t.LanguageShortName == language
+                    where t.CId == client &&
+                          t.Lang == language
                     select t)
                         .ToArray();
         }
 
-        private void AddTestData(TranslationDb context) 
+        public static void AddTestData(TranslationDb context) 
         { 
-            context.AddRange( 
-                new Translation {  ClientName = "FMSF", LanguageShortName = "en",  Container = "Main"   , AccessKey = "hello_world",  Text = "Hello World"   , IsComplete = true,  },
-                new Translation {  ClientName = "FMSF", LanguageShortName = "no-nb",  Container = "Main"   , AccessKey = "hello_world",  Text = "Hallo verden"  , IsComplete = false, },
-                new Translation {  ClientName = "DIFI", LanguageShortName = "en",  Container = "Special", AccessKey = "this_is_me",   Text = "This is me!"   , IsComplete = false, },
-                new Translation {  ClientName = "DIFI", LanguageShortName = "no-nb",  Container = "Special", AccessKey = "this_is_me",   Text = "Dette er meg!" , IsComplete = true,  }
+            context.Translation.AddRange( 
+                new Translation {  CId = "FMSF", Lang = "en",     Box = "Main"   , Key = "hello_world",  Txt = "Hello World"   , Ok = true,  },
+                new Translation {  CId = "FMSF", Lang = "no-nb",  Box = "Main"   , Key = "hello_world",  Txt = "Hallo verden"  , Ok = false, },
+                new Translation {  CId = "DIFI", Lang = "en",     Box = "Special", Key = "this_is_me",   Txt = "This is me!"   , Ok = false, },
+                new Translation {  CId = "DIFI", Lang = "no-nb",  Box = "Special", Key = "this_is_me",   Txt = "Dette er meg!" , Ok = true,  }
             );
             context.SaveChanges();
         }

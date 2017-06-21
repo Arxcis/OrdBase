@@ -15,7 +15,6 @@ namespace OrdBaseCore.Services
         public LanguageRepository(TranslationDb context) 
         { 
             _context = context; 
-            AddTestData(_context);
         }
         public Language[] GetAll()
         {
@@ -25,20 +24,20 @@ namespace OrdBaseCore.Services
         public Language[] GetOnClient(string client)
         {
             return (from t in _context.Translation
-                    join l in _context.Language on t.LanguageShortName equals l.ShortName
-                    join c in _context.Client on t.ClientName equals c.Name
+                    join l in _context.Language on t.Lang equals l.Short
+                    join c in _context.Client on t.CId equals c.Name
                     where c.Name == client
                     select l)
                         .ToArray();
         }
         
-        public void AddTestData(TranslationDb context) 
+        public static void AddTestData(TranslationDb context) 
         {
-            context.AddRange(
-                new Language { Name = "Norwegian", ShortName = "no-nb" },
-                new Language { Name = "Swedish",   ShortName = "sv"    },
-                new Language { Name = "Danish",    ShortName = "da"    },
-                new Language { Name = "English",   ShortName = "en"    }
+            context.Language.AddRange(
+                new Language { Name = "Norwegian", Short = "no-nb" },
+                new Language { Name = "Swedish",   Short = "sv"    },
+                new Language { Name = "Danish",    Short = "da"    },
+                new Language { Name = "English",   Short = "en"    }
             );
             context.SaveChanges();
         }

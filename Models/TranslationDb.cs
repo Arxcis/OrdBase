@@ -1,4 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Builder;
+
+using OrdBaseCore.Services;
+using OrdBaseCore.Models;
 
 namespace OrdBaseCore.Models 
 {
@@ -26,11 +30,24 @@ namespace OrdBaseCore.Models
             
             modelBuilder.Entity<Translation>()
             .HasKey(t => new { 
-                t.ClientName, 
-                t.LanguageShortName,
-                t.Container,
-                t.AccessKey
+                t.CId, 
+                t.Lang,
+                t.Box,
+                t.Key
             });
+        }
+
+        public static void Seed(TranslationDb context) 
+        {
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+            
+            LanguageRepository.AddTestData(context);
+            ClientRepository.AddTestData(context);
+            TranslationRepository.AddTestData(context);
+
+            context.SaveChanges();
+            context.Dispose();
         }
     }
 }

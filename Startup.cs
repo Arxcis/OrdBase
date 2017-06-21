@@ -27,6 +27,10 @@ namespace OrdBaseCore
         
         public static IConfiguration Configuration { get; set; }
 
+        //
+        // @function Startup
+        //  @brief Dont know what special things this does.
+        //
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -36,27 +40,37 @@ namespace OrdBaseCore
             Configuration = builder.Build();
         }
          
+         //
+         // @function ConfigureServices
+         //  @brief Sets up the DbContext and all the repositories + db connection
+         //
         public void ConfigureServices(IServiceCollection services)
         {
             var sqlConnectionString = Configuration.GetConnectionString("DataAccessMySqlProvider");
 
             services.AddDbContext<TranslationDb>(options => 
                 //options.UseInMemoryDatabase()
-                 options.UseMySql(
+                options.UseMySql(
                     sqlConnectionString,
-                   b => b.MigrationsAssembly("OrdBaseCore") )
+                    b => b.MigrationsAssembly("OrdBaseCore") )
                 
             );
             services.AddMvc();
 
-            services.AddSingleton<IClientData,      ClientRepository>();
-            services.AddSingleton<IContainerData,   ContainerRepository>();
-            services.AddSingleton<ILanguageData,    LanguageRepository>();
-            services.AddSingleton<ITranslationData, TranslationRepository>();
+            services.AddTransient<IClientData,      ClientRepository>();
+            services.AddTransient<IContainerData,   ContainerRepository>();
+            services.AddTransient<ILanguageData,    LanguageRepository>();
+            services.AddTransient<ITranslationData, TranslationRepository>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        //
+        // @function Configure
+        //  @brief This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        //
+        public void Configure(IApplicationBuilder app, 
+                              IHostingEnvironment env, 
+                              ILoggerFactory loggerFactory,
+                              TranslationDb context)
         {
             loggerFactory.AddConsole();
 
@@ -64,7 +78,8 @@ namespace OrdBaseCore
             {
                 app.UseDeveloperExceptionPage();
             }
+            TranslationDb.Seed(context);
             app.UseMvc();
-        }
+       }
     }
 }

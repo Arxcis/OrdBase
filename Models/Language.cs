@@ -12,7 +12,7 @@ namespace OrdBaseCore.Models
                 [Key]
                 [MaxLength(7), MinLength(2)]
                 [DatabaseGenerated(DatabaseGeneratedOption.None)]
-                public string ShortName { get; set; } 
+                public string Short { get; set; } 
 
                 [Required]
                 [StringLength(32)]

@@ -8,9 +8,10 @@ using OrdBaseCore.Models;
 namespace OrdBaseCore.Migrations
 {
     [DbContext(typeof(TranslationDb))]
-    partial class TranslationDbModelSnapshot : ModelSnapshot
+    [Migration("20170621234024_evenshortertnames")]
+    partial class evenshortertnames
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2");
@@ -51,11 +52,9 @@ namespace OrdBaseCore.Migrations
 
             modelBuilder.Entity("OrdBaseCore.Models.Translation", b =>
                 {
-                    b.Property<string>("CId")
-                        .HasMaxLength(32);
+                    b.Property<string>("CId");
 
-                    b.Property<string>("Lang")
-                        .HasMaxLength(7);
+                    b.Property<string>("Lang");
 
                     b.Property<string>("Box")
                         .HasMaxLength(32);
