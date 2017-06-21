@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using OrdBaseCore.Models;
 using OrdBaseCore.IData;
 
-namespace OrdBase.Controllers
+namespace OrdBaseCore.Controllers
 {
     public class LanguageController : Controller, ILanguageData
     {

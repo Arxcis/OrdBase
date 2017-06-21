@@ -21,7 +21,7 @@ namespace OrdBaseCore.Models
         [Column(Order = 3)]
         [StringLength(32)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public string Namespace { get; set; }
+        public string Container { get; set; }
 
         [Key]
         [Column(Order = 4)]
