@@ -85,6 +85,7 @@ namespace OrdBaseCore.Services
                 new Translation {  ClientName = "DIFI", LanguageShortName = "en",  Container = "Special", AccessKey = "this_is_me",   Text = "This is me!"   , IsComplete = false, },
                 new Translation {  ClientName = "DIFI", LanguageShortName = "no-nb",  Container = "Special", AccessKey = "this_is_me",   Text = "Dette er meg!" , IsComplete = true,  }
             );
+            context.SaveChanges();
         }
     }
 }

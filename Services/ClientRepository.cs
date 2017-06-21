@@ -12,6 +12,7 @@ namespace OrdBaseCore.Services
         public ClientRepository(TranslationDb context) 
         { 
             _context = context; 
+            AddTestData(_context);
         }
 
         public Client[] Get(string name) 
@@ -34,6 +35,7 @@ namespace OrdBaseCore.Services
                 new Client { Name = "DIFI",         ApiKey = "2"},
                 new Client { Name = "Skatteetaten", ApiKey = "3"}
             );
+            context.SaveChanges();
         }
     }
 }

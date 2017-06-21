@@ -15,7 +15,7 @@ namespace OrdBaseCore.Services
         public LanguageRepository(TranslationDb context) 
         { 
             _context = context; 
-            AddTestData(context);
+            AddTestData(_context);
         }
         public Language[] GetAll()
         {
@@ -40,6 +40,7 @@ namespace OrdBaseCore.Services
                 new Language { Name = "Danish",    ShortName = "da"    },
                 new Language { Name = "English",   ShortName = "en"    }
             );
+            context.SaveChanges();
         }
     }
 }
