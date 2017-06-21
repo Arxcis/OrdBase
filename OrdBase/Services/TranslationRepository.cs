@@ -8,6 +8,7 @@ namespace OrdBase.Services
     {
         public TranslationDb Context{ get; private set; }
         public TranslationRepository() { Context = new TranslationDb { };  }
+
     	public void Dispose() { Context.Dispose();  }
     }
 }

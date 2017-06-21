@@ -10,7 +10,7 @@ namespace OrdBase.Services
     public class NamespaceRepository : IDataStore, IDisposable
     {
         public TranslationDb Context{ get; private set; }
-        public NameespaceRepository() { Context = new TranslationDb { };  }
+        public NamespaceRepository() { Context = new TranslationDb { };  }
 
     	public void Dispose() { Context.Dispose();  }
     }
