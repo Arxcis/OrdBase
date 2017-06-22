@@ -9,14 +9,15 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 
-using Pomelo.EntityFrameworkCore.MySql;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+
 using OrdBaseCore.Models;
 using OrdBaseCore.IData;
 using OrdBaseCore.Services;
 
-namespace OrdBaseCore
-{
+namespace OrdBaseCore {
+
     public class Startup
     {
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -26,6 +27,7 @@ namespace OrdBaseCore
         // @doc scoped vs transient vs singleton - https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection#service-lifetimes-and-registration-options
         
         public static IConfiguration Configuration { get; set; }
+        public static string SqlProvider = "MicrosoftSQLProvider";
 
         //
         // @function Startup
@@ -46,11 +48,11 @@ namespace OrdBaseCore
          //
         public void ConfigureServices(IServiceCollection services)
         {
-            var sqlConnectionString = Configuration.GetConnectionString("DataAccessMySqlProvider");
+            var sqlConnectionString = Configuration.GetConnectionString(Startup.SqlProvider);
 
             services.AddDbContext<TranslationDb>(options => 
-                //options.UseInMemoryDatabase()
-                options.UseMySql(
+               // options.UseInMemoryDatabase()
+                options.UseSqlServer(
                     sqlConnectionString,
                     b => b.MigrationsAssembly("OrdBaseCore") )
                 
@@ -81,5 +83,16 @@ namespace OrdBaseCore
             TranslationDb.Seed(context);
             app.UseMvc();
        }
+    }
+
+    public class MigrationsContextFactory : IDbContextFactory<TranslationDb>
+    {
+        public TranslationDb Create(DbContextFactoryOptions options)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<TranslationDb>();
+            optionsBuilder.UseSqlServer(Startup.Configuration.GetConnectionString(Startup.SqlProvider));
+
+            return new TranslationDb(optionsBuilder.Options);
+        }
     }
 }

@@ -1,6 +1,7 @@
 {
     "ConnectionStrings": 
     {  
-        "DataAccessMySqlProvider": "server=localhost;userid=root;password=;database=OrdBaseCore;"
+        "MySQLProvider": "server=localhost;userid=root;password=;database=OrdBaseCore;",
+        "MicrosoftSQLProvider": "Server=(localdb)\\mssqllocaldb; Database=OrdBaseCore;"
     }
 }
