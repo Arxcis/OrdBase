@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Collections.Generic;
 
 using OrdBaseCore.Models;
 using OrdBaseCore.IData;
@@ -35,25 +36,31 @@ namespace OrdBaseCore.Services
                         .ToArray();
         }
         
-        public Translation[] GetOnContainer (string client, string container) 
+        public IQueryable<object> GetOnContainer (string client, string container) 
         {
             return (from t in _context.Translation
 
                     where t.CId == client &&
                           t.Box == container
-                    select t)
-                        .ToArray();
+                    select new {
+                        key = t.Key,
+                        txt = t.Txt,
+                        }
+                    );
         }
 
-        public Translation[] GetOnContainer (string client, string language, string container) 
+        public IQueryable<object> GetOnContainer (string client, string language, string container) 
         {
             return (from t in _context.Translation
 
                     where t.CId == client &&
                           t.Lang == language &&
                           t.Box == container
-                    select t)
-                        .ToArray();
+                    select new {
+                        key = t.Key,
+                        txt = t.Txt,
+                       }
+                    );
         }
 
         public Translation[] GetOnAccessKey(string client, string accesskey)

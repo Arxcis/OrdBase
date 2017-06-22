@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 using OrdBaseCore.Models;
 using OrdBaseCore.IData;
@@ -27,13 +28,13 @@ namespace OrdBaseCore.Controllers
         }
         
         [Route("api/{client}/translation/container/{container}")]
-        public Translation[] GetOnContainer(string client, string container)
+        public IQueryable<object> GetOnContainer(string client, string container)
         {
             return _translationRepo.GetOnContainer(client, container); 
         }
 
         [Route("api/{client}/translation/container/{container}/{language}")]
-        public Translation[] GetOnContainer(string client, string language, string container)
+        public IQueryable<object> GetOnContainer(string client, string language, string container)
         {
             return _translationRepo.GetOnContainer(client, language, container); 
         }

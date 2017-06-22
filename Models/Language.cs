@@ -10,7 +10,7 @@ namespace OrdBaseCore.Models
                 // @doc HTML lan codes: https://www.w3schools.com/tags/ref_language_codes.asp
                 //
                 [Key]
-                [MaxLength(7), MinLength(2)]
+                [StringLength(8)]
                 [DatabaseGenerated(DatabaseGeneratedOption.None)]
                 public string Short { get; set; } 
 
