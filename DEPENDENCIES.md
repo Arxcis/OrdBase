@@ -1,9 +1,9 @@
 ### Major dependencies
 
-ASP.NET Mvc 5
+ASP.NET Core Mvc 5
 .NET Core 1.1.2
-Enity Framework 1.1.2
-Windows 10
+Enity Framework Core 1.1.2
+MicrosoftSql Express 2016
 Git
 
 
