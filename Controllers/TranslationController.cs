@@ -73,7 +73,7 @@ namespace OrdBaseCore.Controllers
             return _translationRepo.Create(translation);
         } 
 
-        [Route("api/translation/update")]
+        [Route("api/{client}/translation/update/{container}/{accessKey}/{language}")]
         [HttpPut]
         public IActionResult Update(string client, string language, string container, string accesskey,
                                          [FromBody] Translation translation)
@@ -97,7 +97,7 @@ namespace OrdBaseCore.Controllers
             return _translationRepo.Update(translation);
         }
 
-        [Route("api/translation/delete")]
+        [Route("api/{client}/translation/delete/{container}/{accessKey}/{language}")]
         public IActionResult Delete(string client, string language, string container, string accesskey)
         {
             return _translationRepo.Delete(client, language, container, accesskey);
