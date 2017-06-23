@@ -7,11 +7,11 @@ namespace OrdBaseCore.Models
 	public class Client 
 	{   
         [Key]
-        [StringLength(16)]
+        [StringLength(127)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
 		public string Name { get; set; }
 
-        [StringLength(32)]
+        [StringLength(127)]
 		public string ApiKey { get; set; }
 
 		public DateTime? LastAccess { get; set; }

@@ -6,21 +6,21 @@ namespace OrdBaseCore.Models
     public class Translation
     {
         [ForeignKey("Client")]
-        [StringLength(16)]
+        [StringLength(127)]
         public string ClientName { get; set; } // ClientName
         protected virtual Client Client { get; set; }
 
         [ForeignKey("Language")]
-        [StringLength(8)]
+        [StringLength(32)]
         public string Lang { get; set; } // LanguageShortName
         protected virtual Language Language { get; set; }
 
-        [StringLength(16)]
+        [StringLength(127)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string Container { get; set; }
         
         [Column(Order = 4)]
-        [StringLength(16)]
+        [StringLength(127)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string Key { get; set; } // AccessKey
 

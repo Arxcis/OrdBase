@@ -65,7 +65,7 @@ namespace OrdBaseCore.Controllers
         // CREATE, UPDATE, DELETE REQUESTS
         //  @doc https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-vsc#implement-the-other-crud-operations|
         //
-        [Route("api/translation/create")]
+        [Route("api/create/translation")]
         [HttpPost]
         public IActionResult Create([FromBody] Translation translation) 
         {   
@@ -74,6 +74,7 @@ namespace OrdBaseCore.Controllers
             return _translationRepo.Create(translation);
         } 
 
+        [Route("api/update/translation")]
         [HttpPut("{client}/{container}/{accesskey}/{language}")]
         public IActionResult Update(string client, string language, string container, string accesskey,
                                          [FromBody] Translation translation)
@@ -97,6 +98,7 @@ namespace OrdBaseCore.Controllers
             return _translationRepo.Update(translation);
         }
 
+        [Route("api/delete/translation")]
         [HttpDelete("{client}/{container}/{accesskey}/{language}")]
         public IActionResult Delete(string client, string language, string container, string accesskey)
         {

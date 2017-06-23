@@ -89,10 +89,12 @@ namespace OrdBaseCore.Services
         // POST - Create, update, delete
         //
         public IActionResult Create(Translation translation) 
-        {
+        {   
+            //
+            // @TODO - validate that ClientName and languae already exists!! - JSolsvik 23.06
+            //
             _context.Translation.Add(translation);
             _context.SaveChanges();
-            System.Console.Write("Hello from REpository");
             return new CreatedAtRouteResult ("api/{client}/translation/{container}/{accessKey}/{language}",
                                 new { client = translation.ClientName, 
                                       container = translation.Container, 

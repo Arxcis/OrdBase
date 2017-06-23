@@ -1,4 +1,5 @@
 using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 
 using OrdBaseCore.Models;
 using OrdBaseCore.IData;
@@ -27,6 +28,19 @@ namespace OrdBaseCore.Services
         	return _context.Client.ToArray();
         }
 
+        //
+        // Create
+        //
+        public IActionResult Create(Client client) 
+        {
+            _context.Client.Add(client);
+            _context.SaveChanges();
+            return new NoContentResult{};
+        }
+
+        //
+        // TESTDATA
+        //
         public static void AddTestData(TranslationDb context)
         {
             context.Client.AddRange(
