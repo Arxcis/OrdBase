@@ -7,7 +7,7 @@ using OrdBaseCore.IData;
 
 namespace OrdBaseCore.Controllers
 {
-    public class TranslationController : Controller, ITranslationData
+    public class TranslationController : Controller
     {   
         private readonly ITranslationData _translationRepo;
 
@@ -88,9 +88,7 @@ namespace OrdBaseCore.Controllers
                 return BadRequest();
             }
 
-            
-
-
+            return _translationRepo.Update(translation);
         }
     }
 }

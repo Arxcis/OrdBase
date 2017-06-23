@@ -100,7 +100,30 @@ namespace OrdBaseCore.Services
                                 translation);
         }
 
+        public IActionResult Update(Translation item) 
+        {   
+            var translation = _context.Translation.FirstOrDefault(
+                t => t.CId == item.CId &&
+                     t.Lang == item.Lang &&
+                     t.Box == item.Box &&
+                     t.Key == item.Key);
 
+            if (translation == null) 
+            {
+                return new NotFoundResult();
+            }
+
+            translation.Txt = translation.Txt;
+            translation.Ok = translation.Ok;
+            
+            _context.Translation.Update(translation);
+            _context.SaveChanges();
+            return new NoContentResult();
+        }
+
+        //
+        // TESTDATA add
+        //
         public static void AddTestData(TranslationDb context) 
         { 
             context.Translation.AddRange( 

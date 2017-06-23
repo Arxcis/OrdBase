@@ -16,5 +16,6 @@ namespace OrdBaseCore.IData
     	Translation[] GetOnAccessKey(string client, string accesskey);
     	Translation[] GetOnLanguage (string client, string language);
 		IActionResult Create(Translation Translation);
+		IActionResult Update(Translation Translation);
     }	
 }
