@@ -8,21 +8,22 @@ using OrdBaseCore.Models;
 namespace OrdBaseCore.Migrations
 {
     [DbContext(typeof(TranslationDb))]
-    [Migration("20170621234434_explicitStringLength")]
-    partial class explicitStringLength
+    [Migration("20170623104659_NewInitialMigrations")]
+    partial class NewInitialMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.1.2");
+                .HasAnnotation("ProductVersion", "1.1.2")
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("OrdBaseCore.Models.Client", b =>
                 {
                     b.Property<string>("Name")
-                        .HasMaxLength(32);
+                        .HasMaxLength(16);
 
                     b.Property<string>("ApiKey")
-                        .HasMaxLength(64);
+                        .HasMaxLength(32);
 
                     b.Property<DateTime?>("LastAccess");
 
@@ -39,7 +40,7 @@ namespace OrdBaseCore.Migrations
             modelBuilder.Entity("OrdBaseCore.Models.Language", b =>
                 {
                     b.Property<string>("Short")
-                        .HasMaxLength(7);
+                        .HasMaxLength(8);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -52,25 +53,25 @@ namespace OrdBaseCore.Migrations
 
             modelBuilder.Entity("OrdBaseCore.Models.Translation", b =>
                 {
-                    b.Property<string>("CId")
-                        .HasMaxLength(32);
+                    b.Property<string>("ClientName")
+                        .HasMaxLength(16);
 
                     b.Property<string>("Lang")
-                        .HasMaxLength(7);
+                        .HasMaxLength(8);
 
-                    b.Property<string>("Box")
-                        .HasMaxLength(32);
+                    b.Property<string>("Container")
+                        .HasMaxLength(16);
 
                     b.Property<string>("Key")
-                        .HasMaxLength(32);
+                        .HasMaxLength(16);
 
                     b.Property<bool>("Ok");
 
-                    b.Property<string>("Txt")
+                    b.Property<string>("Text")
                         .IsRequired()
-                        .HasMaxLength(2048);
+                        .HasMaxLength(255);
 
-                    b.HasKey("CId", "Lang", "Box", "Key");
+                    b.HasKey("ClientName", "Lang", "Container", "Key");
 
                     b.ToTable("Translation");
                 });

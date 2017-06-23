@@ -64,7 +64,6 @@ namespace OrdBaseCore.Controllers
         //
         // CREATE, UPDATE, DELETE REQUESTS
         //  @doc https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-vsc#implement-the-other-crud-operations|
-        [Route("api/translation/create")]
         [HttpPost]
         public IActionResult Create([FromBody] Translation translation) 
         {   
@@ -73,8 +72,7 @@ namespace OrdBaseCore.Controllers
             return _translationRepo.Create(translation);
         } 
 
-        [Route("api/{client}/translation/update/{container}/{accessKey}/{language}")]
-        [HttpPut]
+        [HttpPut("{client}/{container}/{accesskey}/{language}")]
         public IActionResult Update(string client, string language, string container, string accesskey,
                                          [FromBody] Translation translation)
         {   
@@ -88,8 +86,8 @@ namespace OrdBaseCore.Controllers
             //         database implementation, but again we could also say that for all the Translation[] 
             //           return types in the controller. - J Solsvik 23. 06. 17
             //
-            if (translation == null || translation.CId != client || translation.Lang != language
-                    || translation.Box != container || translation.Key != accesskey)
+            if (translation == null || translation.ClientName != client || translation.Lang != language
+                    || translation.Container != container || translation.Key != accesskey)
             { 
                 return BadRequest();
             }
@@ -97,7 +95,7 @@ namespace OrdBaseCore.Controllers
             return _translationRepo.Update(translation);
         }
 
-        [Route("api/{client}/translation/delete/{container}/{accessKey}/{language}")]
+        [HttpDelete("{client}/{container}/{accesskey}/{language}")]
         public IActionResult Delete(string client, string language, string container, string accesskey)
         {
             return _translationRepo.Delete(client, language, container, accesskey);

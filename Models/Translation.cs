@@ -5,19 +5,19 @@ namespace OrdBaseCore.Models
 {   
     public class Translation
     {
-        [ForeignKey("ClientNav")]
+        [ForeignKey("Client")]
         [StringLength(16)]
-        public string CId { get; set; } // ClientName
-        protected virtual Client ClientNav { get; set; }
+        public string ClientName { get; set; } // ClientName
+        protected virtual Client Client { get; set; }
 
-        [ForeignKey("LanguageNav")]
+        [ForeignKey("Language")]
         [StringLength(8)]
         public string Lang { get; set; } // LanguageShortName
-        protected virtual Language LanguageNav { get; set; }
+        protected virtual Language Language { get; set; }
 
         [StringLength(16)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public string Box { get; set; }
+        public string Container { get; set; }
         
         [Column(Order = 4)]
         [StringLength(16)]
@@ -26,7 +26,7 @@ namespace OrdBaseCore.Models
 
         [StringLength(255)]
         [Required]
-        public string Txt { get; set; }
+        public string Text { get; set; }
         
         [Required]
         public bool Ok { get; set; } // IsComplete

@@ -19,10 +19,10 @@ namespace OrdBaseCore.Services
         { 
             return (from t in _context.Translation
 
-                    where t.CId == client &&
+                    where t.ClientName == client &&
                           t.Key == accesskey
 
-                    group t by t.Box into grp
+                    group t by t.Container into grp
                     select grp.Key)
                         .Distinct()
                         .ToArray();
@@ -32,8 +32,8 @@ namespace OrdBaseCore.Services
         {
             return (from t in _context.Translation
 
-                    where t.CId == client
-                    select t.Box)
+                    where t.ClientName == client
+                    select t.Container)
                         .Distinct()
                         .ToArray();
                         

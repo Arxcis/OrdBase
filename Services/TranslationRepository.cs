@@ -19,9 +19,9 @@ namespace OrdBaseCore.Services
         {
             return (from t in _context.Translation
 
-                    where t.CId == client &&
+                    where t.ClientName == client &&
                           t.Lang == language &&
-                          t.Box == container &&
+                          t.Container == container &&
                           t.Key == accessKey
 
                     select t)
@@ -32,7 +32,7 @@ namespace OrdBaseCore.Services
         {
             return (from t in _context.Translation
 
-                    where t.CId == client
+                    where t.ClientName == client
                     select t)
                         .ToArray();
         }
@@ -41,11 +41,11 @@ namespace OrdBaseCore.Services
         {
             return (from t in _context.Translation
 
-                    where t.CId == client &&
-                          t.Box == container
+                    where t.ClientName == client &&
+                          t.Container == container
                     select new {
                         key = t.Key,
-                        txt = t.Txt,
+                        Text = t.Text,
                         }
                     );
         }
@@ -54,11 +54,11 @@ namespace OrdBaseCore.Services
         {
             return (from t in _context.Translation
 
-                    where t.CId == client &&
+                    where t.ClientName == client &&
                           t.Lang == language &&
-                          t.Box == container
+                          t.Container == container
                     select t)
-                        .ToDictionary(o => o.Key, o => o.Txt);
+                        .ToDictionary(o => o.Key, o => o.Text);
                        
             
            // return  x.ToDictionary(p => p.AccessKey, p => p.Text);    
@@ -68,7 +68,7 @@ namespace OrdBaseCore.Services
         {
             return (from t in _context.Translation
 
-                    where t.CId == client &&
+                    where t.ClientName == client &&
                           t.Key == accesskey
                     select t)
                         .ToArray();
@@ -78,7 +78,7 @@ namespace OrdBaseCore.Services
         {
             return (from t in _context.Translation
 
-                    where t.CId == client &&
+                    where t.ClientName == client &&
                           t.Lang == language
                     select t)
                         .ToArray();
@@ -93,8 +93,8 @@ namespace OrdBaseCore.Services
             _context.Translation.Add(translation);
             _context.SaveChanges();
             return new CreatedAtRouteResult ("api/{client}/translation/{container}/{accessKey}/{language}",
-                                new { client = translation.CId, 
-                                      container = translation.Box, 
+                                new { client = translation.ClientName, 
+                                      container = translation.Container, 
                                       accessKey = translation.Key,
                                       language = translation.Lang }, 
                                 translation);
@@ -104,9 +104,9 @@ namespace OrdBaseCore.Services
         {   
             // @note - Documentation suggest using FirstOrDefault here. I Do not fully understand what default means in this context - JSolsvik 23.06.17
             var translation = _context.Translation.First(
-                t => t.CId == item.CId &&
+                t => t.ClientName == item.ClientName &&
                      t.Lang == item.Lang &&
-                     t.Box == item.Box &&
+                     t.Container == item.Container &&
                      t.Key == item.Key);
 
             if (translation == null) 
@@ -114,7 +114,7 @@ namespace OrdBaseCore.Services
                 return new NotFoundResult {};
             }
 
-            translation.Txt = translation.Txt;
+            translation.Text = translation.Text;
             translation.Ok = translation.Ok;
             
             _context.Translation.Update(translation);
@@ -125,9 +125,9 @@ namespace OrdBaseCore.Services
         public IActionResult Delete(string client, string language, string container, string accesskey) 
         {   
             var translation = _context.Translation.First(
-                t => t.CId == client &&
+                t => t.ClientName == client &&
                      t.Lang == language &&
-                     t.Box == container &&
+                     t.Container == container &&
                      t.Key == accesskey);    
             
             if (translation == null)
@@ -146,10 +146,10 @@ namespace OrdBaseCore.Services
         public static void AddTestData(TranslationDb context) 
         { 
             context.Translation.AddRange( 
-                new Translation {  CId = "FMSF", Lang = "en",     Box = "Main"   , Key = "hello_world",  Txt = "Hello World"   , Ok = true,  },
-                new Translation {  CId = "FMSF", Lang = "no-nb",  Box = "Main"   , Key = "hello_world",  Txt = "Hallo verden"  , Ok = false, },
-                new Translation {  CId = "DIFI", Lang = "en",     Box = "Special", Key = "this_is_me",   Txt = "This is me!"   , Ok = false, },
-                new Translation {  CId = "DIFI", Lang = "no-nb",  Box = "Special", Key = "this_is_me",   Txt = "Dette er meg!" , Ok = true,  }
+                new Translation {  ClientName = "FMSF", Lang = "en",     Container = "Main"   , Key = "hello_world",  Text = "Hello World"   , Ok = true,  },
+                new Translation {  ClientName = "FMSF", Lang = "no-nb",  Container = "Main"   , Key = "hello_world",  Text = "Hallo verden"  , Ok = false, },
+                new Translation {  ClientName = "DIFI", Lang = "en",     Container = "Special", Key = "this_is_me",   Text = "This is me!"   , Ok = false, },
+                new Translation {  ClientName = "DIFI", Lang = "no-nb",  Container = "Special", Key = "this_is_me",   Text = "Dette er meg!" , Ok = true,  }
             );
             context.SaveChanges();
         }

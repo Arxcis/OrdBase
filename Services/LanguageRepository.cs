@@ -25,7 +25,7 @@ namespace OrdBaseCore.Services
         {
             return (from t in _context.Translation
                     join l in _context.Language on t.Lang equals l.Short
-                    join c in _context.Client on t.CId equals c.Name
+                    join c in _context.Client on t.ClientName equals c.Name
                     where c.Name == client
                     select l)
                         .ToArray();
