@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -57,6 +58,7 @@ namespace OrdBaseCore {
                     b => b.MigrationsAssembly("OrdBaseCore") )
                 
             );
+            services.AddDirectoryBrowser();
             services.AddMvc();
 
             services.AddTransient<IClientData,      ClientRepository>();
@@ -81,6 +83,9 @@ namespace OrdBaseCore {
                 app.UseDeveloperExceptionPage();
             }
             TranslationDb.Seed(context);
+            
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
             app.UseMvc();
        }
     }
