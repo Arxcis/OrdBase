@@ -102,7 +102,8 @@ namespace OrdBaseCore.Services
 
         public IActionResult Update(Translation item) 
         {   
-            var translation = _context.Translation.FirstOrDefault(
+            // @note - Documentation suggest using FirstOrDefault here. I Do not fully understand what default means in this context - JSolsvik 23.06.17
+            var translation = _context.Translation.First(
                 t => t.CId == item.CId &&
                      t.Lang == item.Lang &&
                      t.Box == item.Box &&
@@ -110,7 +111,7 @@ namespace OrdBaseCore.Services
 
             if (translation == null) 
             {
-                return new NotFoundResult();
+                return new NotFoundResult {};
             }
 
             translation.Txt = translation.Txt;
@@ -118,7 +119,25 @@ namespace OrdBaseCore.Services
             
             _context.Translation.Update(translation);
             _context.SaveChanges();
-            return new NoContentResult();
+            return new NoContentResult {};
+        }
+
+        public IActionResult Delete(string client, string language, string container, string accesskey) 
+        {   
+            var translation = _context.Translation.First(
+                t => t.CId == client &&
+                     t.Lang == language &&
+                     t.Box == container &&
+                     t.Key == accesskey);    
+            
+            if (translation == null)
+            {
+                return new NotFoundResult {};
+            }
+
+            _context.Translation.Remove(translation);
+            _context.SaveChanges();
+            return new NoContentResult {};
         }
 
         //

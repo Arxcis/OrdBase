@@ -17,5 +17,8 @@ namespace OrdBaseCore.IData
     	Translation[] GetOnLanguage (string client, string language);
 		IActionResult Create(Translation Translation);
 		IActionResult Update(Translation Translation);
+		
+		// ID == (string client, string language, string container, string accesskey) 
+		IActionResult Delete(string client, string language, string container, string accesskey);
     }	
 }
