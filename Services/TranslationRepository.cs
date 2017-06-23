@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -82,6 +83,23 @@ namespace OrdBaseCore.Services
                     select t)
                         .ToArray();
         }
+
+
+        //
+        // POST - Create, update, delete
+        //
+        public IActionResult Create(Translation translation) 
+        {
+            _context.Translation.Add(translation);
+            _context.SaveChanges();
+            return new CreatedAtRouteResult ("api/{client}/translation/{container}/{accessKey}/{language}",
+                                new { client = translation.CId, 
+                                      container = translation.Box, 
+                                      accessKey = translation.Key,
+                                      language = translation.Lang }, 
+                                translation);
+        }
+
 
         public static void AddTestData(TranslationDb context) 
         { 

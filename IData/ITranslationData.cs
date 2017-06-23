@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using OrdBaseCore.Models;
@@ -14,5 +15,6 @@ namespace OrdBaseCore.IData
     	Dictionary<string,string> GetOnContainer(string client, string languaage, string container);
     	Translation[] GetOnAccessKey(string client, string accesskey);
     	Translation[] GetOnLanguage (string client, string language);
+		IActionResult Create(Translation Translation);
     }	
 }
