@@ -1,18 +1,25 @@
-﻿using System;
+﻿// System
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
+// AspNetCore
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+
+// Extensions
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 
+// EntityFramework
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
+// OrdBase
 using OrdBaseCore.Models;
 using OrdBaseCore.IData;
 using OrdBaseCore.Services;
@@ -28,7 +35,7 @@ namespace OrdBaseCore {
         // @doc scoped vs transient vs singleton - https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection#service-lifetimes-and-registration-options
         
         public static IConfiguration Configuration { get; set; }
-        public static string SqlProvider = "MicrosoftSQLProvider";
+        public const string SqlProvider = "MySQLProvider";
 
         //
         // @function Startup
@@ -53,11 +60,12 @@ namespace OrdBaseCore {
 
             services.AddDbContext<TranslationDb>(options => 
                // options.UseInMemoryDatabase()
-                options.UseSqlServer(
+                options.UseMySql(
                     sqlConnectionString,
                     b => b.MigrationsAssembly("OrdBaseCore") )
                 
             );
+
             services.AddDirectoryBrowser();
             services.AddMvc();
 
@@ -95,7 +103,7 @@ namespace OrdBaseCore {
         public TranslationDb Create(DbContextFactoryOptions options)
         {
             var optionsBuilder = new DbContextOptionsBuilder<TranslationDb>();
-            optionsBuilder.UseSqlServer(Startup.Configuration.GetConnectionString(Startup.SqlProvider));
+            optionsBuilder.UseMySql(Startup.Configuration.GetConnectionString(Startup.SqlProvider));
 
             return new TranslationDb(optionsBuilder.Options);
         }

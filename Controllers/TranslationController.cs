@@ -64,6 +64,8 @@ namespace OrdBaseCore.Controllers
         //
         // CREATE, UPDATE, DELETE REQUESTS
         //  @doc https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-vsc#implement-the-other-crud-operations|
+        //
+        [Route("api/translation/create")]
         [HttpPost]
         public IActionResult Create([FromBody] Translation translation) 
         {   

@@ -92,6 +92,7 @@ namespace OrdBaseCore.Services
         {
             _context.Translation.Add(translation);
             _context.SaveChanges();
+            System.Console.Write("Hello from REpository");
             return new CreatedAtRouteResult ("api/{client}/translation/{container}/{accessKey}/{language}",
                                 new { client = translation.ClientName, 
                                       container = translation.Container, 
