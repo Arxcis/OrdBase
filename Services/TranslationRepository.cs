@@ -49,18 +49,18 @@ namespace OrdBaseCore.Services
                     );
         }
 
-        public IQueryable<object> GetOnContainer (string client, string language, string container) 
+         public Dictionary<string,string> GetOnContainer (string client, string language, string container) 
         {
             return (from t in _context.Translation
 
                     where t.CId == client &&
                           t.Lang == language &&
                           t.Box == container
-                    select new {
-                        key = t.Key,
-                        txt = t.Txt,
-                       }
-                    );
+                    select t)
+                        .ToDictionary(o => o.Key, o => o.Txt);
+                       
+            
+           // return  x.ToDictionary(p => p.AccessKey, p => p.Text);    
         }
 
         public Translation[] GetOnAccessKey(string client, string accesskey)

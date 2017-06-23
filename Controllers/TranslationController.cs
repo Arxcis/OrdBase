@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Linq;
 
 using OrdBaseCore.Models;
@@ -34,7 +35,7 @@ namespace OrdBaseCore.Controllers
         }
 
         [Route("api/{client}/translation/container/{container}/{language}")]
-        public IQueryable<object> GetOnContainer(string client, string language, string container)
+        public Dictionary<string,string> GetOnContainer(string client, string language, string container)
         {
             return _translationRepo.GetOnContainer(client, language, container); 
         }
