@@ -1,7 +1,5 @@
-obj/
 bin/
-HelpPage/
+obj/
 .vs/
 packages/
-fonts/
 .DS_Store
