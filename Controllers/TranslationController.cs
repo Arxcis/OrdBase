@@ -21,42 +21,42 @@ namespace OrdBaseCore.Controllers
         //
         [Route("api/{client}/translation/{container}/{accessKey}/{language}")]
         [HttpGet]
-    	public Translation[] Get(string client, string language, string container, string accesskey)
+    	public IEnumerable<Translation> Get(string client, string language, string container, string accesskey)
         {
             return _translationRepo.Get(client, language, container, accesskey); 
         }
         
         [Route("api/{client}/translation")]
         [HttpGet]
-        public Translation[] GetOnClient(string client)
+        public IEnumerable<Translation> GetOnClient(string client)
         {
             return _translationRepo.GetOnClient(client); 
         }
         
         [Route("api/{client}/translation/container/{container}")]
         [HttpGet]
-        public IQueryable<object> GetOnContainer(string client, string container)
+        public IEnumerable<object> GetOnContainer(string client, string container)
         {
             return _translationRepo.GetOnContainer(client, container); 
         }
 
         [Route("api/{client}/translation/container/{container}/{language}")]
         [HttpGet]
-        public Dictionary<string, string> GetOnContainer(string client, string language, string container)
+        public IEnumerable<KeyValuePair<string,string>> GetOnContainer(string client, string language, string container)
         {
             return _translationRepo.GetOnContainer(client, language, container); 
         }
 
         [Route("api/{client}/translation/accesskey/{accesskey}")]
         [HttpGet]
-        public Translation[] GetOnAccessKey(string client, string accesskey)
+        public IEnumerable<Translation> GetOnAccessKey(string client, string accesskey)
         {
             return _translationRepo.GetOnAccessKey(client, accesskey); 
         }
 
         [Route("api/{client}/translation/language/{language}")]
         [HttpGet]
-        public Translation[] GetOnLanguage(string client, string language)
+        public IEnumerable<Translation> GetOnLanguage(string client, string language)
         {
             return _translationRepo.GetOnLanguage(client, language); 
         }
