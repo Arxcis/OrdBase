@@ -1,13 +1,7 @@
-import translation from "translation.js"
-import language from "language.js"
-import client from "client.js"
-import container from "container.js"
+'use strict'
+import translation from 'translation';
+import language from 'language';
+import client from 'client';
+import container from 'container';
 
-export let api = (function() {
-    return {
-        translation: translation,
-        language: language,
-        client: client,
-        container: container,
-    }
-})();
+export default { translation, language, client, container }

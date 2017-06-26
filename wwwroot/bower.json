@@ -1,0 +1,22 @@
+{
+  "name": "OrdBase-Polymer",
+  "homepage": "https://github.com/Arxcis/OrdBase",
+  "authors": [
+    "Solsvik",
+    "Jonas <fmfsjoso@fylkesmannen.no>"
+  ],
+  "description": "Front end editor tool for the OrdBase",
+  "main": "index.html",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^2.0.1"
+  }
+}

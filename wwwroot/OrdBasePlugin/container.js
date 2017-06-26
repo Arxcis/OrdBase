@@ -1,17 +1,14 @@
-export let container = (function() {
+//
+// Module container
+//
 
-    return {
-        get: {
+let get = {
 
+        all: function (client) {
+            console.log("Getting all containers...");
         },
-        create: {
-
-        },
-        update: {
-
-        },
-        remove: {
-
+        onKey: function(client, key) {
+            console.log("Getting all key's containers...");
         }
-    }
-})();
+}
+export default { get }
