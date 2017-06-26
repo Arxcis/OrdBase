@@ -16,6 +16,9 @@ namespace OrdBaseCore.Services
             _context = context; 
         }
 
+        //
+        // GET
+        // 
         public IEnumerable<Client> Get(string name) 
         {
         	return (from c in _context.Client

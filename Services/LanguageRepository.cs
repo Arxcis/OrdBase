@@ -18,6 +18,10 @@ namespace OrdBaseCore.Services
         { 
             _context = context; 
         }
+
+        //
+        // GET
+        //
         public IEnumerable<Language> GetAll()
         {
             return _context.Language.ToArray();
@@ -33,7 +37,9 @@ namespace OrdBaseCore.Services
                         .ToArray();
         }
 
-
+        //
+        // CREATE
+        //
         public IActionResult Create(Language language )
         {
             _context.Language.Add(language);
@@ -41,6 +47,9 @@ namespace OrdBaseCore.Services
             return new NoContentResult{};
         }
 
+        //
+        // TESTDATA
+        //
         public static void AddTestData(TranslationDb context) 
         {
             context.Language.AddRange(

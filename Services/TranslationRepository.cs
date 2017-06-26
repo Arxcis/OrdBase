@@ -37,17 +37,14 @@ namespace OrdBaseCore.Services
                         .ToArray();
         }
         
-        public IEnumerable<object> GetOnContainer (string client, string container) 
+        public IEnumerable<Translation> GetOnContainer (string client, string container) 
         {
             return (from t in _context.Translation
 
                     where t.ClientKey == client &&
                           t.Container == container
-                    select new {
-                        key = t.Key,
-                        Text = t.Text,
-                        }
-                    );
+                    select t)
+                        .ToArray();
         }
 
          public IEnumerable<KeyValuePair<string,string>> GetOnContainer (string client, string language, string container) 

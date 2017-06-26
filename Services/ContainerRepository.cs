@@ -15,6 +15,12 @@ namespace OrdBaseCore.Services
 
         public ContainerRepository (TranslationDb context) 
         { _context = context; }
+        
+        //
+        // GET
+        //  @note This repository will not have any create,update,delete, because containers do not have their own 
+        //          table in the repository, but are part of the Translation table.
+        //
         public string[] Get(string client, string accesskey) 
         { 
             return (from t in _context.Translation

@@ -15,6 +15,9 @@ namespace OrdBaseCore.Controllers
             _languageRepo = languageRepo;
         }
 
+        //
+        // GET
+        //
         [Route("api/language")]
         public IEnumerable<Language> GetAll()
         {
@@ -28,8 +31,7 @@ namespace OrdBaseCore.Controllers
         }
 
         //
-        // CREATE, UPDATE, DELETE REQUESTS
-        //  @doc https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-vsc#implement-the-other-crud-operations|
+        // CREATE   @doc https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-vsc#implement-the-other-crud-operations|
         //
         [Route("api/create/client")]
         [HttpPost]
