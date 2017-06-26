@@ -1,155 +1,154 @@
-<dom-module name="ordbase-api">
-    <script>
-        var api = (function(){
-            'use strict'
+<script>
+    'use strict'
 
-            //
-            // @doc https://www.w3schools.com/xml/ajax_xmlhttprequest_response.asp
-            // @doc Destructuring arguments with default values ecma 6 - http://2ality.com/2015/01/es6-destructuring.html
-            //
-            function mandatory() {
-                throw new Error('Missing parameter');
-            }
+    var api = (function(){
 
-            //
-            // @function GETRequest() - 200 success code
-            //
-            function GETRequest({ 
-                route   = mandatory(), 
-                success = mandatory(),
-            } = {}) {
-                let xhttp = new XMLHttpRequest();
+        //
+        // @doc https://www.w3schools.com/xml/ajax_xmlhttprequest_response.asp
+        // @doc Destructuring arguments with default values ecma 6 - http://2ality.com/2015/01/es6-destructuring.html
+        //
+        function mandatory() {
+            throw new Error('Missing parameter');
+        }
 
-                xhttp.onreadystatechange = function () {
-                    if (this.readyState == 4) {
-                        console.log("STATUS: " + this.status);
-                        console.log("STATE:  " + this.readyState);
-                        if ( this.status == 200) {
-                            success(this);
-                        }  
-                    }
-                } 
-                xhttp.open("GET", route, true);  // asynce false on the main thread is depricated
-                xhttp.send();
-            }
+        //
+        // @function GETRequest() - 200 success code
+        //
+        function GETRequest({ 
+            route   = mandatory(), 
+            success = mandatory(),
+        } = {}) {
+            let xhttp = new XMLHttpRequest();
 
-            //
-            // @function POSTRequest - success code 201
-            //
-            function POSTRequest({
-                route = mandatory(),
-                success = mandatory(),
-                data = mandatory(),
-            } = {}) {
-                let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    console.log("STATUS: " + this.status);
+                    console.log("STATE:  " + this.readyState);
+                    if ( this.status == 200) {
+                        success(this);
+                    }  
+                }
+            } 
+            xhttp.open("GET", route, true);  // asynce false on the main thread is depricated
+            xhttp.send();
+        }
 
-                xhttp.onreadystatechange = function () {
-                    if (this.readyState == 4) { 
-                        console.log("STATUS: " + this.status);
-                        console.log("STATE:  " + this.readyState);
-                        if (this.status == 201) {
-                            success(this);
-                        }
+        //
+        // @function POSTRequest - success code 201
+        //
+        function POSTRequest({
+            route = mandatory(),
+            success = mandatory(),
+            data = mandatory(),
+        } = {}) {
+            let xhttp = new XMLHttpRequest();
+
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4) { 
+                    console.log("STATUS: " + this.status);
+                    console.log("STATE:  " + this.readyState);
+                    if (this.status == 201) {
+                        success(this);
                     }
                 }
-
-                xhttp.open("POST", route, true);
-                xhttp.setRequestHeader("Content-type", "application/json");
-                xhttp.send(JSON.stringify(data));
             }
 
-            //
-            // @module api - to be exported
-            //
-            let api = {}     // @adivce ES6 - adobt using let and const, stop using var
+            xhttp.open("POST", route, true);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.send(JSON.stringify(data));
+        }
 
-            api.client = {
-                getAll() {
+        //
+        // @module api - to be exported
+        //
+        let api = {}     // @adivce ES6 - adobt using let and const, stop using var
+
+        api.client = {
+            getAll() {
+                GETRequest({
+                    route: "api/client",
+                    success: function(data) {
+                        console.log(data.responseText);
+                    },
+                });
+            },
+
+            get(client) {
                     GETRequest({
-                        route: "api/client",
-                        success: function(data) {
-                            console.log(data.responseText);
-                        },
+                        route: "api/" + client,
+                        success: function(body) {
+                            console.log(body.responseText);
+                        }
                     });
-                },
+            },
 
-                get(client) {
-                        GETRequest({
-                            route: "api/" + client,
-                            success: function(body) {
-                                console.log(body.responseText);
-                            }
-                        });
-                },
+            create(client) {
+                POSTRequest({
+                    route: "api/client/create",
+                    success: function (body) {
+                        console.log("Resource created...");
+                    },
+                    data: client,
+                });
+            }   
+        };
 
-                create(client) {
-                    POSTRequest({
-                        route: "api/client/create",
-                        success: function (body) {
-                            console.log("Resource created...");
-                        },
-                        data: client,
-                    });
-                }   
-            };
+        api.container = {  
+            getOnClient(client) {
+                console.log("Getting all containers...");
+            },
 
-            api.container = {  
-                getOnClient(client) {
-                    console.log("Getting all containers...");
-                },
+            getOnKey(client, key) {
+                console.log("Getting all key's containers...");
+            }
+        };
 
-                getOnKey(client, key) {
-                    console.log("Getting all key's containers...");
-                }
-            };
+        api.language = {
+            getAll() {
+                console.log("Getting all languages...");
+            },
+            getOnClient (client) {
+                console.log("Getting client languages...");
+            },
+    
+            create(language) {
+                console.log("Creating a new language...");
+            }
+        };
 
-            api.language = {
-                getAll() {
-                    console.log("Getting all languages...");
-                },
-                getOnClient (client) {
-                    console.log("Getting client languages...");
-                },
+        api.translation = {
         
-                create(language) {
-                    console.log("Creating a new language...");
-                }
-            };
+            get(client, container, key, language) { console.log("Getting one translation..."); },
+            getOnClient (client) {  console.log("Getting all translation...");  },
+            getOnContainer(client, container) { console.log("Getting translation on container..."); },
+            getOnKey(client, key) { console.log("Getting translation on key...");  },
+        
 
-            api.translation = {
-            
-                get(client, container, key, language) { console.log("Getting one translation..."); },
-                getOnClient (client) {  console.log("Getting all translation...");  },
-                getOnContainer(client, container) { console.log("Getting translation on container..."); },
-                getOnKey(client, key) { console.log("Getting translation on key...");  },
-            
+            create(translation) {  
+                console.log("Creating translation...");  
+            },
 
-                create(translation) {  
-                    console.log("Creating translation...");  
-                },
+            update(translation) {  
+                console.log("Updating translation...");  
+            },
 
-                update(translation) {  
-                    console.log("Updating translation...");  
-                },
+            remove(key)         {  
+                console.log("Removing translation..."); 
+            },
+        };
 
-                remove(key)         {  
-                    console.log("Removing translation..."); 
-                },
-            };
+        return api;
+    })();
 
-            return api;
-        })();
+    // Test 
+    (function() {
+        api.client.get("fmsf"); 
+        api.translation.get("fmsf", "main", "heading", "en") 
 
-        // Test 
-        (function() {
-            api.client.get("fmsf"); 
-            api.translation.get("fmsf", "main", "heading", "en") 
-
-            api.client.getAll();
-            api.client.create({
-                Name: "soldata.no",
-                ApiKey: 42,
-            });
-        })();
-    </script>
-</dom-module>
+        api.client.getAll();
+        api.client.create({
+            Name: "soldata.no",
+            ApiKey: 42,
+        });
+    })();
+</script>
