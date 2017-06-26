@@ -31,9 +31,9 @@ namespace OrdBaseCore.Controllers
     	}
 
         //
-        // CREATE  @doc https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-vsc#implement-the-other-crud-operations|
+        // CREATE, UPDATE, DELETE  @doc https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-vsc#implement-the-other-crud-operations|
         //
-        [Route("api/create/client")]
+        [Route("api/client/create")]
         [HttpPost]
         public IActionResult Create([FromBody] Client client) 
         {   

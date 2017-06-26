@@ -33,7 +33,7 @@ namespace OrdBaseCore.Services
         }
 
         //
-        // Create
+        // CREATE
         //
         public IActionResult Create(Client client) 
         {

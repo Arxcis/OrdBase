@@ -38,13 +38,38 @@ namespace OrdBaseCore.Services
         }
 
         //
-        // CREATE
+        // CREATE, UPDATE, DELETE
         //
         public IActionResult Create(Language language )
         {
             _context.Language.Add(language);
             _context.SaveChanges();
             return new NoContentResult{};
+        }
+
+        public IActionResult Update(Language item) 
+        {
+            var language = _context.Language.First( t => t.Key == item.Key);
+            if (language == null) 
+                return new NotFoundResult{};
+
+            language.Name = item.Name;
+
+            _context.Language.Update(language);
+            _context.SaveChanges();
+            return new NoContentResult {};
+        }
+
+        public IActionResult Delete(string key) 
+        {
+            var language = _context.Language.First(t => t.Key == key);
+
+            if (language == null)
+                return new NotFoundResult {};
+
+            _context.Language.Remove(language);
+            _context.SaveChanges();
+            return new NoContentResult {};
         }
 
         //

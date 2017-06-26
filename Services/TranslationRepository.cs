@@ -110,12 +110,10 @@ namespace OrdBaseCore.Services
                      t.Key == item.Key);
 
             if (translation == null) 
-            {
                 return new NotFoundResult {};
-            }
 
-            translation.Text = translation.Text;
-            translation.Done = translation.Done;
+            translation.Text = item.Text;
+            translation.Done = item.Done;
             
             _context.Translation.Update(translation);
             _context.SaveChanges();
@@ -131,9 +129,7 @@ namespace OrdBaseCore.Services
                      t.Key == accesskey);    
             
             if (translation == null)
-            {
                 return new NotFoundResult {};
-            }
 
             _context.Translation.Remove(translation);
             _context.SaveChanges();
