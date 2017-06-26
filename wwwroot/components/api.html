@@ -1,0 +1,70 @@
+<dom-module name="ordbase-api">
+    <script>
+        var api = (function(){
+            'use strict'
+
+            let pub = {}
+
+            pub.client = {
+                getAll() {
+                        console.log("Getting all clients..."); 
+                },
+
+                get(client) {
+                        console.log("Getting one client..."); 
+                },
+
+                create(client) {
+                        console.log("Creating client..."); 
+                }   
+            
+            };
+
+            pub.container = {  
+                getOnClient(client) {
+                    console.log("Getting all containers...");
+                },
+
+                getOnKey(client, key) {
+                    console.log("Getting all key's containers...");
+                }
+            };
+
+            pub.language = {
+                getAll() {
+                    console.log("Getting all languages...");
+                },
+                getOnClient (client) {
+                    console.log("Getting client languages...");
+                },
+        
+                create(language) {
+                    console.log("Creating a new language...");
+                }
+            };
+
+            pub.translation = {
+            
+                get(client, container, key, language) { console.log("Getting one translation..."); },
+                getOnClient (client) {  console.log("Getting all translation...");  },
+                getOnContainer(client, container) { console.log("Getting translation on container..."); },
+                getOnKey(client, key) { console.log("Getting translation on key...");  },
+            
+
+                create(translation) {  
+                    console.log("Creating translation...");  
+                },
+
+                update(translation) {  
+                    console.log("Updating translation...");  
+                },
+
+                remove(key)         {  
+                    console.log("Removing translation..."); 
+                },
+            };
+
+            return pub;
+        })();
+    </script>
+</dom-module>
