@@ -89,7 +89,7 @@ namespace OrdBaseCore.Controllers
             //         database implementation, but again we could also say that for all the Translation[] 
             //           return types in the controller. - J Solsvik 23. 06. 17
             //
-            if (translation == null || translation.ClientName != client || translation.Lang != language
+            if (translation == null || translation.ClientKey != client || translation.LanguageKey != language
                     || translation.Container != container || translation.Key != accesskey)
             { 
                 return BadRequest();

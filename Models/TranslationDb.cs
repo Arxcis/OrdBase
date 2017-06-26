@@ -30,8 +30,8 @@ namespace OrdBaseCore.Models
             
             modelBuilder.Entity<Translation>()
             .HasKey(t => new { 
-                t.ClientName, 
-                t.Lang,
+                t.ClientKey, 
+                t.LanguageKey,
                 t.Container,
                 t.Key
             });

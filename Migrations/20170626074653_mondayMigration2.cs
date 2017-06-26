@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OrdBaseCore.Migrations
 {
-    public partial class NewInitialMigrations : Migration
+    public partial class mondayMigration2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

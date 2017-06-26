@@ -24,8 +24,8 @@ namespace OrdBaseCore.Services
         public Language[] GetOnClient(string client)
         {
             return (from t in _context.Translation
-                    join l in _context.Language on t.Lang equals l.Short
-                    join c in _context.Client on t.ClientName equals c.Name
+                    join l in _context.Language on t.LanguageKey equals l.Key
+                    join c in _context.Client on t.ClientKey equals c.Name
                     where c.Name == client
                     select l)
                         .ToArray();
@@ -34,10 +34,10 @@ namespace OrdBaseCore.Services
         public static void AddTestData(TranslationDb context) 
         {
             context.Language.AddRange(
-                new Language { Name = "Norwegian", Short = "no-nb" },
-                new Language { Name = "Swedish",   Short = "sv"    },
-                new Language { Name = "Danish",    Short = "da"    },
-                new Language { Name = "English",   Short = "en"    }
+                new Language { Name = "Norwegian", Key = "no-nb" },
+                new Language { Name = "Swedish",   Key = "sv"    },
+                new Language { Name = "Danish",    Key = "da"    },
+                new Language { Name = "English",   Key = "en"    }
             );
             context.SaveChanges();
         }

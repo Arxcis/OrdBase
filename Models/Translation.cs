@@ -7,12 +7,12 @@ namespace OrdBaseCore.Models
     {
         [ForeignKey("Client")]
         [StringLength(127)]
-        public string ClientName { get; set; } // ClientName
+        public string ClientKey { get; set; } 
         protected virtual Client Client { get; set; }
 
         [ForeignKey("Language")]
         [StringLength(32)]
-        public string Lang { get; set; } // LanguageShortName
+        public string LanguageKey { get; set; }
         protected virtual Language Language { get; set; }
 
         [StringLength(127)]
@@ -22,13 +22,13 @@ namespace OrdBaseCore.Models
         [Column(Order = 4)]
         [StringLength(127)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public string Key { get; set; } // AccessKey
+        public string Key { get; set; } 
 
         [StringLength(255)]
         [Required]
         public string Text { get; set; }
         
         [Required]
-        public bool Ok { get; set; } // IsComplete
+        public bool Done { get; set; } // IsComplete
     }
 }

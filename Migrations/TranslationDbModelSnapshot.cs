@@ -13,7 +13,8 @@ namespace OrdBaseCore.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.1.2");
+                .HasAnnotation("ProductVersion", "1.1.2")
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("OrdBaseCore.Models.Client", b =>
                 {
@@ -37,24 +38,24 @@ namespace OrdBaseCore.Migrations
 
             modelBuilder.Entity("OrdBaseCore.Models.Language", b =>
                 {
-                    b.Property<string>("Short")
+                    b.Property<string>("Key")
                         .HasMaxLength(32);
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(127);
 
-                    b.HasKey("Short");
+                    b.HasKey("Key");
 
                     b.ToTable("Language");
                 });
 
             modelBuilder.Entity("OrdBaseCore.Models.Translation", b =>
                 {
-                    b.Property<string>("ClientName")
+                    b.Property<string>("ClientKey")
                         .HasMaxLength(127);
 
-                    b.Property<string>("Lang")
+                    b.Property<string>("LanguageKey")
                         .HasMaxLength(32);
 
                     b.Property<string>("Container")
@@ -63,13 +64,13 @@ namespace OrdBaseCore.Migrations
                     b.Property<string>("Key")
                         .HasMaxLength(127);
 
-                    b.Property<bool>("Ok");
+                    b.Property<bool>("Done");
 
                     b.Property<string>("Text")
                         .IsRequired()
                         .HasMaxLength(255);
 
-                    b.HasKey("ClientName", "Lang", "Container", "Key");
+                    b.HasKey("ClientKey", "LanguageKey", "Container", "Key");
 
                     b.ToTable("Translation");
                 });
