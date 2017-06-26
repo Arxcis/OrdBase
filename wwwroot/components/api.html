@@ -3,24 +3,97 @@
         var api = (function(){
             'use strict'
 
-            let pub = {}
+            //
+            // @doc https://www.w3schools.com/xml/ajax_xmlhttprequest_response.asp
+            // @doc Destructuring arguments with default values ecma 6 - http://2ality.com/2015/01/es6-destructuring.html
+            //
+            function mandatory() {
+                throw new Error('Missing parameter');
+            }
 
-            pub.client = {
+            //
+            // @function GETRequest() - 200 success code
+            //
+            function GETRequest({ 
+                route   = mandatory(), 
+                success = mandatory(),
+            } = {}) {
+                let xhttp = new XMLHttpRequest();
+
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4) {
+                        console.log("STATUS: " + this.status);
+                        console.log("STATE:  " + this.readyState);
+                        if ( this.status == 200) {
+                            success(this);
+                        }  
+                    }
+                } 
+                xhttp.open("GET", route, true);  // asynce false on the main thread is depricated
+                xhttp.send();
+            }
+
+            //
+            // @function POSTRequest - success code 201
+            //
+            function POSTRequest({
+                route = mandatory(),
+                success = mandatory(),
+                data = mandatory(),
+            } = {}) {
+                let xhttp = new XMLHttpRequest();
+
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4) { 
+                        console.log("STATUS: " + this.status);
+                        console.log("STATE:  " + this.readyState);
+                        if (this.status == 201) {
+                            success(this);
+                        }
+                    }
+                }
+
+                xhttp.open("POST", route, true);
+                xhttp.setRequestHeader("Content-type", "application/json");
+                xhttp.send(JSON.stringify(data));
+            }
+
+            //
+            // @module api - to be exported
+            //
+            let api = {}     // @adivce ES6 - adobt using let and const, stop using var
+
+            api.client = {
                 getAll() {
-                        console.log("Getting all clients..."); 
+                    GETRequest({
+                        route: "api/client",
+                        success: function(data) {
+                            console.log(data.responseText);
+                        },
+                    });
                 },
 
                 get(client) {
-                        console.log("Getting one client..."); 
+                        GETRequest({
+                            route: "api/" + client,
+                            success: function(body) {
+                                console.log(body.responseText);
+                            }
+                        });
                 },
 
                 create(client) {
-                        console.log("Creating client..."); 
+                    POSTRequest({
+                        route: "api/client/create",
+                        success: function (body) {
+                            console.log("Resource created...");
+                        },
+                        data: client,
+                    });
                 }   
-            
             };
 
-            pub.container = {  
+            api.container = {  
                 getOnClient(client) {
                     console.log("Getting all containers...");
                 },
@@ -30,7 +103,7 @@
                 }
             };
 
-            pub.language = {
+            api.language = {
                 getAll() {
                     console.log("Getting all languages...");
                 },
@@ -43,7 +116,7 @@
                 }
             };
 
-            pub.translation = {
+            api.translation = {
             
                 get(client, container, key, language) { console.log("Getting one translation..."); },
                 getOnClient (client) {  console.log("Getting all translation...");  },
@@ -64,7 +137,19 @@
                 },
             };
 
-            return pub;
+            return api;
+        })();
+
+        // Test 
+        (function() {
+            api.client.get("fmsf"); 
+            api.translation.get("fmsf", "main", "heading", "en") 
+
+            api.client.getAll();
+            api.client.create({
+                Name: "soldata.no",
+                ApiKey: 42,
+            });
         })();
     </script>
 </dom-module>

@@ -35,7 +35,7 @@ namespace OrdBaseCore {
         // @doc scoped vs transient vs singleton - https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection#service-lifetimes-and-registration-options
         
         public static IConfiguration Configuration { get; set; }
-        public const string SqlProvider = "MicrosoftSQLProvider";
+        public const string SqlProvider = "MySQLProvider";
 
         //
         // @function Startup
@@ -60,7 +60,7 @@ namespace OrdBaseCore {
 
             services.AddDbContext<TranslationDb>(options => 
                // options.UseInMemoryDatabase()
-                options.UseSqlServer(
+                options.UseMySql (
                     sqlConnectionString,
                     b => b.MigrationsAssembly("OrdBaseCore") )
                 
@@ -103,7 +103,7 @@ namespace OrdBaseCore {
         public TranslationDb Create(DbContextFactoryOptions options)
         {
             var optionsBuilder = new DbContextOptionsBuilder<TranslationDb>();
-            optionsBuilder.UseSqlServer(Startup.Configuration.GetConnectionString(Startup.SqlProvider));
+            optionsBuilder.UseMySql(Startup.Configuration.GetConnectionString(Startup.SqlProvider));
 
             return new TranslationDb(optionsBuilder.Options);
         }
