@@ -4,8 +4,20 @@
         <meta charset="utf-8">
         <title>Editor - OrdBase</title>
         <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-        <link   rel="import" href="components/api.html"> 
+
+        <link rel="import" href="bower_components/paper-listbox/paper-listbox.html">
+        <link rel="import" href="components/api.html"> 
     </head>
 
-    <body><h1>Staticly served</h1></body>
+    <body>
+        <h1>Staticly served</h1>
+        
+        <paper-listbox multi>
+            <paper-item>Inbox</paper-item>
+            <paper-item>Starred</paper-item>
+            <paper-item>Sent mail</paper-item>
+            <paper-item>Drafts</paper-item>
+        </paper-listbox>
+
+    </body>
 </html>
