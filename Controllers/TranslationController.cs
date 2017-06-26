@@ -19,43 +19,37 @@ namespace OrdBaseCore.Controllers
         //
         // GET REQUESTS
         //
-        [Route("api/{client}/translation/{container}/{accessKey}/{language}")]
-        [HttpGet]
+        [HttpGet("api/{client}/translation/{container}/{accessKey}/{language}")]
     	public IEnumerable<Translation> Get(string client, string language, string container, string accesskey)
         {
             return _translationRepo.Get(client, language, container, accesskey); 
         }
         
-        [Route("api/{client}/translation")]
-        [HttpGet]
+        [HttpGet("api/{client}/translation")]
         public IEnumerable<Translation> GetOnClient(string client)
         {
             return _translationRepo.GetOnClient(client); 
         }
         
-        [Route("api/{client}/translation/container/{container}")]
-        [HttpGet]
+        [HttpGet("api/{client}/translation/container/{container}")]
         public IEnumerable<object> GetOnContainer(string client, string container)
         {
             return _translationRepo.GetOnContainer(client, container); 
         }
 
-        [Route("api/{client}/translation/container/{container}/{language}")]
-        [HttpGet]
+        [HttpGet("api/{client}/translation/container/{container}/{language}")]
         public IEnumerable<KeyValuePair<string,string>> GetOnContainer(string client, string language, string container)
         {
             return _translationRepo.GetOnContainer(client, language, container); 
         }
 
-        [Route("api/{client}/translation/accesskey/{accesskey}")]
-        [HttpGet]
+        [HttpGet("api/{client}/translation/accesskey/{accesskey}")]
         public IEnumerable<Translation> GetOnAccessKey(string client, string accesskey)
         {
             return _translationRepo.GetOnAccessKey(client, accesskey); 
         }
 
-        [Route("api/{client}/translation/language/{language}")]
-        [HttpGet]
+        [HttpGet("api/{client}/translation/language/{language}")]
         public IEnumerable<Translation> GetOnLanguage(string client, string language)
         {
             return _translationRepo.GetOnLanguage(client, language); 
@@ -65,8 +59,7 @@ namespace OrdBaseCore.Controllers
         // CREATE, UPDATE, DELETE REQUESTS
         //  @doc https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-vsc#implement-the-other-crud-operations|
         //
-        [Route("api/translation/create")]
-        [HttpPost]
+        [HttpPost("api/translation/create")]
         public IActionResult Create([FromBody] Translation translation) 
         {   
             if (translation == null)
@@ -74,8 +67,7 @@ namespace OrdBaseCore.Controllers
             return _translationRepo.Create(translation);
         } 
 
-        [Route("api/translation/update/{client}/{container}/{accesskey}/{language}")]
-        [HttpPut]
+        [HttpPut("api/translation/update/{client}/{container}/{accesskey}/{language}")]
         public IActionResult Update(string client, string language, string container, string accesskey,
                                          [FromBody] Translation translation)
         {   
@@ -97,8 +89,7 @@ namespace OrdBaseCore.Controllers
             return _translationRepo.Update(translation);
         }
 
-        [Route("api/translation/delete/{client}/{container}/{accesskey}/{language}")]
-        [HttpDelete]
+        [HttpDelete("api/translation/delete/{client}/{container}/{accesskey}/{language}")]
         public IActionResult Delete(string client, string language, string container, string accesskey)
         {
             return _translationRepo.Delete(client, language, container, accesskey);

@@ -18,13 +18,13 @@ namespace OrdBaseCore.Controllers
         //
         // GET
         //
-    	[Route("api/client")]
+    	[HttpGet("api/client")]
     	public IEnumerable<Client> GetAll()
     	{
     		return _clientRepo.GetAll();
     	}
 
-    	[Route("api/{client}")]
+    	[HttpGet("api/{client}")]
     	public IEnumerable<Client> Get(string client) 
     	{
             return _clientRepo.Get(client);
@@ -33,8 +33,7 @@ namespace OrdBaseCore.Controllers
         //
         // CREATE, UPDATE, DELETE  @doc https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-vsc#implement-the-other-crud-operations|
         //
-        [Route("api/client/create")]
-        [HttpPost]
+        [HttpPost("api/client/create")]
         public IActionResult Create([FromBody] Client client) 
         {   
             if (client == null)

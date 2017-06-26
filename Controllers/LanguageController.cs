@@ -18,13 +18,13 @@ namespace OrdBaseCore.Controllers
         //
         // GET
         //
-        [Route("api/language")]
+        [HttpGet("api/language")]
         public IEnumerable<Language> GetAll()
         {
             return _languageRepo.GetAll();
         }
 
-        [Route("api/{client}/language")]
+        [HttpGet("api/{client}/language")]
         public IEnumerable<Language> GetOnClient(string client) 
         {
             return _languageRepo.GetOnClient(client);
@@ -33,8 +33,7 @@ namespace OrdBaseCore.Controllers
         //
         // CREATE, UPDATE, DELETE   @doc https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-vsc#implement-the-other-crud-operations|
         //
-        [Route("api/language/create")]
-        [HttpPost]
+        [HttpPost("api/language/create")]
         public IActionResult Create([FromBody] Language language) 
         {   
             if (language == null)
@@ -42,8 +41,7 @@ namespace OrdBaseCore.Controllers
             return _languageRepo.Create(language);
         } 
 
-        [Route("api/language/update/{key}")]
-        [HttpPut]
+        [HttpPut("api/language/update/{key}")]
         public IActionResult Update(string key, [FromBody]Language language) 
         {
             if (language == null && language.Key != key) 
@@ -52,8 +50,7 @@ namespace OrdBaseCore.Controllers
             return _languageRepo.Update(language);
         }
 
-        [Route("api/language/delete/{key}")]
-        [HttpDelete]
+        [HttpDelete("api/language/delete/{key}")]
         public IActionResult Delete(string key) 
         {
             return _languageRepo.Delete(key);
