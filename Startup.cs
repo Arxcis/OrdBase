@@ -90,7 +90,7 @@ namespace OrdBaseCore {
             {
                 app.UseDeveloperExceptionPage();
             }
-            TranslationDb.Seed(context);
+           // TranslationDb.Seed(context);
             
             app.UseDefaultFiles();
             app.UseStaticFiles();

@@ -92,12 +92,7 @@ namespace OrdBaseCore.Services
             //
             _context.Translation.Add(translation);
             _context.SaveChanges();
-            return new CreatedAtRouteResult ("api/{client}/translation/{container}/{accessKey}/{language}",
-                                new { client = translation.ClientKey, 
-                                      container = translation.Container, 
-                                      accessKey = translation.Key,
-                                      language = translation.LanguageKey }, 
-                                translation);
+            return new NoContentResult {};
         }
 
         public IActionResult Update(Translation item) 

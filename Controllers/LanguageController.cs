@@ -44,7 +44,7 @@ namespace OrdBaseCore.Controllers
         [HttpPut("api/language/update/{key}")]
         public IActionResult Update(string key, [FromBody]Language language) 
         {
-            if (language == null && language.Key != key) 
+            if (language == null || language.Key != key) 
                 return BadRequest();
 
             return _languageRepo.Update(language);
