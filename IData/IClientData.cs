@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using OrdBaseCore.Models;
 
@@ -5,8 +6,8 @@ namespace OrdBaseCore.IData
 {
     public interface IClientData
     {
-        Client[] Get(string name);
-        Client[] GetAll();
+        IEnumerable<Client> Get(string name);
+        IEnumerable<Client> GetAll();
         
         IActionResult Create(Client client);
     }	

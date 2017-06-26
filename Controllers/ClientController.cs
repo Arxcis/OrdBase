@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+
 using OrdBaseCore.Models;
 using OrdBaseCore.IData;
 
@@ -14,13 +16,13 @@ namespace OrdBaseCore.Controllers
         }
 
     	[Route("api/client")]
-    	public Client[] GetAll()
+    	public IEnumerable<Client> GetAll()
     	{
     		return _clientRepo.GetAll();
     	}
 
     	[Route("api/{client}")]
-    	public Client[] Get(string client) 
+    	public IEnumerable<Client> Get(string client) 
     	{
             return _clientRepo.Get(client);
     	}
@@ -35,6 +37,7 @@ namespace OrdBaseCore.Controllers
         {   
             if (client == null)
                 return  BadRequest();
+                
             return _clientRepo.Create(client);
         } 
     }

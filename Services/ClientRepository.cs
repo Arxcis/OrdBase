@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 
 using OrdBaseCore.Models;
@@ -15,7 +16,7 @@ namespace OrdBaseCore.Services
             _context = context; 
         }
 
-        public Client[] Get(string name) 
+        public IEnumerable<Client> Get(string name) 
         {
         	return (from c in _context.Client
         			where c.Name == name
@@ -23,7 +24,7 @@ namespace OrdBaseCore.Services
         				.ToArray();
         } 
 
-        public Client[] GetAll() 
+        public IEnumerable<Client> GetAll() 
         {
         	return _context.Client.ToArray();
         }

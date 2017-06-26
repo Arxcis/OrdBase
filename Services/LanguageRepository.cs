@@ -1,4 +1,6 @@
 using System.Linq;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 
 using OrdBaseCore.Models;
 using OrdBaseCore.IData;
@@ -16,12 +18,12 @@ namespace OrdBaseCore.Services
         { 
             _context = context; 
         }
-        public Language[] GetAll()
+        public IEnumerable<Language> GetAll()
         {
             return _context.Language.ToArray();
         }
 
-        public Language[] GetOnClient(string client)
+        public IEnumerable<Language> GetOnClient(string client)
         {
             return (from t in _context.Translation
                     join l in _context.Language on t.LanguageKey equals l.Key
@@ -30,7 +32,15 @@ namespace OrdBaseCore.Services
                     select l)
                         .ToArray();
         }
-        
+
+
+        public IActionResult Create(Language language )
+        {
+            _context.Language.Add(language);
+            _context.SaveChanges();
+            return new NoContentResult{};
+        }
+
         public static void AddTestData(TranslationDb context) 
         {
             context.Language.AddRange(

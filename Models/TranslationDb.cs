@@ -29,24 +29,24 @@ namespace OrdBaseCore.Models
 
             
             modelBuilder.Entity<Translation>()
-            .HasKey(t => new { 
-                t.ClientKey, 
-                t.LanguageKey,
-                t.Container,
-                t.Key
-            });
+                .HasKey(t => new { 
+                    t.ClientKey, 
+                    t.LanguageKey,
+                    t.Container,
+                    t.Key
+                });
         }
 
         public static void Seed(TranslationDb context) 
         {
-            //context.Database.EnsureDeleted();
-            //context.Database.EnsureCreated();
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
             
-           // LanguageRepository.AddTestData(context);
-            //ClientRepository.AddTestData(context);
-            //TranslationRepository.AddTestData(context);
+            LanguageRepository.AddTestData(context);
+            ClientRepository.AddTestData(context);
+            TranslationRepository.AddTestData(context);
 
-            //context.SaveChanges();
+            context.SaveChanges();
             context.Dispose();
         }
     }

@@ -15,7 +15,7 @@ namespace OrdBaseCore.Services
         { 
             _context = context; 
         }
-        public Translation[] Get (string client, string language, string container, string accessKey)
+        public IEnumerable<Translation> Get (string client, string language, string container, string accessKey)
         {
             return (from t in _context.Translation
 
@@ -28,7 +28,7 @@ namespace OrdBaseCore.Services
                         .ToArray();        
         }
 
-        public Translation[] GetOnClient   (string client)
+        public IEnumerable<Translation> GetOnClient   (string client)
         {
             return (from t in _context.Translation
 
@@ -37,7 +37,7 @@ namespace OrdBaseCore.Services
                         .ToArray();
         }
         
-        public IQueryable<object> GetOnContainer (string client, string container) 
+        public IEnumerable<object> GetOnContainer (string client, string container) 
         {
             return (from t in _context.Translation
 
@@ -50,7 +50,7 @@ namespace OrdBaseCore.Services
                     );
         }
 
-         public Dictionary<string,string> GetOnContainer (string client, string language, string container) 
+         public IEnumerable<KeyValuePair<string,string>> GetOnContainer (string client, string language, string container) 
         {
             return (from t in _context.Translation
 
@@ -64,7 +64,7 @@ namespace OrdBaseCore.Services
            // return  x.ToDictionary(p => p.AccessKey, p => p.Text);    
         }
 
-        public Translation[] GetOnAccessKey(string client, string accesskey)
+        public IEnumerable<Translation> GetOnAccessKey(string client, string accesskey)
         {
             return (from t in _context.Translation
 
@@ -74,7 +74,7 @@ namespace OrdBaseCore.Services
                         .ToArray();
         }
 
-        public Translation[] GetOnLanguage(string client, string language)
+        public IEnumerable<Translation> GetOnLanguage(string client, string language)
         {
             return (from t in _context.Translation
 

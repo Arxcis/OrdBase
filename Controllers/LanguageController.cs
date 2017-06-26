@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 
 using OrdBaseCore.Models;
@@ -5,7 +6,7 @@ using OrdBaseCore.IData;
 
 namespace OrdBaseCore.Controllers
 {
-    public class LanguageController : Controller, ILanguageData
+    public class LanguageController : Controller
     {
         private readonly ILanguageData _languageRepo;
 
@@ -15,15 +16,28 @@ namespace OrdBaseCore.Controllers
         }
 
         [Route("api/language")]
-        public Language[] GetAll()
+        public IEnumerable<Language> GetAll()
         {
             return _languageRepo.GetAll();
         }
 
         [Route("api/{client}/language")]
-        public Language[] GetOnClient(string client) 
+        public IEnumerable<Language> GetOnClient(string client) 
         {
             return _languageRepo.GetOnClient(client);
         }
+
+        //
+        // CREATE, UPDATE, DELETE REQUESTS
+        //  @doc https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-vsc#implement-the-other-crud-operations|
+        //
+        [Route("api/create/client")]
+        [HttpPost]
+        public IActionResult Create([FromBody] Language language) 
+        {   
+            if (language == null)
+                return  BadRequest();
+            return _languageRepo.Create(language);
+        } 
     }
 }
