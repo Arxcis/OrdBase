@@ -1,9 +1,8 @@
 {
-  "name": "OrdBase-Polymer",
+  "name": "ordbase-polymer",
   "homepage": "https://github.com/Arxcis/OrdBase",
   "authors": [
-    "Solsvik",
-    "Jonas <fmfsjoso@fylkesmannen.no>"
+    "Solsvik, Jonas <fmfsjoso@fylkesmannen.no>"
   ],
   "description": "Front end editor tool for the OrdBase",
   "main": "index.html",

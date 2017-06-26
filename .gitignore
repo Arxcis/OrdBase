@@ -3,3 +3,4 @@ obj/
 .vs/
 packages/
 .DS_Store
+bower_components/
