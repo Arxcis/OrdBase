@@ -42,8 +42,8 @@ namespace OrdBaseCore.Controllers
             return _languageRepo.Create(language);
         } 
 
-        [Route("api/language/update")]
-        [HttpPut("{key}")]
+        [Route("api/language/update/{key}")]
+        [HttpPut]
         public IActionResult Update(string key, [FromBody]Language language) 
         {
             if (language == null && language.Key != key) 
@@ -52,8 +52,8 @@ namespace OrdBaseCore.Controllers
             return _languageRepo.Update(language);
         }
 
-        [Route("api/language/delete")]
-        [HttpDelete("{key}")]
+        [Route("api/language/delete/{key}")]
+        [HttpDelete]
         public IActionResult Delete(string key) 
         {
             return _languageRepo.Delete(key);
