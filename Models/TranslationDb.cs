@@ -12,6 +12,7 @@ namespace OrdBaseCore.Models
             :base(options)
         {}
 
+        public DbSet<ClientLanguage> ClientLanguage { get; set; }
         public DbSet<Client> Client { get; set; }
         public DbSet<Language> Language { get; set; }
         public DbSet<Translation> Translation { get; set; }
