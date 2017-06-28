@@ -42,15 +42,17 @@
 </template>
 <script>
     'use strict';
-    let template = document.currentScript 
-                        .ownerDocument
-                        .querySelector("#client-selector-view")
-                        .content;
+    {
+        let template = document.currentScript 
+                            .ownerDocument
+                            .querySelector("#client-selector-view")
+                            .content;
 
-    class ClientSelectorView extends HTMLElement {
-        connectedCallback() {
-            this.appendChild(document.importNode(template, true));
+        class ClientSelectorView extends HTMLElement {
+            connectedCallback() {
+                this.appendChild(document.importNode(template, true));
+            }
         }
+        customElements.define('client-selector-view', ClientSelectorView);
     }
-    customElements.define('client-selector-view', ClientSelectorView);
 </script>

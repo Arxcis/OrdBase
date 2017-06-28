@@ -2,8 +2,7 @@
 // @file main.js
 //
 'use strict'
-
-(function (){
+{
     window.addEventListener('load', function(){
 
         // 1. Register service worker
@@ -18,7 +17,6 @@
         }
 
         // 2. Load client view
-        document.body.appendChild(
-            document.createElement('client-selector-view'));
+        viewLoader.clientSelector();
     });
-})();
+};
