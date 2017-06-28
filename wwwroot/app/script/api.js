@@ -5,7 +5,8 @@ let api = (function(){
     //
     // @doc vanilla Ajax XMLHttpRequest -  https://www.w3schools.com/xml/ajax_xmlhttprequest_response.asp
     // @doc Destructuring arguments with default values ecma 6 - http://2ality.com/2015/01/es6-destructuring.html
-    // @doc Async Promises MDN -  https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise
+    // @doc Async Promises MDN - https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise
+    // @doc Arro functions MDN - https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/Arrow_functions
     //
     function mandatory() {
         throw new Error('Missing parameter');
@@ -59,107 +60,122 @@ let api = (function(){
     //
     // CLIENT ROUTES
     //
-    api.client.getAll = function(successHandler) { 
+    api.client.getAll = () => { 
         return URIRequest({ 
             type: 'GET', 
-            route: routeBuilder('api','client') });
+            route: routeBuilder('api','client') 
+        });
     }
 
-    api.client.get = function(client) {
+    api.client.get = (client) => {
         return URIRequest({ 
             type: 'GET', 
-            route: routeBuilder('api', client) });
+            route: routeBuilder('api', client) 
+        });
     }
 
-    api.client.create = function(client) {
+    api.client.create = (client) => {
         return JSONRequest({ 
             type:  'POST', 
             route: routeBuilder('api', 'client', 'create'), 
-            data:  client });
+            data:  client 
+        });
     } 
 
     //
     // CONTAINER ROUTES
     //
-    api.container.getOnClient = function(client) {
+    api.container.getOnClient = (client) => {
         return URIRequest({ 
             type: 'GET', 
-            route: routeBuilder('api', client, 'container') });
+            route: routeBuilder('api', client, 'container') 
+        });
     }
 
-    api.container.getOnKey =function(client, accessKey) {
+    api.container.getOnKey = (client, accessKey) => {
         return URIRequest({ 
             type: 'GET', 
-            route: routeBuilder('api', client, 'container', accessKey) });
+            route: routeBuilder('api', client, 'container', accessKey) 
+        });
     }
     
     //
     // LANGUAGE ROUTES
     //
-    api.language.getAll = function() {
+    api.language.getAll = () => {
         return URIRequest({ 
             type: 'GET', 
-            route: routeBuilder('api', 'language') });
+            route: routeBuilder('api', 'language') 
+        });
     }
 
-    api.language.getOnClient = function (client) {
+    api.language.getOnClient = (client) => {
         return URIRequest({ 
             type: 'GET', 
-            route: routeBuilder('api', client, 'language') });
+            route: routeBuilder('api', client, 'language') 
+        });
     }
 
-    api.language.create = function(language) {
+    api.language.create = (language) => {
         return JSONRequest({ 
             type: 'POST', 
             route: routeBuilder('api', 'language', 'create'), 
-            data:  language });
+            data:  language 
+        });
     }
 
     //
     // TRANSLATION ROUTES
     //
-    api.translation.get = function(client, container, accessKey, language) { 
+    api.translation.get = (client, container, accessKey, language) => { 
         return URIRequest({ 
             type: 'GET', 
-            route: routeBuilder('api', client, 'translation', container, accessKey, language) }); 
+            route: routeBuilder('api', client, 'translation', container, accessKey, language) 
+        }); 
     }
 
-    api.translation.getOnClient = function(client) {  
+    api.translation.getOnClient = (client) => {  
         return URIRequest({
             type:  'GET',
-            route: routeBuilder('api', client, 'translation') }); 
+            route: routeBuilder('api', client, 'translation') 
+        }); 
     }
 
-    api.translation.getOnContainer = function(client, container) { 
+    api.translation.getOnContainer = (client, container) => { 
         return URIRequest({
             type: 'GET',
-            route: routeBuilder('api', client, 'translation', 'container', container) }); 
+            route: routeBuilder('api', client, 'translation', 'container', container) 
+        }); 
     }
-
-    api.translation.getOnKey = function(client, accessKey) {
+    
+    api.translation.getOnKey = (client, accessKey) => {   // @note - convert accesskey -> key
         return URIRequest({
             type:  'GET',
-            route: routeBuilder('api', client, 'translation', 'accesskey', accessKey) }); 
+            route: routeBuilder('api', client, 'translation', 'accesskey', accessKey) 
+        }); 
     }
 
-    api.translation.create = function(translation) {
+    api.translation.create = (translation) => {
         return JSONRequest({
             type:  'POST',
             route: routeBuilder('api', 'translation', 'create'),
-            data:  translation }); 
+            data:  translation 
+        }); 
     }
 
-    api.translation.update = function(translation) {  
+    api.translation.update = (translation) => {  
         return JSONRequest({
             type:  'PUT',
             route: routeBuilder('api', 'translation', 'update', translation.client, translation.container, translation.accessKey, translation.language),
-            data:  translation });
+            data:  translation 
+        });
     }
 
-    api.translation.delete = function(key) {
+    api.translation.delete = (key) => {
         return URIRequest({
             type:  'DELETE',
-            route: routeBuilder('api', 'translation', 'delete', client, container, accessKey, language) });
+            route: routeBuilder('api', 'translation', 'delete', client, container, accessKey, language) 
+        });
     }
 
     return api;

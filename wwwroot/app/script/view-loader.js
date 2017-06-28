@@ -15,12 +15,12 @@ let viewLoader = (function (){
     viewLoader.clientSelector = function() {
         let view = document.createElement('client-selector-view');
         
-        let clients = api.getAll()
-            .then((data) => {
+        api.getAll()
+            .then(data => {
                 console.log(data.responseText);
                 swapView(view);
             })
-            .catch((reason) => {
+            .catch(reason => {
                 console.log("Error:", reason);
             });
     }
