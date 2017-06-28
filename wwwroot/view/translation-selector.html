@@ -2,7 +2,7 @@
 	<style></style>
 	<header></header>
 	<main>
-		
+        <h1>Hello</h1>
 	</main>
 	<footer></footer>
 </template>
@@ -11,11 +11,12 @@
 
     class TranslationSelector extends HTMLElement {
         
-        createdCallback() {
+        connectedCallback() {
             let template = document.currentScript
                                     .ownerDocument
                                      .querySelector("#translation-selector")
                                       .content;
+
             let clone = document.importNode(template, true);
             this.appendChild(clone);
         }

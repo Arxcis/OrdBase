@@ -11,7 +11,7 @@
 
     class ClientSelector extends HTMLElement {
         
-        createdCallback() {
+		connectedCallback() {                     // @constructor
             let template = document.currentScript
                                     .ownerDocument
                                      .querySelector("#client-selector")

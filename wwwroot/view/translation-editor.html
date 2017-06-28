@@ -11,7 +11,7 @@
 
     class TranslationEditor extends HTMLElement {
         
-        createdCallback() {
+        connectedCallback() {
             let template = document.currentScript
                                     .ownerDocument
                                      .querySelector("#translation-editor")

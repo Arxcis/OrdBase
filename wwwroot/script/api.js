@@ -73,7 +73,7 @@ let api = (function(){
     //
     // @module api - to be exported
     //
-    let api = {};     // @adivce ES6 - adobt using let and const, stop using var
+    let api = { client: {}, language: {}, container: {}, translation: {}};     // @adivce ES6 - adobt using let and const, stop using var
 
     //
     // CLIENT ROUTES
@@ -260,7 +260,7 @@ let api = (function(){
         Name: 'soldata.no',
         ApiKey: 42,
     });
-})();
+});
 
 
 

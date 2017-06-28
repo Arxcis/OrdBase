@@ -5,16 +5,15 @@
         <title>Editor - OrdBase</title>
         
         <!-- Import templates -->        
-        <link rel="import" href="view/client-selector.html"      async>     
-        <link rel="import" href="view/translation-selector.html" async>
-        <link rel="import" href="view/translation-editor.html"   async>
+        <link rel="import" href="view/client-selector.html"      defer>     
+        <link rel="import" href="view/translation-selector.html" defer>
+        <link rel="import" href="view/translation-editor.html"   defer>
 
         <!-- Load scripts -->
-        <script src="script/api.js"     defer></script>
-        <script src="script/router.js"  defer></script>
-        <script src="script/startup.js" defer></script>
+        <script src="script/api.js"        defer></script>
+        <script src="script/controller.js" defer></script>
     </head>
     <body>
-        <!-- main body -->
+        <translation-selector>
     </body>
 </html>
