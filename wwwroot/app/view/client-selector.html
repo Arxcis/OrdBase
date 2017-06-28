@@ -1,6 +1,6 @@
-<template id="translation-selector">
+<template id="client-selector">
 	<style>
-        translation-selector 
+        client-selector 
         header {
             padding-top: 1rem;
             text-align: center;
@@ -9,14 +9,16 @@
             color: white;
         }
 
-        translation-selector
+        client-selector
         main {
             display: flex;
+            justify-content: center;
             flex-wrap: wrap;
         }
 
-        translation-selector 
-        button {
+        client-selector 
+        main button {
+            font-size: 100%;
             margin: 10px;
             height: 150px;
             flex-basis: 150px;
@@ -26,7 +28,7 @@
         }
     
     </style>
-	<header><h1>This is the heading</h1></header>
+	<header><h1>OrdBase - Editor</h1></header>
 	<main>
         <button>Fylkesmannen.no</button>
         <button>Sysselmannen.no</button>
@@ -41,15 +43,16 @@
 <script>
     'use strict';
 
-    class TranslationSelector extends HTMLElement {
+    class ClientSelector extends HTMLElement {
         
         connectedCallback() {
             this.appendChild(
                 document.importNode(
-                    document.currentScript.ownerDocument
-                            .querySelector("#translation-selector")
+                    document.currentScript
+                            .ownerDocument
+                            .querySelector("#client-selector")
                             .content, true));
         }
     }
-    customElements.define('translation-selector', TranslationSelector);
+    customElements.define('client-selector', ClientSelector);
 </script>

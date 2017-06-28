@@ -12,12 +12,12 @@
     class TranslationEditor extends HTMLElement {
         
         connectedCallback() {
-            let template = document.currentScript
-                                    .ownerDocument
-                                     .querySelector("#translation-editor")
-                                      .content;
-            let clone = document.importNode(template, true);
-            this.appendChild(clone);
+            this.appendChild(
+                document.importNode(
+                    document.currentScript
+                            .ownerDocument
+                            .querySelector("#translation-editor")
+                            .content, true));
         }
     }
     customElements.define('translation-editor', TranslationEditor);
