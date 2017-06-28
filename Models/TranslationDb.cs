@@ -36,6 +36,12 @@ namespace OrdBaseCore.Models
                     t.Container,
                     t.Key
                 });
+
+            modelBuilder.Entity<ClientLanguage>()
+                .HasKey(t => new {
+                    t.ClientId,
+                    t.LanguageId
+                });
         }
 
         public static void Seed(TranslationDb context) 
