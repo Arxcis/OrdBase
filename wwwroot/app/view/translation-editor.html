@@ -1,4 +1,4 @@
-<template id="view-translation-editor">
+<template id="translation-editor-view">
     <style></style>
     <header></header>
     <main>
@@ -8,17 +8,16 @@
 </template>
 <script>
     'use strict';
-
-    class TranslationEditor extends HTMLElement {
-        
+    let template = document.currentScript
+                            .ownerDocument
+                             .querySelector("#translation-editor-view")
+                              .content; 
+                              
+    class TranslationEditorView extends HTMLElement {
         connectedCallback() {
             this.appendChild(
-                document.importNode(
-                    document.currentScript
-                            .ownerDocument
-                            .querySelector("#view-translation-editor")
-                            .content, true));
+                document.importNode(template, true));
         }
     }
-    customElements.define('view-translation-editor', TranslationEditor);
+    customElements.define('translation-editor-view', TranslationEditorView);
 </script>

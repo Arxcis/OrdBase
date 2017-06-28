@@ -1,6 +1,6 @@
-<template id="view-translation-selector">
+<template id="translation-selector-view">
 	<style>
-        view-translation-selector 
+        translation-selector-view 
         header {
             padding-top: 1rem;
             text-align: center;
@@ -9,13 +9,13 @@
             color: white;
         }
 
-        view-translation-selector
+        translation-selector-view
         main {
             display: flex;
             flex-wrap: wrap;
         }
 
-        view-translation-selector 
+        translation-selector-view 
         button {
             margin: 10px;
             height: 150px;
@@ -40,17 +40,16 @@
 </template>
 <script>
     'use strict';
+    let template = document.currentScript
+                            .ownerDocument
+                             .querySelector("#translation-selector-view")
+                              .content;
 
-    class TranslationSelector extends HTMLElement {
-        
+    class TranslationSelectorView extends HTMLElement {
         connectedCallback() {
             this.appendChild(
-                document.importNode(
-                    document.currentScript
-                            .ownerDocument
-                            .querySelector("#view-translation-selector")
-                            .content, true));
+                document.importNode(template, true));
         }
     }
-    customElements.define('view-translation-selector', TranslationSelector);
+    customElements.define('translation-selector-view', TranslationSelectorView);
 </script>

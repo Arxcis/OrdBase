@@ -1,6 +1,6 @@
-<template id="view-client-selector">
+<template id="client-selector-view">
 	<style>
-        view-client-selector 
+        client-selector-view 
         header {
             padding-top: 1rem;
             text-align: center;
@@ -9,14 +9,14 @@
             color: white;
         }
 
-        view-client-selector
+        client-selector-view
         main {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
         }
 
-        view-client-selector 
+        client-selector-view 
         main button {
             font-size: 100%;
             margin: 10px;
@@ -44,13 +44,13 @@
     'use strict';
     let template = document.currentScript 
                         .ownerDocument
-                        .querySelector("#view-client-selector")
+                        .querySelector("#client-selector-view")
                         .content;
 
-    class ClientSelector extends HTMLElement {
+    class ClientSelectorView extends HTMLElement {
         connectedCallback() {
             this.appendChild(document.importNode(template, true));
         }
     }
-    customElements.define('view-client-selector', ClientSelector);
+    customElements.define('client-selector-view', ClientSelectorView);
 </script>
