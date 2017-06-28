@@ -5,12 +5,20 @@
 		
 	</main>
 	<footer></footer>
-    <script>
-    //
-    // Client selector startup script
-    //
-    {
-
-    }
-    </script>
 </template>
+<script>
+    'use strict';
+
+    class ClientSelector extends HTMLElement {
+        
+        createdCallback() {
+            let template = document.currentScript
+                                    .ownerDocument
+                                     .querySelector("#client-selector")
+                                      .content;
+            let clone = document.importNode(template, true);
+            this.appendChild(clone);
+        }
+    }
+    customElements.define('client-selector', ClientSelector);
+</script>

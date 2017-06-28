@@ -5,12 +5,20 @@
         
     </main>
     <footer></footer>
-    <script>
-    //
-    // Translation selector startup script
-    //
-    {
-
-    }
-    </script>
 </template>
+<script>
+    'use strict';
+
+    class TranslationEditor extends HTMLElement {
+        
+        createdCallback() {
+            let template = document.currentScript
+                                    .ownerDocument
+                                     .querySelector("#translation-editor")
+                                      .content;
+            let clone = document.importNode(template, true);
+            this.appendChild(clone);
+        }
+    }
+    customElements.define('translation-editor', TranslationEditor);
+</script>

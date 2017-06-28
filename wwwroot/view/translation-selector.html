@@ -5,12 +5,20 @@
 		
 	</main>
 	<footer></footer>
-    <script>
-    //
-    // Translation selector startup script
-    //
-    {
-
-    }
-    </script>
 </template>
+<script>
+    'use strict';
+
+    class TranslationSelector extends HTMLElement {
+        
+        createdCallback() {
+            let template = document.currentScript
+                                    .ownerDocument
+                                     .querySelector("#translation-selector")
+                                      .content;
+            let clone = document.importNode(template, true);
+            this.appendChild(clone);
+        }
+    }
+    customElements.define('translation-selector', TranslationSelector);
+</script>
