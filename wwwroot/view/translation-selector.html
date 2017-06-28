@@ -1,8 +1,40 @@
 <template id="translation-selector">
-	<style></style>
-	<header></header>
+	<style>
+        translation-selector 
+        header {
+            padding-top: 1rem;
+            text-align: center;
+            height: 4rem;
+            background-color: blue;
+            color: white;
+        }
+
+        translation-selector
+        main {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        translation-selector 
+        button {
+            margin: 10px;
+            height: 150px;
+            flex-basis: 150px;
+
+            flex-shrink: 0;
+            border-radius: 5px;
+        }
+    
+    </style>
+	<header><h1>This is the heading</h1></header>
 	<main>
-        <h1>Hello</h1>
+        <button>Fylkesmannen.no</button>
+        <button>Sysselmannen.no</button>
+        <button>OrdBase.no</button>
+        
+        <button>Fylkesmannen.no</button>
+        <button>Sysselmannen.no</button>
+        <button>OrdBase.no</button>
 	</main>
 	<footer></footer>
 </template>
@@ -12,13 +44,11 @@
     class TranslationSelector extends HTMLElement {
         
         connectedCallback() {
-            let template = document.currentScript
-                                    .ownerDocument
-                                     .querySelector("#translation-selector")
-                                      .content;
-
-            let clone = document.importNode(template, true);
-            this.appendChild(clone);
+            this.appendChild(
+                document.importNode(
+                    document.currentScript.ownerDocument
+                            .querySelector("#translation-selector")
+                            .content, true));
         }
     }
     customElements.define('translation-selector', TranslationSelector);

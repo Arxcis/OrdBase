@@ -1,8 +1,42 @@
 <template id="client-selector">
-	<style></style>
-	<header></header>
+	<style>
+        client-selector 
+        header {
+            padding-top: 1rem;
+            text-align: center;
+            height: 4rem;
+            background-color: blue;
+            color: white;
+        }
+
+        client-selector
+        main {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        client-selector 
+        main button {
+            font-size: 100%;
+            margin: 10px;
+            height: 150px;
+            flex-basis: 150px;
+
+            flex-shrink: 0;
+            border-radius: 5px;
+        }
+    
+    </style>
+	<header><h1>OrdBase - Editor</h1></header>
 	<main>
-		
+        <button>Fylkesmannen.no</button>
+        <button>Sysselmannen.no</button>
+        <button>OrdBase.no</button>
+        
+        <button>Fylkesmannen.no</button>
+        <button>Sysselmannen.no</button>
+        <button>OrdBase.no</button>
 	</main>
 	<footer></footer>
 </template>
@@ -11,13 +45,12 @@
 
     class ClientSelector extends HTMLElement {
         
-		connectedCallback() {                     // @constructor
-            let template = document.currentScript
-                                    .ownerDocument
-                                     .querySelector("#client-selector")
-                                      .content;
-            let clone = document.importNode(template, true);
-            this.appendChild(clone);
+        connectedCallback() {
+            this.appendChild(
+                document.importNode(
+                    document.currentScript.ownerDocument
+                            .querySelector("#client-selector")
+                            .content, true));
         }
     }
     customElements.define('client-selector', ClientSelector);
