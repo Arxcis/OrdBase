@@ -1,6 +1,8 @@
 //
 // @file main.js
 //
+'use strict'
+
 (function (){
     window.addEventListener('load', function(){
 
@@ -17,6 +19,6 @@
 
         // 2. Load client view
         document.body.appendChild(
-            document.createElement('view-client-selector'));
+            document.createElement('client-selector-view'));
     });
 })();
