@@ -1,6 +1,6 @@
-<template id="translation-selector">
+<template id="view-translation-selector">
 	<style>
-        translation-selector 
+        view-translation-selector 
         header {
             padding-top: 1rem;
             text-align: center;
@@ -9,13 +9,13 @@
             color: white;
         }
 
-        translation-selector
+        view-translation-selector
         main {
             display: flex;
             flex-wrap: wrap;
         }
 
-        translation-selector 
+        view-translation-selector 
         button {
             margin: 10px;
             height: 150px;
@@ -48,9 +48,9 @@
                 document.importNode(
                     document.currentScript
                             .ownerDocument
-                            .querySelector("#translation-selector")
+                            .querySelector("#view-translation-selector")
                             .content, true));
         }
     }
-    customElements.define('translation-selector', TranslationSelector);
+    customElements.define('view-translation-selector', TranslationSelector);
 </script>

@@ -1,4 +1,4 @@
-<template id="translation-editor">
+<template id="view-translation-editor">
     <style></style>
     <header></header>
     <main>
@@ -16,9 +16,9 @@
                 document.importNode(
                     document.currentScript
                             .ownerDocument
-                            .querySelector("#translation-editor")
+                            .querySelector("#view-translation-editor")
                             .content, true));
         }
     }
-    customElements.define('translation-editor', TranslationEditor);
+    customElements.define('view-translation-editor', TranslationEditor);
 </script>

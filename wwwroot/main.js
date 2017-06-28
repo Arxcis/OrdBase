@@ -4,6 +4,7 @@
 (function (){
     window.addEventListener('load', function(){
 
+        // 1. Register service worker
         navigator.serviceWorker.register(
             '/service-worker.js', {
                 scope: '/api/'
@@ -13,5 +14,9 @@
         }), function(err){
             console.log('NO Service worker registered... error!');
         }
+
+        // 2. Load client view
+        document.body.appendChild(
+            document.createElement('view-client-selector'));
     });
 })();
