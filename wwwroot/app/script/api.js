@@ -1,6 +1,6 @@
 'use strict';
 
-let api = (() => {
+let API = (() => {
 
     //
     // @doc vanilla Ajax XMLHttpRequest -  https://www.w3schools.com/xml/ajax_xmlhttprequest_response.asp
@@ -56,26 +56,26 @@ let api = (() => {
     //
     // @module api - to be exported
     //
-    let api = { client: {}, language: {}, container: {}, translation: {}};     // @adivce ES6 - adobt using let and const, stop using var
+    let API = { client: {}, language: {}, container: {}, translation: {}};     // @adivce ES6 - adobt using let and const, stop using var
 
     //
     // CLIENT ROUTES
     //
-    api.client.getAll = () => { 
+    API.client.getAll = () => { 
         return URIRequest({ 
             type: 'GET', 
             route: routeBuilder('api','client') 
         });
     }
 
-    api.client.get = (client) => {
+    API.client.get = (client) => {
         return URIRequest({ 
             type: 'GET', 
             route: routeBuilder('api', client) 
         });
     }
 
-    api.client.create = (client) => {
+    API.client.create = (client) => {
         return JSONRequest({ 
             type:  'POST', 
             route: routeBuilder('api', 'client', 'create'), 
@@ -86,14 +86,14 @@ let api = (() => {
     //
     // CONTAINER ROUTES
     //
-    api.container.getOnClient = (client) => {
+    API.container.getOnClient = (client) => {
         return URIRequest({ 
             type: 'GET', 
             route: routeBuilder('api', client, 'container') 
         });
     }
 
-    api.container.getOnKey = (client, accessKey) => {
+    API.container.getOnKey = (client, accessKey) => {
         return URIRequest({ 
             type: 'GET', 
             route: routeBuilder('api', client, 'container', accessKey) 
@@ -103,21 +103,21 @@ let api = (() => {
     //
     // LANGUAGE ROUTES
     //
-    api.language.getAll = () => {
+    API.language.getAll = () => {
         return URIRequest({ 
             type: 'GET', 
             route: routeBuilder('api', 'language') 
         });
     }
 
-    api.language.getOnClient = (client) => {
+    API.language.getOnClient = (client) => {
         return URIRequest({ 
             type: 'GET', 
             route: routeBuilder('api', client, 'language') 
         });
     }
 
-    api.language.create = (language) => {
+    API.language.create = (language) => {
         return JSONRequest({ 
             type: 'POST', 
             route: routeBuilder('api', 'language', 'create'), 
@@ -128,42 +128,42 @@ let api = (() => {
     //
     // TRANSLATION ROUTES
     //
-    api.translation.get = (client, container, accessKey, language) => { 
+    API.translation.get = (client, container, accessKey, language) => { 
         return URIRequest({ 
             type: 'GET', 
             route: routeBuilder('api', client, 'translation', container, accessKey, language) 
         }); 
     }
 
-    api.translation.getOnClient = (client) => {  
+    API.translation.getOnClient = (client) => {  
         return URIRequest({
             type:  'GET',
             route: routeBuilder('api', client, 'translation') 
         }); 
     }
 
-    api.translation.getGroupOnClient = (client) => {
+    API.translation.getGroupOnClient = (client) => {
         return URIRequest({
             type: 'GET',
             route: routeBuilder('api', client, 'translation', 'group')
         })
     }
 
-    api.translation.getOnContainer = (client, container) => { 
+    API.translation.getOnContainer = (client, container) => { 
         return URIRequest({
             type: 'GET',
             route: routeBuilder('api', client, 'translation', 'container', container) 
         }); 
     }
     
-    api.translation.getOnKey = (client, accessKey) => {   // @note - convert accesskey -> key
+    API.translation.getOnKey = (client, key) => {   // @note - convert accesskey -> key
         return URIRequest({
             type:  'GET',
-            route: routeBuilder('api', client, 'translation', 'accesskey', accessKey) 
+            route: routeBuilder('api', client, 'translation', 'accesskey', key) 
         }); 
-    }
+    }   
 
-    api.translation.create = (translation) => {
+    API.translation.create = (translation) => {
         return JSONRequest({
             type:  'POST',
             route: routeBuilder('api', 'translation', 'create'),
@@ -171,7 +171,7 @@ let api = (() => {
         }); 
     }
 
-    api.translation.update = (translation) => {  
+    API.translation.update = (translation) => {  
         return JSONRequest({
             type:  'PUT',
             route: routeBuilder('api', 'translation', 'update', translation.client, translation.container, translation.accessKey, translation.language),
@@ -179,12 +179,12 @@ let api = (() => {
         });
     }
 
-    api.translation.delete = (key) => {
+    API.translation.delete = (key) => {
         return URIRequest({
             type:  'DELETE',
             route: routeBuilder('api', 'translation', 'delete', client, container, accessKey, language) 
         });
     }
 
-    return api;
+    return API;
 })();

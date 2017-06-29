@@ -1,9 +1,18 @@
 <template id="translation-editor-view">
-    <style></style>
-    <header></header>
-    <section id="category-drawer"><li></li></section>
+    <style>
+    
+       
+        
+    </style>
+    <header>
+        <button id="back-button">Back</button>
+        <h1>Ordbase - Edit Translations</h1>
+        <button id="new-button">Save </button>
+    </header>
+    <section id="container-list"><li></li></section>
     <main>
-        <!-- CONTENT goes here -->
+        <br><label for="input-key">Key</label><br>
+        <input id="input-key" type="text" value=""><br><br>
     </main>
     <footer></footer>
 </template>
@@ -11,9 +20,9 @@
     'use strict';
     {
         let template = document.currentScript
-                                .ownerDocument
-                                .querySelector("#translation-editor-view")
-                                .content; 
+                                 .ownerDocument
+                                  .querySelector("#translation-editor-view")
+                                   .content; 
                                 
         class TranslationEditorView extends HTMLElement {
             connectedCallback() {

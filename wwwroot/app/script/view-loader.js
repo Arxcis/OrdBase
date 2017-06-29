@@ -1,7 +1,7 @@
 'use strict';
 
 //
-// @module viewLoader
+// @module load
 //
 (() => {
 
@@ -10,73 +10,76 @@
         document.body.appendChild(view);
     }   
 
-    let viewLoader = {};
+    let load = {};
 
     //
-    // @view client-selector
+    // @function client-selector-view
     //
-    viewLoader.clientSelectorView = () => {
+    load.clientSelectorView = function() {
         let view = document.createElement('client-selector-view');
         swapView(view);
         let main = view.querySelector('main');
 
-        api.client
-        .getAll()
+        API
+        .client.getAll()
         .then(data => {
 
             data.forEach(element => {
                 let button = document.createElement('button');
                 
                 button.innerHTML = element.name;
-                button.onclick = (event) => viewLoader.translationSelectorView(element.name);
+                button.onclick = (event) => load.translationSelectorView(element.name);
 
                 main.appendChild(button);
             });
         })
-        .catch(reason => {
-            console.error("Error:", reason);
-        });
+        .catch(reason => console.error('Error:', reason));
     }
 
     //
-    // @view translation-selector
+    // @function translation-selector-view
     //
-    viewLoader.translationSelectorView = (client) => {
+    load.translationSelectorView = function(client) {
+
         let view = document.createElement('translation-selector-view');
         swapView(view);
 
         let containerList = document.querySelector('#container-list'); 
         let main         = document.querySelector('main');
 
-        api.container
-        .getOnClient(client)
+        //
+        // Get all container names
+        //
+        API
+        .container.getOnClient(client)
         .then(data => {
 
             data.forEach(containerName => {
-                 let button = document.createElement('button');
-                 button.innerHTML = containerName;
-                 button.id = 'button-' + containerName;
-                 button.onclick = (event) => { button.classList.toggle('selected'); }
+                let button = document.createElement('button');
+                button.innerHTML = containerName;
+                button.id = 'button-' + containerName;
+                button.onclick = (event) => button.classList.toggle('selected'); 
 
-                 containerList.appendChild(button);
-            });
-                
+                containerList.appendChild(button);
+            });      
         })
-        .catch(reason => {
-            console.error("Error:", reason);
-        });
+        .catch(reason => console.error('Error:', reason));
 
-        // @doc template literals - https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Template_literals
-        api.translation
-        .getGroupOnClient(client)
+        //
+        // Get all translation groups 
+        //  @doc template literals - https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Template_literals
+        //
+        API
+        .translation.getGroupOnClient(client)
         .then(data => {
             data.forEach(translationGroup => {
                 let button = document.createElement('button');
                 button.innerHTML = translationGroup.key;
+                button.onclick = (event) => load.translationEditorView(client, translationGroup.key); 
                 
                 Object.keys(translationGroup.isComplete)
                 .forEach((key, value) => {
-                    console.log(key, value);
+
                     if (value == true) 
                         button.innerHTML += ` <span>${key}: OK</span>`;
                     else
@@ -86,22 +89,72 @@
                 main.appendChild(button);
             });
         })
-        .catch(reason => {
-            console.error("Error:", reason);
-        });
+        .catch(reason => console.error('Error:', reason));
 
-        view.querySelector('#backToClients')
-            .onclick = (event) => viewLoader.clientSelectorView();
-
+        view.querySelector('#back-button').onclick = (event) => load.clientSelectorView();
     }
 
     //
-    // @view translation-editor
+    // @function translation-editor
     //
-    viewLoader.translationEditor = (client, accessKey) => {
+    load.translationEditorView = function(client, key) {
+        
         let view = document.createElement('translation-editor-view');
         swapView(view);
+        let containerList = document.querySelector('#container-list'); 
+
+        //
+        // Get all container on client
+        //
+        API
+        .container.getOnClient(client)
+        .then(data => {
+
+            data.forEach(containerName => {
+                let button = document.createElement('button');
+                button.innerHTML = containerName;
+                button.id = 'button-' + containerName;
+                button.onclick = (event) => button.classList.toggle('selected'); 
+
+                containerList.appendChild(button);
+            });      
+
+            return API.container.getOnKey(client, key)
+        })
+        .then(data => {
+            data.forEach(selectedContainer => {
+                let button =  document.querySelector('#button-' + selectedContainer);
+                if (button) {
+                   button.classList.add('selected');
+                }
+            });
+        })
+        .catch(reason => console.error('Error:', reason));
+
+        //
+        // Get data about translations with the same key
+        //
+        API
+        .translation.getOnKey(client, key)
+        .then(data => {
+            let main = document.querySelector('main');
+            console.log('key:', key)
+            main.querySelector('#input-key').setAttribute('value', key);
+            
+            data.forEach(translation => {
+                console.log(translation);
+                main.innerHTML += `<label for="input-${translation.languageKey}">  ${translation.languageKey} </label><br>`;
+                main.innerHTML += `<input  id="input-${translation.languageKey}"  type="text" value="${translation.text}"><br>`;
+                
+                main.innerHTML += `<label for="input-${translation.languageKey}-approved"> Approved? </label><br>`;
+                main.innerHTML += `<input  id="input-${translation.languageKey}-approved" type="checkbox" name="done"><br><br>` 
+            })
+        })
+        .catch(reason => console.error('Error:', reason));
+
+        view.querySelector('header h1').innerHTML = `Ordbase - Edit ${key} translation`;
+        view.querySelector('#back-button').onclick = (event) => load.translationSelectorView(client);
     }
 
-    window.addEventListener('load', () => viewLoader.clientSelectorView());
+    window.addEventListener('load', () => load.clientSelectorView());
 })();
