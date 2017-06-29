@@ -3,17 +3,17 @@
 //
 'use strict'
 {
-    window.addEventListener('load', function(){
+    window.addEventListener('load', () => {
 
         // 1. Register service worker
         navigator.serviceWorker.register(
             '/service-worker.js', {
                 scope: '/api/'
             }
-        ).then(function(registration){
+        ).then((registration) => {
             console.log('SW registered SCOPE is: ', registration.scope);
-        }), function(err){
-            console.log('NO Service worker registered... error!');
+        }), (reason) => {
+            console.log('NO Service worker registered..', reason);
         }
 
         // 2. Load client view

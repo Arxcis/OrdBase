@@ -3,7 +3,7 @@
 //
 // @module viewLoader
 //
-let viewLoader = (function (){
+let viewLoader = (() => {
 
     function swapView(view) {
         document.body.innerHTML = '';
@@ -12,29 +12,48 @@ let viewLoader = (function (){
 
     let viewLoader = {};
 
-    viewLoader.clientSelector = function() {
+    //
+    // @view client-selector
+    //
+    viewLoader.clientSelector = () => {
         let view = document.createElement('client-selector-view');
-        
-        api.getAll()
-            .then(data => {
-                console.log(data.responseText);
-                swapView(view);
-            })
-            .catch(reason => {
-                console.log("Error:", reason);
+
+        api.client
+        .getAll()
+        .then(data => {
+            swapView(view);
+            
+            let main = view.querySelector('main');
+
+            data.forEach((element) => {
+                main.appendChild(document.createElement('button'))
+                    .innerHTML = element.name;
             });
+        })
+        .catch(reason => {
+            console.log("Error:", reason);
+        });
     }
 
-    viewLoader.translationEditor = function(client) {
+    //
+    // @view translation-selector
+    //
+    viewLoader.translationSelector = (client, accessKey) => {
+        let view = document.createElement('translation-selector-view');
+
+        
+
+        swapView(view);
+    }
+
+    //
+    // @view translation-editor
+    //
+    viewLoader.translationEditor = (client) => {
         let view = document.createElement('translation-editor-view');
 
         swapView(view);
     }
 
-    viewLoader.translationSelector = function(client, accessKey) {
-        let view = document.createElement('translation-selector-view');
-        
-        swapView(view);
-    }
     return viewLoader;
 })();

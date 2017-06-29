@@ -1,6 +1,6 @@
 'use strict';
 
-let api = (function(){
+let api = (() => {
 
     //
     // @doc vanilla Ajax XMLHttpRequest -  https://www.w3schools.com/xml/ajax_xmlhttprequest_response.asp
@@ -31,7 +31,7 @@ let api = (function(){
             const httpRequest = new XMLHttpRequest();
 
             httpRequest.open(type, route);  // asynce is default
-            httpRequest.onload  = () => resolve(httpRequest.responseText);
+            httpRequest.onload  = () => resolve(JSON.parse(httpRequest.responseText));
             httpRequest.onerror = () => reject(httpRequest.statusText);
             httpRequest.send();
         });
