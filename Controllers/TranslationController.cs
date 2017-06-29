@@ -31,10 +31,10 @@ namespace OrdBaseCore.Controllers
             return _translationRepo.GetOnClient(client); 
         }
 
-        [HttpGet("api/{client}/translation/set")]
-        public IEnumerable<object> GetSetOnClient(string client)
+        [HttpGet("api/{client}/translation/group")]
+        public IEnumerable<object> GetGroupOnClient(string client)
         {
-            return _translationRepo.GetSetOnClient(client);
+            return _translationRepo.GetGroupOnClient(client);
         } 
 
         [HttpGet("api/{client}/translation/container/{container}")]

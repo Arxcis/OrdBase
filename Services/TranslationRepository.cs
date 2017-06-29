@@ -37,7 +37,7 @@ namespace OrdBaseCore.Services
                         .ToArray();
         }
 
-        public IEnumerable<object> GetSetOnClient(string client)
+        public IEnumerable<object> GetGroupOnClient(string client)
         {
             return (from t in _context.Translation
                     where t.ClientKey == client
@@ -45,7 +45,7 @@ namespace OrdBaseCore.Services
                     into set
                     select new {
                         Key = set.Key,
-                        IsCompletes = set.Select(ts => ts.Done).ToArray()
+                        IsComplete = set.ToDictionary(o => o.LanguageKey, o => o.Done)
                     });
         }
         
