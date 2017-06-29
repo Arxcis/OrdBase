@@ -14,11 +14,12 @@ let api = (() => {
 
     //
     // @function routeBuilder(...args)
+    // @doc https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments
     //
     function routeBuilder() {
         let route = '';
         for (let i = 0; i < arguments.length; i++) {
-        	route += '/' + arguments[i];
+            route += '/' + arguments[i];
         }
         return route;
     }
@@ -40,7 +41,7 @@ let api = (() => {
     //
     // @function JSONRequest 
     //
-    function JSONRequest({type = mandatory(), route = mandatory(), data = mandatory()} = {}) {
+    function JSONRequest({ type = mandatory(), route = mandatory(), data = mandatory()} = {}) {
         return new Promise((resolve, reject) => {
             const httpRequest = new XMLHttpRequest();
 

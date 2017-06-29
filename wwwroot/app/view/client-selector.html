@@ -28,9 +28,10 @@
         }
     
     </style>
-	<header><h1>OrdBase - Editor</h1></header>
+	<header>
+        <h1>OrdBase - Editor</h1></header>
 	<main>
-        
+
 	</main>
 	<footer></footer>
 </template>
@@ -43,6 +44,7 @@
                             .content;
 
         class ClientSelectorView extends HTMLElement {
+            
             connectedCallback() {
                 this.appendChild(document.importNode(template, true));
             }

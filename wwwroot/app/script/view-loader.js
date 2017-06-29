@@ -17,39 +17,43 @@ let viewLoader = (() => {
     //
     viewLoader.clientSelector = () => {
         let view = document.createElement('client-selector-view');
+        swapView(view);
 
         api.client
         .getAll()
         .then(data => {
-            swapView(view);
-            
+    
             let main = view.querySelector('main');
 
             data.forEach((element) => {
-                main.appendChild(document.createElement('button'))
-                    .innerHTML = element.name;
+                let button = document.createElement('button');
+                
+                button.innerHTML = element.name;
+                button.onclick = (e) => viewLoader.translationSelector(element.name);
+
+                main.appendChild(button);
             });
         })
         .catch(reason => {
-            console.log("Error:", reason);
+            console.error("Error:", reason);
         });
     }
 
     //
     // @view translation-selector
     //
-    viewLoader.translationSelector = (client, accessKey) => {
+    viewLoader.translationSelector = (client) => {
         let view = document.createElement('translation-selector-view');
-
-        
-
         swapView(view);
+
+        view.querySelector('#backToClients')
+            .onclick = (e) => viewLoader.clientSelector();
     }
 
     //
     // @view translation-editor
     //
-    viewLoader.translationEditor = (client) => {
+    viewLoader.translationEditor = (client, accessKey) => {
         let view = document.createElement('translation-editor-view');
 
         swapView(view);
