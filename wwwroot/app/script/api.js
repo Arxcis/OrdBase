@@ -142,6 +142,13 @@ let api = (() => {
         }); 
     }
 
+    api.translation.getGroupOnClient = (client) => {
+        return URIRequest({
+            type: 'GET',
+            route: routeBuilder('api', client, 'translation', 'group')
+        })
+    }
+
     api.translation.getOnContainer = (client, container) => { 
         return URIRequest({
             type: 'GET',
