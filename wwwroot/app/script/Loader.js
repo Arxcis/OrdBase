@@ -2,6 +2,9 @@
 
 //
 // @module load
+//   - LoadClientSelectorView
+//   - LoadTranslationSelectorView
+//   - LoadTranslationEditorView
 //
 (() => {
 
@@ -10,12 +13,10 @@
         document.body.appendChild(view);
     }   
 
-    let load = {};
-
     //
-    // @function client-selector-view
+    // @function LoadClientSelectorView
     //
-    load.clientSelectorView = function() {
+    function LoadClientSelectorView () {
         let view = document.createElement('client-selector-view');
         swapView(view);
         let main = view.querySelector('main');
@@ -28,7 +29,7 @@
                 let button = document.createElement('button');
                 
                 button.innerHTML = element.name;
-                button.onclick = (event) => load.translationSelectorView(element.name);
+                button.onclick = (event) => LoadTranslationSelectorView(element.name);
 
                 main.appendChild(button);
             });
@@ -37,9 +38,9 @@
     }
 
     //
-    // @function translation-selector-view
+    // @function LoadTranslationSelectorView
     //
-    load.translationSelectorView = function(client) {
+    function LoadTranslationSelectorView (client) {
 
         let view = document.createElement('translation-selector-view');
         swapView(view);
@@ -75,7 +76,7 @@
             data.forEach(translationGroup => {
                 let button = document.createElement('button');
                 button.innerHTML = translationGroup.key;
-                button.onclick = (event) => load.translationEditorView(client, translationGroup.key); 
+                button.onclick = (event) => LoadTranslationEditorView(client, translationGroup.key); 
                 
                 Object.keys(translationGroup.isComplete)
                 .forEach((key, value) => {
@@ -91,13 +92,13 @@
         })
         .catch(reason => console.error('Error:', reason));
 
-        view.querySelector('#back-button').onclick = (event) => load.clientSelectorView();
+        view.querySelector('#back-button').onclick = (event) => LoadClientSelectorView();
     }
 
     //
-    // @function translation-editor
+    // @function LoadTranslationEditorView
     //
-    load.translationEditorView = function(client, key) {
+    function LoadTranslationEditorView (client, key) {
         
         let view = document.createElement('translation-editor-view');
         swapView(view);
@@ -153,8 +154,8 @@
         .catch(reason => console.error('Error:', reason));
 
         view.querySelector('header h1').innerHTML = `Ordbase - Edit ${key} translation`;
-        view.querySelector('#back-button').onclick = (event) => load.translationSelectorView(client);
+        view.querySelector('#back-button').onclick = (event) => LoadTranslationSelectorView(client);
     }
 
-    window.addEventListener('load', () => load.clientSelectorView());
+    window.addEventListener('load', () => LoadClientSelectorView());
 })();
