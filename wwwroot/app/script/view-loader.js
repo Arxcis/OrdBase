@@ -28,7 +28,7 @@
                 let button = document.createElement('button');
                 
                 button.innerHTML = element.name;
-                button.onclick = (e) => viewLoader.translationSelectorView(element.name);
+                button.onclick = (event) => viewLoader.translationSelectorView(element.name);
 
                 main.appendChild(button);
             });
@@ -50,17 +50,48 @@
 
         api.container
         .getOnClient(client)
-        .then(data => {})
-        .catch(reason => {});
+        .then(data => {
 
+            data.forEach(containerName => {
+                 let button = document.createElement('button');
+                 button.innerHTML = containerName;
+                 button.id = 'button-' + containerName;
+                 button.onclick = (event) => { button.classList.toggle('selected'); }
+
+                 containerList.appendChild(button);
+            });
+                
+        })
+        .catch(reason => {
+            console.error("Error:", reason);
+        });
+
+        // @doc template literals - https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Template_literals
         api.translation
-        .getOnClient(client)
-        .then(data => {})
-        .catch(reason => {});
+        .getGroupOnClient(client)
+        .then(data => {
+            data.forEach(translationGroup => {
+                let button = document.createElement('button');
+                button.innerHTML = translationGroup.key;
+                
+                Object.keys(translationGroup.isComplete)
+                .forEach((key, value) => {
+                    console.log(key, value);
+                    if (value == true) 
+                        button.innerHTML += ` <span>${key}: OK</span>`;
+                    else
+                        button.innerHTML += ` <span>${key}: NO</span>`;
+                });
 
+                main.appendChild(button);
+            });
+        })
+        .catch(reason => {
+            console.error("Error:", reason);
+        });
 
         view.querySelector('#backToClients')
-            .onclick = (e) => viewLoader.clientSelectorView();
+            .onclick = (event) => viewLoader.clientSelectorView();
 
     }
 
