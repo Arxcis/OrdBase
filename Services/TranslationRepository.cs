@@ -36,6 +36,18 @@ namespace OrdBaseCore.Services
                     select t)
                         .ToArray();
         }
+
+        public IEnumerable<object> GetSetOnClient(string client)
+        {
+            return (from t in _context.Translation
+                    where t.ClientKey == client
+                    group t by t.Key
+                    into set
+                    select new {
+                        Key = set.Key,
+                        IsCompletes = set.Select(ts => ts.Done).ToArray()
+                    });
+        }
         
         public IEnumerable<Translation> GetOnContainer (string client, string container) 
         {
