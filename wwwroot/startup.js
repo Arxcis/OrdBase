@@ -15,8 +15,5 @@
         }), (reason) => {
             console.log('NO Service worker registered..', reason);
         }
-
-        // 2. Load client view
-        viewLoader.clientSelector();
     });
 };

@@ -3,7 +3,7 @@
 //
 // @module viewLoader
 //
-let viewLoader = (() => {
+(() => {
 
     function swapView(view) {
         document.body.innerHTML = '';
@@ -15,21 +15,20 @@ let viewLoader = (() => {
     //
     // @view client-selector
     //
-    viewLoader.clientSelector = () => {
+    viewLoader.clientSelectorView = () => {
         let view = document.createElement('client-selector-view');
         swapView(view);
+        let main = view.querySelector('main');
 
         api.client
         .getAll()
         .then(data => {
-    
-            let main = view.querySelector('main');
 
-            data.forEach((element) => {
+            data.forEach(element => {
                 let button = document.createElement('button');
                 
                 button.innerHTML = element.name;
-                button.onclick = (e) => viewLoader.translationSelector(element.name);
+                button.onclick = (e) => viewLoader.translationSelectorView(element.name);
 
                 main.appendChild(button);
             });
@@ -42,12 +41,27 @@ let viewLoader = (() => {
     //
     // @view translation-selector
     //
-    viewLoader.translationSelector = (client) => {
+    viewLoader.translationSelectorView = (client) => {
         let view = document.createElement('translation-selector-view');
         swapView(view);
 
+        let containerList = document.querySelector('#container-list'); 
+        let main         = document.querySelector('main');
+
+        api.container
+        .getOnClient(client)
+        .then(data => {})
+        .catch(reason => {});
+
+        api.translation
+        .getOnClient(client)
+        .then(data => {})
+        .catch(reason => {});
+
+
         view.querySelector('#backToClients')
-            .onclick = (e) => viewLoader.clientSelector();
+            .onclick = (e) => viewLoader.clientSelectorView();
+
     }
 
     //
@@ -55,9 +69,8 @@ let viewLoader = (() => {
     //
     viewLoader.translationEditor = (client, accessKey) => {
         let view = document.createElement('translation-editor-view');
-
         swapView(view);
     }
 
-    return viewLoader;
+    window.addEventListener('load', () => viewLoader.clientSelectorView());
 })();
