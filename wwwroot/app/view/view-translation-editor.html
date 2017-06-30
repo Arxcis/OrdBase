@@ -1,7 +1,7 @@
-<template id="translation-editor-view">
+<template id="view-translation-editor">
     <style>
     
-    translation-editor-view
+    view-translation-editor
     main {
         display: flex;
         flex-direction: row;
@@ -46,15 +46,15 @@
     {
         let template = document.currentScript
                                  .ownerDocument
-                                  .querySelector("#translation-editor-view")
+                                  .querySelector("#view-translation-editor")
                                    .content; 
                                 
-        class TranslationEditorView extends HTMLElement {
+        class ViewTranslationEditor extends HTMLElement {
             connectedCallback() {
                 this.appendChild(
                     document.importNode(template, true));
             }
         }
-        customElements.define('translation-editor-view', TranslationEditorView);
+        customElements.define('view-translation-editor', ViewTranslationEditor);
     }
 </script>

@@ -1,7 +1,7 @@
-<template id="translation-selector-view">
+<template id="view-translation-selector">
 	<style>
     
-        translation-selector-view
+        view-translation-selector
         main {
             display: flex;
             height: 100%;
@@ -43,14 +43,14 @@
 <script>
     'use strict';
     {
-        let template = document.currentScript.ownerDocument.querySelector("#translation-selector-view").content;
+        let template = document.currentScript.ownerDocument.querySelector("#view-translation-selector").content;
 
-        class TranslationSelectorView extends HTMLElement {
+        class ViewTranslationSelector extends HTMLElement {
             connectedCallback() {
                 this.appendChild(
                     document.importNode(template, true));
             }
         }
-        customElements.define('translation-selector-view', TranslationSelectorView);
+        customElements.define('view-translation-selector', ViewTranslationSelector);
     }
 </script>

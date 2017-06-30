@@ -1,7 +1,7 @@
-<template id="client-selector-view">
+<template id="view-client-selector">
 	<style>
 
-        client-selector-view
+        view-client-selector
         main {
             display: flex;
             justify-content: center;
@@ -35,15 +35,15 @@
     {
         let template = document.currentScript 
                             .ownerDocument
-                            .querySelector("#client-selector-view")
+                            .querySelector("#view-client-selector")
                             .content;
 
-        class ClientSelectorView extends HTMLElement {
+        class ViewClientSelector extends HTMLElement {
             
             connectedCallback() {
                 this.appendChild(document.importNode(template, true));
             }
         }
-        customElements.define('client-selector-view', ClientSelectorView);
+        customElements.define('view-client-selector', ViewClientSelector);
     }
 </script>
