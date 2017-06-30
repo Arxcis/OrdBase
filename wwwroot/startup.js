@@ -18,6 +18,4 @@
             console.log('NO Service worker registered..', reason);
         }
     });
-
-
 };
