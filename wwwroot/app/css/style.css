@@ -4,7 +4,7 @@
 /* CSS components */
 @import url('header.css');
 @import url('card.css');
-@import url('button.css');
+@import url('list.css');
 /*@import url('list-item.css');
 /* end */
 
@@ -22,4 +22,5 @@ input, button, submit {
     background-color: transparent;
     cursor: pointer;
     padding: none;
+    color: #3e4444;
  } 

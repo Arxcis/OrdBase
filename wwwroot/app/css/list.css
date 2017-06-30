@@ -1,17 +1,37 @@
+/* TRANSLATION LIST */
 .ordbase-container-list {
 
+    flex: 0 0 300px;
+    display: flex;
+    flex-direction: column;
+
+    background-color: #f2ede9;
 }
 
-.ordbase-translation-list {
 
-}
+.ordbase-container-list
+button {
+    height: 75px;
+    font-size: 30px;
+}   
 
 .ordbase-container-list 
-button {
+button.selected {
 
+    background-color: #3e4444;
+    color: white;
+}
+
+/* CONTAINER LIST */
+.ordbase-translation-list {
+    display: flex;
+    flex-direction: column;
+
+    flex: 1;
 }
 
 .ordbase-translation-list 
 button {
-    
+    height: 75px;
+    font-size: 30px;
 }

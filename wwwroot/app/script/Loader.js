@@ -31,7 +31,6 @@
                 view.querySelector('main').appendChild(card);
 
                 card.querySelector('h2').innerHTML = client.name;
-
                 card.querySelector('button').onclick = (event) => LoadTranslationSelectorView(client.name);
             });
         })
@@ -53,8 +52,6 @@
         let view = document.createElement('translation-selector-view');
         swapView(view);
 
-        let containerList = document.querySelector('#list-show-container-on-client'); 
-
         //
         // Get all container names
         //
@@ -69,7 +66,7 @@
                 button.id = 'button-' + containerName;
                 button.onclick = (event) => button.classList.toggle('selected'); 
 
-                containerList.appendChild(button);
+                view.querySelector('#list-show-containers-on-client').appendChild(button);
             });      
         })
         .catch(reason => console.error('Error:', reason));
@@ -96,7 +93,7 @@
                         button.innerHTML += ` <span>${key}: NO</span>`;
                 });
 
-                document.querySelector('main').appendChild(button);
+                view.querySelector('#list-show-translations-on-client').appendChild(button);
             });
         })
         .catch(reason => console.error('Error:', reason));
