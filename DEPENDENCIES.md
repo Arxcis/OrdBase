@@ -8,8 +8,9 @@
 - Git
 
 ####Frontend:
-- Font Awesome
-- Google Font Roboto or Mani
+- Font Awesome for icons
+- Google Font Roboto or Mani 
+- Flexbox CSS framework
 
 
 **For detailed package dependencies see OrdBaseCore.csproj**
