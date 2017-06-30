@@ -1,15 +1,14 @@
-    //
+    'use strict';
     //
     // @function OnLoad_ViewTranslationSelector
-    //
     //
     function OnLoad_ViewTranslationSelector (client) {
 
         const iconCheck = '<i class="fa fa-check" aria-hidden="true"></i>';
         const iconCross = '<i class="fa fa-times" aria-hidden="true"></i>';
 
-        let view = document.createElement('translation-selector-view');
-        swapView(view);
+        let view = document.createElement('view-translation-selector');
+        Util.swapView(view);
 
         //
         // Get all container names

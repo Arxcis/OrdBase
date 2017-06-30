@@ -1,12 +1,11 @@
-//
+'use strict';
 //
 // @function LoadTranslationEditorView
 //
-//
 function LoadTranslationEditorView (client, key) {
     
-    let view = document.createElement('translation-editor-view');
-    swapView(view);
+    let view = document.createElement('view-translation-editor');
+    Util.swapView(view);
     let containerList = view.querySelector('#list-show-containers-on-translation'); 
 
     //

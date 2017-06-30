@@ -1,10 +1,10 @@
-
+'use strict';
 //
 // @function OnLoadViewClientSelector
 //
 function OnLoad_ViewClientSelector()) {
-    let view = document.createElement('client-selector-view');
-    App.swapView(view);
+    let view = document.createElement('view-client-selector');
+    Util.swapView(view);
 
     API
     .client.getAll()
@@ -15,7 +15,7 @@ function OnLoad_ViewClientSelector()) {
             view.querySelector('main').appendChild(card);
 
             card.querySelector('h2').innerHTML = client.name;
-            card.querySelector('button').onclick = (event) => LoadTranslationSelectorView(client.name);
+            card.querySelector('button').onclick = (event) => OnLoad_ViewTranslationSelector(client.name);
         });
     })
     .catch(reason => console.error('Error:', reason));
