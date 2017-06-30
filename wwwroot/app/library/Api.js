@@ -25,9 +25,9 @@ let API = (() => {
     }
 
     //
-    // @function URIRequest()
+    // @function getJSON()
     //
-    function URIRequest({ type = mandatory(), route = mandatory()} = {}) {
+    function getJSON({ type = mandatory(), route = mandatory()} = {}) {
         return new Promise((resolve, reject) => {
             const httpRequest = new XMLHttpRequest();
 
@@ -39,9 +39,9 @@ let API = (() => {
     }
 
     //
-    // @function JSONRequest 
+    // @function postJSON 
     //
-    function JSONRequest({ type = mandatory(), route = mandatory(), data = mandatory()} = {}) {
+    function postJSON({ type = mandatory(), route = mandatory(), data = mandatory()} = {}) {
         return new Promise((resolve, reject) => {
             const httpRequest = new XMLHttpRequest();
 
@@ -62,21 +62,21 @@ let API = (() => {
     // CLIENT ROUTES
     //
     API.client.getAll = () => { 
-        return URIRequest({ 
+        return getJSON({ 
             type: 'GET', 
             route: routeBuilder('api','client') 
         });
     }
 
     API.client.get = (client) => {
-        return URIRequest({ 
+        return getJSON({ 
             type: 'GET', 
             route: routeBuilder('api', client) 
         });
     }
 
     API.client.create = (client) => {
-        return JSONRequest({ 
+        return postJSON({ 
             type:  'POST', 
             route: routeBuilder('api', 'client', 'create'), 
             data:  client 
@@ -87,14 +87,14 @@ let API = (() => {
     // CONTAINER ROUTES
     //
     API.container.getOnClient = (client) => {
-        return URIRequest({ 
+        return getJSON({ 
             type: 'GET', 
             route: routeBuilder('api', client, 'container') 
         });
     }
 
     API.container.getOnKey = (client, accessKey) => {
-        return URIRequest({ 
+        return getJSON({ 
             type: 'GET', 
             route: routeBuilder('api', client, 'container', accessKey) 
         });
@@ -104,21 +104,21 @@ let API = (() => {
     // LANGUAGE ROUTES
     //
     API.language.getAll = () => {
-        return URIRequest({ 
+        return getJSON({ 
             type: 'GET', 
             route: routeBuilder('api', 'language') 
         });
     }
 
     API.language.getOnClient = (client) => {
-        return URIRequest({ 
+        return getJSON({ 
             type: 'GET', 
             route: routeBuilder('api', client, 'language') 
         });
     }
 
     API.language.create = (language) => {
-        return JSONRequest({ 
+        return postJSON({ 
             type: 'POST', 
             route: routeBuilder('api', 'language', 'create'), 
             data:  language 
@@ -129,42 +129,42 @@ let API = (() => {
     // TRANSLATION ROUTES
     //
     API.translation.get = (client, container, accessKey, language) => { 
-        return URIRequest({ 
+        return getJSON({ 
             type: 'GET', 
             route: routeBuilder('api', client, 'translation', container, accessKey, language) 
         }); 
     }
 
     API.translation.getOnClient = (client) => {  
-        return URIRequest({
+        return getJSON({
             type:  'GET',
             route: routeBuilder('api', client, 'translation') 
         }); 
     }
 
     API.translation.getGroupOnClient = (client) => {
-        return URIRequest({
+        return getJSON({
             type: 'GET',
             route: routeBuilder('api', client, 'translation', 'group')
         })
     }
 
     API.translation.getOnContainer = (client, container) => { 
-        return URIRequest({
+        return getJSON({
             type: 'GET',
             route: routeBuilder('api', client, 'translation', 'container', container) 
         }); 
     }
     
     API.translation.getOnKey = (client, key) => {   // @note - convert accesskey -> key
-        return URIRequest({
+        return getJSON({
             type:  'GET',
             route: routeBuilder('api', client, 'translation', 'accesskey', key) 
         }); 
     }   
 
     API.translation.create = (translation) => {
-        return JSONRequest({
+        return postJSON({
             type:  'POST',
             route: routeBuilder('api', 'translation', 'create'),
             data:  translation 
@@ -172,7 +172,7 @@ let API = (() => {
     }
 
     API.translation.update = (translation) => {  
-        return JSONRequest({
+        return postJSON({
             type:  'PUT',
             route: routeBuilder('api', 'translation', 'update', translation.client, translation.container, translation.accessKey, translation.language),
             data:  translation 
@@ -180,7 +180,7 @@ let API = (() => {
     }
 
     API.translation.delete = (key) => {
-        return URIRequest({
+        return getJSON({
             type:  'DELETE',
             route: routeBuilder('api', 'translation', 'delete', client, container, accessKey, language) 
         });
