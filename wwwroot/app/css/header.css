@@ -3,7 +3,7 @@
 .ordbase-header {           
     display: flex;
     text-align:  center;
-    height: 100px;
+    min-height: 100px;
     background-color: #3e4444;
     color: #ffffff;
 }

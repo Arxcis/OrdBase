@@ -1,18 +1,54 @@
 ordbase-card-translation {
-    
-}
-
-button .container-language-icons {
-
-}
-
-ordbase-card-translation
-button .container-language-icons div {
-
+    width:100%;
 }
 
 
-ordbase-card-translation
-button .container-language-icons div i {
 
+ordbase-card-translation 
+button {
+    display: flex;
+    flex-wrap: wrap;
+
+    margin-right: 0px;
+    padding: 0px;
+
+    width:100%;
+    min-height: 75px;
+        font-size: 30px;
+}
+
+
+ordbase-card-translation button 
+span#span-show-translation-key {
+    flex: 0 0 100px;
+}
+
+ordbase-card-translation button
+.languages-complete {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+
+ordbase-card-translation button .languages-complete 
+.languages-complete-text-icon {
+    margin: 0px 10px 0px 10px;
+    flex: 0 1 120px;
+
+    display: flex;
+}
+
+ordbase-card-translation button .languages-complete .languages-complete-text-icon 
+span {
+    display: flex;
+}
+
+ordbase-card-translation .fa-check {
+    color: #5cb85c;
+}
+
+ordbase-card-translation .fa-times {
+    color: #d9534f;
 }

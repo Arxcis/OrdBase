@@ -27,7 +27,7 @@
         .then(data => {
 
             data.forEach(client => {
-                let card = document.createElement('ordbase-card');
+                let card = document.createElement('ordbase-card-client');
                 view.querySelector('main').appendChild(card);
 
                 card.querySelector('h2').innerHTML = client.name;
@@ -49,6 +49,9 @@
     //
     function LoadTranslationSelectorView (client) {
 
+        const iconCheck = '<i class="fa fa-check" aria-hidden="true"></i>';
+        const iconCross = '<i class="fa fa-times" aria-hidden="true"></i>';
+
         let view = document.createElement('translation-selector-view');
         swapView(view);
 
@@ -61,12 +64,11 @@
 
             data.forEach(containerName => {
                 let button = document.createElement('button');
+                view.querySelector('#list-show-containers-on-client').appendChild(button);
 
                 button.innerHTML = containerName;
                 button.id = 'button-' + containerName;
-                button.onclick = (event) => button.classList.toggle('selected'); 
-
-                view.querySelector('#list-show-containers-on-client').appendChild(button);
+                button.onclick = (event) => button.classList.toggle('selected');
             });      
         })
         .catch(reason => console.error('Error:', reason));
@@ -79,21 +81,22 @@
         .translation.getGroupOnClient(client)
         .then(data => {
             data.forEach(translationGroup => {
-                let button = document.createElement('button');
+
+                let card = document.createElement('ordbase-card-translation');
+                view.querySelector('#list-show-translations-on-client').appendChild(card);
                 
-                button.innerHTML = translationGroup.key;
-                button.onclick = (event) => LoadTranslationEditorView(client, translationGroup.key); 
-                
+                card.querySelector('#btn-load-translation-editor').onclick = (event) => LoadTranslationEditorView(client, translationGroup.key); 
+                card.querySelector('#span-show-translation-key').innerHTML = translationGroup.key;
+                let divLanguagesComplete = card.querySelector('#div-show-if-languages-are-complete');
+                                
                 Object.keys(translationGroup.isComplete)
                 .forEach((key, value) => {
 
                     if (value == true) 
-                        button.innerHTML += ` ${key}: <i class="fa fa-check" aria-hidden="true"></i></span>`;
+                        divLanguagesComplete.innerHTML += `<div class="languages-complete-text-icon"><span>${key}</span>` + iconCheck + '</div class="languages-complete-text-icon">';
                     else
-                        button.innerHTML += ` ${key}: <i class="fa fa-times" aria-hidden="true"></i></span>`;
+                        divLanguagesComplete.innerHTML += `<div class="languages-complete-text-icon"><span>${key}</span>` + iconCross + '</div class="languages-complete-text-icon">';
                 });
-
-                view.querySelector('#list-show-translations-on-client').appendChild(button);
             });
         })
         .catch(reason => console.error('Error:', reason));

@@ -1,19 +1,19 @@
-<template id="card-translation">
-    <button>
-        <p></p>
-        <div class="container-language-icon"></div>
+<template id="ordbase-card-translation">
+    <button id="btn-load-translation-editor">
+        <span id="span-show-translation-key"></span>
+        <div id="div-show-if-languages-are-complete" class="languages-complete"></div>
     </button>    
 </template>
 <script>
     'use strict';
     {
-        let template = document.currentScript.ownerDocument.querySelector("#card-translation").content;
+        let template = document.currentScript.ownerDocument.querySelector("#ordbase-card-translation").content;
 
-        class CardTranslation extends HTMLElement {
+        class OrdbaseCardTranslation extends HTMLElement {
             connectedCallback() {
                 this.appendChild(document.importNode(template, true));
             }
         }
-        customElements.define('card-translation', CardTranslation);
+        customElements.define('ordbase-card-translation', OrdbaseCardTranslation);
     }
 </script>

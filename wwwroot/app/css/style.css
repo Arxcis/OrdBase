@@ -4,8 +4,8 @@
 /* CSS components */
 @import url('header.css');
 @import url('list.css');
-@import url('card-client.css');
-@import url('card-translation.css');
+@import url('../component/card-client.css');
+@import url('../component/card-translation.css');
 /* end */
 
 
