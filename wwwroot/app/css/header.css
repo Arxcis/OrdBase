@@ -1,0 +1,27 @@
+
+
+.ordbase-header {           
+    display: flex;
+    text-align:  center;
+    height: 100px;
+    background-color: #3e4444;
+    color: #ffffff;
+}
+
+
+i.fa-bars,
+i.fa-plus {
+    font-size: 40px;
+    margin-top: 30px;
+
+    flex: 0;
+    flex-basis: 130px
+}
+
+.ordbase-header h1 {   
+    text-align: left;
+    font-size: 36px;
+    flex-grow: 1;
+}
+
+
