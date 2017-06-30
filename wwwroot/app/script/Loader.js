@@ -118,7 +118,7 @@
         
         let view = document.createElement('translation-editor-view');
         swapView(view);
-        let containerList = document.querySelector('#container-list'); 
+        let containerList = view.querySelector('#list-show-containers-on-translation'); 
 
         //
         // Get all container on client
@@ -154,7 +154,7 @@
         API
         .translation.getOnKey(client, key)
         .then(data => {
-            let main = document.querySelector('main');
+            let main = view.querySelector('ordbase-form-translation'); 
             console.log('key:', key)
             main.querySelector('#input-key').setAttribute('value', key);
             

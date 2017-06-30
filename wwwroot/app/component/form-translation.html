@@ -1,0 +1,19 @@
+<template id="ordbase-form-translation">
+    <form>
+
+    </form>
+</template>
+
+<script>
+    'use strict';
+    {
+        let template = document.currentScript.ownerDocument.querySelector("#ordbase-form-translation").content;
+
+        class OrdbaseFormTranslation extends HTMLElement {
+            connectedCallback() {
+                this.appendChild(document.importNode(template, true));
+            }
+        }
+        customElements.define('ordbase-form-translation', OrdbaseFormTranslation);
+    }
+</script>

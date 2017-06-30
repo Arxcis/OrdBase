@@ -1,6 +1,12 @@
 <template id="translation-editor-view">
     <style>
     
+    translation-editor-view
+    main {
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+    }
        
         
     </style>
@@ -20,10 +26,18 @@
 
 
     </header>
-    <section id="container-list"><li></li></section>
     <main>
-        <br><label for="input-key">Key</label><br>
-        <input id="input-key" type="text" value=""><br><br>
+        <section id="list-show-containers-on-translation" class="ordbase-container-list">
+            <h2>Containers</h2>
+
+
+        </section>
+
+        <form id="form-translation-edit" class="ordbase-translation-form">
+            <br><label for="input-key">Key</label><br>
+            <input id="input-key" type="text" value=""><br><br>
+
+        </form>
     </main>
     <footer></footer>
 </template>
