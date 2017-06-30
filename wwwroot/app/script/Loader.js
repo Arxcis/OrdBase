@@ -19,22 +19,25 @@
     function LoadClientSelectorView () {
         let view = document.createElement('client-selector-view');
         swapView(view);
-        let main = view.querySelector('main');
 
         API
         .client.getAll()
         .then(data => {
 
-            data.forEach(element => {
-                let button = document.createElement('button');
-                
-                button.innerHTML = element.name;
-                button.onclick = (event) => LoadTranslationSelectorView(element.name);
+            data.forEach(client => {
+                let card = document.createElement('ordbase-card');
+                view.querySelector('main').appendChild(card);
 
-                main.appendChild(button);
+                card.querySelector('h2').innerHTML = client.name;
+                card.onclick = (event) => LoadTranslationSelectorView(client.name);
             });
         })
         .catch(reason => console.error('Error:', reason));
+
+        // Hook up all buttons
+        view.querySelector('#btn-toggle-inactive-menu').onclick = (event) => LoadClientSelectorView();
+        view.querySelector('#btn-back-to-home-page').onclick    = (event) => LoadClientSelectorView();
+        view.querySelector('#btn-create-new-client').onclick    = (event) => LoadClientSelectorView();
     }
 
     //
@@ -46,7 +49,6 @@
         swapView(view);
 
         let containerList = document.querySelector('#container-list'); 
-        let main         = document.querySelector('main');
 
         //
         // Get all container names
@@ -87,12 +89,16 @@
                         button.innerHTML += ` <span>${key}: NO</span>`;
                 });
 
-                main.appendChild(button);
+                document.querySelector('main').appendChild(button);
             });
         })
         .catch(reason => console.error('Error:', reason));
 
-        view.querySelector('#back-button').onclick = (event) => LoadClientSelectorView();
+        // Hook up all buttons
+        view.querySelector('#btn-toggle-category-list').onclick    = (event) => LoadClientSelectorView();
+        view.querySelector('#btn-back-to-home-page').onclick       = (event) => LoadClientSelectorView();
+        view.querySelector('#btn-back-to-client-selector').onclick = (event) => LoadClientSelectorView();
+        view.querySelector('#btn-create-new-translation').onclick  = (event) => LoadClientSelectorView();
     }
 
     //
@@ -152,9 +158,12 @@
             })
         })
         .catch(reason => console.error('Error:', reason));
-
-        view.querySelector('header h1').innerHTML = `Ordbase - Edit ${key} translation`;
-        view.querySelector('#back-button').onclick = (event) => LoadTranslationSelectorView(client);
+     
+        // Hook up buttons
+        view.querySelector('#btn-toggle-category-list').onclick         = (event) => LoadTranslationEditorView(client);
+        view.querySelector('#btn-back-to-home-page').onclick            = (event) => LoadClientSelectorView(client);
+        view.querySelector('#btn-back-to-translation-selector').onclick = (event) => LoadTranslationSelectorView(client);    
+        view.querySelector('#btn-save-edited-translation').onclick      = (event) => LoadTranslationEditorView(client);
     }
 
     window.addEventListener('load', () => LoadClientSelectorView());

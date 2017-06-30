@@ -4,32 +4,22 @@
         <meta charset="utf-8">
         <title>Editor - OrdBase</title>
         
+        <!-- Import styles -->
+        <link rel="stylesheet" href="/app/css/style.css">
+
         <!-- Import templates -->        
+        <link rel="import" href="/app/view/ordbase-card.html"         >
         <link rel="import" href="/app/view/client-selector.html"      >     
         <link rel="import" href="/app/view/translation-selector.html" >
         <link rel="import" href="/app/view/translation-editor.html"   >
 
         <!-- Load scripts -->
-        <script src="/app/script/api.js"> </script>
-        <script src="/app/script/view-loader.js" ></script>
+        <script src="/app/script/Api.js"></script>
+        <script src="/app/script/Loader.js" ></script>
         <script src="/startup.js"></script>
     
     
         <style>
-            html, body {
-                margin: auto;
-                max-width: 1000px;
-            }
-            header {        
-                display: flex;
-                justify-content: space-around;
-                padding-top: 1rem;
-                text-align: center;
-                height: 100px;
-                background-color: blue;
-                color: white;
-            }
-
             .selected {
                 background-color: blue;
                 color: white;

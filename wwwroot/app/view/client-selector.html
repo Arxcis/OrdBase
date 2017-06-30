@@ -1,31 +1,29 @@
 <template id="client-selector-view">
 	<style>
-        client-selector-view 
-        header {
-
-        }
 
         client-selector-view
         main {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
+            background-color: #f2ede9;
+            height: 100%;
+            align-content: flex-start;
         }
 
-        client-selector-view 
-        main button {
-            font-size: 100%;
-            margin: 10px;
-            height: 150px;
-            flex-basis: 150px;
-
-            flex-shrink: 0;
-            border-radius: 5px;
-        }
     
     </style>
-	    <header>
-            <h1>Ordbase - Select Client</h1>
+	   <header class="ordbase-header">
+
+            <button id="btn-toggle-inactive-menu" class="icon-button">
+                <i class="fa fa-bars" aria-hidden="true"></i></button>
+
+            <button id="btn-back-to-home-page" class="header-text-button">
+                <h1>Ordbase - <small>Select Client</small></h1></button>
+
+            <button id="btn-create-new-client" class="icon-button">
+                <i class="fa fa-plus" aria-hidden="true"></i></button>
+
         </header>
 	<main>
 

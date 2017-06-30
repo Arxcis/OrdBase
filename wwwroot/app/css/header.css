@@ -1,5 +1,5 @@
 
-
+/* --------------- */
 .ordbase-header {           
     display: flex;
     text-align:  center;
@@ -7,21 +7,37 @@
     background-color: #3e4444;
     color: #ffffff;
 }
+/* --------------- */
 
 
-i.fa-bars,
-i.fa-plus {
+/* ICON-BUTTON */
+.ordbase-header .icon-button {
     font-size: 40px;
-    margin-top: 30px;
-
     flex: 0;
-    flex-basis: 130px
+    flex-basis: 130px;
+    display: flex;
+    justify-content: center;
 }
 
-.ordbase-header h1 {   
+.ordbase-header .icon-button i {
+    width: 100%;
+    height: 100%;
+
+    color: #ffffff;
+}
+/* --------------- */
+
+
+/* HEADER-TEXT-BUTTON */
+.ordbase-header .header-text-button {
+    flex-grow: 1;
+    color: #ffffff;
+}
+
+.ordbase-header .header-text-button h1 {   
     text-align: left;
     font-size: 36px;
-    flex-grow: 1;
 }
+/* --------------- */
 
 

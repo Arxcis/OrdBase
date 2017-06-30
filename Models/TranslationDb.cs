@@ -24,12 +24,19 @@ namespace OrdBaseCore.Models
             // - indexes 
             // - Composite keys
             //
-            modelBuilder.Entity<Client>()
-                .HasIndex(row => row.ApiKey)
+            modelBuilder
+            .Entity<Client>()
+                .HasIndex(c => c.ApiKey)
                 .IsUnique();
 
+            modelBuilder
+            .Entity<Client>()
+                .HasIndex(c => c.Url)
+                .IsUnique();
             
-            modelBuilder.Entity<Translation>()
+
+            modelBuilder
+            .Entity<Translation>()
                 .HasKey(t => new { 
                     t.ClientKey, 
                     t.LanguageKey,
@@ -37,7 +44,8 @@ namespace OrdBaseCore.Models
                     t.Key
                 });
 
-            modelBuilder.Entity<ClientLanguage>()
+            modelBuilder
+            .Entity<ClientLanguage>()
                 .HasKey(t => new {
                     t.ClientId,
                     t.LanguageId

@@ -1,0 +1,18 @@
+<template id="ordbase-card">
+    <img alt="Bilde av fylkesmannen" src="http://placehold.it/250x125/FFC107">
+    <h2>fylkesmannen.no</h2>
+    <p>https://www.fylkesmannen.no</p>  
+</template>
+<script>
+    'use strict';
+    {
+        let template = document.currentScript.ownerDocument.querySelector("#ordbase-card").content;
+
+        class OrdbaseCard extends HTMLElement {
+            connectedCallback() {
+                this.appendChild(document.importNode(template, true));
+            }
+        }
+        customElements.define('ordbase-card', OrdbaseCard);
+    }
+</script>
