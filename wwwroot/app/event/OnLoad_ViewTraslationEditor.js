@@ -2,6 +2,11 @@
 //
 // @function LoadTranslationEditorView
 //
+
+import  { container   as containerApi, 
+          translation as translationApi } from '../Api'; 
+import  { swapView }                      from '../Util';
+
 function LoadTranslationEditorView (client, key) {
     
     let view = document.createElement('view-translation-editor');
@@ -11,8 +16,8 @@ function LoadTranslationEditorView (client, key) {
     //
     // Get all container on client
     //
-    API
-    .container.getOnClient(client)
+    containerApi
+    .getOnClient(client)
     .then(data => {
 
         data.forEach(containerName => {
@@ -24,7 +29,7 @@ function LoadTranslationEditorView (client, key) {
             containerList.appendChild(button);
         });      
 
-        return API.container.getOnKey(client, key)
+        return containerApi.getOnKey(client, key)
     })
     .then(data => {
         data.forEach(selectedContainer => {
@@ -39,8 +44,8 @@ function LoadTranslationEditorView (client, key) {
     //
     // Get data about translations with the same key
     //
-    API
-    .translation.getOnKey(client, key)
+    translationApi
+    .getOnKey(client, key)
     .then(data => {
         let main = view.querySelector('ordbase-form-translation'); 
         console.log('key:', key)

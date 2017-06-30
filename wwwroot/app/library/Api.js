@@ -1,190 +1,164 @@
 'use strict';
 
-let API = (() => {
+import { getJSON, postJSON } from 'Ajax';
 
-    //
-    // @doc vanilla Ajax XMLHttpRequest -  https://www.w3schools.com/xml/ajax_xmlhttprequest_response.asp
-    // @doc Destructuring arguments with default values ecma 6 - http://2ality.com/2015/01/es6-destructuring.html
-    // @doc Async Promises MDN - https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise
-    // @doc Arro functions MDN - https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/Arrow_functions
-    //
-    function mandatory() {
-        throw new Error('Missing parameter');
+
+//
+// @doc vanilla Ajax XMLHttpRequest -  https://www.w3schools.com/xml/ajax_xmlhttprequest_response.asp
+// @doc Destructuring arguments with default values ecma 6 - http://2ality.com/2015/01/es6-destructuring.html
+// @doc Async Promises MDN - https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise
+// @doc Arro functions MDN - https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/Arrow_functions
+//
+
+//
+// @function routeBuilder(...args)
+// @doc https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments
+//
+function routeBuilder() {
+    let route = '';
+    for (let i = 0; i < arguments.length; i++) {
+        route += '/' + arguments[i];
     }
+    return route;
+}
 
-    //
-    // @function routeBuilder(...args)
-    // @doc https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments
-    //
-    function routeBuilder() {
-        let route = '';
-        for (let i = 0; i < arguments.length; i++) {
-            route += '/' + arguments[i];
-        }
-        return route;
-    }
 
-    //
-    // @function getJSON()
-    //
-    function getJSON({ type = mandatory(), route = mandatory()} = {}) {
-        return new Promise((resolve, reject) => {
-            const httpRequest = new XMLHttpRequest();
 
-            httpRequest.open(type, route);  // asynce is default
-            httpRequest.onload  = () => resolve(JSON.parse(httpRequest.responseText));
-            httpRequest.onerror = () => reject(httpRequest.statusText);
-            httpRequest.send();
-        });
-    }
+//
+// @modules - to be exported
+//
+let client = {};
+let language = {};
+let container = {}; 
+let translation: {};     
 
-    //
-    // @function postJSON 
-    //
-    function postJSON({ type = mandatory(), route = mandatory(), data = mandatory()} = {}) {
-        return new Promise((resolve, reject) => {
-            const httpRequest = new XMLHttpRequest();
+//
+// CLIENT ROUTES
+//
+client.getAll = () => { 
+    return getJSON({ 
+        type: 'GET', 
+        route: routeBuilder('api','client') 
+    });
+}
 
-            httpRequest.open(type, route, true);
-            httpRequest.setRequestHeader('Content-type', 'application/json');
-            httpRequest.onload = () => resolve(httpRequest.responseText);
-            httpRequest.onerror = () => reject(httpRequest.statusText);
-            httpRequest.send(JSON.stringify(data));
-        });
-    }
+client.get = (client) => {
+    return getJSON({ 
+        type: 'GET', 
+        route: routeBuilder('api', client) 
+    });
+}
 
-    //
-    // @module api - to be exported
-    //
-    let API = { client: {}, language: {}, container: {}, translation: {}};     // @adivce ES6 - adobt using let and const, stop using var
+client.create = (client) => {
+    return postJSON({ 
+        type:  'POST', 
+        route: routeBuilder('api', 'client', 'create'), 
+        data:  client 
+    });
+} 
 
-    //
-    // CLIENT ROUTES
-    //
-    API.client.getAll = () => { 
-        return getJSON({ 
-            type: 'GET', 
-            route: routeBuilder('api','client') 
-        });
-    }
+//
+// CONTAINER ROUTES
+//
+container.getOnClient = (client) => {
+    return getJSON({ 
+        type: 'GET', 
+        route: routeBuilder('api', client, 'container') 
+    });
+}
 
-    API.client.get = (client) => {
-        return getJSON({ 
-            type: 'GET', 
-            route: routeBuilder('api', client) 
-        });
-    }
+container.getOnKey = (client, accessKey) => {
+    return getJSON({ 
+        type: 'GET', 
+        route: routeBuilder('api', client, 'container', accessKey) 
+    });
+}
 
-    API.client.create = (client) => {
-        return postJSON({ 
-            type:  'POST', 
-            route: routeBuilder('api', 'client', 'create'), 
-            data:  client 
-        });
-    } 
+//
+// LANGUAGE ROUTES
+//
+language.getAll = () => {
+    return getJSON({ 
+        type: 'GET', 
+        route: routeBuilder('api', 'language') 
+    });
+}
 
-    //
-    // CONTAINER ROUTES
-    //
-    API.container.getOnClient = (client) => {
-        return getJSON({ 
-            type: 'GET', 
-            route: routeBuilder('api', client, 'container') 
-        });
-    }
+language.getOnClient = (client) => {
+    return getJSON({ 
+        type: 'GET', 
+        route: routeBuilder('api', client, 'language') 
+    });
+}
 
-    API.container.getOnKey = (client, accessKey) => {
-        return getJSON({ 
-            type: 'GET', 
-            route: routeBuilder('api', client, 'container', accessKey) 
-        });
-    }
-    
-    //
-    // LANGUAGE ROUTES
-    //
-    API.language.getAll = () => {
-        return getJSON({ 
-            type: 'GET', 
-            route: routeBuilder('api', 'language') 
-        });
-    }
+language.create = (language) => {
+    return postJSON({ 
+        type: 'POST', 
+        route: routeBuilder('api', 'language', 'create'), 
+        data:  language 
+    });
+}
 
-    API.language.getOnClient = (client) => {
-        return getJSON({ 
-            type: 'GET', 
-            route: routeBuilder('api', client, 'language') 
-        });
-    }
+//
+// TRANSLATION ROUTES
+//
+translation.get = (client, container, accessKey, language) => { 
+    return getJSON({ 
+        type: 'GET', 
+        route: routeBuilder('api', client, 'translation', container, accessKey, language) 
+    }); 
+}
 
-    API.language.create = (language) => {
-        return postJSON({ 
-            type: 'POST', 
-            route: routeBuilder('api', 'language', 'create'), 
-            data:  language 
-        });
-    }
+translation.getOnClient = (client) => {  
+    return getJSON({
+        type:  'GET',
+        route: routeBuilder('api', client, 'translation') 
+    }); 
+}
 
-    //
-    // TRANSLATION ROUTES
-    //
-    API.translation.get = (client, container, accessKey, language) => { 
-        return getJSON({ 
-            type: 'GET', 
-            route: routeBuilder('api', client, 'translation', container, accessKey, language) 
-        }); 
-    }
+translation.getGroupOnClient = (client) => {
+    return getJSON({
+        type: 'GET',
+        route: routeBuilder('api', client, 'translation', 'group')
+    })
+}
 
-    API.translation.getOnClient = (client) => {  
-        return getJSON({
-            type:  'GET',
-            route: routeBuilder('api', client, 'translation') 
-        }); 
-    }
+translation.getOnContainer = (client, container) => { 
+    return getJSON({
+        type: 'GET',
+        route: routeBuilder('api', client, 'translation', 'container', container) 
+    }); 
+}
 
-    API.translation.getGroupOnClient = (client) => {
-        return getJSON({
-            type: 'GET',
-            route: routeBuilder('api', client, 'translation', 'group')
-        })
-    }
+translation.getOnKey = (client, key) => {   // @note - convert accesskey -> key
+    return getJSON({
+        type:  'GET',
+        route: routeBuilder('api', client, 'translation', 'accesskey', key) 
+    }); 
+}   
 
-    API.translation.getOnContainer = (client, container) => { 
-        return getJSON({
-            type: 'GET',
-            route: routeBuilder('api', client, 'translation', 'container', container) 
-        }); 
-    }
-    
-    API.translation.getOnKey = (client, key) => {   // @note - convert accesskey -> key
-        return getJSON({
-            type:  'GET',
-            route: routeBuilder('api', client, 'translation', 'accesskey', key) 
-        }); 
-    }   
+translation.create = (translation) => {
+    return postJSON({
+        type:  'POST',
+        route: routeBuilder('api', 'translation', 'create'),
+        data:  translation 
+    }); 
+}
 
-    API.translation.create = (translation) => {
-        return postJSON({
-            type:  'POST',
-            route: routeBuilder('api', 'translation', 'create'),
-            data:  translation 
-        }); 
-    }
+translation.update = (translation) => {  
+    return postJSON({
+        type:  'PUT',
+        route: routeBuilder('api', 'translation', 'update', translation.client, translation.container, translation.accessKey, translation.language),
+        data:  translation 
+    });
+}
 
-    API.translation.update = (translation) => {  
-        return postJSON({
-            type:  'PUT',
-            route: routeBuilder('api', 'translation', 'update', translation.client, translation.container, translation.accessKey, translation.language),
-            data:  translation 
-        });
-    }
+translation.delete = (key) => {
+    return getJSON({
+        type:  'DELETE',
+        route: routeBuilder('api', 'translation', 'delete', client, container, accessKey, language) 
+    });
+}
 
-    API.translation.delete = (key) => {
-        return getJSON({
-            type:  'DELETE',
-            route: routeBuilder('api', 'translation', 'delete', client, container, accessKey, language) 
-        });
-    }
 
-    return API;
-})();
+export { translation, client, container, language };

@@ -1,4 +1,8 @@
 'use strict';
+
+import { client as clientApi } from '../Api';
+import { swapView }            from '../Util';
+
 //
 // @function OnLoadViewClientSelector
 //
