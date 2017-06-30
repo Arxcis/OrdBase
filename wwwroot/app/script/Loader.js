@@ -14,7 +14,9 @@
     }   
 
     //
+    //
     // @function LoadClientSelectorView
+    //
     //
     function LoadClientSelectorView () {
         let view = document.createElement('client-selector-view');
@@ -29,7 +31,8 @@
                 view.querySelector('main').appendChild(card);
 
                 card.querySelector('h2').innerHTML = client.name;
-                card.onclick = (event) => LoadTranslationSelectorView(client.name);
+
+                card.querySelector('button').onclick = (event) => LoadTranslationSelectorView(client.name);
             });
         })
         .catch(reason => console.error('Error:', reason));
@@ -41,14 +44,16 @@
     }
 
     //
+    //
     // @function LoadTranslationSelectorView
+    //
     //
     function LoadTranslationSelectorView (client) {
 
         let view = document.createElement('translation-selector-view');
         swapView(view);
 
-        let containerList = document.querySelector('#container-list'); 
+        let containerList = document.querySelector('#list-show-container-on-client'); 
 
         //
         // Get all container names
@@ -59,6 +64,7 @@
 
             data.forEach(containerName => {
                 let button = document.createElement('button');
+
                 button.innerHTML = containerName;
                 button.id = 'button-' + containerName;
                 button.onclick = (event) => button.classList.toggle('selected'); 
@@ -77,6 +83,7 @@
         .then(data => {
             data.forEach(translationGroup => {
                 let button = document.createElement('button');
+                
                 button.innerHTML = translationGroup.key;
                 button.onclick = (event) => LoadTranslationEditorView(client, translationGroup.key); 
                 
@@ -95,14 +102,17 @@
         .catch(reason => console.error('Error:', reason));
 
         // Hook up all buttons
-        view.querySelector('#btn-toggle-category-list').onclick    = (event) => LoadClientSelectorView();
+        view.querySelector('#btn-toggle-container-list').onclick    = (event) => LoadClientSelectorView();
         view.querySelector('#btn-back-to-home-page').onclick       = (event) => LoadClientSelectorView();
         view.querySelector('#btn-back-to-client-selector').onclick = (event) => LoadClientSelectorView();
         view.querySelector('#btn-create-new-translation').onclick  = (event) => LoadClientSelectorView();
     }
 
+
+    //
     //
     // @function LoadTranslationEditorView
+    //
     //
     function LoadTranslationEditorView (client, key) {
         
@@ -160,7 +170,7 @@
         .catch(reason => console.error('Error:', reason));
      
         // Hook up buttons
-        view.querySelector('#btn-toggle-category-list').onclick         = (event) => LoadTranslationEditorView(client);
+        view.querySelector('#btn-toggle-container-list').onclick        = (event) => LoadTranslationEditorView(client);
         view.querySelector('#btn-back-to-home-page').onclick            = (event) => LoadClientSelectorView(client);
         view.querySelector('#btn-back-to-translation-selector').onclick = (event) => LoadTranslationSelectorView(client);    
         view.querySelector('#btn-save-edited-translation').onclick      = (event) => LoadTranslationEditorView(client);

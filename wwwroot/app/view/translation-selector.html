@@ -4,7 +4,6 @@
         translation-selector-view
         main {
             display: flex;
-            flex-wrap: wrap;
         }
         
     </style>
@@ -23,23 +22,25 @@
             <i class="fa fa-plus" aria-hidden="true"></i></button>
 
     </header>
-    <section id="container-list">
+   
+    <main>
+        <section id="list-show-container-on-client" class="ordbase-container-list">
 
 
-    </section>
-	<main>
+        </section>
+
+        <section id="list-show-translations-on-client" class="ordbase-translation-list">
 
 
+        </section>
 	</main>
+
 	<footer></footer>
 </template>
 <script>
     'use strict';
     {
-        let template = document.currentScript
-                                .ownerDocument
-                                .querySelector("#translation-selector-view")
-                                .content;
+        let template = document.currentScript.ownerDocument.querySelector("#translation-selector-view").content;
 
         class TranslationSelectorView extends HTMLElement {
             connectedCallback() {

@@ -1,5 +1,5 @@
 
-/* --------------- */
+/* --- HEADER --- */
 .ordbase-header {           
     display: flex;
     text-align:  center;
@@ -10,7 +10,7 @@
 /* --------------- */
 
 
-/* ICON-BUTTON */
+/* HEADER-ICON-BUTTON */
 .ordbase-header .icon-button {
     font-size: 40px;
     flex: 0;

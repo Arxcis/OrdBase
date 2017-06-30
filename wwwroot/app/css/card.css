@@ -3,10 +3,15 @@ ordbase-card {
     height: 220px;
     flex-shrink: 0;
 
-    margin: 20px 10px 10px 10px;
-    cursor: pointer;
+    padding: 20px 10px 10px 10px;
 
-    color: #000000;
+    color: #3e4444;
+}
+
+ordbase-card button {
+    padding: 0px;
+    cursor: pointer;
+    color: #3e4444;
     background-color: #ffffff;
 }
 
