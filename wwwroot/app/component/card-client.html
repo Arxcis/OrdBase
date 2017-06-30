@@ -1,4 +1,4 @@
-<template id="ordbase-card">
+<template id="ordbase-card-client">
     <button>
         <img alt="Bilde av fylkesmannen" src="http://placehold.it/250x125/FFC107">
         <h2>fylkesmannen.no</h2>
@@ -8,13 +8,13 @@
 <script>
     'use strict';
     {
-        let template = document.currentScript.ownerDocument.querySelector("#ordbase-card").content;
+        let template = document.currentScript.ownerDocument.querySelector("#ordbase-card-client").content;
 
-        class OrdbaseCard extends HTMLElement {
+        class OrdbaseCardClient extends HTMLElement {
             connectedCallback() {
                 this.appendChild(document.importNode(template, true));
             }
         }
-        customElements.define('ordbase-card', OrdbaseCard);
+        customElements.define('ordbase-card-client', OrdbaseCardClient);
     }
 </script>

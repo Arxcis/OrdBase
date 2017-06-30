@@ -1,0 +1,19 @@
+<template id="card-translation">
+    <button>
+        <p></p>
+        <div class="container-language-icon"></div>
+    </button>    
+</template>
+<script>
+    'use strict';
+    {
+        let template = document.currentScript.ownerDocument.querySelector("#card-translation").content;
+
+        class CardTranslation extends HTMLElement {
+            connectedCallback() {
+                this.appendChild(document.importNode(template, true));
+            }
+        }
+        customElements.define('card-translation', CardTranslation);
+    }
+</script>

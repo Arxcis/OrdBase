@@ -8,6 +8,10 @@
     background-color: #f2ede9;
 }
 
+.ordbase-container-list h2,
+.ordbase-translation-list h2 {
+    margin-left: 20px;
+}
 
 .ordbase-container-list
 button {

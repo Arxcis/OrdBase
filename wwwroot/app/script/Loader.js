@@ -88,9 +88,9 @@
                 .forEach((key, value) => {
 
                     if (value == true) 
-                        button.innerHTML += ` <span>${key}: OK</span>`;
+                        button.innerHTML += ` ${key}: <i class="fa fa-check" aria-hidden="true"></i></span>`;
                     else
-                        button.innerHTML += ` <span>${key}: NO</span>`;
+                        button.innerHTML += ` ${key}: <i class="fa fa-times" aria-hidden="true"></i></span>`;
                 });
 
                 view.querySelector('#list-show-translations-on-client').appendChild(button);
@@ -157,6 +157,7 @@
             
             data.forEach(translation => {
                 console.log(translation);
+
                 main.innerHTML += `<label for="input-${translation.languageKey}">  ${translation.languageKey} </label><br>`;
                 main.innerHTML += `<input  id="input-${translation.languageKey}"  type="text" value="${translation.text}"><br>`;
                 

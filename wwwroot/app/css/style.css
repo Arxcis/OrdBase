@@ -3,9 +3,9 @@
 
 /* CSS components */
 @import url('header.css');
-@import url('card.css');
 @import url('list.css');
-/*@import url('list-item.css');
+@import url('card-client.css');
+@import url('card-translation.css');
 /* end */
 
 

@@ -1,4 +1,4 @@
-ordbase-card {
+ordbase-card-client {
     width: 250px;
     height: 220px;
     flex-shrink: 0;
@@ -8,24 +8,24 @@ ordbase-card {
     color: #3e4444;
 }
 
-ordbase-card button {
+ordbase-card-client button {
     padding: 0px;
     cursor: pointer;
     color: #3e4444;
     background-color: #ffffff;
 }
 
-ordbase-card img {
+ordbase-card-client img {
 
 }
 
-ordbase-card h2 {
+ordbase-card-client h2 {
     margin-bottom: 0px;
     margin-top: 7px;    
     padding: 0px 5px 0px 10px;
 }
 
-ordbase-card p {
+ordbase-card-client p {
     font-size: 13px;
     padding: 0px 5px 0px 10px;
 }

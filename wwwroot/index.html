@@ -7,8 +7,14 @@
         <!-- Import styles -->
         <link rel="stylesheet" href="/app/css/style.css">
 
-        <!-- Import templates -->        
-        <link rel="import" href="/app/view/ordbase-card.html"         >
+        <!-- Import custom element templates
+              @note These two import could possibly be put closer to where they are used 
+              eg. an import inside an import. I don't know how stable that is  - JSolsvik 30.06.2017-->  
+                    
+        <link rel="import" href="/app/view/card-translation.html"     >
+        <link rel="import" href="/app/view/card-client.html"          >
+
+        <!-- Import view templates -->
         <link rel="import" href="/app/view/client-selector.html"      >     
         <link rel="import" href="/app/view/translation-selector.html" >
         <link rel="import" href="/app/view/translation-editor.html"   >
