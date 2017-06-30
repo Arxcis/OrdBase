@@ -3,6 +3,8 @@
 //
 'use strict'
 {
+    window.addEventListener('load', () => OnLoad_ViewClientSelector());
+    
     window.addEventListener('load', () => {
 
         // 1. Register service worker
@@ -16,4 +18,6 @@
             console.log('NO Service worker registered..', reason);
         }
     });
+
+
 };

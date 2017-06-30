@@ -58,7 +58,7 @@
         .catch(reason => console.error('Error:', reason));
 
         // Hook up all buttons
-        view.querySelector('#btn-toggle-container-list').onclick    = (event) => OnLoad_ViewClientSelector();
+        view.querySelector('#btn-toggle-container-list').onclick   = (event) => OnLoad_ViewClientSelector();
         view.querySelector('#btn-back-to-home-page').onclick       = (event) => OnLoad_ViewClientSelector();
         view.querySelector('#btn-back-to-client-selector').onclick = (event) => OnLoad_ViewClientSelector();
         view.querySelector('#btn-create-new-translation').onclick  = (event) => OnLoad_ViewClientSelector();
