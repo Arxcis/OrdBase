@@ -1,10 +1,14 @@
 //
 // @file main.js
 //
+'use strict';
 
+import 'app/event/OnLoad_ViewTranslationSelector';
+import 'app/event/OnLoad_ViewTranslationEditor';
+import 'app/event/OnLoad_ViewClientSelector';
+import 'app/event/OnSubmit_FormClient';
+import 'app/event/OnSubmit_FormTranslation';
 
-
-'use strict'
 {
     window.addEventListener('load', () => OnLoad_ViewClientSelector());
     
