@@ -14,9 +14,9 @@ namespace OrdBaseCore.Models
         [StringLength(127)]
 		public string ApiKey { get; set; }
 
-		public string Url {get; set; }
+		public string WebpageUrl {get; set; }
 
-		public string UrlThumbnail { get; set; }
+		public string ThumbnailUrl { get; set; }
 
 		public DateTime? LastAccess { get; set; }
 		public int? RequestCount { get; set; }
