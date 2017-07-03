@@ -1,8 +1,8 @@
+'use strict';
+
 import  { container   as containerApi, 
           translation as translationApi } from '../library/Api.js'; 
 import  { swapView }                      from '../library/Util.js';
-
-'use strict';
 
 //
 // @function OnLoad_ViewTranslationSelector

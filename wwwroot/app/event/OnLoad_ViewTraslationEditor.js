@@ -1,13 +1,14 @@
 'use strict';
-//
-// @function LoadTranslationEditorView
-//
 
 import  { container   as containerApi, 
           translation as translationApi } from '../library/Api.js'; 
 import  { swapView }                      from '../library/Util.js';
 
-function LoadTranslationEditorView (client, key) {
+//
+// @function LoadTranslationEditorView
+//
+
+export function LoadTranslationEditorView (client, key) {
     
     let view = document.createElement('view-translation-editor');
     Util.swapView(view);

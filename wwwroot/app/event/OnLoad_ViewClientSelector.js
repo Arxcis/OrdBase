@@ -1,7 +1,7 @@
 'use strict';
 
-import { client as clientApi } from '../Api';
-import { swapView }            from '../Util';
+import { client as clientApi } from '../library/Api.js';
+import { swapView }            from '../library/Util.js';
 
 //
 // @function OnLoadViewClientSelector
@@ -11,7 +11,7 @@ export function OnLoad_ViewClientSelector() {
     Util.swapView(view);
 
     API
-    .client.getAll()
+    .clientApi.getAll()
     .then(data => {
 
         data.forEach(client => {
