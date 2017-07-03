@@ -1,0 +1,36 @@
+
+@import url('form.css');
+
+/* -- Special rules -- */
+
+#form-translation {
+    font-size: 1rem;
+}       
+
+#input-key {   
+    color: rgb(150, 150, 150);
+    margin-top: 5px;
+    font-size: 3em;
+}
+
+.input-checkbox {
+    width: 25px;
+    height:25px;
+    border: 1px solid #4CAF50;
+}
+
+.input-lang-and-checkbox {
+    display: flex;
+}
+
+.lang-label {
+    font-size: 1.2em;
+}
+
+.input-checkbox-div {
+    background-color: white;
+}
+
+#checkbox-counter {
+    font-size: 1.5em;
+}

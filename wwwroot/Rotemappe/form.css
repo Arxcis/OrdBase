@@ -1,0 +1,64 @@
+
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+/* http://kyleschaeffer.com/development/css-font-size-em-vs-px-vs-pt-vs/ */
+/* 62.5% font-size makes 1em == 10px */ 
+/* Rems and ems - https://css-tricks.com/rems-ems/ */
+
+/* -- General rules -- */
+
+body { 
+    font-family: 'Roboto', sans-serif;
+    font-size: 62.5%;
+    color: rgb(84, 84, 84);
+}
+
+input { 
+    outline: none;
+    display: block; 
+    border-style: solid;
+    border-color: grey;
+
+    border-width: 0 0 1px 0;
+}
+
+input:focus {
+    box-shadow: 0 0 2px 2px #55b8ff;
+}
+
+input:disabled {
+    background: none;
+}
+
+fieldset {
+    border: none;
+}
+
+
+label {
+    color: rgb(84, 84, 84);
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.form-textinput {
+    font-size: 2em;
+    margin: 0px 20px 10px 4px;
+}
+
+
+.form-submit {
+    font-size: 2em;
+    background-color: white;
+    color: #4CAF50; 
+    border: 1px solid #4CAF50;
+    width: 430px;
+    height: 65px;
+}
+
+.form-submit:focus,
+.form-submit:hover {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
