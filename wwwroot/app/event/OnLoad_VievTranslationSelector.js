@@ -1,13 +1,13 @@
-'use strict';
-    
 import  { container   as containerApi, 
-          translation as translationApi } from '../Api'; 
-import  { swapView }                      from '../Util';
+          translation as translationApi } from '../library/Api.js'; 
+import  { swapView }                      from '../library/Util.js';
+
+'use strict';
 
 //
 // @function OnLoad_ViewTranslationSelector
 //
-function OnLoad_ViewTranslationSelector (client) {
+export function OnLoad_ViewTranslationSelector (client) {
 
     const iconCheck = '<i class="fa fa-check" aria-hidden="true"></i>';
     const iconCross = '<i class="fa fa-times" aria-hidden="true"></i>';

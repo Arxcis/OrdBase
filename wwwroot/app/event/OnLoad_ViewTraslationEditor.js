@@ -4,8 +4,8 @@
 //
 
 import  { container   as containerApi, 
-          translation as translationApi } from '../Api'; 
-import  { swapView }                      from '../Util';
+          translation as translationApi } from '../library/Api.js'; 
+import  { swapView }                      from '../library/Util.js';
 
 function LoadTranslationEditorView (client, key) {
     

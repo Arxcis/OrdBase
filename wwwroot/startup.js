@@ -1,13 +1,14 @@
+import './app/event/OnLoad_ViewTranslationSelector.js';
+import './app/event/OnLoad_ViewTranslationEditor.js';
+import './app/event/OnLoad_ViewClientSelector.js';
+import './app/event/OnSubmit_FormClient.js';
+import './app/event/OnSubmit_FormTranslation.js';
+
 //
 // @file main.js
-//
-'use strict';
+// @doc 2017 es16 modules native in browsers https://jakearchibald.com/2017/es-modules-in-browsers/
 
-import 'app/event/OnLoad_ViewTranslationSelector';
-import 'app/event/OnLoad_ViewTranslationEditor';
-import 'app/event/OnLoad_ViewClientSelector';
-import 'app/event/OnSubmit_FormClient';
-import 'app/event/OnSubmit_FormTranslation';
+'use strict';
 
 {
     window.addEventListener('load', () => OnLoad_ViewClientSelector());

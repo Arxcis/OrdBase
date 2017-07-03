@@ -6,7 +6,7 @@ import { swapView }            from '../Util';
 //
 // @function OnLoadViewClientSelector
 //
-function OnLoad_ViewClientSelector() {
+export function OnLoad_ViewClientSelector() {
     let view = document.createElement('view-client-selector');
     Util.swapView(view);
 
