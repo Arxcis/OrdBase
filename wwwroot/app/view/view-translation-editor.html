@@ -1,3 +1,7 @@
+ <style>
+    @import url('./view-translation-editor.css');
+</style>
+
 <template id="view-translation-editor">
 
     <header class="ordbase-header">
@@ -20,29 +24,21 @@
         <section id="list-show-containers-on-translation" class="ordbase-container-list">
             <h2>Containers</h2>
 
-
         </section>
 
-        <form id="form-translation-edit" class="ordbase-translation-form">
-            <br><label for="input-key">Key</label><br>
-            <input id="input-key" type="text" value=""><br><br>
+        <ordbase-form-translation></ordbase-form-translation>
 
-        </form>
     </main>
     <footer></footer>
 </template>
 <script>
     'use strict';
     {
-        let template = document.currentScript
-                                 .ownerDocument
-                                  .querySelector("#view-translation-editor")
-                                   .content; 
+        let template = document.currentScript.ownerDocument.querySelector("#view-translation-editor").content; 
                                 
         class ViewTranslationEditor extends HTMLElement {
             connectedCallback() {
-                this.appendChild(
-                    document.importNode(template, true));
+                this.appendChild(document.importNode(template, true));
             }
         }
         customElements.define('view-translation-editor', ViewTranslationEditor);

@@ -7,10 +7,11 @@
 - MicrosoftSql Express 2016
 - Git
 
+**For detailed package dependencies see OrdBaseCore.csproj**
+
 ####Frontend:
 - Font Awesome for icons
 - Google Font Roboto or Mani 
 - Flexbox CSS framework
-
-
-**For detailed package dependencies see OrdBaseCore.csproj**
+- Google Chrome Canary 60+ for development for ES2016 native support.
+- Babel for supporting older browsers in production.

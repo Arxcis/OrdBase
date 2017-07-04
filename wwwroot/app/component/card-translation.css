@@ -14,12 +14,12 @@ button {
 
     width:100%;
     min-height: 75px;
-        font-size: 30px;
+    font-size: 4em;
 }
 
 
 ordbase-card-translation button 
-span#span-show-translation-key {
+span {
     flex: 0 0 100px;
 }
 
@@ -33,14 +33,14 @@ ordbase-card-translation button
 
 
 ordbase-card-translation button .languages-complete 
-.languages-complete-text-icon {
+.key-and-icon {
     margin: 0px 10px 0px 10px;
     flex: 0 1 120px;
 
     display: flex;
 }
 
-ordbase-card-translation button .languages-complete .languages-complete-text-icon 
+ordbase-card-translation button .languages-complete .key-and-icon 
 span {
     display: flex;
 }

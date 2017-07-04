@@ -1,9 +1,25 @@
+<style>
+    @import url('card-translation.css'); 
+</style>
+
 <template id="ordbase-card-translation">
-    <button id="btn-load-translation-editor">
-        <span id="span-show-translation-key"></span>
-        <div id="div-show-if-languages-are-complete" class="languages-complete"></div>
+    <button class="btn-load-translation-editor">
+        <span class="translation-key"></span>
+        <div  class="languages-complete">
+            
+            <!-- @note loading script will fill in here -->
+            <!--       This is a prototype which the script will clone -->
+            <div class="key-and-icon">
+                <span class="language-key"></span>
+                <i    class="fa language-icon" aria-hidden="true"></i>
+            </div> 
+
+            <!--div class="key-and-icon"><span></span><i></i></div-->
+            <!--div class="key-and-icon"><span></span><i></i></div-->
+        </div>
     </button>    
 </template>
+
 <script>
     'use strict';
     {

@@ -2,10 +2,24 @@
 
 //
 // @module Utill
-//  @brief small functions which helps reduce repitition.
+//  @brief small usefull functions which helps reduce repitition.
 //
 
-export function swapView(view) {
-        document.body.innerHTML = '';
-        document.body.appendChild(view);
+export function overwriteFromTemplate(target = mandatory(), templatestring = mandatory()) {
+    const template = document.createElement(templatestring);
+    target.innerHTML = '';
+    target.appendChild(template);
+    
+    return template;
 }   
+
+export function appendFromTemplate(target = mandatory(), templatestring = mandatory()) {
+    const template = document.createElement(templatestring);
+    target.appendChild(template);
+    
+    return template;
+}
+
+export function mandatory() {
+    throw new Error('Missing parameter');
+}

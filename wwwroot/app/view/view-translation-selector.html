@@ -1,3 +1,7 @@
+<style>
+    @import url('view-translation-selector.css');
+</style>
+
 <template id="view-translation-selector">
 
 	<header class="ordbase-header">
@@ -25,8 +29,7 @@
 
         <section id="list-show-translations-on-client" class="ordbase-translation-list">
             <h2>Translations</h2>
-
-
+            
         </section>
 	</main>
 
@@ -39,8 +42,7 @@
 
         class ViewTranslationSelector extends HTMLElement {
             connectedCallback() {
-                this.appendChild(
-                    document.importNode(template, true));
+                this.appendChild(document.importNode(template, true));
             }
         }
         customElements.define('view-translation-selector', ViewTranslationSelector);

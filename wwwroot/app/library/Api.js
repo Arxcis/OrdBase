@@ -1,6 +1,6 @@
 'use strict';
 
-import { getJSON, postJSON } from 'Ajax';
+import { getJSON, postJSON } from './Ajax.js';
 
 
 //
@@ -30,7 +30,7 @@ function routeBuilder() {
 let client = {};
 let language = {};
 let container = {}; 
-let translation: {};     
+let translation = {};     
 
 //
 // CLIENT ROUTES
