@@ -1,6 +1,6 @@
 'use strict';
 
-import  { swapView } from '../library/Util.js';
+import  { overwriteFromTemplate, appendFromTemplate } from '../library/Util.js';
 import  { container as containerApi, translation as translationApi } from '../library/Api.js'; 
 
 import { OnLoadView_TranslationEditor } from '../event/OnLoadView-TranslationEditor.js';
@@ -14,8 +14,7 @@ export function OnLoadView_TranslationSelector (client) {
     const fontAwesome_checkIconClass = 'fa-check';
     const fontAwesome_crossIconClass = 'fa-times';
 
-    let view = document.createElement('view-translation-selector');
-    swapView(view);
+    const view = overwriteFromTemplate(document.body, 'view-translation-selector');
 
     //
     // Get all container names
@@ -24,7 +23,7 @@ export function OnLoadView_TranslationSelector (client) {
     .then(data => {
 
         data.forEach(containerName => {
-            let button = document.createElement('button');
+            const button = document.createElement('button');
             view.querySelector('#list-show-containers-on-client').appendChild(button);
 
             button.innerHTML = containerName;
@@ -54,7 +53,7 @@ export function OnLoadView_TranslationSelector (client) {
             Object.keys(translationGroup.isComplete)
             .forEach((languageKey, isComplete) => {
 
-                let clone = keyAndIconPrototype.cloneNode(true);
+                const clone = keyAndIconPrototype.cloneNode(true);
                 clone.querySelector('.language-key').innerHTML = languageKey;
                 if (isComplete)  
                     clone.querySelector('.language-icon').classList.add(fontAwesome_checkIconClass);

@@ -25,13 +25,9 @@
 <script>
     'use strict';
     {
-        let template = document.currentScript 
-                            .ownerDocument
-                            .querySelector("#view-client-selector")
-                            .content;
+        let template = document.currentScript.ownerDocument.querySelector("#view-client-selector").content;
 
         class ViewClientSelector extends HTMLElement {
-            
             connectedCallback() {
                 this.appendChild(document.importNode(template, true));
             }

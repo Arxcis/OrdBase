@@ -38,15 +38,11 @@
 <script>
     'use strict';
     {
-        let template = document.currentScript
-                                 .ownerDocument
-                                  .querySelector("#view-translation-editor")
-                                   .content; 
+        let template = document.currentScript.ownerDocument.querySelector("#view-translation-editor").content; 
                                 
         class ViewTranslationEditor extends HTMLElement {
             connectedCallback() {
-                this.appendChild(
-                    document.importNode(template, true));
+                this.appendChild(document.importNode(template, true));
             }
         }
         customElements.define('view-translation-editor', ViewTranslationEditor);

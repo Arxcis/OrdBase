@@ -1,6 +1,6 @@
 'use strict';
 
-import { swapView } from '../library/Util.js';
+import { overwriteFromTemplate } from '../library/Util.js';
 import { container as containerApi, translation as translationApi } from '../library/Api.js'; 
 
 import { OnLoadView_TranslationSelector } from '../event/OnLoadView-TranslationSelector.js';
@@ -9,12 +9,10 @@ import { OnLoadView_ClientSelector } from '../event/OnLoadView-ClientSelector.js
 //
 // @function OnLoadView_TranslationEditor
 //
-
 export function OnLoadView_TranslationEditor (client, key) {
     
-    let view = document.createElement('view-translation-editor');
-    swapView(view);
-    let containerList = view.querySelector('#list-show-containers-on-translation'); 
+    const view = overwriteFromTemplate(document.body, 'view-translation-editor');
+    const containerList = view.querySelector('#list-show-containers-on-translation'); 
 
     //
     // Get all container on client
@@ -24,7 +22,7 @@ export function OnLoadView_TranslationEditor (client, key) {
     .then(data => {
 
         data.forEach(containerName => {
-            let button = document.createElement('button');
+            const button = document.createElement('button');
             button.innerHTML = containerName;
             button.id = 'button-' + containerName;
             button.onclick = (event) => button.classList.toggle('selected'); 
@@ -36,7 +34,7 @@ export function OnLoadView_TranslationEditor (client, key) {
     })
     .then(data => {
         data.forEach(selectedContainer => {
-            let button =  document.querySelector('#button-' + selectedContainer);
+            const button =  document.querySelector('#button-' + selectedContainer);
             if (button) {
                button.classList.add('selected');
             }
@@ -50,7 +48,9 @@ export function OnLoadView_TranslationEditor (client, key) {
     translationApi
     .getOnKey(client, key)
     .then(data => {
-        let main = view.querySelector('ordbase-form-translation'); 
+        const main = view.querySelector('ordbase-form-translation'); 
+
+
         console.log('key:', key)
         main.querySelector('#input-key').setAttribute('value', key);
         

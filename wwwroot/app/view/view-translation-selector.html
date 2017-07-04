@@ -43,8 +43,7 @@
 
         class ViewTranslationSelector extends HTMLElement {
             connectedCallback() {
-                this.appendChild(
-                    document.importNode(template, true));
+                this.appendChild(document.importNode(template, true));
             }
         }
         customElements.define('view-translation-selector', ViewTranslationSelector);

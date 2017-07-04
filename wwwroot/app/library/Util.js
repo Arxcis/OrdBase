@@ -5,7 +5,17 @@
 //  @brief small functions which helps reduce repitition.
 //
 
-export function swapView(view) {
-        document.body.innerHTML = '';
-        document.body.appendChild(view);
+export function overwriteFromTemplate(target, templatestring) {
+    const template = document.createElement(templatestring);
+    target.innerHTML = '';
+    target.appendChild(template);
+    
+    return template;
 }   
+
+export function appendFromTemplate(target, templatestring) {
+    const template = document.createElement(templatestring);
+    target.appendChild(template);
+    
+    return template;
+}

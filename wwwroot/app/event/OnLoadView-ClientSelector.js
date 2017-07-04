@@ -1,22 +1,22 @@
 'use strict';
 
-import { client as clientApi } from '../library/Api.js';
-import { swapView }            from '../library/Util.js';
+import { client as APIClient } from '../library/Api.js';
+import { overwriteFromTemplate, appendFromTemplate } from '../library/Util.js';
 import { OnLoadView_TranslationSelector } from '../event/OnLoadView-TranslationSelector.js';
+
 
 //
 // @function OnLoadViewClientSelector
 //
 export function OnLoadView_ClientSelector() {
-    let view = document.createElement('view-client-selector');
-    swapView(view);
+    const view = overwriteFromTemplate(document.body, 'view-client-selector');
 
-    clientApi.getAll()
+    APIClient.getAll()
     .then(data => {
 
         data.forEach(client => {
-            let card = document.createElement('ordbase-card-client');
-            view.querySelector('main').appendChild(card);
+
+            const card = appendFromTemplate(view.querySelector('main'), 'ordbase-card-client');
 
             card.querySelector('h2').innerHTML = client.name;
             card.querySelector('button').onclick = (event) => OnLoadView_TranslationSelector(client.name);
