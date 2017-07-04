@@ -4,17 +4,23 @@
         <meta charset="utf-8">
         <title>Editor - OrdBase</title>
         
-        <!-- Import CSS styles -->
-        <link rel="stylesheet" href="./app/css/style.css">
+        <!--- CSS SHARED STYLE BUNDLE -->
+        <link rel="stylesheet" href="./app/shared-css/style.css">
 
-        <!-- Import custom element templates
-              @note These two import could possibly be put closer to where they are used 
-              eg. an import inside an import. I don't know how stable that is  - JSolsvik 30.06.2017--> 
-        <link rel="import" href="./app/component/card.html">
-        <link rel="import" href="./app/component/form.html">
-        <link rel="import" href="./app/view/view.html">
+        <!--- CARD COMPONENTS BUNDLE -->
+        <link rel="import" href="./app/component/card-client.html">
+        <link rel="import" href="./app/component/card-translation.html">
+        
+        <!-- FORM COMPONENTS BUNDLE -->
+        <link rel="import" href="./app/component/form-client.html">
+        <link rel="import" href="./app/component/form-translation.html">
 
-        <!-- Load start script -->
+        <!--- VIEW COMPONENTS BUNDLE  -->
+        <link rel="import" href="./app/view/view-client-selector.html"      >     
+        <link rel="import" href="./app/view/view-translation-selector.html" >
+        <link rel="import" href="./app/view/view-translation-editor.html"   >
+
+        <!---  Load javascript entry-point script -->
         <script type="module" src="./startup.js"></script>
     </head>
     <body>

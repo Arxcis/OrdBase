@@ -11,8 +11,8 @@ import { OnLoadView_ClientSelector } from '../event/OnLoadView-ClientSelector.js
 //
 export function OnLoadView_TranslationSelector (client) {
 
-    const iconCheck = '<i class="fa fa-check" aria-hidden="true"></i>';
-    const iconCross = '<i class="fa fa-times" aria-hidden="true"></i>';
+    const fontAwesome_checkIconClass = 'fa-check';
+    const fontAwesome_crossIconClass = 'fa-times';
 
     let view = document.createElement('view-translation-selector');
     swapView(view);
@@ -42,21 +42,30 @@ export function OnLoadView_TranslationSelector (client) {
     .then(data => {
         data.forEach(translationGroup => {
 
-            let card = document.createElement('ordbase-card-translation');
+            const card = document.createElement('ordbase-card-translation');
             view.querySelector('#list-show-translations-on-client').appendChild(card);
             
-            card.querySelector('#btn-load-translation-editor').onclick = (event) => OnLoadView_TranslationEditor(client, translationGroup.key); 
-            card.querySelector('#span-show-translation-key').innerHTML = translationGroup.key;
-            let divLanguagesComplete = card.querySelector('#div-show-if-languages-are-complete');
+            card.querySelector('.btn-load-translation-editor').onclick = (event) => OnLoadView_TranslationEditor(client, translationGroup.key); 
+            card.querySelector('.translation-key').innerHTML = translationGroup.key;
+            
+            const languagesComplete = card.querySelector('.languages-complete');
+            const keyAndIconPrototype = card.querySelector('.key-and-icon');
                             
             Object.keys(translationGroup.isComplete)
-            .forEach((key, value) => {
+            .forEach((languageKey, isComplete) => {
 
-                if (value == true) 
-                    divLanguagesComplete.innerHTML += `<div class="languages-complete-text-icon"><span>${key}</span>` + iconCheck + '</div class="languages-complete-text-icon">';
-                else
-                    divLanguagesComplete.innerHTML += `<div class="languages-complete-text-icon"><span>${key}</span>` + iconCross + '</div class="languages-complete-text-icon">';
+                let clone = keyAndIconPrototype.cloneNode(true);
+                clone.querySelector('.language-key').innerHTML = languageKey;
+                if (isComplete)  
+                    clone.querySelector('.language-icon').classList.add(fontAwesome_checkIconClass);
+                else 
+                    clone.querySelector('.language-icon').classList.add(fontAwesome_crossIconClass);
+                
+                languagesComplete.appendChild(clone);
             });
+
+            // Remove the prototype
+            languagesComplete.removeChild(keyAndIconPrototype);
         });
     })
     .catch(reason => console.error('Error:', reason));
