@@ -1,9 +1,9 @@
 'use strict';
 
-import { client as APIClient } from '../library/Api.js';
-import { overwriteFromTemplate, appendFromTemplate } from '../library/Util.js';
-import { OnLoadView_TranslationSelector } from '../event/OnLoadView-TranslationSelector.js';
-
+import { client as APIClient } from '../library/api.js';
+import { overwriteFromTemplate, appendFromTemplate } from '../library/util.js';
+import { OnLoadView_TranslationSelector } from './OnLoadView-TranslationSelector.js';
+import { OnLoadView_ClientEditor } from './OnLoadView_ClientEditor.js';
 
 //
 // @function OnLoadViewClientSelector
@@ -27,5 +27,5 @@ export function OnLoadView_ClientSelector() {
     // Hook up all buttons
     view.querySelector('#btn-toggle-inactive-menu').onclick = (event) => OnLoadView_ClientSelector();
     view.querySelector('#btn-back-to-home-page').onclick    = (event) => OnLoadView_ClientSelector();
-    view.querySelector('#btn-create-new-client').onclick    = (event) => OnLoadView_ClientSelector();
+    view.querySelector('#btn-create-new-client').onclick    = (event) => OnLoadView_ClientEditor();
 }
