@@ -31,6 +31,24 @@ export function getJSON({ type = mandatory(), route = mandatory()} = {}) {
 }
 
 //
+// @function getJSON_experiemental()
+//
+function getJSON_experiemental({ httpMethod = mandatory(), route = mandatory()} = {}) {
+
+    fetch(route, { method: httpMethod })
+    .then((response) => {
+
+        let contentType = response.headers.get("content-type");
+
+        if (contentType && contentType.indexOf("application/json") !== -1) {
+            return response.json();
+        } else {
+            console.log("Oops, we haven't got JSON!");
+        }
+    });
+}
+
+//
 // @function postJSON 
 //
 export function postJSON({ type = mandatory(), route = mandatory(), data = mandatory()} = {}) {
