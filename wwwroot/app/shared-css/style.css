@@ -1,3 +1,7 @@
+/* http://kyleschaeffer.com/development/css-font-size-em-vs-px-vs-pt-vs/ */
+/* 62.5% font-size makes 1em == 10px */ 
+/* Rems and ems - https://css-tricks.com/rems-ems/ */
+
 /* External CSS libraries */
 @import url('https://fonts.googleapis.com/css?family=Muli');
 @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
