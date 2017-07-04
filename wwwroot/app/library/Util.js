@@ -2,10 +2,10 @@
 
 //
 // @module Utill
-//  @brief small functions which helps reduce repitition.
+//  @brief small usefull functions which helps reduce repitition.
 //
 
-export function overwriteFromTemplate(target, templatestring) {
+export function overwriteFromTemplate(target = mandatory(), templatestring = mandatory()) {
     const template = document.createElement(templatestring);
     target.innerHTML = '';
     target.appendChild(template);
@@ -13,9 +13,13 @@ export function overwriteFromTemplate(target, templatestring) {
     return template;
 }   
 
-export function appendFromTemplate(target, templatestring) {
+export function appendFromTemplate(target = mandatory(), templatestring = mandatory()) {
     const template = document.createElement(templatestring);
     target.appendChild(template);
     
     return template;
+}
+
+export function mandatory() {
+    throw new Error('Missing parameter');
 }

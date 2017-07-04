@@ -6,15 +6,8 @@
 // @doc Do research on using fetch instead -- https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 // @doc CORS - https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
 
-
 'use strict'
-
-//
-// @function mandatory()
-//
-function mandatory() {
-    throw new Error('Missing parameter');
-}
+import { mandatory } from './util.js';
 
 //
 // @function getJSON()

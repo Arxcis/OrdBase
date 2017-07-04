@@ -12,14 +12,26 @@ html, body {
     font-family: 'Muli', sans-serif;
     margin: auto;
     height: 100%;
+    font-size: 62.5%;
 }
 
 /* @doc remove button styling - https://stackoverflow.com/questions/22672368/how-to-make-a-transparent-html-button*/
 /* @doc CSS cursors  - https://developer.mozilla.org/en/docs/Web/CSS/cursor */
 input, button { 
-    border:none; 
+    border: none; 
     background-color: transparent;
     cursor: pointer;
     padding: none;
     color: #3e4444;
  } 
+
+ input { 
+    outline: none; 
+    border-style: solid;
+    border-color: grey;
+    border-width: 0 0 1px 0;
+}
+
+h2 {
+    font-size: 2.5rem;
+}

@@ -4,7 +4,7 @@ import { overwriteFromTemplate } from '../library/Util.js';
 import { container as containerApi, translation as translationApi } from '../library/Api.js'; 
 
 import { OnLoadView_TranslationSelector } from '../event/OnLoadView-TranslationSelector.js';
-import { OnLoadView_ClientSelector } from '../event/OnLoadView-ClientSelector.js';
+import { OnLoadView_ClientSelector }      from '../event/OnLoadView_ClientSelector.js';
 
 //
 // @function OnLoadView_TranslationEditor

@@ -1,6 +1,6 @@
 'use strict';
 
-import { OnLoadView_ClientSelector } from './app/event/OnLoadView-ClientSelector.js';
+import { OnLoadView_ClientSelector } from './app/event/OnLoadView_ClientSelector.js';
 
 //
 // @file main.js
