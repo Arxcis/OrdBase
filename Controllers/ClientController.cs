@@ -41,7 +41,7 @@ namespace OrdBaseCore.Controllers
         public class ClientWithLanguageCodes 
         {
             public Client Client { get; }
-            public IEnumerable<string> LanguageCodes { get; }
+            public string[] LanguageCodes { get; }
         }
         //
         // CREATE, UPDATE, DELETE  @doc https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-vsc#implement-the-other-crud-operations|
