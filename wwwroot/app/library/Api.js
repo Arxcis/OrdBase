@@ -30,7 +30,7 @@ function routeBuilder() {
 let client = {};
 let language = {};
 let container = {}; 
-let translation: {};     
+let translation = {};     
 
 //
 // CLIENT ROUTES

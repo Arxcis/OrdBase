@@ -1,13 +1,10 @@
+/* External CSS libraries */
 @import url('https://fonts.googleapis.com/css?family=Muli');
 @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
 /* CSS components */
 @import url('header.css');
 @import url('list.css');
-@import url('../component/card-client.css');
-@import url('../component/card-translation.css');
-@import url('../component/form-client.css');
-@import url('../component/form-translation.css');
 /* end */
 
 
@@ -19,7 +16,7 @@ html, body {
 
 /* @doc remove button styling - https://stackoverflow.com/questions/22672368/how-to-make-a-transparent-html-button*/
 /* @doc CSS cursors  - https://developer.mozilla.org/en/docs/Web/CSS/cursor */
-input, button, submit { 
+input, button { 
     border:none; 
     background-color: transparent;
     cursor: pointer;

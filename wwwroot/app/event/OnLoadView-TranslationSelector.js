@@ -1,19 +1,21 @@
 'use strict';
 
-import  { container   as containerApi, 
-          translation as translationApi } from '../library/Api.js'; 
-import  { swapView }                      from '../library/Util.js';
+import  { swapView } from '../library/Util.js';
+import  { container as containerApi, translation as translationApi } from '../library/Api.js'; 
+
+import { OnLoadView_TranslationEditor } from '../event/OnLoadView-TranslationEditor.js';
+import { OnLoadView_ClientSelector } from '../event/OnLoadView-ClientSelector.js';
 
 //
-// @function OnLoad_ViewTranslationSelector
+// @function OnLoadView_TranslationSelector
 //
-export function OnLoad_ViewTranslationSelector (client) {
+export function OnLoadView_TranslationSelector (client) {
 
     const iconCheck = '<i class="fa fa-check" aria-hidden="true"></i>';
     const iconCross = '<i class="fa fa-times" aria-hidden="true"></i>';
 
     let view = document.createElement('view-translation-selector');
-    Util.swapView(view);
+    swapView(view);
 
     //
     // Get all container names
@@ -43,7 +45,7 @@ export function OnLoad_ViewTranslationSelector (client) {
             let card = document.createElement('ordbase-card-translation');
             view.querySelector('#list-show-translations-on-client').appendChild(card);
             
-            card.querySelector('#btn-load-translation-editor').onclick = (event) => OnLoad_ViewTranslationEditor(client, translationGroup.key); 
+            card.querySelector('#btn-load-translation-editor').onclick = (event) => OnLoadView_TranslationEditor(client, translationGroup.key); 
             card.querySelector('#span-show-translation-key').innerHTML = translationGroup.key;
             let divLanguagesComplete = card.querySelector('#div-show-if-languages-are-complete');
                             
@@ -60,8 +62,8 @@ export function OnLoad_ViewTranslationSelector (client) {
     .catch(reason => console.error('Error:', reason));
 
     // Hook up all buttons
-    view.querySelector('#btn-toggle-container-list').onclick   = (event) => OnLoad_ViewClientSelector();
-    view.querySelector('#btn-back-to-home-page').onclick       = (event) => OnLoad_ViewClientSelector();
-    view.querySelector('#btn-back-to-client-selector').onclick = (event) => OnLoad_ViewClientSelector();
-    view.querySelector('#btn-create-new-translation').onclick  = (event) => OnLoad_ViewClientSelector();
+    view.querySelector('#btn-toggle-container-list').onclick   = (event) => OnLoadView_ClientSelector();
+    view.querySelector('#btn-back-to-home-page').onclick       = (event) => OnLoadView_ClientSelector();
+    view.querySelector('#btn-back-to-client-selector').onclick = (event) => OnLoadView_ClientSelector();
+    view.querySelector('#btn-create-new-translation').onclick  = (event) => OnLoadView_ClientSelector();
 }
