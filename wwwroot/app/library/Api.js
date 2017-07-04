@@ -22,8 +22,6 @@ function routeBuilder() {
     return route;
 }
 
-
-
 //
 // @modules - to be exported
 //

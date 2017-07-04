@@ -11,6 +11,12 @@
 @import url('list.css');
 /* end */
 
+/* Main color set */
+:root {
+    --maincolor-dark:  #3e4444;
+    --maincolor-light: #f2ede9;
+    --maincolor-white: #ffffff;
+}
 
 html, body {
     font-family: 'Muli', sans-serif;
@@ -26,7 +32,7 @@ input, button {
     background-color: transparent;
     cursor: pointer;
     padding: none;
-    color: #3e4444;
+    color: var(--maincolor-dark) ; 
  } 
 
  input { 

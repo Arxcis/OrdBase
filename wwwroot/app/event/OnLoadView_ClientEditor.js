@@ -1,7 +1,7 @@
 'use strict';
 
 import { overwriteFromTemplate, appendFromTemplate } from '../library/Util.js';
-import { OnLoadView_ClientSelector } from './OnLoadView_ClientSelector.js';
+import { OnLoadView_ClientSelector }                 from './OnLoadView_ClientSelector.js';
 
 export function OnLoadView_ClientEditor() {
     const view = overwriteFromTemplate(document.body, 'view-client-editor');

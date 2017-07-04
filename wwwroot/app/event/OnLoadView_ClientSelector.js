@@ -1,9 +1,9 @@
 'use strict';
 
-import { client as APIClient } from '../library/api.js';
+import { client as APIClient }                       from '../library/api.js';
 import { overwriteFromTemplate, appendFromTemplate } from '../library/util.js';
-import { OnLoadView_TranslationSelector } from './OnLoadView-TranslationSelector.js';
-import { OnLoadView_ClientEditor } from './OnLoadView_ClientEditor.js';
+import { OnLoadView_TranslationSelector }            from './OnLoadView_TranslationSelector.js';
+import { OnLoadView_ClientEditor }                   from './OnLoadView_ClientEditor.js';
 
 //
 // @function OnLoadViewClientSelector

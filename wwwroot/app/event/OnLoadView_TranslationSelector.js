@@ -1,7 +1,7 @@
 'use strict';
 
 import  { overwriteFromTemplate, appendFromTemplate } from '../library/Util.js';
-import  { container as containerApi, translation as translationApi } from '../library/Api.js'; 
+import  { container as APIContainer, translation as APITranslation } from '../library/Api.js'; 
 
 import { OnLoadView_TranslationEditor } from '../event/OnLoadView-TranslationEditor.js';
 import { OnLoadView_ClientSelector } from '../event/OnLoadView_ClientSelector.js';
@@ -19,7 +19,7 @@ export function OnLoadView_TranslationSelector (client) {
     //
     // Get all container names
     //
-    containerApi.getOnClient(client)
+    APIContainer.getOnClient(client)
     .then(data => {
 
         data.forEach(containerName => {
@@ -37,7 +37,7 @@ export function OnLoadView_TranslationSelector (client) {
     // Get all translation groups 
     //  @doc template literals - https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Template_literals
     //
-    translationApi.getGroupOnClient(client)
+    APITranslation.getGroupOnClient(client)
     .then(data => {
         data.forEach(translationGroup => {
 

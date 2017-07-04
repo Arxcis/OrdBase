@@ -3,7 +3,7 @@ main {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    background-color: #f2ede9;
+    background-color: var(--maincolor-light);
     height: 100%;
     align-content: flex-start;
 }

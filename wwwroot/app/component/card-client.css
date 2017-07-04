@@ -5,14 +5,14 @@ ordbase-card-client {
 
     padding: 20px 10px 10px 10px;
 
-    color: #3e4444;
+    color: var(--maincolor-dark);
 }
 
 ordbase-card-client button {
     padding: 0px;
     cursor: pointer;
-    color: #3e4444;
-    background-color: #ffffff;
+    color: var(--maincolor-dark);
+    background-color: var(--maincolor-white);
 }
 
 ordbase-card-client img {

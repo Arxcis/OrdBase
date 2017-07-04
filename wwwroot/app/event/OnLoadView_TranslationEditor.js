@@ -1,10 +1,9 @@
 'use strict';
 
-import { overwriteFromTemplate } from '../library/Util.js';
-import { container as containerApi, translation as translationApi } from '../library/Api.js'; 
-
-import { OnLoadView_TranslationSelector } from '../event/OnLoadView-TranslationSelector.js';
-import { OnLoadView_ClientSelector }      from '../event/OnLoadView_ClientSelector.js';
+import { overwriteFromTemplate }                                    from '../library/Util.js';
+import { container as APIContainer, translation as translationApi } from '../library/Api.js'; 
+import { OnLoadView_TranslationSelector }                           from '../event/OnLoadView-TranslationSelector.js';
+import { OnLoadView_ClientSelector }                                from '../event/OnLoadView_ClientSelector.js';
 
 //
 // @function OnLoadView_TranslationEditor
@@ -17,8 +16,7 @@ export function OnLoadView_TranslationEditor (client, key) {
     //
     // Get all container on client
     //
-    containerApi
-    .getOnClient(client)
+    APIContainer.getOnClient(client)
     .then(data => {
 
         data.forEach(containerName => {
@@ -30,7 +28,7 @@ export function OnLoadView_TranslationEditor (client, key) {
             containerList.appendChild(button);
         });      
 
-        return containerApi.getOnKey(client, key)
+        return APIContainer.getOnKey(client, key)
     })
     .then(data => {
         data.forEach(selectedContainer => {
@@ -45,24 +43,10 @@ export function OnLoadView_TranslationEditor (client, key) {
     //
     // Get data about translations with the same key
     //
-    translationApi
-    .getOnKey(client, key)
+    translationApi.getOnKey(client, key)
     .then(data => {
         const main = view.querySelector('ordbase-form-translation'); 
 
-
-        console.log('key:', key)
-        main.querySelector('#input-key').setAttribute('value', key);
-        
-        data.forEach(translation => {
-            console.log(translation);
-
-            main.innerHTML += `<label for="input-${translation.languageKey}">  ${translation.languageKey} </label><br>`;
-            main.innerHTML += `<input  id="input-${translation.languageKey}"  type="text" value="${translation.text}"><br>`;
-            
-            main.innerHTML += `<label for="input-${translation.languageKey}-approved"> Approved? </label><br>`;
-            main.innerHTML += `<input  id="input-${translation.languageKey}-approved" type="checkbox" name="done"><br><br>` 
-        })
     })
     .catch(reason => console.error('Error:', reason));
  
