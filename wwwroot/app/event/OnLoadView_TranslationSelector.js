@@ -3,7 +3,7 @@
 import  { overwriteFromTemplate, appendFromTemplate } from '../library/Util.js';
 import  { container as APIContainer, translation as APITranslation } from '../library/Api.js'; 
 
-import { OnLoadView_TranslationEditor } from '../event/OnLoadView-TranslationEditor.js';
+import { OnLoadView_TranslationEditor } from '../event/OnLoadView_TranslationEditor.js';
 import { OnLoadView_ClientSelector } from '../event/OnLoadView_ClientSelector.js';
 
 //
