@@ -1,38 +1,23 @@
-<style>
-    @import url('./view-client-selector.css');
-</style>
 
-<template id="view-client-selector">
+<template>
 
-    <header class="ordbase-header">
+    <div class="view-client-selector">
+        <header class="ordbase-header">
+            <button id="btn-toggle-inactive-menu" class="icon-button">
+                <i class="fa fa-bars" aria-hidden="true"></i></button>
 
-        <button id="btn-toggle-inactive-menu" class="icon-button">
-            <i class="fa fa-bars" aria-hidden="true"></i></button>
+            <button id="btn-back-to-home-page" class="header-text-button">
+                <h1>Ordbase - <small>Select Client</small></h1></button>
 
-        <button id="btn-back-to-home-page" class="header-text-button">
-            <h1>Ordbase - <small>Select Client</small></h1></button>
+            <button id="btn-create-new-client" class="icon-button">
+                <i class="fa fa-plus" aria-hidden="true"></i></button>
 
-        <button id="btn-create-new-client" class="icon-button">
-            <i class="fa fa-plus" aria-hidden="true"></i></button>
+        </header>
 
-    </header>
+        <main>
 
-	<main>
-
-	</main>
-	<footer></footer>
+        </main>
+        <footer></footer>
+    </div>
+    
 </template>
-
-<script>
-    'use strict';
-    {
-        let template = document.currentScript.ownerDocument.querySelector("#view-client-selector").content;
-
-        class ViewClientSelector extends HTMLElement {
-            connectedCallback() {
-                this.appendChild(document.importNode(template, true));
-            }
-        }
-        customElements.define('view-client-selector', ViewClientSelector);
-    }
-</script>

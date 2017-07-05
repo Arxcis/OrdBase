@@ -1,25 +1,9 @@
-<style>
-    @import url('./card-client.css');
-</style>
-
-<template id="ordbase-card-client">
-    <button>
-        <img alt="Bilde av fylkesmannen" src="http://placehold.it/250x125/FFC107">
-        <h2>fylkesmannen.no</h2>
-        <p>https://www.fylkesmannen.no</p>
-    </button>    
+<template>
+    <div class="ordbase-card-client">
+        <button class="card-button">
+            <img alt="Bilde av fylkesmannen" src="http://placehold.it/250x125/FFC107">
+            <h2>fylkesmannen.no</h2>
+            <p>https://www.fylkesmannen.no</p>
+        </button>
+    </div>
 </template>
-
-<script>
-    'use strict';
-    {
-        let template = document.currentScript.ownerDocument.querySelector("#ordbase-card-client").content;
-
-        class OrdbaseCardClient extends HTMLElement {
-            connectedCallback() {
-                this.appendChild(document.importNode(template, true));
-            }
-        }
-        customElements.define('ordbase-card-client', OrdbaseCardClient);
-    }
-</script>
