@@ -11,6 +11,7 @@ import { OnLoadView_ClientSelector } from '../event/OnLoadView_ClientSelector.js
 const viewTemplate = loadTemplate('./app/view/view-translation-selector.html');
 const translationCardTemplate = loadTemplate('./app/component/card-translation.html');
 const keyIconTemplate = loadTemplate('./app/component/key-and-icon.html');
+const containerButtonTemplate = loadTemplate('./app/component/button-container.html');
 
 //
 // @function OnLoadView_TranslationSelector
@@ -41,11 +42,12 @@ export function OnLoadView_TranslationSelector (client) {
         let containerList = document.querySelector('#list-show-containers-on-client');
 
         containers.forEach( container => {
-            const button = document.createElement('button');
-            button.innerHTML = container;
-            button.id = 'button-' + container;
+            const button = unpackTemplate(containerButtonTemplate, {
+                id : `button-${container}`,
+                text : container
+            });
+            console.log(button);
             button.onclick = (event) => button.classList.toggle('selected');
-
             containerList.appendChild(button);    
         });
     })

@@ -1,10 +1,6 @@
-<style>
-    @import url('./form-client.css');
-</style>
+<template>
 
-<template id="ordbase-form-client">
-
-    <form id="form-client">
+    <form id="ordbase-form-client">
 
         <fieldset>
             <label for="form-client-name">Name</label>
@@ -33,17 +29,3 @@
     </form>
     
 </template>
-
-<script>
-    'use strict';
-    {
-        let template = document.currentScript.ownerDocument.querySelector("#ordbase-form-client").content;
-
-        class OrdbaseFormClient extends HTMLElement {
-            connectedCallback() {
-                this.appendChild(document.importNode(template, true));
-            }
-        }
-        customElements.define('ordbase-form-client', OrdbaseFormClient);
-    }
-</script>

@@ -6,6 +6,7 @@ import { OnLoadView_TranslationSelector }                           from '../eve
 import { OnLoadView_ClientSelector }                                from '../event/OnLoadView_ClientSelector.js';
 
 const viewTemplate = loadTemplate('./app/view/view-translation-editor.html');
+const containerButtonTemplate = loadTemplate('./app/component/button-container.html');
 
 //
 // @function OnLoadView_TranslationEditor

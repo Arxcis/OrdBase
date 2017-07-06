@@ -1,13 +1,8 @@
-<style>
-    @import url('./form-translation.css');
-</style>
+<template>
 
-<template id="ordbase-form-translation">
-
-    <form id="form-translation">
+    <form id="ordbase-form-translation">
         
         <h2>Nøkkel </h2>
-
 
         <fieldset>
             <label class="lang-label" for="textarea-no-nb">no-nb</label>
@@ -59,17 +54,3 @@
     </form>
     
 </template>
-
-<script>
-    'use strict';
-    {
-        let template = document.currentScript.ownerDocument.querySelector("#ordbase-form-translation").content;
-
-        class OrdbaseFormTranslation extends HTMLElement {
-            connectedCallback() {
-                this.appendChild(document.importNode(template, true));
-            }
-        }
-        customElements.define('ordbase-form-translation', OrdbaseFormTranslation);
-    }
-</script>

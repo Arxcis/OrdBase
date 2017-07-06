@@ -5,22 +5,22 @@
         <title>Editor - OrdBase</title>
 
         <style>
-            /* External CSS libraries */
+            /* EXTERNAL CSS */
             @import url('https://fonts.googleapis.com/css?family=Muli');
             @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
-            /* Internal CSS rules */
+            /* SHARED CSS */
             @import url('./app/css/shared.css');
             @import url('./app/css/header.css');
             @import url('./app/css/list.css');
 
-            /* Views */
+            /* VIEWS */
             @import url('./app/view/view-client-selector.css');
             @import url('./app/view/view-client-editor.css');
             @import url('./app/view/view-translation-editor.css');
             @import url('./app/view/view-translation-selector.css');
 
-            /* Components */
+            /* COMPONENTS */
             @import url('./app/component/card-client.css');
             @import url('./app/component/card-translation.css');
             @import url('./app/component/form-client.css');
@@ -29,20 +29,19 @@
 
         </style>
 
-        <!--- CARD COMPONENTS BUNDLE -->
-        <link rel="import" href="./app/component/key-and-icon.html">
-        <link rel="import" href="./app/component/card-client.html">
-        <link rel="import" href="./app/component/card-translation.html">
-        
-        <!-- FORM COMPONENTS BUNDLE -->
-        <link rel="import" href="./app/component/form-client.html">
-        <link rel="import" href="./app/component/form-translation.html">
-
-        <!--- VIEW COMPONENTS BUNDLE  -->
+        <!--- VIEWS  -->
         <link rel="import" href="./app/view/view-client-editor.html">
         <link rel="import" href="./app/view/view-client-selector.html">    
         <link rel="import" href="./app/view/view-translation-selector.html">
         <link rel="import" href="./app/view/view-translation-editor.html">
+
+        <!--- COMPONENTS -->
+        <link rel="import" href="./app/component/button-container.html">
+        <link rel="import" href="./app/component/key-and-icon.html">
+        <link rel="import" href="./app/component/card-client.html">
+        <link rel="import" href="./app/component/card-translation.html">
+        <link rel="import" href="./app/component/form-client.html">
+        <link rel="import" href="./app/component/form-translation.html">
 
         <!---  Load javascript entry-point script -->
         <script type="module" src="./startup.js"></script>
