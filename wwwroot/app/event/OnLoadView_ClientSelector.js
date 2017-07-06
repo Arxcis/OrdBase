@@ -18,8 +18,6 @@ export function OnLoadView_ClientSelector() {
         smallHeader : 'Select client',
     });
 
-
-
     // Hook up all buttons
     viewContent.querySelector('#btn-toggle-inactive-menu').addEventListener('click', event => OnLoadView_ClientSelector());
     viewContent.querySelector('#btn-back-to-home-page').addEventListener('click', event => OnLoadView_ClientSelector());

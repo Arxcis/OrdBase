@@ -2,18 +2,21 @@
 
 
 import { loadTemplate, unpackTemplate } from '../library/jet-template-unpacker.js';
-import { container as containerApi, translation as translationApi } from '../library/api.js'; 
+import { container   as containerApi, 
+         translation as translationApi } from '../library/api.js'; 
 
 import { OnLoadView_TranslationEditor } from '../event/OnLoadView_TranslationEditor.js';
 import { OnLoadView_ClientSelector } from '../event/OnLoadView_ClientSelector.js';
 
 const viewTemplate = loadTemplate('./app/view/view-translation-selector.html');
-
+const translationCardTemplate = loadTemplate('./app/component/card-translation.html');
+const keyIconTemplate = loadTemplate('./app/component/key-and-icon.html');
 
 //
 // @function OnLoadView_TranslationSelector
 //
 export function OnLoadView_TranslationSelector (client) {
+    
     const fontAwesome_checkIconClass = 'fa-check';
     const fontAwesome_crossIconClass = 'fa-times';
 
@@ -28,8 +31,10 @@ export function OnLoadView_TranslationSelector (client) {
     viewContent.querySelector('#btn-back-to-client-selector').onclick = (event) => OnLoadView_ClientSelector();
     viewContent.querySelector('#btn-create-new-translation').onclick  = (event) => OnLoadView_ClientSelector();
 
-    document.body.innerHTML = '';
+    // Swap content of body
+    document.body.innerHTML =  '';
     document.body.appendChild(viewContent);
+
 
     containerApi.getOnClient(client).then( containers => {
 
@@ -37,8 +42,8 @@ export function OnLoadView_TranslationSelector (client) {
 
         containers.forEach( container => {
             const button = document.createElement('button');
-            button.innerHTML = containerName;
-            button.id = 'button-' + containerName;
+            button.innerHTML = container;
+            button.id = 'button-' + container;
             button.onclick = (event) => button.classList.toggle('selected');
 
             containerList.appendChild(button);    
@@ -51,32 +56,25 @@ export function OnLoadView_TranslationSelector (client) {
     //
     translationApi.getGroupOnClient(client).then(data => {
 
+        const translationList = document.querySelector('#list-show-translations-on-client');         
+        
         data.forEach(translationGroup => {
 
-            const card = document.createElement('ordbase-card-translation');
-            view.querySelector('#list-show-translations-on-client').appendChild(card);
-            
-            card.querySelector('.btn-load-translation-editor').onclick = (event) => OnLoadView_TranslationEditor(client, translationGroup.key); 
-            card.querySelector('.translation-key').innerHTML = translationGroup.key;
-            
-            const languagesComplete = card.querySelector('.languages-complete');
-            const keyAndIconPrototype = card.querySelector('.key-and-icon');
-                            
-            Object.keys(translationGroup.isComplete)
-            .forEach((languageKey, isComplete) => {
+            const cardContent = unpackTemplate(translationCardTemplate, { translationKey : client.key });
+            const languagesComplete = cardContent.querySelector('.languages-complete');            
+    
+            Object.keys(translationGroup.isComplete).forEach((_languageKey, isComplete) => {
 
-                const clone = keyAndIconPrototype.cloneNode(true);
-                clone.querySelector('.language-key').innerHTML = languageKey;
-                if (isComplete)  
-                    clone.querySelector('.language-icon').classList.add(fontAwesome_checkIconClass);
-                else 
-                    clone.querySelector('.language-icon').classList.add(fontAwesome_crossIconClass);
-                
-                languagesComplete.appendChild(clone);
+                const keyAndIcon = unpackTemplate(keyIconTemplate, {
+                    languageKey : _languageKey,
+                    fontawesomeClass : (isComplete ? fontAwesome_checkIconClass : fontAwesome_crossIconClass)
+                });
+                languagesComplete.appendChild(keyAndIcon);
             });
 
             // Remove the prototype
-            languagesComplete.removeChild(keyAndIconPrototype);
+            cardContent.querySelector('.btn-load-translation-editor').onclick = (event) => OnLoadView_TranslationEditor(client, translationGroup.key);             
+            translationList.appendChild(cardContent);   
         });
     })
     .catch(reason => console.error('Error:', reason));

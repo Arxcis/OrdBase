@@ -1,10 +1,10 @@
-ordbase-card-translation {
+.ordbase-card-translation {
     width:100%;
 }
 
 
 
-ordbase-card-translation 
+.ordbase-card-translation 
 button {
     display: flex;
     flex-wrap: wrap;
@@ -18,12 +18,12 @@ button {
 }
 
 
-ordbase-card-translation button 
+.ordbase-card-translation button 
 span {
     flex: 0 0 100px;
 }
 
-ordbase-card-translation button
+.ordbase-card-translation button
 .languages-complete {
     flex: 1;
     display: flex;
@@ -32,7 +32,7 @@ ordbase-card-translation button
 }
 
 
-ordbase-card-translation button .languages-complete 
+.ordbase-card-translation button .languages-complete 
 .key-and-icon {
     margin: 0px 10px 0px 10px;
     flex: 0 1 120px;
@@ -40,15 +40,15 @@ ordbase-card-translation button .languages-complete
     display: flex;
 }
 
-ordbase-card-translation button .languages-complete .key-and-icon 
+.ordbase-card-translation button .languages-complete .key-and-icon 
 span {
     display: flex;
 }
 
-ordbase-card-translation .fa-check {
+.ordbase-card-translation .fa-check {
     color: #5cb85c;
 }
 
-ordbase-card-translation .fa-times {
+.ordbase-card-translation .fa-times {
     color: #d9534f;
 }

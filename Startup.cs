@@ -45,8 +45,9 @@ namespace OrdBaseCore {
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("config.json", optional: true, reloadOnChange: true);
-                
+                .AddJsonFile("config.json", optional: true, reloadOnChange: true)
+                .AddEnvironmentVariables();
+
             Configuration = builder.Build();
         }
          
@@ -57,6 +58,7 @@ namespace OrdBaseCore {
         public void ConfigureServices(IServiceCollection services)
         {
             var sqlConnectionString = Configuration.GetConnectionString(Startup.SqlProvider);
+            // var sqlConnectionString = configuration.GetSection("PATH").Value;
 
             services.AddDbContext<TranslationDb>(options => 
                // options.UseInMemoryDatabase()

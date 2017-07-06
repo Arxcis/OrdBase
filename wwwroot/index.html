@@ -3,11 +3,34 @@
     <head>
         <meta charset="utf-8">
         <title>Editor - OrdBase</title>
-        
-        <!--- CSS Entry point -->
-        <link rel="stylesheet" href="./app/shared-css/style.css">
+
+        <style>
+            /* External CSS libraries */
+            @import url('https://fonts.googleapis.com/css?family=Muli');
+            @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+            /* Internal CSS rules */
+            @import url('./app/css/shared.css');
+            @import url('./app/css/header.css');
+            @import url('./app/css/list.css');
+
+            /* Views */
+            @import url('./app/view/view-client-selector.css');
+            @import url('./app/view/view-client-editor.css');
+            @import url('./app/view/view-translation-editor.css');
+            @import url('./app/view/view-translation-selector.css');
+
+            /* Components */
+            @import url('./app/component/card-client.css');
+            @import url('./app/component/card-translation.css');
+            @import url('./app/component/form-client.css');
+            @import url('./app/component/form-translation.css');
+            @import url('./app/component/key-and-icon.css');
+
+        </style>
 
         <!--- CARD COMPONENTS BUNDLE -->
+        <link rel="import" href="./app/component/key-and-icon.html">
         <link rel="import" href="./app/component/card-client.html">
         <link rel="import" href="./app/component/card-translation.html">
         

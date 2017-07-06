@@ -1,35 +1,17 @@
-<style>
-    @import url('card-translation.css'); 
-</style>
+<template>
 
-<template id="ordbase-card-translation">
-    <button class="btn-load-translation-editor">
-        <span class="translation-key"></span>
-        <div  class="languages-complete">
+    <div class="ordbase-card-translation">
+        <button class="btn-load-translation-editor">
+            <span class="translation-key">{{ translationKey }}</span>
+            <div  class="languages-complete">
+                
+                <!-- @note loading script will fill in here -->
+                <!--       This is a prototype which the script will clone -->
             
-            <!-- @note loading script will fill in here -->
-            <!--       This is a prototype which the script will clone -->
-            <div class="key-and-icon">
-                <span class="language-key"></span>
-                <i    class="fa language-icon" aria-hidden="true"></i>
-            </div> 
+                <!--div class="key-and-icon"><span></span><i></i></div-->
+                <!--div class="key-and-icon"><span></span><i></i></div-->
+            </div>
+        </button>    
+    </div>
 
-            <!--div class="key-and-icon"><span></span><i></i></div-->
-            <!--div class="key-and-icon"><span></span><i></i></div-->
-        </div>
-    </button>    
 </template>
-
-<script>
-    'use strict';
-    {
-        let template = document.currentScript.ownerDocument.querySelector("#ordbase-card-translation").content;
-
-        class OrdbaseCardTranslation extends HTMLElement {
-            connectedCallback() {
-                this.appendChild(document.importNode(template, true));
-            }
-        }
-        customElements.define('ordbase-card-translation', OrdbaseCardTranslation);
-    }
-</script>
