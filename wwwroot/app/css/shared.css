@@ -14,6 +14,7 @@ html, body {
     margin: auto;
     height: 100%;
     font-size: 62.5%;
+    color: var(--maincolor-dark);
 }
 
 /* @doc remove button styling - https://stackoverflow.com/questions/22672368/how-to-make-a-transparent-html-button*/
@@ -23,7 +24,7 @@ input, button {
     background-color: transparent;
     cursor: pointer;
     padding: none;
-    color: var(--maincolor-dark) ; 
+    color: var(--maincolor-dark); 
  } 
 
  input { 

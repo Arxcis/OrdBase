@@ -6,9 +6,9 @@ import { loadTemplate, unpackTemplate } from  '../../library/jet-template-unpack
 import { loadTranslationEditor } from './loadTranslationEditor.js';
 import { loadClientSelector }    from './loadClientSelector.js';
 
-const viewTemplate = loadTemplate('./app/view/view-translation-selector.html');
+const viewTemplate            = loadTemplate('./app/view/view-translation-selector.html');
 const translationCardTemplate = loadTemplate('./app/component/card-translation.html');
-const keyIconTemplate = loadTemplate('./app/component/key-and-icon.html');
+const keyIconTemplate         = loadTemplate('./app/component/key-and-icon.html');
 const containerButtonTemplate = loadTemplate('./app/component/button-container.html');
 
 const fontAwesome_checkIconClass = 'fa-check';
@@ -19,20 +19,20 @@ const fontAwesome_crossIconClass = 'fa-times';
 //
 export function loadTranslationSelector (client) {
 
-    let viewContent = unpackTemplate(viewTemplate, {
+    let view = unpackTemplate(viewTemplate, {
         bigHeader : 'Ordbase',
         smallHeader : 'Edit translation',
     });
 
     // Hook up all buttons
-    viewContent.querySelector('#btn-toggle-container-list').onclick   = (event) => loadClientSelector();
-    viewContent.querySelector('#btn-back-to-home-page').onclick       = (event) => loadClientSelector();
-    viewContent.querySelector('#btn-back-to-client-selector').onclick = (event) => loadClientSelector();
-    viewContent.querySelector('#btn-create-new-translation').onclick  = (event) => loadClientSelector();
+    view.querySelector('#btn-toggle-container-list').onclick   = (event) => loadClientSelector();
+    view.querySelector('#btn-back-to-home-page').onclick       = (event) => loadClientSelector();
+    view.querySelector('#btn-back-to-client-selector').onclick = (event) => loadClientSelector();
+    view.querySelector('#btn-create-new-translation').onclick  = (event) => loadClientSelector();
 
     api.container.getOnClient(client).then( containers => {
 
-        let containerList = viewContent.querySelector('#list-show-containers-on-client');
+        let containerList = view.querySelector('#list-show-containers-on-client');
 
         containers.forEach( container => {
 
@@ -54,7 +54,7 @@ export function loadTranslationSelector (client) {
     //
     .then(data => {
 
-        const translationList = viewContent.querySelector('#list-show-translations-on-client');         
+        const translationList = view.querySelector('#list-show-translations-on-client');         
         
         data.forEach(translationGroup => {
 
@@ -79,6 +79,6 @@ export function loadTranslationSelector (client) {
     .then(() => {                                  
         // Clear all previous content, insert new view
         document.body.innerHTML = ''; 
-        document.body.appendChild(viewContent);
+        document.body.appendChild(view);
     });
 }

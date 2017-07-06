@@ -13,21 +13,21 @@ const cardTemplate = loadTemplate('./app/component/card-client.html');
 //
 export function loadClientSelector() {
     
-    const viewContent = unpackTemplate(viewTemplate, {
+    const view = unpackTemplate(viewTemplate, {
         bigHeader : 'Ordbase',
         smallHeader : 'Select client',
     });
 
     // Hook up all buttons
-    viewContent.querySelector('#btn-toggle-inactive-menu').addEventListener('click', event => loadClientSelector());
-    viewContent.querySelector('#btn-back-to-home-page').addEventListener('click', event => loadClientSelector());
-    viewContent.querySelector('#btn-create-new-client').addEventListener('click', event => loadClientEditor('fmsf'));
+    view.querySelector('#btn-toggle-inactive-menu').addEventListener('click', event => loadClientSelector());
+    view.querySelector('#btn-back-to-home-page').addEventListener('click', event => loadClientSelector());
+    view.querySelector('#btn-create-new-client').addEventListener('click', event => loadClientEditor('fmsf'));
 
     // Get Client data
     api.client.getAll().then(clientCollection => {
 
         // Loop through all clients and generate cards for each of thems
-        const main = viewContent.querySelector('main');
+        const main = view.querySelector('main');
 
         clientCollection.forEach((client, index) => {
     
@@ -46,6 +46,6 @@ export function loadClientSelector() {
     .then(() => {                                  
         // Clear all previous content, insert new view
         document.body.innerHTML = ''; 
-        document.body.appendChild(viewContent);
+        document.body.appendChild(view);
     });
 }

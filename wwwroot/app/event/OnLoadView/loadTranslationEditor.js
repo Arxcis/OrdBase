@@ -16,18 +16,17 @@ export function loadTranslationEditor (client, key) {
     
     let containersOnClient = {};
 
-    const viewContent = unpackTemplate(viewTemplate, {
+    const view = unpackTemplate(viewTemplate, {
         bigHeader : 'Ordbase',
         smallHeader : 'Edit translation',
         translationKey : key,
         submitButtonText : 'Save changes',
     });
 
-    viewContent.querySelector('#btn-toggle-container-list').onclick        = (event) => loadTranslationEditor(client);
-    viewContent.querySelector('#btn-back-to-home-page').onclick            = (event) => loadClientSelector(client);
-    viewContent.querySelector('#btn-back-to-translation-selector').onclick = (event) => loadTranslationSelector(client);    
-    viewContent.querySelector('#btn-save-edited-translation').onclick      = (event) => loadTranslationEditor(client);
-
+    view.querySelector('#btn-toggle-container-list').onclick        = (event) => loadTranslationEditor(client);
+    view.querySelector('#btn-back-to-home-page').onclick            = (event) => loadClientSelector(client);
+    view.querySelector('#btn-back-to-translation-selector').onclick = (event) => loadTranslationSelector(client);    
+    view.querySelector('#btn-save-edited-translation').onclick      = (event) => loadTranslationEditor(client);
 
     //
     // @AJAX - Call to get all containers on a client
@@ -43,7 +42,7 @@ export function loadTranslationEditor (client, key) {
     //
     .then(selectedContainer => {
 
-        let containerList = viewContent.querySelector('#list-show-containers-on-translation');
+        let containerList = view.querySelector('#list-show-containers-on-translation');
 
         containersOnClient.forEach( container => {
 
@@ -64,7 +63,7 @@ export function loadTranslationEditor (client, key) {
     //
     .then(translationGroup => {
 
-        let fieldsetDiv = viewContent.querySelector('#fieldset-one-for-each-language');
+        let fieldsetDiv = view.querySelector('#fieldset-one-for-each-language');
         translationGroup.forEach( translation => {
 
             console.log(translation);
@@ -82,6 +81,6 @@ export function loadTranslationEditor (client, key) {
     .then(() => {                                  
         // Clear all previous content, insert new view
         document.body.innerHTML = ''; 
-        document.body.appendChild(viewContent);
+        document.body.appendChild(view);
     });
 }
