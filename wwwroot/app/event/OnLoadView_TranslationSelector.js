@@ -1,40 +1,38 @@
 'use strict';
 
 
-import { loadTemplate, loadText, bindTemplate } from '../library/jet-template-loader.js';
+import { loadTemplate, unpackTemplate } from '../library/jet-template-unpacker.js';
 import { container as containerApi, translation as translationApi } from '../library/api.js'; 
 
 import { OnLoadView_TranslationEditor } from '../event/OnLoadView_TranslationEditor.js';
 import { OnLoadView_ClientSelector } from '../event/OnLoadView_ClientSelector.js';
 
+const viewTemplate = loadTemplate('./app/view/view-translation-selector.html');
+
+
 //
 // @function OnLoadView_TranslationSelector
 //
 export function OnLoadView_TranslationSelector (client) {
-
     const fontAwesome_checkIconClass = 'fa-check';
     const fontAwesome_crossIconClass = 'fa-times';
 
-
-
-    loadTemplate('./app/view/view-translation-selector.html', {
+    let viewContent = unpackTemplate(viewTemplate, {
         bigHeader : 'Ordbase',
-        smallHeader : 'Select client',
-    })
-    .then( viewTemplate => {
-        let viewContent = viewTemplate.content;
-        // Hook up all buttons
-        viewContent.querySelector('#btn-toggle-container-list').onclick   = (event) => OnLoadView_ClientSelector();
-        viewContent.querySelector('#btn-back-to-home-page').onclick       = (event) => OnLoadView_ClientSelector();
-        viewContent.querySelector('#btn-back-to-client-selector').onclick = (event) => OnLoadView_ClientSelector();
-        viewContent.querySelector('#btn-create-new-translation').onclick  = (event) => OnLoadView_ClientSelector();
+        smallHeader : 'Edit translation',
+    });
 
-        document.body.innerHTML = '';
-        document.body.appendChild(viewContent);
+    // Hook up all buttons
+    viewContent.querySelector('#btn-toggle-container-list').onclick   = (event) => OnLoadView_ClientSelector();
+    viewContent.querySelector('#btn-back-to-home-page').onclick       = (event) => OnLoadView_ClientSelector();
+    viewContent.querySelector('#btn-back-to-client-selector').onclick = (event) => OnLoadView_ClientSelector();
+    viewContent.querySelector('#btn-create-new-translation').onclick  = (event) => OnLoadView_ClientSelector();
 
-        return containerApi.getOnClient(client);
-    })
-    .then( containers => {
+    document.body.innerHTML = '';
+    document.body.appendChild(viewContent);
+
+    containerApi.getOnClient(client).then( containers => {
+
         let containerList = document.querySelector('#list-show-containers-on-client');
 
         containers.forEach( container => {
@@ -47,28 +45,12 @@ export function OnLoadView_TranslationSelector (client) {
         });
     })
 
-
-    //
-    // Get all container names
-    //
-    containerApi.getOnClient(client)
-    .then(data => {
-
-        data.forEach(containerName => {
-            const button = document.createElement('button');
-            .appendChild(button);
-
-
-        });      
-    })
-    .catch(reason => console.error('Error:', reason));
-
     //
     // Get all translation groups 
     //  @doc template literals - https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Template_literals
     //
-    translationApi.getGroupOnClient(client)
-    .then(data => {
+    translationApi.getGroupOnClient(client).then(data => {
+
         data.forEach(translationGroup => {
 
             const card = document.createElement('ordbase-card-translation');
