@@ -31,21 +31,29 @@ export function loadTranslationEditor (client, key) {
     
     }).then(selectedContainer => {
 
-        let containerList = document.querySelector('#list-show-containers-on-translation');
+        let containerList = viewContent.querySelector('#list-show-containers-on-translation');
 
         containersOnClient.forEach( container => {
 
-            const button = document.createElement('button');
-            button.innerHTML = container;
-            button.id = 'button-' + container;
-            button.onclick = (event) => button.classList.toggle('selected'); 
+            const button = unpackTemplate(containerButtonTemplate, {
+                id : `button-${container}`,
+                text : container,
+                selected : (selectedContainer == container ? 'selected' : ''),
+            }).querySelector('button');
 
-            if (selectedContainer === container)
-                button.classList.add('selected');
-
+            button.onclick = (event) => event.target.classList.toggle('selected'); 
             containerList.appendChild(button);
         });
 
+        return api.translation.getOnKey(client, key);
+    })
+    .then( translationGroup => {
+        console.log(translationGroup);
+
+        translationGroup.forEach(translation => {
+
+        });
+        
     })
     .catch(reason => console.error('Error:', reason))
     .then(() => {                                  

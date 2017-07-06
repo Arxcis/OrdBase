@@ -35,13 +35,15 @@ export function loadTranslationSelector (client) {
         let containerList = viewContent.querySelector('#list-show-containers-on-client');
 
         containers.forEach( container => {
-            const fragment = unpackTemplate(containerButtonTemplate, {
-                id : `button-${container}`,
-                text : container
-            });
 
-            fragment.querySelector('button').onclick = (event) => { event.target.classList.toggle('selected'); }
-            containerList.appendChild(fragment);    
+            const button = unpackTemplate(containerButtonTemplate, {
+                id : `button-${container}`,
+                text : container,
+                selected : '',
+            }).querySelector('button');
+
+            button.onclick = (event) => { event.target.classList.toggle('selected'); }
+            containerList.appendChild(button);    
         });
 
         return api.translation.getGroupOnClient(client);
@@ -60,8 +62,7 @@ export function loadTranslationSelector (client) {
             const languagesComplete = cardContent.querySelector('.languages-complete');            
     
             Object.keys(translationGroup.isComplete).forEach((_languageKey, isComplete) => {
-                
- 
+             
                 const keyAndIcon = unpackTemplate(keyIconTemplate, {
                     languageKey : _languageKey,
                     fontawesomeClass : (isComplete ? fontAwesome_checkIconClass : fontAwesome_crossIconClass)
