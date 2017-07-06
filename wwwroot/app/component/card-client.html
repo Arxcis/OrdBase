@@ -1,9 +1,9 @@
 <template>
-    <div class="ordbase-card-client">
+    <div id="{{ id }}" class="ordbase-card-client">
         <button class="card-button">
-            <img alt="Bilde av fylkesmannen" src="http://placehold.it/250x125/FFC107">
-            <h2>fylkesmannen.no</h2>
-            <p>https://www.fylkesmannen.no</p>
+            <img alt="Bilde av fylkesmannen" src="{{ thumbnail }}">
+            <h2>{{ name    }}</h2>
+            <p> {{ website }}</p>
         </button>
     </div>
 </template>

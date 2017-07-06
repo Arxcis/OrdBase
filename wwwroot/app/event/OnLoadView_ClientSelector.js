@@ -6,6 +6,9 @@ import { overwriteFromTemplate, appendFromTemplate } from '../library/util.js';
 import { OnLoadView_TranslationSelector }            from './OnLoadView_TranslationSelector.js';
 import { OnLoadView_ClientEditor }                   from './OnLoadView_ClientEditor.js';
 
+registerTemplate('view-client-selector', 'view-client-selector.html');
+
+
 //
 // @function OnLoadViewClientSelector
 //
@@ -13,14 +16,64 @@ export function OnLoadView_ClientSelector() {
 
     let clientCollection = {};
     
-    loadTemplate('./app/view/view-client-selector.html').then( viewTemplate => {
+    
+    let viewClientSelector = document.createElement('view-client-selector');
+
+    bindTemplate(viewClientSelector, {
+        'header': 'Ordbase',
+        'description': 'select client',
+    });
+
+
+function registerTemplate() {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    loadTemplate('./app/view/view-client-selector.html', {
+        bigHeader : 'Ordbase',
+        smallHeader : 'Select client',
+   
+    }).then( viewTemplate => {
         
         let viewContent = viewTemplate.content;        
 
         // Hook up all buttons
-        viewContent.querySelector('#btn-toggle-inactive-menu').addEventListener('click', event => OnLoadView_ClientSelector());
-        viewContent.querySelector('#btn-back-to-home-page').addEventListener('click', event => OnLoadView_ClientSelector());
-        viewContent.querySelector('#btn-create-new-client').addEventListener('click', event => OnLoadView_ClientEditor('fmsf'));
+        viewContent.querySelector('#btn-toggle-inactive-menu').onclick = event => OnLoadView_ClientSelector();
+        viewContent.querySelector('#btn-back-to-home-page').onclick = event => OnLoadView_ClientSelector();
+        viewContent.querySelector('#btn-create-new-client').onclick = event => OnLoadView_ClientEditor('fmsf');
 
         // Clear all content, insert new view
         document.body.innerHTML = ''; 
@@ -38,16 +91,16 @@ export function OnLoadView_ClientSelector() {
         // Loop through all clients and generate cards for each of thems
         const main = document.querySelector('main');
 
-        clientCollection.forEach( client => {
-            const dataBindings = {
-                'heading': client.Name,
-                'websiteurl': 'https://www.placeholder.no',
-                'thumbnailurl' : 'http://placehold.it/250x125/FFC107', 
+        clientCollection.forEach( (client, index) => {
+            const cardData = {
+                id:         `card${index}`,
+                name:       client.name,
+                website:    'https://www.placeholder.no',
+                thumbnail : 'http://placehold.it/250x125/FFC107', 
             };
-
-            const cardTemplate = bindTemplate(cardTemplateText, dataBindings);
-
-            cardTemplate.content.querySelector('button').addEventListener('click', event => OnLoadView_TranslationSelector(client.name));            
+            const cardTemplate = bindTemplate(cardTemplateText, cardData);
+            
+            cardTemplate.content.querySelector('button').onclick = event => OnLoadView_TranslationSelector(client.name);
             main.appendChild(cardTemplate.content);            
         });      
     })

@@ -1,46 +1,32 @@
- <style>
-    @import url('./view-translation-editor.css');
-</style>
+<template>
+    <div class="view-translation-editor">
+        <header class="ordbase-header">
 
-<template id="view-translation-editor">
-
-    <header class="ordbase-header">
-
-        <button id="btn-toggle-container-list" class="icon-button">
-            <i class="fa fa-bars" aria-hidden="true"></i></button>
-        
-        <button id="btn-back-to-home-page" class="header-text-button">
-            <h1>Ordbase <small> - Edit Translations </small></h1>
-        
-        <button id="btn-back-to-translation-selector" class="icon-button">
-            <i class="fa fa-arrow-left" aria-hidden="true"></i></button>
-        
-        <button id="btn-save-edited-translation" class="icon-button">
-            <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+            <button id="btn-toggle-container-list" class="icon-button">
+                <i class="fa fa-bars" aria-hidden="true"></i></button>
+            
+            <button id="btn-back-to-home-page" class="header-text-button">
+                <h1>{{ bigHeader }} <small> - {{ smallHeader }} </small></h1>
+            
+            <button id="btn-back-to-translation-selector" class="icon-button">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+            
+            <button id="btn-save-edited-translation" class="icon-button">
+                <i class="fa fa-floppy-o" aria-hidden="true"></i></button>
 
 
-    </header>
-    <main>
-        <section id="list-show-containers-on-translation" class="ordbase-container-list">
-            <h2>Containers</h2>
+        </header>
 
-        </section>
+        <main>
+            <section id="list-show-containers-on-translation" class="ordbase-container-list">
+                <h2>Containers</h2>
 
-        <ordbase-form-translation></ordbase-form-translation>
+            </section>
 
-    </main>
-    <footer></footer>
+            <ordbase-form-translation></ordbase-form-translation>
+
+        </main>
+
+        <footer></footer>
+    </div>
 </template>
-<script>
-    'use strict';
-    {
-        let template = document.currentScript.ownerDocument.querySelector("#view-translation-editor").content; 
-                                
-        class ViewTranslationEditor extends HTMLElement {
-            connectedCallback() {
-                this.appendChild(document.importNode(template, true));
-            }
-        }
-        customElements.define('view-translation-editor', ViewTranslationEditor);
-    }
-</script>
