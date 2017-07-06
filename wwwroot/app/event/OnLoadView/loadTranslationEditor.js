@@ -7,6 +7,7 @@ import { loadClientSelector }                                from './loadClientS
 
 const viewTemplate = loadTemplate('./app/view/view-translation-editor.html');
 const containerButtonTemplate = loadTemplate('./app/component/button-container.html');
+const translationFieldsetTemplate = loadTemplate('./app/component/fieldset-translation.html');
 
 //
 // @function loadTranslationEditor
@@ -14,9 +15,12 @@ const containerButtonTemplate = loadTemplate('./app/component/button-container.h
 export function loadTranslationEditor (client, key) {
     
     let containersOnClient = {};
-    let viewContent = unpackTemplate(viewTemplate, {
+
+    const viewContent = unpackTemplate(viewTemplate, {
         bigHeader : 'Ordbase',
         smallHeader : 'Edit translation',
+        translationKey : key,
+        submitButtonText : 'Save changes',
     });
 
     viewContent.querySelector('#btn-toggle-container-list').onclick        = (event) => loadTranslationEditor(client);
@@ -24,12 +28,20 @@ export function loadTranslationEditor (client, key) {
     viewContent.querySelector('#btn-back-to-translation-selector').onclick = (event) => loadTranslationSelector(client);    
     viewContent.querySelector('#btn-save-edited-translation').onclick      = (event) => loadTranslationEditor(client);
 
+
+    //
+    // @AJAX - Call to get all containers on a client
+    //
     api.container.getOnClient(client).then(_containersOnClient => {
 
         containersOnClient = _containersOnClient;  
         return api.container.getOnKey(client, key);
     
-    }).then(selectedContainer => {
+    })
+    //
+    // @AJAX - Call to get the container which this translationGroup is connected to
+    //
+    .then(selectedContainer => {
 
         let containerList = viewContent.querySelector('#list-show-containers-on-translation');
 
@@ -47,13 +59,24 @@ export function loadTranslationEditor (client, key) {
 
         return api.translation.getOnKey(client, key);
     })
-    .then( translationGroup => {
-        console.log(translationGroup);
+    //
+    // @AJAX - Call to get a specific translationGroup to build the translation form
+    //
+    .then(translationGroup => {
 
-        translationGroup.forEach(translation => {
+        let fieldsetDiv = viewContent.querySelector('#fieldset-one-for-each-language');
+        translationGroup.forEach( translation => {
 
+            console.log(translation);
+            const translationFieldset = unpackTemplate( translationFieldsetTemplate, {
+                languageCode : translation.languageKey,
+                inputId : `input-${translation.languageCode}`,
+                inputValue : translation.text,
+            });
+
+            translationFieldset.querySelector('[type="checkbox"]').checked = translation.isComplete;
+            fieldsetDiv.appendChild(translationFieldset);
         });
-        
     })
     .catch(reason => console.error('Error:', reason))
     .then(() => {                                  

@@ -8,31 +8,7 @@
 .ordbase-form-translation {
     height: 100%;
     margin-left: 20px;
-}
-
-.ordbase-form-translation
-input { 
-    outline: none;
-    display: block; 
-    border-style: solid;
-    border-color: grey;
-
-    border-width: 0 0 1px 0;
-}
-
-.ordbase-form-translation
-input:focus {
-    box-shadow: 0 0 2px 2px #55b8ff;
-}
-
-.ordbase-form-translation
-input:disabled {
-    background: none;
-}
-
-.ordbase-form-translation
-fieldset {
-    border: none;
+    font-size: 1.5rem;
 }
 
 .ordbase-form-translation
@@ -43,9 +19,8 @@ label {
 }
 
 .ordbase-form-translation
-.form-textinput {
-    font-size: 2em;
-    margin: 0px 20px 10px 4px;
+#checkbox-counter {
+    font-size: 1.5em;
 }
 
 .ordbase-form-translation
@@ -64,44 +39,4 @@ label {
     background-color: #4CAF50;
     color: white;
     cursor: pointer;
-}
-
-/* -- Special rules -- */
-.ordbase-form-translation
-#form-translation {
-    font-size: 1.5rem;
-}       
-
-.ordbase-form-translation
-#input-key {   
-    color: rgb(150, 150, 150);
-    margin-top: 5px;
-    font-size: 3em;
-}
-
-.ordbase-form-translation
-.input-checkbox {
-    width: 25px;
-    height:25px;
-    border: 1px solid #4CAF50;
-}
-
-.ordbase-form-translation
-.input-lang-and-checkbox {
-    display: flex;
-}
-
-.ordbase-form-translation
-.lang-label {
-    font-size: 1.2em;
-}
-
-.ordbase-form-translation
-.input-checkbox-div {
-    background-color: white;
-}
-
-.ordbase-form-translation
-#checkbox-counter {
-    font-size: 1.5em;
 }
