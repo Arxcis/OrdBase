@@ -1,7 +1,12 @@
 
-
 .view-client-editor {
     height: 100%;
+}
+.view-client-editor
+main {
+    height: 100%;
+    display: flex;
+
 }
 
 /* ------------- FORM ------------- */

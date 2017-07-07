@@ -19,8 +19,10 @@
         </header>
 
         <main>
-            <section id="list-show-containers-on-translation" class="ordbase-container-list">
-                <h2>Containers</h2>
+            <section id="list-show-containers-on-translation">
+
+                <!-- @note SCRIPT WILL INSERT list-container.html HERE -->
+                
             </section>
 
             <form class="ordbase-form-translation">
@@ -29,6 +31,7 @@
 
                 <div id="fieldset-one-for-each-language">
 
+                    <!-- @note SCRIPT WILL GENERATE ELEMENTS DYNAMICLY HERE BASED ON THIS TEMPLATE -->
                     <template id="template-fieldset-translation">
                         
                         <fieldset class="fieldset-translation">
@@ -56,7 +59,8 @@
                     <br>
                     <br>
 
-                    <button id="btn-form-submit-translation" class="ordbase-btn-form-submit" type="submit"> 
+                    <button id="btn-form-submit-translation" class="ordbase-btn-form-submit" type="submit"
+                            onclick="event.target.classList.toggle('selected')"> 
                         {{ submitButtonText }}
                     </button>
                     

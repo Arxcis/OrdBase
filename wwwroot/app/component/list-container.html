@@ -1,0 +1,14 @@
+<template>
+    
+        <div class="ordbase-list-container">
+                <h2>Containers</h2>        
+        
+                <!-- @note SCRIPT WILL GENERATE ELEMENTS DYNAMICLY HERE BASED ON THIS TEMPLATE -->
+                <template id="template-button-container">
+                        <button id="{{ id }}" class="ordbase-btn-container-select {{ selected }}" 
+                                  onclick="event.target.classList.toggle('selected')"> {{ text }} </button>
+                </template>
+
+        </div>
+
+</template>

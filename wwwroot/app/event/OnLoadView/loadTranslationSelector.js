@@ -7,9 +7,11 @@ import { loadClientSelector }    from './loadClientSelector.js';
 import { loadTemplate, loadTemplateDoc, unpackTemplate } from  '../../library/jet-template-unpacker.js';
 
 const viewTemplate            = loadTemplateDoc('./app/view/view-translation-selector.html');
-const translationCardTemplate = loadTemplateDoc('./app/component/card-translation.html');
-const keyIconTemplate         = loadTemplateDoc('./app/component/key-and-icon.html');
-const containerButtonTemplate = loadTemplateDoc('./app/component/button-container.html');
+const translationCardTemplate = loadTemplate('#template-card-translation', viewTemplate);
+const keyIconTemplate         = loadTemplate('#template-key-and-icon', translationCardTemplate);
+
+const containerListTemplate   = loadTemplateDoc('./app/component/list-container.html');
+const containerButtonTemplate = loadTemplate('#template-button-container', containerListTemplate);
 
 const fontAwesome_checkIconClass = 'fa-check';
 const fontAwesome_crossIconClass = 'fa-times';
@@ -25,31 +27,36 @@ export function loadTranslationSelector (client) {
     });
 
     // Hook up all buttons
-    view.querySelector('#btn-toggle-container-list').onclick   = (event) => loadClientSelector();
-    view.querySelector('#btn-back-to-home-page').onclick       = (event) => loadClientSelector();
-    view.querySelector('#btn-back-to-client-selector').onclick = (event) => loadClientSelector();
-    view.querySelector('#btn-create-new-translation').onclick  = (event) => loadClientSelector();
+    view.querySelector('#btn-toggle-container-list').addEventListener(  'click', (event) => loadClientSelector());
+    view.querySelector('#btn-back-to-home-page').addEventListener(      'click', (event) => loadClientSelector());
+    view.querySelector('#btn-back-to-client-selector').addEventListener('click', (event) => loadClientSelector());
+    view.querySelector('#btn-create-new-translation').addEventListener( 'click', (event) => loadClientSelector());
 
-    api.container.getOnClient(client).then( containers => {
+    //
+    // @AJAX - fetch all containers on selected client
+    //
+    api.container.getOnClient(client).then( containersOnClient => {
 
-        let containerList = view.querySelector('#list-show-containers-on-client');
+        const containerList = unpackTemplate(containerListTemplate).querySelector('div');
 
-        containers.forEach( container => {
+        containersOnClient.forEach( container => {
 
-            const button = unpackTemplate(containerButtonTemplate, {
+            const containerButton = unpackTemplate(containerButtonTemplate, {
                 id : `button-${container}`,
                 text : container,
                 selected : '',
             }).querySelector('button');
 
-            button.onclick = (event) => { event.target.classList.toggle('selected'); }
-            containerList.appendChild(button);    
+            containerButton.onclick = (event) => event.target.classList.toggle('selected'); 
+            containerList.appendChild(containerButton);
         });
+
+        view.querySelector('#list-show-containers-on-client').appendChild(containerList);
 
         return api.translation.getGroupOnClient(client);
     })
     //
-    // Get all translation groups 
+    //  @AJAX - Get all translation groups 
     //  @doc template literals - https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Template_literals
     //
     .then(data => {

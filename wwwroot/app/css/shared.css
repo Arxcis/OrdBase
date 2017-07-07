@@ -4,10 +4,12 @@
 
 /* Main color set */
 :root {
-    --ordbase-color-dark:  #3e4444;
-    --ordbase-color-light: #f2ede9;
-    --ordbase-color-white: #ffffff;
-    --ordbase-color-btn-submit: #4CAF50;
+    --ordbase-color-dark:   #3e4444;
+    --ordbase-color-light:  #f2ede9;
+    --ordbase-color-white:  #ffffff;
+    --ordbase-color-success: #4CAF50;
+    --ordbase-color-danger:  #d9534f;
+    --ordbase-color-select:  #55b8ff;
     --form-font-size: 1.6rem;
 }
 

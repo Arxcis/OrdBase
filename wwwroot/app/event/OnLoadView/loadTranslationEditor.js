@@ -7,8 +7,10 @@ import { loadClientSelector }           from './loadClientSelector.js';
 import { loadTemplate, loadTemplateDoc, unpackTemplate } from '../../library/jet-template-unpacker.js';
 
 const viewTemplate = loadTemplateDoc('./app/view/view-translation-editor.html');
-const containerButtonTemplate = loadTemplateDoc('./app/component/button-container.html');
-const translationFieldsetTemplate = loadTemplate('template-fieldset-translation', viewTemplate);
+const translationFieldsetTemplate = loadTemplate('#template-fieldset-translation', viewTemplate);
+
+const containerListTemplate = loadTemplateDoc('./app/component/list-container.html');
+const containerButtonTemplate = loadTemplate('#template-button-container', containerListTemplate);
 
 //
 // @function loadTranslationEditor
@@ -24,11 +26,11 @@ export function loadTranslationEditor (client, key) {
         submitButtonText : 'Save changes',
     });
 
-    view.querySelector('#btn-toggle-container-list').onclick        = (event) => loadTranslationEditor(client);
-    view.querySelector('#btn-back-to-home-page').onclick            = (event) => loadClientSelector();
-    view.querySelector('#btn-back-to-translation-selector').onclick = (event) => loadTranslationSelector(client);    
-    view.querySelector('#btn-save-edited-translation').onclick      = (event) => loadTranslationEditor(client);
-    view.querySelector('#btn-form-submit-translation').onclick      = (event) => submitTranslation(event);
+    view.querySelector('#btn-toggle-container-list').addEventListener('click', (event) => loadTranslationEditor(client));
+    view.querySelector('#btn-back-to-home-page').addEventListener('click', (event) => loadClientSelector());
+    view.querySelector('#btn-back-to-translation-selector').addEventListener('click', (event) => loadTranslationSelector(client));    
+    view.querySelector('#btn-save-edited-translation').addEventListener('click', (event) => loadTranslationEditor(client));
+    view.querySelector('#btn-form-submit-translation').addEventListener('click', (event) => submitTranslation(event));
     //
     // @AJAX - Call to get all containers on a client
     //
@@ -36,27 +38,28 @@ export function loadTranslationEditor (client, key) {
 
         containersOnClient = _containersOnClient;  
         return api.container.getOnKey(client, key);
-    
     })
     //
     // @AJAX - Call to get the container which this translationGroup is connected to
     //
     .then(selectedContainer => {
 
-        let containerList = view.querySelector('#list-show-containers-on-translation');
+        const containerList = unpackTemplate(containerListTemplate).querySelector('div');
 
         containersOnClient.forEach( container => {
 
-            const button = unpackTemplate(containerButtonTemplate, {
+            const containerButton = unpackTemplate(containerButtonTemplate, {
                 id : `button-${container}`,
                 text : container,
                 selected : (selectedContainer == container ? 'selected' : ''),
             }).querySelector('button');
 
-            button.onclick = (event) => event.target.classList.toggle('selected'); 
-            containerList.appendChild(button);
+            containerButton.onclick = (event) => event.target.classList.toggle('selected'); 
+            containerList.appendChild(containerButton);
         });
 
+        view.querySelector('#list-show-containers-on-translation').appendChild(containerList);
+    
         return api.translation.getOnKey(client, key);
     })
     //

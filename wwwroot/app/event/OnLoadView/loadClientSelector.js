@@ -22,7 +22,7 @@ export function loadClientSelector() {
     // Hook up all buttons
     view.querySelector('#btn-toggle-inactive-menu').addEventListener('click', event => loadClientSelector());
     view.querySelector('#btn-back-to-home-page').addEventListener('click', event => loadClientSelector());
-    view.querySelector('#btn-create-new-client').addEventListener('click', event => loadClientEditor('fmsf'));
+    view.querySelector('#btn-create-new-client').addEventListener('click', event => loadClientEditor('new'));
 
     // Get Client data
     api.client.getAll().then(clientCollection => {

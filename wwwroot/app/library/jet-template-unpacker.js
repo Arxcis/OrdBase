@@ -35,7 +35,7 @@ export function loadTemplate(templateId, hostDocument)  {
     let template = {};
 
     if ('content' in hostDocument) {
-        template = hostDocument.content.querySelector(`#${templateId}`);
+        template = hostDocument.content.querySelector(templateId);
     }
     else { 
         template = hostDocument.querySelector(templateId);
