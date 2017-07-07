@@ -1,12 +1,13 @@
 'use strict';
 
 import * as api from '../../library/api.js';
-import { loadTemplate, unpackTemplate }   from '../../library/jet-template-unpacker.js';
 import { loadTranslationSelector } from './loadTranslationSelector.js';
 import { loadClientEditor }        from './loadClientEditor.js';
+import { loadTemplate, loadTemplateDoc, unpackTemplate } from  '../../library/jet-template-unpacker.js';
 
-const viewTemplate = loadTemplate('./app/view/view-client-selector.html');
-const cardTemplate = loadTemplate('./app/component/card-client.html');
+
+const viewTemplate = loadTemplateDoc('./app/view/view-client-selector.html');
+const cardTemplate = loadTemplateDoc('./app/component/card-client.html');
 
 //
 // @function OnloadViewClientSelector

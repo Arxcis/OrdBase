@@ -2,9 +2,9 @@
 
 import { loadClientSelector } from './loadClientSelector.js';
 import { submitClient }       from '../OnSubmitForm/submitClient.js';
-import { loadTemplate, unpackTemplate } from '../../library/jet-template-unpacker.js';
+import { loadTemplate, loadTemplateDoc, unpackTemplate } from '../../library/jet-template-unpacker.js';
 
-const viewTemplate = loadTemplate('./app/view/view-client-editor.html');
+const viewTemplate = loadTemplateDoc('./app/view/view-client-editor.html');
 
 export function loadClientEditor() {
     

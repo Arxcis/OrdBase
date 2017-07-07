@@ -2,13 +2,13 @@
 
 import * as api from '../../library/api.js'; 
 import { submitTranslation }            from '../OnSubmitForm/submitTranslation.js';
-import { loadTemplate, unpackTemplate } from '../../library/jet-template-unpacker.js';
 import { loadTranslationSelector }      from './loadTranslationSelector.js';
 import { loadClientSelector }           from './loadClientSelector.js';
+import { loadTemplate, loadTemplateDoc, unpackTemplate } from '../../library/jet-template-unpacker.js';
 
-const viewTemplate = loadTemplate('./app/view/view-translation-editor.html');
-const containerButtonTemplate = loadTemplate('./app/component/button-container.html');
-const translationFieldsetTemplate = loadTemplate('./app/component/fieldset-translation.html');
+const viewTemplate = loadTemplateDoc('./app/view/view-translation-editor.html');
+const containerButtonTemplate = loadTemplateDoc('./app/component/button-container.html');
+const translationFieldsetTemplate = loadTemplate('template-fieldset-translation', viewTemplate);
 
 //
 // @function loadTranslationEditor

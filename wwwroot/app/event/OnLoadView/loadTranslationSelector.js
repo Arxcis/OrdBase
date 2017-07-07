@@ -1,15 +1,15 @@
 'use strict';
 
 import * as api from '../../library/api.js';
-import { loadTemplate, unpackTemplate } from  '../../library/jet-template-unpacker.js';
 
 import { loadTranslationEditor } from './loadTranslationEditor.js';
 import { loadClientSelector }    from './loadClientSelector.js';
+import { loadTemplate, loadTemplateDoc, unpackTemplate } from  '../../library/jet-template-unpacker.js';
 
-const viewTemplate            = loadTemplate('./app/view/view-translation-selector.html');
-const translationCardTemplate = loadTemplate('./app/component/card-translation.html');
-const keyIconTemplate         = loadTemplate('./app/component/key-and-icon.html');
-const containerButtonTemplate = loadTemplate('./app/component/button-container.html');
+const viewTemplate            = loadTemplateDoc('./app/view/view-translation-selector.html');
+const translationCardTemplate = loadTemplateDoc('./app/component/card-translation.html');
+const keyIconTemplate         = loadTemplateDoc('./app/component/key-and-icon.html');
+const containerButtonTemplate = loadTemplateDoc('./app/component/button-container.html');
 
 const fontAwesome_checkIconClass = 'fa-check';
 const fontAwesome_crossIconClass = 'fa-times';

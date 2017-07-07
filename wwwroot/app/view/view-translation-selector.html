@@ -28,6 +28,31 @@
                 <h2>Translations</h2>
                 
             </section>
+
+            <!-- @note DYNAMIC CLONING OF THIS TEMPLATE -->
+            <template id="template-card-translation">
+
+                <div class="ordbase-card-translation">
+                    <button class="btn-load-translation-editor">
+                        <span class="translation-key">{{ translationKey }}</span>
+                        <div  class="languages-complete">
+                            
+                            <!-- @note DYNAMIC CLONING OF THIS TEMPLATE -->
+                            <template id="template-key-and-icon">
+
+                                <div class="ordbase-key-and-icon">
+                                    <span class="language-key">{{ languageKey }}</span>
+                                    <i    class="fa {{ fontawesomeClass }} language-icon" aria-hidden="true"></i>
+                                </div>
+
+                            </template>
+
+                        </div>
+                    </button>    
+                </div>
+
+            </template>
+
         </main>
 
         <footer></footer>
