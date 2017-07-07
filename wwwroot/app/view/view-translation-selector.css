@@ -1,4 +1,7 @@
-    
+.view-translation-selector {
+    height: 100%;
+}
+
 .view-translation-selector
 main {
     display: flex;

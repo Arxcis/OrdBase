@@ -1,3 +1,7 @@
+.view-client-selector {
+    height: 100%;
+}
+
 .view-client-selector
 main {
     display: flex;

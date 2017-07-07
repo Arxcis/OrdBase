@@ -10,7 +10,7 @@ button {
     flex-wrap: wrap;
 
     margin-right: 0px;
-    padding: 0px;
+    padding: 0 4% 0 4%;
 
     width:100%;
     min-height: 75px;

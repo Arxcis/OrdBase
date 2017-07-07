@@ -1,0 +1,10 @@
+/* CONTAINER LIST */
+.ordbase-button-container {
+    height: 75px;
+    font-size: 4em;
+}   
+
+.ordbase-button-container.selected {
+    background-color: var(--maincolor-dark);
+    color: var(--maincolor-white);
+}

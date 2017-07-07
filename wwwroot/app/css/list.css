@@ -5,10 +5,10 @@
     display: flex;
     flex-direction: column;
 
-    background-color: #f2ede9;
+    background-color: var(--maincolor-light);
 }
 
-.ordbase-container-list h2 
+.ordbase-container-list h2, 
 .ordbase-translation-list h2 {
     margin-left: 20px;
 }
@@ -16,21 +16,5 @@
 .ordbase-translation-list {
     display: flex;
     flex-direction: column;
-    margin-left: 30px;
     flex: 1;
 }
-
-/* CONTAINER LIST */
-.ordbase-container-list
-button {
-    height: 75px;
-    font-size: 4em;
-}   
-
-.ordbase-container-list 
-button.selected {
-
-    background-color: #3e4444;
-    color: white;
-}
-

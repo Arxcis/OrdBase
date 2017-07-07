@@ -1,29 +1,34 @@
-.view-translation-editor
-    main {
-        display: flex;
-        flex-direction: row;
-        height: 100%;
-    }
-
-.ordbase-form-translation {
+.view-translation-editor {
     height: 100%;
-    margin-left: 20px;
-    font-size: 1.5rem;
 }
 
-.ordbase-form-translation
+.view-translation-editor
+main {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+/* ------------- FORM ------------- */
+.view-translation-editor form {
+    height: 100%;
+    margin-left: 20px;
+    font-size: var(--form-font-size);
+}
+
+.view-translation-editor form
 label {
     color: rgb(84, 84, 84);
     font-size: 1.5em;
     font-weight: bold;
 }
 
-.ordbase-form-translation
+.view-translation-editor form
 #checkbox-counter {
     font-size: 1.5em;
 }
 
-.ordbase-form-translation
+.view-translation-editor form
 .form-submit {
     font-size: 2em;
     background-color: white;
@@ -33,7 +38,7 @@ label {
     height: 65px;
 }
 
-.ordbase-form-translation
+.view-translation-editor form
 .form-submit:focus,
 .form-submit:hover {
     background-color: #4CAF50;
