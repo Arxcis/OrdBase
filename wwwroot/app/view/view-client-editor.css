@@ -1,3 +1,5 @@
+
+
 .view-client-editor {
     height: 100%;
 }
@@ -8,53 +10,15 @@
     font-size: var(--form-font-size);
 }
 
-.view-client-editor form
-input:focus {
-    box-shadow: 0 0 2px 2px #55b8ff;
-}
-
-.view-client-editor form
-input:disabled {
-    background: none;
-}
-
-.view-client-editor form
-fieldset {
-    border: none;
-}
-
-.view-client-editor form
-label {
+.view-client-editor
+form label {
     color: rgb(84, 84, 84);
     font-size: 1.5em;
     font-weight: bold;
 }
 
-.view-client-editor form
-.form-textinput {
+.view-client-editor form fieldset
+.ordbase-input {
     font-size: 2em;
     margin: 0px 20px 10px 4px;
 }
-
-.view-client-editor form
-.form-submit {
-    font-size: 2em;
-    background-color: white;
-    color: #4CAF50; 
-    border: 1px solid #4CAF50;
-    width: 430px;
-    height: 65px;
-}
-
-.view-client-editor form .form-submit:focus,
-.view-client-editor form .form-submit:hover {
-    background-color: #4CAF50;
-    color: white;
-    cursor: pointer;
-}
-
-.view-client-editor form
-#form-client {
-    font-size: 1rem;
-}
-

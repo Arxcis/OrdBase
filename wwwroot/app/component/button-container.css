@@ -5,6 +5,6 @@
 }   
 
 .ordbase-button-container.selected {
-    background-color: var(--maincolor-dark);
-    color: var(--maincolor-white);
+    background-color: var(--ordbase-color-dark);
+    color: var(--ordbase-color-white);
 }

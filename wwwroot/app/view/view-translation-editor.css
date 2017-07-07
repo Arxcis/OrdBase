@@ -27,21 +27,3 @@ label {
 #checkbox-counter {
     font-size: 1.5em;
 }
-
-.view-translation-editor form
-.form-submit {
-    font-size: 2em;
-    background-color: white;
-    color: #4CAF50; 
-    border: 1px solid #4CAF50;
-    width: 430px;
-    height: 65px;
-}
-
-.view-translation-editor form
-.form-submit:focus,
-.form-submit:hover {
-    background-color: #4CAF50;
-    color: white;
-    cursor: pointer;
-}

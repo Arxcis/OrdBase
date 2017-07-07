@@ -1,0 +1,17 @@
+/* ----------- SUBMIT BUTTON ------------- */
+
+.ordbase-btn-form-submit {
+    font-size: 2em;
+    background-color: var(--ordbase-color-white);
+    color: var(--ordbase-color-btn-submit); 
+    border: 1px solid var(--ordbase-color-btn-submit);
+    width: 430px;
+    height: 65px;
+}
+
+.ordbase-btn-form-submit:focus,
+.ordbase-btn-form-submit:hover {
+    background-color: var(--ordbase-color-btn-submit);
+    color: var(--ordbase-color-white);
+    cursor: pointer;
+}
