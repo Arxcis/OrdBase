@@ -1,3 +1,6 @@
+// https://github.com/petehunt/webpack-howto
+// https://github.com/babel/gulp-babel/issues/93
+
 module.exports = {
     entry: "./startup.js",
     output: {
@@ -10,7 +13,7 @@ module.exports = {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 query: {
-                    presets: ['es2015']
+                    presets: ['babel-preset-es2015'].map(require.resolve)  
                 }
             }
         ]
