@@ -14,7 +14,7 @@ const containerListTemplate   = loadTemplateDoc('./app/component/list-container.
 const containerButtonTemplate = loadTemplate('#template-button-container', containerListTemplate);
 
 const fontAwesome_checkIconClass = 'fa-check';
-const fontAwesome_crossIconClass = 'fa-times';
+const fontAwesome_timesIconClass = 'fa-times';
 
 //
 // @function loadTranslationSelector
@@ -72,7 +72,7 @@ export function loadTranslationSelector (client) {
              
                 const keyAndIcon = unpackTemplate(keyIconTemplate, {
                     languageKey : _languageKey,
-                    fontawesomeClass : (isComplete ? fontAwesome_checkIconClass : fontAwesome_crossIconClass)
+                    fontawesomeClass : (isComplete ? fontAwesome_checkIconClass : fontAwesome_timesIconClass)
                 });
                 languagesComplete.appendChild(keyAndIcon);
             });

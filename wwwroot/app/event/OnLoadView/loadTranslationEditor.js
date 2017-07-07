@@ -54,7 +54,6 @@ export function loadTranslationEditor (client, key) {
                 selected : (selectedContainer == container ? 'selected' : ''),
             }).querySelector('button');
 
-            containerButton.onclick = (event) => event.target.classList.toggle('selected'); 
             containerList.appendChild(containerButton);
         });
 

@@ -4,6 +4,8 @@
         <meta charset="utf-8">
         <title>Editor - OrdBase</title>
 
+        <script src="./node_modules/babel-polyfill/dist/polyfill.min.js"></script>        
+
         <style>
             /* EXTERNAL CSS */
             @import url('https://fonts.googleapis.com/css?family=Muli');
@@ -38,8 +40,9 @@
         <link rel="import" href="./app/component/list-container.html">
         <link rel="import" href="./app/component/card-client.html">
 
+        <script src="./bundle.js"></script>
+
         <!---  Load javascript entry-point script -->
-        <script type="module" src="./startup.js"></script>
     </head>
     <body>
         
