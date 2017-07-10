@@ -37,7 +37,7 @@ export function loadSelectClient() {
                             
                             // Fill cards with data
                             for (let i = 0; i < clientObjects.length; i++) {
-                                let card = clientSelect.getCard();
+                                let card = clientSelect.spawnCard();
 
                                 card.id            = `card${i}`;
                                 card.heading       = clientObjects[i].name;

@@ -44,8 +44,8 @@
             this.resetBuffer();
         }
 
-        getCard()           { return CARD_CLIENT.cloneNode(true); }
-        appendCard(card)    { this.buffer.appendChild(card);      }
+        spawnCard()       {  return CARD_CLIENT.cloneNode(true); }
+        appendCard(card)  {  this.buffer.appendChild(card);      }
     }
     customElements.define('ordbase-select-client', OrdbaseSelectClient);
 </script>

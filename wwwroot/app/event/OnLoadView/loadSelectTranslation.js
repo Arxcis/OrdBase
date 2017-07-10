@@ -61,29 +61,19 @@ export function loadSelectTranslation (client) {
     .then(translationGroups => {
 
         let groupCount = group
-        translationSelect.spawnTranslationButtons(groupCount);    
         
         for (let i = 0; i < groupCount; i++) {
-            let button = translationSelect.translationButtons[i]
+            let button = translationSelect.getTranslationButton();
             let group  = translationGroups[i];
 
-            translationSelect.spawnKeysAndIcons(button, );
-
-        }
-    
-            Object.keys(translationGroup.isComplete).forEach((_languageKey, isComplete) => {
-             
-                const keyAndIcon = unpackTemplate(keyIconTemplate, {
-                    languageKey : _languageKey,
-                    fontawesomeClass : (isComplete ? fontAwesome_checkIconClass : fontAwesome_timesIconClass)
-                });
-                languagesComplete.appendChild(keyAndIcon);
+            Object.keys(group.isComplete).forEach((_languageKey, isComplete) => {
+                let keyAndIcon = translationSelect.getKeyAndIcon();
+                
+                button.appendKeyAndIcon(keyAndIcon);
             });
 
-            // Remove the prototype
-            cardContent.querySelector('.btn-load-translation-editor').onclick = (event) => loadEditTranslation(client, translationGroup.key);             
-            translationList.appendChild(cardContent);   
-        });
+            translationSelect.appendTranslationButton(button);
+        }             
     })
     .catch(reason => console.error('Error:', reason));
 }
