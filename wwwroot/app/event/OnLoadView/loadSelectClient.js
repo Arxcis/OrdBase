@@ -38,10 +38,10 @@ export function loadSelectClient() {
                             // Fill cards with data
                             for (let i = 0; i < clientObjects.length; i++) {
                                 let card = clientSelect.getCard();
-                                
-                                card.ID            = `card${i}`;
-                                card.clientName    = clientObjects[i].name;
-                                card.website       = 'https://www.placeholder.no';
+
+                                card.id            = `card${i}`;
+                                card.heading       = clientObjects[i].name;
+                                card.text          = 'https://www.placeholder.no';
                                 card.thumbnail     = 'http://placehold.it/250x125/FFC107';
                                 card.buttonHandler = App.defaultHandler;
 
@@ -49,7 +49,7 @@ export function loadSelectClient() {
                             };
                             
                             // Update DOM again
-                            clientSelect.DOMUpdate();
+                            clientSelect.render();
                         })
                         .catch(reason => console.error('Error:', reason))
 }
