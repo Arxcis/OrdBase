@@ -28,8 +28,6 @@ export function loadSelectTranslation (client) {
     App.header.handlerButtonRight2 = App.defaultHandler;  
     
 
-    translationSelect.cardButtonHandler = App.defaultHandler;
-
     // Batch-update DOM
     App.header.DOMUpdate();
     App.main.removeChild(App.main.firstChild); // @bench towards innerHTML = ''; 
@@ -40,40 +38,39 @@ export function loadSelectTranslation (client) {
     //
     api.container.getOnClient(client).then(containersOnClient => {
 
-                                        let containerCount = containersOnClient.length;
-                                        translationSelect.spawnContainerButtons(containerCount);
+                let containerCount = containersOnClient.length;
+                translationSelect.spawnContainerButtons(containerCount);
 
-                                        for(let i = 0; i < containerCount; i++) {
-                                            let button = translationSelect.containerButtons[i];
+                for(let i = 0; i < containerCount; i++) {
+                    let button = translationSelect.containerButtons[i];
 
-                                            button.ID             = containersOnClient[i].name;
-                                            button.containerName  = containersOnClient[i].name;
-                                            button.isSelected     = '';
-                                            button.onClickHandler = event.target.classList.toggle('selected');
-                                        }
+                    button.id       = containersOnClient[i].name;
+                    button.text     = containersOnClient[i].name;
+                    button.selected = '';
+                }
 
-                                        return api.translation.getGroupOnClient(client);
-    })
+                return api.translation.getGroupOnClient(client);
+            })
     //
     //  @AJAX - Get all translation groups 
     //  @doc template literals - https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Template_literals
     //
-    .then(translationGroups => {
+            .then(translationGroups => {
 
-        let groupCount = group
-        
-        for (let i = 0; i < groupCount; i++) {
-            let button = translationSelect.getTranslationButton();
-            let group  = translationGroups[i];
+                    let groupCounts = group
+                    
+                    for (let i = 0; i < groupCount; i++) {
+                        let button = translationSelect.getTranslationButton();
+                        let group  = translationGroups[i];
 
-            Object.keys(group.isComplete).forEach((_languageKey, isComplete) => {
-                let keyAndIcon = translationSelect.getKeyAndIcon();
-                
-                button.appendKeyAndIcon(keyAndIcon);
-            });
+                        Object.keys(group.isComplete).forEach((_languageKey, isComplete) => {
+                            let keyAndIcon = translationSelect.getKeyAndIcon();
 
-            translationSelect.appendTranslationButton(button);
-        }             
-    })
-    .catch(reason => console.error('Error:', reason));
+                            button.appendKeyAndIcon(keyAndIcon);
+                        });
+
+                        translationSelect.appendTranslationButton(button);
+                    }             
+            })
+            .catch(reason => console.error('Error:', reason));
 }

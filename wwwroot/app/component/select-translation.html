@@ -68,86 +68,19 @@
 </style>
 
 
-<!-- TEMPLATE -->
-<template id="template-button-container">
-        <button id="btn-{{ id }}" class="ordbase-btn-container-select {{ selected }}"> {{ text }} </button>
-</template>
 
-<script>
-    const TEMPLATE_BUTTON_CONTAINER = localDocument.getElementById('template-button-container');
-
-    class OrdbaseButtonContainer extends HTMLElement { 
-        constructor() {
-            super();
-            this.buffer = TEMPLATE_BUTTON_CONTAINER.content.cloneNode(true);
-        }
-
-        connectedCallback(){  this.innerHTML = ''; this.appendChild(this.buffer);  }
-
-        set id (id) { 
-            this.buffer.id;
-            this.buffer.querySelector('button').id = id; 
-        }
-
-        set selected (selected) {
-            this.buffer.classList.add(selected);
-        }
-
-        set text (text) {
-            this.buffer.querySelector('button').innerHTML = text;
-        }
-    }
-    customElements.define('ordbase-button-container', OrdbaseButtonContainer);
-</script>
-
-
-<!-- TEMPLATE -->
-<template id="template-card-translation">
-
-    <div class="ordbase-card-translation">
-        <button class="btn-load-translation-editor">
-            <span class="translation-key">{{ translationKey }}</span>
-            <div  class="languages-complete">
-                
-            <!--template id="template-key-and-icon"-->
-            <!--/template -->
-
-            </div>
-        </button>    
-    </div>
-</template>
-
-<script>
-    const TEMPLATE_CARD_TRANSLATION   = localDocument.getElementById('template-card-translation');
-    
-    class OrdbaseCardTranslation extends HTMLElement { 
-        constructor() {
-            super();
-            this.buffer = TEMPLATE_CARD_TRANSLATION.content.cloneNode(true);
-        }
-
-        connectedCallback(){  this.innerHTML = ''; this.appendChild(this.buffer); }
-
-        setTranslationKey() {}
-    }
-    customElements.define('ordbase-card-translation', OrdbaseCardTranslation);
-
-</script>
-
-
-<!-- TEMPLATE -->
+<!-- ///////////////////// TEMPLATE  //////////////////////// -->
 <template id="template-key-and-icon">
 
     <div class="ordbase-key-and-icon">
         <span class="language-key">{{ languageKey }}</span>
-        <i    class="fa {{ fontawesomeClass }} language-icon" aria-hidden="true"></i>
+        <i class="fa {{ fontawesomeClass }} language-icon" aria-hidden="true"></i>
     </div>
 
 </template>
 
-
 <script>
-    const TEMPLATE_KEY_AND_ICON       = localDocument.getElementById('template-key-and-icon');
+    const TEMPLATE_KEY_AND_ICON = localDoc.getElementById('template-key-and-icon');
 
     class OrdbaseKeyAndIcon extends HTMLElement { 
         constructor() {
@@ -155,15 +88,53 @@
             this.buffer = TEMPLATE_CARD_TRANSLATION.content.cloneNode(true);
         }
 
-        connectedCallback(){  this.innerHTML = ''; this.appendChild(this.buffer); }
+        set languageKey(key) { this.buffer.querySelector('span').innerHTML = key; }
+        set icon(iconClass)  {  this.buffer.querySelector('i').classList.add(iconClass); }
 
-        setTranslationKey() {}
+        connectedCallback()  {  this.innerHTML = ''; this.appendChild(this.buffer.cloneNode(true)); }
     }
-    customElements.define('ordbase-card-translation', OrdbaseCardTranslation);
+    customElements.define('ordbase-key-and-icon', OrdbaseCardTranslation);
 </script>
 
 
-<!-- TEMPLATE -->
+<!-- ///////////////////// TEMPLATE  //////////////////////// -->
+<template id="template-card-translation">
+
+    <button class="btn-load-translation-editor">
+        <span class="translation-key">{{ translationKey }}</span>
+        <div  class="languages-complete">
+            
+        <!--template id="template-key-and-icon"-->
+        <!--/template -->
+
+        </div>
+    </button>  
+
+</template>
+
+<script>
+    const TEMPLATE_CARD_TRANSLATION   = localDoc.getElementById('template-card-translation');
+    const TEMPLATE_KEY_AND_ICON = document.createElement('ordbase-key-and-icon');
+    
+    class OrdbaseCardTranslation extends HTMLElement { 
+        constructor() {
+            super();
+            this.buffer = TEMPLATE_CARD_TRANSLATION.content.cloneNode(true);
+        }
+        set key (key)       { this.buffer.querySelector('span').innerHTML = key; }
+
+        spawnKeyAndIcon()            { return TEMPLATE_KEY_AND_ICON.cloneNode(true); }
+        appendKeyAndIcon(keyAndIcon) { this.buffer.querySelector('div').appendChild(keyAndIcon); }
+
+        connectedCallback() { this.innerHTML = ''; this.appendChild(this.buffer.cloneNode(true)); }
+    }
+    customElements.define('ordbase-card-translation', OrdbaseCardTranslation);
+
+</script>
+
+
+
+<!-- ///////////////////// TEMPLATE  //////////////////////// -->
 <template id="template-select-translation">
 
     <ul id="list-show-containers-on-client" class="ordbase-list-containers">
@@ -181,31 +152,33 @@
 </template>
 
 <script>
-    let   localDocument               = document.currentScript.ownerDocument;
-    const TEMPLATE_SELECT_TRANSLATION = localDocument.getElementById('template-select-translation');
+    const TEMPLATE_SELECT_TRANSLATION = __localDocument.getElementById('template-select-translation');
+    const TEMPLATE_BUTON_CONTAINER    = document.createElement('ordbase-button-container');
+    const TEMPLATE_CARD_TRANSLATION   = document.createElement('ordbase-card-translation');
 
     class OrdbaseSelectTranslation extends HTMLElement {
 
         constructor() {
             super();
-            this.resetBuffer();
+            this.buffer = TEMPLATE_SELECT_TRANSLATION.content.cloneNode(true);
         }
 
-        resetBuffer() { this.buffer = TEMPLATE_SELECT_TRANSLATION.content.cloneNode(true); }
         render() {
             this.innerHTML = '';
-            this.appendChild(this.buffer);
-            this.resetBuffer();
+            this.appendChild(this.buffer.cloneNode(true));
         }
-        connectedCallback() {  this.render(); }
 
-        spawnBtnContainer ()       { return document.createElement('ordbase-button-container'); }
+        spawnBtnContainer ()       { return TEMPLATE_BUTON_CONTAINER.cloneNode(true); }
         appendBtnContainer (btn)   { this.buffer.querySelector('#list-show-containers-on-client')
                                                 .appendChild(btn); 
         }
 
-        spawnCardTranslation ()     { return }
-        appendCardTranslation (card) {  }
+        spawnCardTranslation ()      { return TEMPLATE_CARD_TRANSLATION.cloneNode(true);  }
+        appendCardTranslation (card) { this.buffer.querySelector('#list-show-translations-on-client')
+                                                  .appendChild(card);
+        }
+
+        connectedCallback() {  this.render(); }
     }
     customElements.define('ordbase-select-translation', OrdbaseSelectTranslation);
 </script>
