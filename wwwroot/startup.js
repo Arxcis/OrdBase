@@ -10,6 +10,9 @@ import { loadSelectClient } from './app/event/OnLoadView/loadSelectClient.js';
 // @doc 2017 es16 modules native in browsers https://jakearchibald.com/2017/es-modules-in-browsers/
 //
 
+const ICON_CHECK      = 'fa-check';
+const ICON_TIMES      = 'fa-times';
+
 window.addEventListener('load', () => {
     loadSelectClient();
 });

@@ -4,13 +4,6 @@ import * as api from '../../library/api.js';
 import { submitTranslation }            from '../OnSubmitForm/submitTranslation.js';
 import { loadSelectTranslation }      from './loadSelectTranslation.js';
 import { loadSelectClient }           from './loadSelectClient.js';
-import { loadTemplate, loadTemplateDoc, unpackTemplate } from '../../library/jet-template-unpacker.js';
-
-const viewTemplate = loadTemplateDoc('./app/view/view-translation-editor.html');
-const translationFieldsetTemplate = loadTemplate('#template-fieldset-translation', viewTemplate);
-
-const containerListTemplate = loadTemplateDoc('./app/component/list-container.html');
-const containerButtonTemplate = loadTemplate('#template-button-container', containerListTemplate);
 
 //
 // @function loadEditTranslation
@@ -26,11 +19,6 @@ export function loadEditTranslation (client, key) {
         submitButtonText : 'Save changes',
     });
 
-    view.querySelector('#btn-toggle-container-list').addEventListener('click', (event) => loadEditTranslation(client));
-    view.querySelector('#btn-back-to-home-page').addEventListener('click', (event) => loadSelectClient());
-    view.querySelector('#btn-back-to-translation-selector').addEventListener('click', (event) => loadSelectTranslation(client));    
-    view.querySelector('#btn-save-edited-translation').addEventListener('click', (event) => loadEditTranslation(client));
-    view.querySelector('#btn-form-submit-translation').addEventListener('click', (event) => submitTranslation(event));
     //
     // @AJAX - Call to get all containers on a client
     //

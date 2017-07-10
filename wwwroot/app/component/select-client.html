@@ -1,15 +1,10 @@
 <style>
     ordbase-select-client {
         height: 100%;
-    }
-
-    ordbase-select-client
-    main {
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
         background-color: var(--ordbase-color-light);
-        height: 100%;
         align-content: flex-start;
     }
 
@@ -17,36 +12,33 @@
 
 
 <template id="template-select-client">
-    
-    <main>            
-            
-            <!-- @note SCRIPT WILL INSERT card-client.html HERE -->
-            <!-- @note SCRIPT WILL INSERT card-client.html HERE -->
-            <!-- @note SCRIPT WILL INSERT card-client.html HERE -->
-            <!-- @note SCRIPT WILL INSERT card-client.html HERE -->                
 
-    </main>
+    
+    <!-- @note SCRIPT WILL INSERT card-client.html HERE -->
+    <!-- @note SCRIPT WILL INSERT card-client.html HERE -->
+    <!-- @note SCRIPT WILL INSERT card-client.html HERE -->
+    <!-- @note SCRIPT WILL INSERT card-client.html HERE -->                
+
     
 </template>
 
 
 <script>
-    let template = document.currentScript.ownerDocument.getElementById('template-select-client');
-
+    const TEMPLATE_SELECT_CLIENT = document.currentScript.ownerDocument.getElementById('template-select-client');
+    
     class OrdbaseSelectClient extends HTMLElement {
 
         constructor() {
-            this.appendChild(template.content.cloneNode(true));
-
-
+            this.appendChild(TEMPLATE_SELECT_CLIENT.content.cloneNode(true));
+            this.clients = {};            
         }
 
         connectedCallback() {
-
+            this.render();
         }
 
-        updateDom() {
-
+        render() {
+            this.appendChild(client)
         }
     }
     customElements.define('ordbase-select-client', OrdbaseSelectClient);

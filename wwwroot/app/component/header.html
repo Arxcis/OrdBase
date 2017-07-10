@@ -64,25 +64,33 @@
 
 
 <script>
-    let template = document.currentScript.ownerDocument.getElementById('template-header');
+    const ICON_HEADER_NONE       = '';
+    const ICON_HEADER_PLUS       = 'fa-plus';
+    const ICON_HEADER_BARS       = 'fa-bars';
+    const ICON_HEADER_SQUARE     = 'fa-square';
+    const ICON_HEADER_ARROW_LEFT = 'fa-arrow-left';
 
-    const fontAwesome_checkIconClass = 'fa-check';
-    const fontAwesome_timesIconClass = 'fa-times';
+    const TEMPLATE_HEADER = document.currentScript.ownerDocument.getElementById('template-header');
 
     class OrdbaseHeader extends HTMLElement {
 
         constructor() {
-            this.appendChild(template.content.cloneNode(true));
-
+            this.appendChild(TEMPLATE_HEADER.content.cloneNode(true));
+            this.textBig      = 'Ordbase';
+            this.textSmall    = 'Select Client';
+            this.buttonLeft   = ICON_HEADER_SQUARE;
+            this.buttonRight1 = ICON_HEADER_NONE; 
+            this.buttonRight2 = ICON_HEADER_PLUS;
         }
 
         connectedCallback() {
-
+            this.render();
         }
 
-        updateDom() {
-
-        }
+        render() {
+            
+        }   
     }
     customElements.define('ordbase-header', OrdbaseHeader);
+
 </script>

@@ -15,12 +15,6 @@ export function loadSelectTranslation (client) {
         smallHeader : 'Edit translation',
     });
 
-    // Hook up all buttons
-    view.querySelector('#btn-toggle-container-list').addEventListener(  'click', (event) => loadSelectClient());
-    view.querySelector('#btn-back-to-home-page').addEventListener(      'click', (event) => loadSelectClient());
-    view.querySelector('#btn-back-to-client-selector').addEventListener('click', (event) => loadSelectClient());
-    view.querySelector('#btn-create-new-translation').addEventListener( 'click', (event) => loadSelectClient());
-
     //
     // @AJAX - fetch all containers on selected client
     //

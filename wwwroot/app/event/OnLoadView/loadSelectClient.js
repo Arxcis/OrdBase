@@ -8,17 +8,28 @@ import { loadEditClient }        from './loadEditClient.js';
 // @function OnloadViewClientSelector
 //
 export function loadSelectClient() {
+
+    // Do DOM stuff
+    const main   = document.getElementById('ordbase-main');    
+    const header = document.getElementById('ordbase-header');
+    const selectClientElement = document.createElement('ordbase-select-client');
+    const cardClientElement   = document.createElement('ordbase-card-client');
+
+    // Setup header
+    header.textBig      = args.textHeaderBig   || 'Ordbase';
+    header.textSmall    = args.textHeaderSmall || 'Select Client';
+    header.buttonLeft   = ICON_HEADER_SQUARE;
+    header.buttonRight1 = ICON_HEADER_NONE; 
+    header.buttonRight2 = ICON_HEADER_PLUS;
+    header.render();
+
+    // Setup select client view
     
-    const view = unpackTemplate(viewTemplate, {
-        bigHeader : 'Ordbase',
-        smallHeader : 'Select client',
-    });
 
     // Get Client data
     api.client.getAll().then(clientCollection => {
 
         // Loop through all clients and generate cards for each of thems
-        const main = view.querySelector('main');
 
         clientCollection.forEach((client, index) => {
     
