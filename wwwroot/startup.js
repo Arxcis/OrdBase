@@ -23,5 +23,5 @@ window.addEventListener('load', () => {
         console.log('NO Service worker registered..', reason);
     }
 
-    loadClientSelector();
+    loadSelectClient();
 });

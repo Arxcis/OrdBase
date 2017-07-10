@@ -48,13 +48,16 @@
 
 <template id="template-header">
 
-    <button id="btn-toggle-inactive-menu" class="icon-button">
+    <button id="btn-header-left" class="icon-button">
         <i class="fa fa-square" aria-hidden="true"></i></button>
 
-    <button id="btn-back-to-home-page" class="header-text-button">
+    <button id="btn-header-mid" class="header-text-button">
         <h1> {{ bigHeader }} - <small> {{ smallHeader }}</small></h1></button>
 
-    <button id="btn-create-new-client" class="icon-button">
+    <button id="btn-header-right-1" class="icon-button">
+        <i class="fa" aria-hidden="true"></i></button>
+
+    <button id="btn-header-right-2" class="icon-button">
         <i class="fa fa-plus" aria-hidden="true"></i></button>
 
 </template>
@@ -66,7 +69,7 @@
     class OrdbaseHeader extends HTMLElement {
 
         constructor() {
-            this.innerHTML = template.content.cloneNode(true);
+            this.appendChild(template.content.cloneNode(true));
 
         }
 
