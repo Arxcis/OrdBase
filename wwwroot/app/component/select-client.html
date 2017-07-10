@@ -32,9 +32,36 @@
     class OrdbaseSelectClient extends HTMLElement {
 
         constructor() {
-            this.appendChild(TEMPLATE_SELECT_CLIENT.content.cloneNode(true));
-            this.clientCards = new Array();
-            this.buttonHandler = {};
+            super();
+            this.constructed = false;
+        }
+
+        connectedCallback() {
+            if(!this.constructed) {
+                this.clientCards = new Array();
+                this.buttonHandler = {};
+
+                this.appendChild(TEMPLATE_SELECT_CLIENT.cloneNode(true).content);
+                this.constructed = true;
+            }
+
+            this.DOMUpdate();
+        }
+        
+        DOMUpdate() {
+            
+            const cardCount = this.clientCards.length;
+
+            if (cardCount > 0) { 
+                let documentFragment = document.createDocumentFragment();
+
+                for (let i = 0; i < cardCount; i++) {
+                    documentFragment.appendChild(this.clientCards[i]);
+                }
+
+                this.innerHTML = '';
+                this.appendChild(documentFragment);
+            }
         }
 
         set clients(clientObjects) {
@@ -60,22 +87,7 @@
             };
         }
 
-        DOMUpdate() {
-            
-            let clientCount = this.clientCard.length;
-            let clientCards = this.clientCards;
-            let documentFragment = createDocumentFragment();
 
-            for (i = 0; i < cardCount; i++) {
-                clientCards[i].DOMUpdate();
-            }   
-
-            for (i = 0; i < cardCount; i++) {
-                documentFragment.appendChild(clientCards[i]);
-            }
-
-            this.appendChild(documentFragment);
-        }
     }
     customElements.define('ordbase-select-client', OrdbaseSelectClient);
 </script>

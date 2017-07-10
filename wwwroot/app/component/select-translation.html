@@ -106,12 +106,13 @@
 </template>
 
 <script>
-    let template = document.currentScript.ownerDocument.getElementById('template-header');
+    const TEMPLATE_SELECT_TRANSLATION = document.currentScript.ownerDocument.getElementById('template-select-translation');
 
-    class SelectTranslation extends HTMLElement {
+    class OrdbaseSelectTranslation extends HTMLElement {
 
         constructor() {
-            this.appendChild(template.content.cloneNode(true));
+            super();
+            this.appendChild(TEMPLATE_SELECT_TRANSLATION.content.cloneNode(true));
 
         }
 
@@ -123,5 +124,5 @@
 
         }
     }
-    customElements.define('ordbase-select-translation', SelectTranslation);
+    customElements.define('ordbase-select-translation', OrdbaseSelectTranslation);
 </script>

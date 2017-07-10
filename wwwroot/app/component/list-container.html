@@ -25,12 +25,13 @@
 
 
 <script>
-    let template = document.currentScript.ownerDocument.getElementById('template-list-container');
+    let TEMPLATE_LIST_CONTAINER = document.currentScript.ownerDocument.getElementById('template-list-container');
 
     class OrdbaseListContainer extends HTMLElement {
 
         constructor() {
-            this.appendChild(template.content.cloneNode(true));
+            super();
+            this.appendChild(TEMPLATE_LIST_CONTAINER.content.cloneNode(true));
 
 
         }

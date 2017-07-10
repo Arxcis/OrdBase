@@ -69,13 +69,13 @@
 </template>
 
 <script>
-    let template = document.currentScript.ownerDocument.getElementById('template-edit-client');
+    let TEMPLATE_EDIT_CLIENT = document.currentScript.ownerDocument.getElementById('template-edit-client');
 
     class OrdbaseEditClient extends HTMLElement {
 
         constructor() {
-            this.appendChild(template.content.cloneNode(true));
-
+            super();
+            this.appendChild(TEMPLATE_EDIT_CLIENT.content.cloneNode(true));
         }
 
         connectedCallback() {

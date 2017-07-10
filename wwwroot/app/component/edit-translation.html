@@ -99,13 +99,13 @@
 </template>
 
 <script>
-    let template = document.currentScript.ownerDocument.getElementById('template-edit-translation');
+    let TEMPLATE_EDIT_TRANSLATION = document.currentScript.ownerDocument.getElementById('template-edit-translation');
 
     class OrdbaseEditTranslation extends HTMLElement {
 
         constructor() {
-            this.appendChild(template.content.cloneNode(true));
-
+            super();
+            this.appendChild(TEMPLATE_EDIT_TRANSLATION.content.cloneNode(true));
 
         }
 
