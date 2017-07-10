@@ -93,10 +93,6 @@
                 this.buttonIconRight1    = ICON_HEADER_NONE; 
                 this.buttonIconRight2    = ICON_HEADER_PLUS;
 
-                this.buttonHandlerLeft   = event => console.log('default handler, nothing happened...:(');
-                this.buttonHandlerRight1 = event => console.log('default handler, nothing happened...:(');      
-                this.buttonHandlerRight2 = event => console.log('default handler, nothing happened...:('); 
-
                 this.appendChild(document.importNode(TEMPLATE_HEADER.content, true));
                 
                 this.elementTextBig    = this.querySelector('#btn-header-mid-big');  
@@ -119,9 +115,9 @@
             this.elementTextBig.innerHTML = this.textBig;  
             this.elementTextSmall.innerHTML = this.textSmall;
 
-            this.elementButtonLeft.onclick   = this.buttonHandlerLeft;
-            this.elementButtonRight1.onclick = this.buttonHandlerRight1;
-            this.elementButtonRight1.onclick = this.buttonHandlerRight2;
+            this.elementButtonLeft.onclick   = event => this.buttonHandlerLeft();
+            this.elementButtonRight1.onclick = event => this.buttonHandlerRight1();
+            this.elementButtonRight2.onclick = event => this.buttonHandlerRight2();
         }   
     }
     customElements.define('ordbase-header', OrdbaseHeader);

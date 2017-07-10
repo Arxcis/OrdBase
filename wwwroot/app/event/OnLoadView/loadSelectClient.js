@@ -5,7 +5,7 @@ import * as api from '../../library/api.js';
 // Cache static element references
 const main         = document.getElementById('ordbase-main');    
 const header       = document.getElementById('ordbase-header');
-
+const defaultHandler = (event) => console.log('Default handler... nothing happened');
 //
 // @function OnloadViewClientSelector
 //
@@ -22,10 +22,10 @@ export function loadSelectClient() {
     header.buttonIconRight2 = ICON_HEADER_PLUS;
 
     // Dependency injection
-    header.buttonHandlerLeft   = {};
-    header.buttonHandlerRight1 = {};      
-    header.buttonHandlerRight2 = {};   
-    selectClient.buttonHandler = {};
+    header.buttonHandlerLeft   = defaultHandler;     
+    header.buttonHandlerRight1 = defaultHandler;     
+    header.buttonHandlerRight2 = defaultHandler;  
+    selectClient.cardButtonHandler = defaultHandler
 
     // Batch-update DOM
     main.innerHTML = ''; 
@@ -33,10 +33,24 @@ export function loadSelectClient() {
     main.appendChild(selectClient);              
     
     // @ajax - Fetch client data from server
-    api.client.getAll().then(clientObjects => {             
-                
-                            // Inject data into view                
-                            selectClient.clients = clientObjects; 
+    api.client.getAll().then(clientObjects => {        
+
+                            let cardCount = clientObjects.length;
+
+                            // Spawn DOM element cards (card-client.html)
+                            selectClient.spawnCards(cardCount); 
+                            let clientCards = selectClient.clientCards;
+                            
+                            // Fill cards with data
+                            for (let i = 0; i < cardCount; i++) {
+                                let clientCard = clientCards[i];
+
+                                clientCard.id            = `card${i}`;
+                                clientCard.name          = clientObjects[i].name;
+                                clientCard.website       = 'https://www.placeholder.no';
+                                clientCard.thumbnail     = 'http://placehold.it/250x125/FFC107';
+                                clientCard.cardButtonHandler = defaultHandler;
+                            };
                             
                             // Update DOM again
                             selectClient.DOMUpdate();

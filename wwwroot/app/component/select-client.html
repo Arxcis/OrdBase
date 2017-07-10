@@ -64,30 +64,15 @@
             }
         }
 
-        set clients(clientObjects) {
-            // Generate cards
-            let cardCount = clientObjects.length;
+        spawnCards(cardCount) {
+            // Zero out existing cards
             this.clientCards.length = 0;
 
-            let i;
             // Batch DOM API cloneNode calls
-            for (i = 0; i < cardCount; i++) {
+            for (let i = 0; i < cardCount; i++) {
                 this.clientCards.push(CARD_CLIENT.cloneNode(true));
             }
-            
-            // Fill this.clientCards with data from server
-            for (i = 0; i < cardCount; i++) {
-                let clientCard = this.clientCards[i];
-
-                clientCard.id            = `card${i}`;
-                clientCard.name          = clientObjects[i].name;
-                clientCard.website       = 'https://www.placeholder.no';
-                clientCard.thumbnail     = 'http://placehold.it/250x125/FFC107';
-                clientCard.buttonOnclick = event => buttonHandler(clientObjects[i].name);
-            };
         }
-
-
     }
     customElements.define('ordbase-select-client', OrdbaseSelectClient);
 </script>

@@ -57,7 +57,7 @@
             this.elementImg.setAttribute('src', this.thumbnail     || '{{ thumbnail }}');
             this.elementHeading.innerHTML =     this.name          || '{{ name }}';
             this.elementText.innerHTML    =     this.website       || '{{ website }}';
-            this.elementButton.onclick    =     this.buttonOnClick || '{{ buttonOnClick }}';
+            this.elementButton.onclick    = event => this.cardButtonHandler(this.name) || '{{ buttonOnClick }}';
         }
 
         //
