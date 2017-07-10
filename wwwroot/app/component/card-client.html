@@ -31,7 +31,7 @@
     }
 </style>
 
-<template>
+<template id="template-card-client">
 
     <div id="{{ id }}" class="component-card-client">
         <button class="card-button">
@@ -45,6 +45,8 @@
 
 <script>
 
+    let template = document.currentScript.ownerDocument.getElementById('template-card-client');
+
     class ComponentCardClient extends HTMLElement {
 
         constructor() {
@@ -56,7 +58,7 @@
         }
 
         updateDom() {
-            
+
         }
     }
 
