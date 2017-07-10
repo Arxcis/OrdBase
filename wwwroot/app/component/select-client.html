@@ -25,20 +25,46 @@
 
 <script>
     const TEMPLATE_SELECT_CLIENT = document.currentScript.ownerDocument.getElementById('template-select-client');
-    
+    const CARD_CLIENT            = document.createElement('ordbase-card-client');
+
+    // @doc empty javascript array - https://appendto.com/2016/02/empty-array-javascript/
+
     class OrdbaseSelectClient extends HTMLElement {
 
         constructor() {
             this.appendChild(TEMPLATE_SELECT_CLIENT.content.cloneNode(true));
-            this.clients = {};            
+            this._clientCards = new Array();
+        }
+
+        set clients(clientObjects) {
+            // Generate cards
+            let cardCount = clientObjects.length;
+            this._clientCards.length = 0;
+
+            let i;
+            // Batch DOM API cloneNode calls
+            for (i = 0; i < cardCount; i++) {
+                this._clientCards.push(CARD_CLIENT.cloneNode(true));
+            }
+            
+            // Fill this._clientCards with data from server
+            for (i = 0; i < cardCount; i++) {
+                this._clientCards[i].id        = `card${i}`;
+                this._clientCards[i].name      = clientObjects[i].name;
+                this._clientCards[i].website   = 'https://www.placeholder.no';
+                this._clientCards[i].thumbnail = 'http://placehold.it/250x125/FFC107';
+                this._clientCards[i].buttonOnclick = event => loadSelectTranslation(clientObjects[i].name);
+            };
+        }
+
+        DOMUpdate() {
+            this.clientCards.forEach(card =>  {
+                card.DOMUpdate();
+                this.appendChild(card);
+            });
         }
 
         connectedCallback() {
-            this.render();
-        }
-
-        render() {
-            this.appendChild(client)
         }
     }
     customElements.define('ordbase-select-client', OrdbaseSelectClient);

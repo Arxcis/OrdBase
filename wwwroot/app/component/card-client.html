@@ -51,16 +51,17 @@
 
         constructor() {
             this.appendChild(template.content.cloneNode(true));
-
-
+            this.id = '';
+            this.name = '';
+            this.website = '';
+            this.thumbnail = '';
         }
 
         connectedCallback() {
-
         }
 
-        updateDom() {
-
+        DOMUpdate() {
+            
         }
     }
     customElements.define('component-card-client', ComponentCardClient);
