@@ -33,38 +33,48 @@
 
         constructor() {
             this.appendChild(TEMPLATE_SELECT_CLIENT.content.cloneNode(true));
-            this._clientCards = new Array();
+            this.clientCards = new Array();
+            this.buttonHandler = {};
         }
 
         set clients(clientObjects) {
             // Generate cards
             let cardCount = clientObjects.length;
-            this._clientCards.length = 0;
+            this.clientCards.length = 0;
 
             let i;
             // Batch DOM API cloneNode calls
             for (i = 0; i < cardCount; i++) {
-                this._clientCards.push(CARD_CLIENT.cloneNode(true));
+                this.clientCards.push(CARD_CLIENT.cloneNode(true));
             }
             
-            // Fill this._clientCards with data from server
+            // Fill this.clientCards with data from server
             for (i = 0; i < cardCount; i++) {
-                this._clientCards[i].id        = `card${i}`;
-                this._clientCards[i].name      = clientObjects[i].name;
-                this._clientCards[i].website   = 'https://www.placeholder.no';
-                this._clientCards[i].thumbnail = 'http://placehold.it/250x125/FFC107';
-                this._clientCards[i].buttonOnclick = event => loadSelectTranslation(clientObjects[i].name);
+                let clientCard = this.clientCards[i];
+
+                clientCard.id            = `card${i}`;
+                clientCard.name          = clientObjects[i].name;
+                clientCard.website       = 'https://www.placeholder.no';
+                clientCard.thumbnail     = 'http://placehold.it/250x125/FFC107';
+                clientCard.buttonOnclick = event => buttonHandler(clientObjects[i].name);
             };
         }
 
         DOMUpdate() {
-            this.clientCards.forEach(card =>  {
-                card.DOMUpdate();
-                this.appendChild(card);
-            });
-        }
+            
+            let clientCount = this.clientCard.length;
+            let clientCards = this.clientCards;
+            let documentFragment = createDocumentFragment();
 
-        connectedCallback() {
+            for (i = 0; i < cardCount; i++) {
+                clientCards[i].DOMUpdate();
+            }   
+
+            for (i = 0; i < cardCount; i++) {
+                documentFragment.appendChild(clientCards[i]);
+            }
+
+            this.appendChild(documentFragment);
         }
     }
     customElements.define('ordbase-select-client', OrdbaseSelectClient);

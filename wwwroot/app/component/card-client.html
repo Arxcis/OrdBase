@@ -1,5 +1,5 @@
 <style>
-    component-card-client{
+    ordbase-card-client {
         width: 250px;
         height: 220px;
         flex-shrink: 0;
@@ -9,7 +9,7 @@
         color: var(--ordbase-color-dark);
     }
 
-    component-card-client
+    ordbase-card-client
     button {
         padding: 0px;
         cursor: pointer;
@@ -17,14 +17,14 @@
         background-color: var(--ordbase-color-white) !important;
     }
 
-    component-card-client
+    ordbase-card-client
     h2 {
         margin-bottom: 0px;
         margin-top: 7px;    
         padding: 0px 5px 0px 10px;
     }
 
-    component-card-client
+    ordbase-card-client
     p {
         font-size: 13px;
         padding: 0px 5px 0px 10px;
@@ -33,21 +33,19 @@
 
 <template id="template-card-client">
 
-    <div id="{{ id }}" class="component-card-client">
-        <button class="card-button">
-            <img alt="Bilde av fylkesmannen" src="{{ thumbnail }}">
-            <h2>{{ name    }}</h2>
-            <p> {{ website }}</p>
-        </button>
-    </div>
+    <button class="card-button">
+        <img alt="Bilde av fylkesmannen" src="{{ thumbnail }}">
+        <h2>{{ name    }}</h2>
+        <p> {{ website }}</p>
+    </button>
 
 </template>
 
 <script>
 
-    let template = document.currentScript.ownerDocument.getElementById('template-card-client');
+    const TEMPLATE_CARD_CLIENT = document.currentScript.ownerDocument.getElementById('template-card-client');
 
-    class ComponentCardClient extends HTMLElement {
+    class OrdbaseCardClient extends HTMLElement {
 
         constructor() {
             this.appendChild(template.content.cloneNode(true));
@@ -55,14 +53,21 @@
             this.name = '';
             this.website = '';
             this.thumbnail = '';
-        }
+            this.buttonOnClick = {};
 
-        connectedCallback() {
+            this.elementImg     = this.querySelector('img');
+            this.elementHeading = this.querySelector('h2');
+            this.elementText    = this.querySelector('p');
+            this.elementButton  = this.querySelector('button');
         }
 
         DOMUpdate() {
-            
+            this.setAttribute('id', this.id);
+            this.elementImg.setAttribute('src', this.thumbnail);
+            this.elementHeading.innerHTML = this.name;
+            this.elementText.innerHTML    = this.website;
+            this.elementButton.onclick    = this.buttonOnClick;
         }
     }
-    customElements.define('component-card-client', ComponentCardClient);
+    customElements.define('ordbase-card-client', OrdbaseCardClient);
 </script>

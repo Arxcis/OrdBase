@@ -29,11 +29,13 @@ export function loadSelectClient() {
     main.appendChild(selectClient); 
 
     // @ajax - Fetch client data from server
-    api.client.getAll().then(clientObjects => {                             
-                            // Inject data into view
-                            selectClient.clients = clientObjects;
+    api.client.getAll().then(clientObjects => {             
+                            // Inject data into view                
+                            selectClient.clients = clientObjects; 
+                            selectClient.buttonHandler = loadSelectTranslation;
+                            
                             // Update DOM again
-                            selectClient.DOMUpdate();
+                            selectClient.DOMUpdate();             
                         })
                         .catch(reason => console.error('Error:', reason))
 }
