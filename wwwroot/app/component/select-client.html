@@ -25,7 +25,7 @@
 
 <script>
     const TEMPLATE_SELECT_CLIENT = document.currentScript.ownerDocument.getElementById('template-select-client');
-    const CARD_CLIENT            = document.createElement('ordbase-card-client');
+    const ELEMENT_CARD_CLIENT    = document.createElement('ordbase-card-client');
 
     // @doc empty javascript array - https://appendto.com/2016/02/empty-array-javascript/
 
@@ -36,12 +36,21 @@
             this.buffer = TEMPLATE_SELECT_CLIENT.content.cloneNode(true);
         }
 
-        spawnCard()       {  return CARD_CLIENT.cloneNode(true); }
-        appendCard(card)  {  this.buffer.appendChild(card);      }
+        render() {
+            this.innerHTML = '';
+            this.appendChild(this.buffer); 
+        }
+
+        spawnCard()       {  
+            return ELEMENT_CARD_CLIENT.cloneNode(true); 
+        }
+
+        appendCard(card)  {  
+            this.buffer.appendChild(card);      
+        }
 
         connectedCallback() { 
-            this.innerHTML = '';
-            this.appendChild(this.buffer.cloneNode(true));  
+            this.render();
         }
     }
     customElements.define('ordbase-select-client', OrdbaseSelectClient);

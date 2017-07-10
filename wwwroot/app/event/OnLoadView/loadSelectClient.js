@@ -11,24 +11,22 @@ import * as Api from '/app/library/api.js';
 export function loadSelectClient() {
 
     // Create elements
-    const clientSelect = App.clientSelect;
+    const clientSelect = document.createElement('ordbase-select-client');
 
     // Setup header
-    App.header.data = {
-        textBig          : 'Ordbase',
-        textSmall        : 'Select Client',
-        buttonIconLeft   : ICON_HEADER_SQUARE,
-        buttonIconRight1 : '',    
-        buttonIconRight2 : ICON_HEADER_PLUS,
-    };
+    App.header.textBig          = 'Ordbase';
+    App.header.textSmall        = 'Select Client';
+    App.header.buttonIconLeft   = ICON_HEADER_SQUARE;
+    App.header.buttonIconRight1 = 'fa-square';    
+    App.header.buttonIconRight2 = ICON_HEADER_PLUS;
 
     // Dependency injection
-    App.header.handlerButtonLeft   = App.defaultHandler;     
-    App.header.handlerButtonRight1 = App.defaultHandler;     
-    App.header.handlerButtonRight2 = App.defaultHandler;  
+    (App.header.onClickButtonLeft)   = App.defaultHandler;     
+    (App.header.onClickButtonRight1) = App.defaultHandler;     
+    (App.header.onClickButtonRight2) = App.defaultHandler;  
 
     // Batch-update DOM
-    App.header.DOMUpdate();
+    App.header.render();
     App.main.innerHTML = '';
     App.main.appendChild(clientSelect);              
     
@@ -38,7 +36,7 @@ export function loadSelectClient() {
                             // Fill cards with data
                             for (let i = 0; i < clientObjects.length; i++) {
                                 let card = clientSelect.spawnCard();
-
+                                
                                 card.id            = `card${i}`;
                                 card.heading       = clientObjects[i].name;
                                 card.text          = 'https://www.placeholder.no';
@@ -50,6 +48,7 @@ export function loadSelectClient() {
                             
                             // Update DOM again
                             clientSelect.render();
+
                         })
                         .catch(reason => console.error('Error:', reason))
 }

@@ -54,12 +54,12 @@
     </button>
 
     <button id="btn-header-mid" class="header-text-button">
-        <h1 id="btn-header-mid-big"> {{ bigHeader }} - </h1>
-        <h3 id="btn-header-mid-small"> {{ smallHeader }}</h3>
+        <h1 id="btn-header-mid-big">  </h1>
+        <h3 id="btn-header-mid-small"></h3>
     </button>
 
     <button id="btn-header-right1" class="icon-button">
-        <i class="fa" aria-hidden="true"></i>
+        <i class="fa fa-square" aria-hidden="true"></i>
     </button>
 
     <button id="btn-header-right2" class="icon-button">
@@ -72,59 +72,41 @@
 <script>
     const TEMPLATE_HEADER = document.currentScript.ownerDocument.getElementById('template-header');
     const ICON_HEADER_NONE       = '';
-    const ICON_HEADER_PLUS       = 'fa fa-plus';
-    const ICON_HEADER_BARS       = 'fa fa-bars';
-    const ICON_HEADER_SQUARE     = 'fa fa-square';
-    const ICON_HEADER_ARROW_LEFT = 'fa fa-arrow-left';
+    const ICON_HEADER_PLUS       = 'fa-plus';
+    const ICON_HEADER_BARS       = 'fa-bars';
+    const ICON_HEADER_SQUARE     = 'fa-square';
+    const ICON_HEADER_ARROW_LEFT = 'fa-arrow-left';
 
     class OrdbaseHeader extends HTMLElement {
 
         constructor() {
             super();
-            this.data  = {};
-            this.dom   = {};
-            this.constructed = false;
+            this.resetBuffer();
         }
         
-        DOMUpdate() {
-            this.dom.buttonLeft.setAttribute('class',   this.data.buttonIconLeft   || 'fa fa-square');  
-            this.dom.buttonRight1.setAttribute('class', this.data.buttonIconRight1 || 'fa fa-square');
-            this.dom.buttonRight2.setAttribute('class', this.data.buttonIconRight2 || 'fa fa-square');
-
-            this.dom.textBig.innerHTML   = this.data.textBig   || '{{ no header }}';  
-            this.dom.textSmall.innerHTML = this.data.textSmall || '{{ no header}}';
-
-            this.dom.buttonLeft.onclick   = event => this.handlerButtonLeft();
-            this.dom.buttonRight1.onclick = event => this.handlerButtonRight1();
-            this.dom.buttonRight2.onclick = event => this.handlerButtonRight2();
-        }   
-
-        connectedCallback() {
-            if (!this.constructed) {
-                this.data = {
-                    textBig             : 'Ordbase',
-                    textSmall           : 'Select Client',
-                    buttonIconLeft      : ICON_HEADER_SQUARE,
-                    buttonIconRight1    : ICON_HEADER_NONE, 
-                    buttonIconRight2    : ICON_HEADER_PLUS,
-                };
-
-                this.appendChild(document.importNode(TEMPLATE_HEADER.content, true));
-
-                this.dom = {
-                    textBig      : this.querySelector('#btn-header-mid-big'),  
-                    textSmall    : this.querySelector('#btn-header-mid-small'),
-                    buttonLeft   : this.querySelector('#btn-header-left'),
-                    buttonRight1 : this.querySelector('#btn-header-right1'), 
-                    buttonRight2 : this.querySelector('#btn-header-right1'),   
-                };
-                           
-                this.constructed = true;
-            }
-            this.DOMUpdate();
+        resetBuffer() {
+            this.buffer = TEMPLATE_HEADER.content.cloneNode(true); 
         }
 
+        render() {
+            this.innerHTML = '';
+            this.appendChild(this.buffer.cloneNode(true));
+            this.resetBuffer();
+        }
 
+        set textBig(text)          { this.buffer.querySelector('#btn-header-mid-big').innerHTML   =  text;    }  
+        set textSmall(text)        { this.buffer.querySelector('#btn-header-mid-small').innerHTML =  text;    }
+        set buttonIconLeft(icon)   { this.buffer.querySelector('#btn-header-left').classList.add(icon);   }
+        set buttonIconRight1(icon) { this.buffer.querySelector('#btn-header-right1').classList.add(icon); } 
+        set buttonIconRight2(icon) { this.buffer.querySelector('#btn-header-right2').classList.add(icon); }   
+       
+        set onClickButtonLeft   (handler) { console.log(this.buffer); this.buffer.querySelector('#btn-header-left').onclick = event => console.log('hellhel') };
+        set onClickButtonRight1 (handler) { this.buffer.querySelector('#btn-header-right1').onclick = event => console.log('hellhel'); };
+        set onClickButtonRight2 (handler) { this.buffer.querySelector('#btn-header-r1ight2').onclick = event => console.log('hellhel'); };
+
+        connectedCallback() {
+            this.render();
+        }
     }
     customElements.define('ordbase-header', OrdbaseHeader);
 

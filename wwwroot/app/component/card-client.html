@@ -50,30 +50,33 @@
         constructor() {
             super();
             this.buffer = TEMPLATE_CARD_CLIENT.content.cloneNode(true);
-            console.log(this.buffer);
-
         }
 
-        connectedCallback() {
-            this.innerHTML = '';
-            this.appendChild(this.buffer);
+        set heading (name){
+            this.buffer.querySelector('h2').innerHTML = name || '{{ null heading }}';
+            this._name = name;
+        }
+        
+        set text(text) {
+            this.buffer.querySelector('p').innerHTML = text || '{{ null text }}';
         }
 
         set thumbnail (url) { 
-            this.buffer.querySelector('img').src = url || '{{ thumbnail }}';
-        }
-        set heading (name){
-            this.buffer.querySelector('h2').innerHTML = name || '{{ heading }}';
-            this._name = name;
-        }
-        set text(text) {
-            this.buffer.querySelector('p').innerHTML = text || '{{ text }}';
+            this.buffer.querySelector('img').src = url;
         }
 
         set buttonHandler(handler){
             this.buffer.querySelector('button').onclick = event => handler(this._name);
         }
 
+        render() {
+            this.innerHTML = '';
+            this.appendChild(this.buffer);            
+        }
+        
+        connectedCallback() {
+            this.render();
+        }
     }
     customElements.define('ordbase-card-client', OrdbaseCardClient);
 </script>

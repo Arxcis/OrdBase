@@ -40,7 +40,8 @@ export function loadSelectTranslation (client) {
     //
     // @AJAX - fetch all containers on selected client
     //
-    api.container.getOnClient(client).then(containersOnClient => {
+    api.container.getOnClient(client)
+            .then(containersOnClient => {
 
                 for(let i = 0; i < containersOnClient.length; i++) {
                     let button = translationSelect.spawnButtonContainer();
