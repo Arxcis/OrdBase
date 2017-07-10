@@ -50,6 +50,7 @@
     class ComponentCardClient extends HTMLElement {
 
         constructor() {
+            this.innerHTML = template.content.cloneNode(true);
 
         }
 
@@ -61,5 +62,5 @@
 
         }
     }
-
+    customElements.define('component-card-client', ComponentCardClient);
 </script>
