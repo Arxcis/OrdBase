@@ -23,6 +23,9 @@ export function loadSelectClient() {
     header.buttonRight1 = ICON_HEADER_NONE; 
     header.buttonRight2 = ICON_HEADER_PLUS;
 
+    // Dependency injection
+    selectClient.buttonHandler = loadSelectTranslation;
+
     // Batch-update DOM
     main.innerHTML = ''; 
     header.DOMUpdate();
@@ -30,9 +33,9 @@ export function loadSelectClient() {
 
     // @ajax - Fetch client data from server
     api.client.getAll().then(clientObjects => {             
+                
                             // Inject data into view                
                             selectClient.clients = clientObjects; 
-                            selectClient.buttonHandler = loadSelectTranslation;
                             
                             // Update DOM again
                             selectClient.DOMUpdate();             
