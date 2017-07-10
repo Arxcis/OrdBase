@@ -1,7 +1,9 @@
 'use strict';
 
-import * as api from '../../library/api.js';
+import * as App from '/app.js';
+import * as Api from '/app/library/api.js';
 
+//import { loadSelectTranslation } from './loadSelectTranslation.js';
 
 //
 // @function OnloadViewClientSelector
@@ -9,44 +11,41 @@ import * as api from '../../library/api.js';
 export function loadSelectClient() {
 
     // Create elements
-    const clientSelect = document.createElement('ordbase-select-client');
+    const clientSelect = App.clientSelect;
 
     // Setup header
-    header.textBig          = 'Ordbase';
-    header.textSmall        = 'Select Client';
-    header.buttonIconLeft   = ICON_HEADER_SQUARE;
-    header.buttonIconRight1 = '';    
-    header.buttonIconRight2 = ICON_HEADER_PLUS;
+    App.header.data = {
+        textBig          : 'Ordbase',
+        textSmall        : 'Select Client',
+        buttonIconLeft   : ICON_HEADER_SQUARE,
+        buttonIconRight1 : '',    
+        buttonIconRight2 : ICON_HEADER_PLUS,
+    };
 
     // Dependency injection
-    header.buttonHandlerLeft   = defaultHandler;     
-    header.buttonHandlerRight1 = defaultHandler;     
-    header.buttonHandlerRight2 = defaultHandler;  
-    clientSelect.cardButtonHandler = defaultHandler
+    App.header.handlerButtonLeft   = App.defaultHandler;     
+    App.header.handlerButtonRight1 = App.defaultHandler;     
+    App.header.handlerButtonRight2 = App.defaultHandler;  
 
     // Batch-update DOM
-    main.innerHTML = ''; 
-    header.DOMUpdate();
-    main.appendChild(clientSelect);              
+    App.header.DOMUpdate();
+    App.main.innerHTML = '';
+    App.main.appendChild(clientSelect);              
     
     // @ajax - Fetch client data from server
-    api.client.getAll().then(clientObjects => {        
-
-                            let cardCount = clientObjects.length;
-
-                            // Spawn DOM element cards (card-client.html)
-                            clientSelect.spawnCards(cardCount); 
-                            let clientCards = clientSelect.clientCards;
+    Api.client.getAll().then(clientObjects => {        
                             
                             // Fill cards with data
-                            for (let i = 0; i < cardCount; i++) {
-                                let clientCard = clientCards[i];
+                            for (let i = 0; i < clientObjects.length; i++) {
+                                let card = clientSelect.getCard();
+                                
+                                card.ID            = `card${i}`;
+                                card.clientName    = clientObjects[i].name;
+                                card.website       = 'https://www.placeholder.no';
+                                card.thumbnail     = 'http://placehold.it/250x125/FFC107';
+                                card.buttonHandler = App.defaultHandler;
 
-                                clientCard.id            = `card${i}`;
-                                clientCard.name          = clientObjects[i].name;
-                                clientCard.website       = 'https://www.placeholder.no';
-                                clientCard.thumbnail     = 'http://placehold.it/250x125/FFC107';
-                                clientCard.cardButtonHandler = defaultHandler;
+                                clientSelect.appendCard(card);
                             };
                             
                             // Update DOM again

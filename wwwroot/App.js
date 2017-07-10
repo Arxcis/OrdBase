@@ -13,10 +13,14 @@ import { loadSelectClient } from './app/event/OnLoadView/loadSelectClient.js';
 export const ICON_CHECK      = 'fa-check';
 export const ICON_TIMES      = 'fa-times';
 
+
 // Cache static element references
-export const MAIN         = document.getElementById('ordbase-main');    
-export const HEADER       = document.getElementById('ordbase-header');
+export const main         = document.getElementById('ordbase-main');    
+export const header         = document.getElementById('ordbase-header');
 export const defaultHandler = (event) => console.log('Default handler... nothing happened');
+
+export const clientSelect = document.createElement('ordbase-select-client');
+
 
 window.addEventListener('load', () => {
     loadSelectClient();

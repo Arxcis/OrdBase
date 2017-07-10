@@ -1,6 +1,7 @@
 'use strict';
 
-import * as api from '../../library/api.js';
+import * as App from '/app.js';
+import * as Api from '/app/library/api.js';
 
 import { loadEditTranslation } from './loadEditTranslation.js';
 import { loadSelectClient }    from './loadSelectClient.js';
@@ -14,58 +15,61 @@ export function loadSelectTranslation (client) {
     const translationSelect = document.createElement('ordbase-select-translation');
 
     // Setup header
-    header.textBig          = 'Ordbase';
-    header.textSmall        = 'Select Translation';
-    header.buttonIconLeft   = ICON_HEADER_BARS;
-    header.buttonIconRight1 = ICON_HEADER_ARROW_LEFT;    
-    header.buttonIconRight2 = ICON_HEADER_PLUS;
+    App.header.data = {
+        textBig          : 'Ordbase',
+        textSmall        : 'Select Translation',
+        buttonIconLeft   : ICON_HEADER_BARS,
+        buttonIconRight1 : ICON_HEADER_ARROW_LEFT,    
+        buttonIconRight2 : ICON_HEADER_PLUS,
+    };
+        // Dependency injection
+    App.header.handlerButtonLeft   = App.defaultHandler;     
+    App.header.handlerButtonRight1 = App.defaultHandler;     
+    App.header.handlerButtonRight2 = App.defaultHandler;  
+    
 
-    // Dependency injection
-    header.buttonHandlerLeft   = defaultHandler;     
-    header.buttonHandlerRight1 = defaultHandler;     
-    header.buttonHandlerRight2 = defaultHandler;  
-    translationSelect.cardButtonHandler = defaultHandler
+    translationSelect.cardButtonHandler = App.defaultHandler;
 
     // Batch-update DOM
-    main.innerHTML = ''; 
-    header.DOMUpdate();
-    main.appendChild(selectClient);       
+    App.header.DOMUpdate();
+    App.main.removeChild(App.main.firstChild); // @bench towards innerHTML = ''; 
+    App.main.appendChild(translationSelect);       
 
     //
     // @AJAX - fetch all containers on selected client
     //
-    api.container.getOnClient(client).then( containersOnClient => {
+    api.container.getOnClient(client).then(containersOnClient => {
 
-        const containerList = unpackTemplate(containerListTemplate).querySelector('div');
+                                        let containerCount = containersOnClient.length;
+                                        translationSelect.spawnContainerButtons(containerCount);
 
-        containersOnClient.forEach( container => {
+                                        for(let i = 0; i < containerCount; i++) {
+                                            let button = translationSelect.containerButtons[i];
 
-            const containerButton = unpackTemplate(containerButtonTemplate, {
-                id : `button-${container}`,
-                text : container,
-                selected : '',
-            }).querySelector('button');
+                                            button.ID             = containersOnClient[i].name;
+                                            button.containerName  = containersOnClient[i].name;
+                                            button.isSelected     = '';
+                                            button.onClickHandler = event.target.classList.toggle('selected');
+                                        }
 
-            containerButton.onclick = (event) => event.target.classList.toggle('selected'); 
-            containerList.appendChild(containerButton);
-        });
-
-        view.querySelector('#list-show-containers-on-client').appendChild(containerList);
-
-        return api.translation.getGroupOnClient(client);
+                                        return api.translation.getGroupOnClient(client);
     })
     //
     //  @AJAX - Get all translation groups 
     //  @doc template literals - https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Template_literals
     //
-    .then(data => {
+    .then(translationGroups => {
 
-        const translationList = view.querySelector('#list-show-translations-on-client');         
+        let groupCount = group
+        translationSelect.spawnTranslationButtons(groupCount);    
         
-        data.forEach(translationGroup => {
+        for (let i = 0; i < groupCount; i++) {
+            let button = translationSelect.translationButtons[i]
+            let group  = translationGroups[i];
 
-            const cardContent = unpackTemplate(translationCardTemplate, { translationKey : translationGroup.key });
-            const languagesComplete = cardContent.querySelector('.languages-complete');            
+            translationSelect.spawnKeysAndIcons(button, );
+
+        }
     
             Object.keys(translationGroup.isComplete).forEach((_languageKey, isComplete) => {
              
@@ -81,10 +85,5 @@ export function loadSelectTranslation (client) {
             translationList.appendChild(cardContent);   
         });
     })
-    .catch(reason => console.error('Error:', reason))
-    .then(() => {                                  
-        // Clear all previous content, insert new view
-        document.body.innerHTML = ''; 
-        document.body.appendChild(view);
-    });
+    .catch(reason => console.error('Error:', reason));
 }

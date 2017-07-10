@@ -34,19 +34,20 @@
         constructor() {
             super();
             this.constructed = false;
-            this.clientCards = new Array();
-            
+            this.cardArray = new Array();
         }
 
+        getCard()        { return CARD_CLIENT.cloneNode(true); }
+        appendCard(card) { this.cardArray.push(card);          }
+
         DOMUpdate() {
-            
-            const cardCount = this.clientCards.length;
+            const cardCount = this.cardArray.length;
 
             if (cardCount > 0) { 
                 let documentFragment = document.createDocumentFragment();
 
                 for (let i = 0; i < cardCount; i++) {
-                    documentFragment.appendChild(this.clientCards[i]);
+                    documentFragment.appendChild(this.cardArray[i]);
                 }
 
                 this.innerHTML = '';
@@ -56,24 +57,11 @@
 
         connectedCallback() {
             if(!this.constructed) {
-                this.clientCards = new Array();
-                this.buttonHandler = {};
-
                 this.appendChild(TEMPLATE_SELECT_CLIENT.cloneNode(true).content);
                 this.constructed = true;
             }
 
             this.DOMUpdate();
-        }
-        
-        spawnCards(cardCount) {
-            // Zero out existing cards
-            this.clientCards.length = 0;
-
-            // Batch DOM API cloneNode calls
-            for (let i = 0; i < cardCount; i++) {
-                this.clientCards.push(CARD_CLIENT.cloneNode(true));
-            }
         }
     }
     customElements.define('ordbase-select-client', OrdbaseSelectClient);

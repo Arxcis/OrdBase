@@ -81,39 +81,43 @@
 
         constructor() {
             super();
+            this.data  = {};
+            this.dom   = {};
             this.constructed = false;
         }
         
         DOMUpdate() {
-            this.elementButtonLeft.setAttribute('class', this.buttonIconLeft);  
-            this.elementButtonRight1.setAttribute('class', this.buttonIconRight1);
-            this.elementButtonRight2.setAttribute('class', this.buttonIconRight2);
+            this.dom.buttonLeft.setAttribute('class',   this.data.buttonIconLeft   || 'fa fa-square');  
+            this.dom.buttonRight1.setAttribute('class', this.data.buttonIconRight1 || 'fa fa-square');
+            this.dom.buttonRight2.setAttribute('class', this.data.buttonIconRight2 || 'fa fa-square');
 
-            this.elementTextBig.innerHTML = this.textBig || '{{ no header }}';  
-            this.elementTextSmall.innerHTML = this.textSmall || '{{ no header}}';
+            this.dom.textBig.innerHTML   = this.data.textBig   || '{{ no header }}';  
+            this.dom.textSmall.innerHTML = this.data.textSmall || '{{ no header}}';
 
-            this.elementButtonLeft.onclick   = event => this.buttonHandlerLeft();
-            this.elementButtonRight1.onclick = event => this.buttonHandlerRight1();
-            this.elementButtonRight2.onclick = event => this.buttonHandlerRight2();
+            this.dom.buttonLeft.onclick   = event => this.handlerButtonLeft();
+            this.dom.buttonRight1.onclick = event => this.handlerButtonRight1();
+            this.dom.buttonRight2.onclick = event => this.handlerButtonRight2();
         }   
 
         connectedCallback() {
             if (!this.constructed) {
-                this.textBig             = 'Ordbase';
-                this.textSmall           = 'Select Client';
-                
-                this.buttonIconLeft      = ICON_HEADER_SQUARE;
-                this.buttonIconRight1    = ICON_HEADER_NONE; 
-                this.buttonIconRight2    = ICON_HEADER_PLUS;
+                this.data = {
+                    textBig             : 'Ordbase',
+                    textSmall           : 'Select Client',
+                    buttonIconLeft      : ICON_HEADER_SQUARE,
+                    buttonIconRight1    : ICON_HEADER_NONE, 
+                    buttonIconRight2    : ICON_HEADER_PLUS,
+                };
 
                 this.appendChild(document.importNode(TEMPLATE_HEADER.content, true));
-                
-                this.elementTextBig    = this.querySelector('#btn-header-mid-big');  
-                this.elementTextSmall  = this.querySelector('#btn-header-mid-small');
 
-                this.elementButtonLeft   = this.querySelector('#btn-header-left');
-                this.elementButtonRight1 = this.querySelector('#btn-header-right1'); 
-                this.elementButtonRight2 = this.querySelector('#btn-header-right1');             
+                this.dom = {
+                    textBig      : this.querySelector('#btn-header-mid-big'),  
+                    textSmall    : this.querySelector('#btn-header-mid-small'),
+                    buttonLeft   : this.querySelector('#btn-header-left'),
+                    buttonRight1 : this.querySelector('#btn-header-right1'), 
+                    buttonRight2 : this.querySelector('#btn-header-right1'),   
+                };
                            
                 this.constructed = true;
             }

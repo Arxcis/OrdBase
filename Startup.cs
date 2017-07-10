@@ -62,7 +62,7 @@ namespace OrdBaseCore {
 
             services.AddDbContext<TranslationDb>(options => 
                // options.UseInMemoryDatabase()
-                options.UseSqlServer (
+                options.UseMySql (
                     sqlConnectionString,
                     b => b.MigrationsAssembly("OrdBaseCore") )
                 
@@ -92,7 +92,7 @@ namespace OrdBaseCore {
                 app.UseDeveloperExceptionPage();
             }
 
-       //     TranslationDb.Seed(context);
+            TranslationDb.Seed(context);
             
             app.UseDefaultFiles();
             app.UseStaticFiles();
@@ -113,7 +113,7 @@ namespace OrdBaseCore {
         public TranslationDb Create(DbContextFactoryOptions options)
         {
             var optionsBuilder = new DbContextOptionsBuilder<TranslationDb>();
-            optionsBuilder.UseSqlServer(Startup.Configuration.GetConnectionString(Startup.SqlProvider));
+            optionsBuilder.UseMySql(Startup.Configuration.GetConnectionString(Startup.SqlProvider));
 
             return new TranslationDb(optionsBuilder.Options);
         }

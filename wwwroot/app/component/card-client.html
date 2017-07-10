@@ -35,8 +35,8 @@
 
     <button class="card-button">
         <img alt="Bilde av fylkesmannen" src="{{ thumbnail }}">
-        <h2>{{ name    }}</h2>
-        <p> {{ website }}</p>
+        <h2> {{ heading    }}</h2>
+        <p>  {{ text }}</p>
     </button>
 
 </template>
@@ -49,35 +49,33 @@
 
         constructor() {
             super();
-            this.constructed = false;
+            resetBuffer();
         }
 
-        DOMUpdate() {
-            this.setAttribute('id',             this.id            || '{{ id }}');
-            this.elementImg.setAttribute('src', this.thumbnail     || '{{ thumbnail }}');
-            this.elementHeading.innerHTML =     this.name          || '{{ name }}';
-            this.elementText.innerHTML    =     this.website       || '{{ website }}';
-            this.elementButton.onclick    = event => this.cardButtonHandler(this.name) || '{{ buttonOnClick }}';
+        resetBuffer() {
+            this.buffer = TEMPLATE_CARD_CLIENT.content.cloneNode(true);
+        }
+
+        set thumbnail (url) { 
+            this.buffer.querySelector('img').src = url || '{{ thumbnail }}';
+        }
+        set name (name){
+            this.buffer.querySelector('h2') = name || '{{ heading }}';
+        }
+        set website (url) {
+            this.buffer.querySelector('p') = url || '{{ text }}';
+        }
+        set buttonHandler(handler){
+            this.buffer.querySelector('button').onclick = event => handler(name);
         }
 
         //
         // @doc Requirements of custom elements constructors
         //
         connectedCallback() {
-            if (!this.constructed) {
-
-                this.appendChild(TEMPLATE_CARD_CLIENT.content.cloneNode(true));
-                this.elementImg     = this.querySelector('img');
-                this.elementHeading = this.querySelector('h2');
-                this.elementText    = this.querySelector('p');
-                this.elementButton  = this.querySelector('button');
-
-                this.constructed = true;
-            }
-            this.DOMUpdate();
+            this.innerHTML = '';
+            this.appendChild(buffer);
         }
-
-
     }
     customElements.define('ordbase-card-client', OrdbaseCardClient);
 </script>

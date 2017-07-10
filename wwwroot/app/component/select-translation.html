@@ -66,55 +66,78 @@
         display: flex;
     }
 </style>
+
+
+<!-- TEMPLATE -->
+<template id="template-button-container">
+        <button id="{{ id }}" class="ordbase-btn-container-select {{ selected }}"> {{ text }} </button>
+</template>
+
+
+<!-- TEMPLATE -->
+<template id="template-card-translation">
+
+    <div class="ordbase-card-translation">
+        <button class="btn-load-translation-editor">
+            <span class="translation-key">{{ translationKey }}</span>
+            <div  class="languages-complete">
+                
+            <!--template id="template-key-and-icon"-->
+            <!--/template -->
+
+            </div>
+        </button>    
+    </div>
+</template>
+
+
+<!-- TEMPLATE -->
+<template id="template-key-and-icon">
+
+    <div class="ordbase-key-and-icon">
+        <span class="language-key">{{ languageKey }}</span>
+        <i    class="fa {{ fontawesomeClass }} language-icon" aria-hidden="true"></i>
+    </div>
+
+</template>
+
+
+
+<!-- TEMPLATE -->
 <template id="template-select-translation">
 
-    <ordbase-list-container></ordbase-list-container>
+    <ul id="list-show-containers-on-client" class="ordbase-list-containers">
+        <h2>Containers</h2>        
+        <!--template id="template-button-container"-->
+        <!--/template-->
+    </ul>
 
     <section id="list-show-translations-on-client" class="ordbase-list-translation">
         <h2>Translations</h2>
     
-
-        <!-- @note SCRIPT WILL GENERATE ELEMENTS DYNAMICLY HERE BASED ON THIS TEMPLATE -->
-        <template id="template-card-translation">
-
-            <div class="ordbase-card-translation">
-                <button class="btn-load-translation-editor">
-                    <span class="translation-key">{{ translationKey }}</span>
-                    <div  class="languages-complete">
-                        
-
-                        <!-- @note SCRIPT WILL GENERATE ELEMENTS DYNAMICLY HERE BASED ON THIS TEMPLATE -->
-                        <template id="template-key-and-icon">
-
-                            <div class="ordbase-key-and-icon">
-                                <span class="language-key">{{ languageKey }}</span>
-                                <i    class="fa {{ fontawesomeClass }} language-icon" aria-hidden="true"></i>
-                            </div>
-
-                        </template>
-
-
-                    </div>
-                </button>    
-            </div>
-        </template>
-
-        
+        <!--template id="template-card-translation"-->
+        <!-- /template -->
     </section>
-
-    
 </template>
 
 <script>
-    const TEMPLATE_SELECT_TRANSLATION = document.currentScript.ownerDocument.getElementById('template-select-translation');
-    const TEMPLATE_CARD_TRANSLATION   = TEMPLATE_SELECT_TRANSLATION.content.getElementById('template-card-translation');
-    const TEMPLATE_KEY_AND_ICON       = TEMPLATE_CARD_TRANSLATION.content.getElementById('template-key-and-icon');
+    let   localDocument               = document.currentScript.ownerDocument;
+    const TEMPLATE_SELECT_TRANSLATION = localDocument.getElementById('template-select-translation');
+    const TEMPLATE_BUTTON_CONTAINER   = localDocument.getElementById('template-button-container');
+    const TEMPLATE_CARD_TRANSLATION   = localDocument.getElementById('template-card-translation');
+    const TEMPLATE_KEY_AND_ICON       = localDocument.getElementById('template-key-and-icon');
 
     class OrdbaseSelectTranslation extends HTMLElement {
 
         constructor() {
             super();
             this.constructed = false;
+            this.containerButtons = new Array();
+            this.translationCards = new Array();
+        }
+
+        DOMUpdate() {
+
         }
 
         connectedCallback() {   
@@ -126,9 +149,10 @@
                 
                 this.constructed = true;
             }
+            DOMUpdate();
         }
 
-        updateDom() {
+        spawnContainerButtons (constainerCount) {
 
         }
     }
