@@ -1,6 +1,6 @@
 <style>
 /* --- HEADER --- */
-component-header {           
+ordbase-header {           
     display: flex;
     text-align:  center;
     min-height: 100px;
@@ -11,7 +11,7 @@ component-header {
 
 
 /* HEADER-ICON-BUTTON */
-component-header 
+ordbase-header 
 .icon-button {
     font-size: 40px;
     flex: 0;
@@ -20,7 +20,7 @@ component-header
     justify-content: center;
 }
 
-component-header 
+ordbase-header 
 .icon-button i {
     width: 100%;
     height: 100%;
@@ -31,13 +31,13 @@ component-header
 
 
 /* HEADER-TEXT-BUTTON */
-component-header 
+ordbase-header 
 .header-text-button {
     flex-grow: 1;
     color: var(--ordbase-color-white);
 }
 
-component-header 
+ordbase-header 
 .header-text-button h1 {   
     text-align: left;
     font-size: 36px;
@@ -52,9 +52,9 @@ component-header
 
 
 <script>
-    let template = document.currentScript.ownerDocument.getElementById('template-card-client');
+    let template = document.currentScript.ownerDocument.getElementById('template-header');
 
-    class ComponentHeader extends HTMLElement {
+    class OrdbaseHeader extends HTMLElement {
 
         constructor() {
 
@@ -68,5 +68,5 @@ component-header
 
         }
     }
-    customElements.define('component-header', ComponentHeader);
+    customElements.define('ordbase-header', OrdbaseHeader);
 </script>
