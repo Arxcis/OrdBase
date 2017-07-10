@@ -1,6 +1,39 @@
+<style>
+    component-card-client{
+        width: 250px;
+        height: 220px;
+        flex-shrink: 0;
+
+        padding: 20px 10px 10px 10px;
+
+        color: var(--ordbase-color-dark);
+    }
+
+    component-card-client
+    button {
+        padding: 0px;
+        cursor: pointer;
+        color: var(--ordbase-color-dark);
+        background-color: var(--ordbase-color-white) !important;
+    }
+
+    component-card-client
+    h2 {
+        margin-bottom: 0px;
+        margin-top: 7px;    
+        padding: 0px 5px 0px 10px;
+    }
+
+    component-card-client
+    p {
+        font-size: 13px;
+        padding: 0px 5px 0px 10px;
+    }
+</style>
+
 <template>
 
-    <div id="{{ id }}" class="ordbase-card-client">
+    <div id="{{ id }}" class="component-card-client">
         <button class="card-button">
             <img alt="Bilde av fylkesmannen" src="{{ thumbnail }}">
             <h2>{{ name    }}</h2>
@@ -9,3 +42,22 @@
     </div>
 
 </template>
+
+<script>
+
+    class ComponentCardClient extends HTMLElement {
+
+        constructor() {
+
+        }
+
+        connectedCallback() {
+
+        }
+
+        updateDom() {
+            
+        }
+    }
+
+</script>
