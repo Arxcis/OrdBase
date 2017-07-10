@@ -1,0 +1,51 @@
+<style>
+    ordbase-select-client {
+        height: 100%;
+    }
+
+    ordbase-select-client
+    main {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        background-color: var(--ordbase-color-light);
+        height: 100%;
+        align-content: flex-start;
+    }
+
+</style>
+
+
+<template id="template-select-client">
+    
+    <main>            
+            
+            <!-- @note SCRIPT WILL INSERT card-client.html HERE -->
+            <!-- @note SCRIPT WILL INSERT card-client.html HERE -->
+            <!-- @note SCRIPT WILL INSERT card-client.html HERE -->
+            <!-- @note SCRIPT WILL INSERT card-client.html HERE -->                
+
+    </main>
+    
+</template>
+
+
+<script>
+    let template = document.currentScript.ownerDocument.getElementById('template-select-client');
+
+    class OrdbaseSelectClient extends HTMLElement {
+
+        constructor() {
+
+        }
+
+        connectedCallback() {
+
+        }
+
+        updateDom() {
+
+        }
+    }
+    customElements.define('ordbase-select-client', OrdbaseSelectClient);
+</script>
