@@ -2,8 +2,8 @@
 
 import * as api from '../../library/api.js'; 
 import { submitTranslation }            from '../OnSubmitForm/submitTranslation.js';
-import { loadTranslationSelector }      from './loadTranslationSelector.js';
-import { loadClientSelector }           from './loadClientSelector.js';
+import { loadSelectTranslation }      from './loadSelectTranslation.js';
+import { loadSelectClient }           from './loadSelectClient.js';
 import { loadTemplate, loadTemplateDoc, unpackTemplate } from '../../library/jet-template-unpacker.js';
 
 const viewTemplate = loadTemplateDoc('./app/view/view-translation-editor.html');
@@ -13,9 +13,9 @@ const containerListTemplate = loadTemplateDoc('./app/component/list-container.ht
 const containerButtonTemplate = loadTemplate('#template-button-container', containerListTemplate);
 
 //
-// @function loadTranslationEditor
+// @function loadEditTranslation
 //
-export function loadTranslationEditor (client, key) {
+export function loadEditTranslation (client, key) {
     
     let containersOnClient = {};
 
@@ -26,10 +26,10 @@ export function loadTranslationEditor (client, key) {
         submitButtonText : 'Save changes',
     });
 
-    view.querySelector('#btn-toggle-container-list').addEventListener('click', (event) => loadTranslationEditor(client));
-    view.querySelector('#btn-back-to-home-page').addEventListener('click', (event) => loadClientSelector());
-    view.querySelector('#btn-back-to-translation-selector').addEventListener('click', (event) => loadTranslationSelector(client));    
-    view.querySelector('#btn-save-edited-translation').addEventListener('click', (event) => loadTranslationEditor(client));
+    view.querySelector('#btn-toggle-container-list').addEventListener('click', (event) => loadEditTranslation(client));
+    view.querySelector('#btn-back-to-home-page').addEventListener('click', (event) => loadSelectClient());
+    view.querySelector('#btn-back-to-translation-selector').addEventListener('click', (event) => loadSelectTranslation(client));    
+    view.querySelector('#btn-save-edited-translation').addEventListener('click', (event) => loadEditTranslation(client));
     view.querySelector('#btn-form-submit-translation').addEventListener('click', (event) => submitTranslation(event));
     //
     // @AJAX - Call to get all containers on a client
