@@ -89,7 +89,7 @@
         }
 
         set languageKey(key) { this.buffer.querySelector('span').innerHTML = key; }
-        set icon(iconClass)  {  this.buffer.querySelector('i').classList.add(iconClass); }
+        set icon(iconClass)  { this.buffer.querySelector('i').classList.add(iconClass); }
 
         connectedCallback()  {  this.innerHTML = ''; this.appendChild(this.buffer.cloneNode(true)); }
     }

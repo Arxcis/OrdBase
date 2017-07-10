@@ -6,6 +6,10 @@ import * as Api from '/app/library/api.js';
 import { loadEditTranslation } from './loadEditTranslation.js';
 import { loadSelectClient }    from './loadSelectClient.js';
 
+const ICON_CHECK      = 'fa-check';
+const ICON_TIMES      = 'fa-times';
+
+
 //
 // @function loadSelectTranslation
 //
@@ -38,15 +42,14 @@ export function loadSelectTranslation (client) {
     //
     api.container.getOnClient(client).then(containersOnClient => {
 
-                let containerCount = containersOnClient.length;
-                translationSelect.spawnContainerButtons(containerCount);
-
-                for(let i = 0; i < containerCount; i++) {
-                    let button = translationSelect.containerButtons[i];
+                for(let i = 0; i < containersOnClient.length; i++) {
+                    let button = translationSelect.spawnButtonContainer();
 
                     button.id       = containersOnClient[i].name;
                     button.text     = containersOnClient[i].name;
                     button.selected = '';
+
+                    translationSelect.appendContainerButton(button);
                 }
 
                 return api.translation.getGroupOnClient(client);
@@ -60,11 +63,14 @@ export function loadSelectTranslation (client) {
                     let groupCounts = group
                     
                     for (let i = 0; i < groupCount; i++) {
-                        let button = translationSelect.getTranslationButton();
+                        let card = translationSelect.spawnCardTranslation();
                         let group  = translationGroups[i];
 
-                        Object.keys(group.isComplete).forEach((_languageKey, isComplete) => {
-                            let keyAndIcon = translationSelect.getKeyAndIcon();
+                        Object.keys(group.isComplete).forEach((languageKey, isComplete) => {
+                            let keyAndIcon = translationSelect.spawnKeyAndIcon();
+
+                            keyAndIcon.languageKey = languageKey;
+                            keyAndIcon.icon = (isComplete) ? ICON_CHECK : ICON_TIMES;
 
                             button.appendKeyAndIcon(keyAndIcon);
                         });

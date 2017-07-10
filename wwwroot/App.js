@@ -10,9 +10,6 @@ import { loadSelectClient } from './app/event/OnLoadView/loadSelectClient.js';
 // @doc 2017 es16 modules native in browsers https://jakearchibald.com/2017/es-modules-in-browsers/
 //
 
-export const ICON_CHECK      = 'fa-check';
-export const ICON_TIMES      = 'fa-times';
-
 
 // Cache static element references
 export const main         = document.getElementById('ordbase-main');    
