@@ -83,6 +83,19 @@
             super();
             this.constructed = false;
         }
+        
+        DOMUpdate() {
+            this.elementButtonLeft.setAttribute('class', this.buttonIconLeft);  
+            this.elementButtonRight1.setAttribute('class', this.buttonIconRight1);
+            this.elementButtonRight2.setAttribute('class', this.buttonIconRight2);
+
+            this.elementTextBig.innerHTML = this.textBig || '{{ no header }}';  
+            this.elementTextSmall.innerHTML = this.textSmall || '{{ no header}}';
+
+            this.elementButtonLeft.onclick   = event => this.buttonHandlerLeft();
+            this.elementButtonRight1.onclick = event => this.buttonHandlerRight1();
+            this.elementButtonRight2.onclick = event => this.buttonHandlerRight2();
+        }   
 
         connectedCallback() {
             if (!this.constructed) {
@@ -107,18 +120,7 @@
             this.DOMUpdate();
         }
 
-        DOMUpdate() {
-            this.elementButtonLeft.setAttribute('class', this.buttonIconLeft);  
-            this.elementButtonRight1.setAttribute('class', this.buttonIconRight1);
-            this.elementButtonRight2.setAttribute('class', this.buttonIconRight2);
 
-            this.elementTextBig.innerHTML = this.textBig;  
-            this.elementTextSmall.innerHTML = this.textSmall;
-
-            this.elementButtonLeft.onclick   = event => this.buttonHandlerLeft();
-            this.elementButtonRight1.onclick = event => this.buttonHandlerRight1();
-            this.elementButtonRight2.onclick = event => this.buttonHandlerRight2();
-        }   
     }
     customElements.define('ordbase-header', OrdbaseHeader);
 

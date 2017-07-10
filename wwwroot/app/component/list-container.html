@@ -14,6 +14,7 @@
         }
 
 </style>
+
 <template id="template-list-container">
         <h2>Containers</h2>        
         <!-- @note SCRIPT WILL GENERATE ELEMENTS DYNAMICLY HERE BASED ON THIS TEMPLATE -->
@@ -23,21 +24,33 @@
 
 </template>
 
-
 <script>
-    let TEMPLATE_LIST_CONTAINER = document.currentScript.ownerDocument.getElementById('template-list-container');
+    const TEMPLATE_LIST_CONTAINER = document.currentScript.ownerDocument.getElementById('template-list-container');
+    const TEMPLATE_BUTTON_CONTAINER = TEMPLATE_LIST_CONTAINER.content.getElementById('template-button-container');
 
     class OrdbaseListContainer extends HTMLElement {
 
         constructor() {
             super();
-            this.appendChild(TEMPLATE_LIST_CONTAINER.content.cloneNode(true));
+            this.constructed = false;
+        }
 
+        spawnButtons(buttonCount) {
+                
+                for (let i = 0; i < buttonCount; i++) {
+                        let button = TEMPLATE_BUTTON_CONTAINER.content.cloneNode(true);
 
+                        
+                        
+                } 
         }
 
         connectedCallback() {
+            if(!this.constructed) {
+                this.appendChild(TEMPLATE_LIST_CONTAINER.content.cloneNode(true));
 
+                this.constructed = true;
+            }
         }
 
         updateDom() {

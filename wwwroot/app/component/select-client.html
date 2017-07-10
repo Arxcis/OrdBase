@@ -34,20 +34,10 @@
         constructor() {
             super();
             this.constructed = false;
+            this.clientCards = new Array();
+            
         }
 
-        connectedCallback() {
-            if(!this.constructed) {
-                this.clientCards = new Array();
-                this.buttonHandler = {};
-
-                this.appendChild(TEMPLATE_SELECT_CLIENT.cloneNode(true).content);
-                this.constructed = true;
-            }
-
-            this.DOMUpdate();
-        }
-        
         DOMUpdate() {
             
             const cardCount = this.clientCards.length;
@@ -64,6 +54,18 @@
             }
         }
 
+        connectedCallback() {
+            if(!this.constructed) {
+                this.clientCards = new Array();
+                this.buttonHandler = {};
+
+                this.appendChild(TEMPLATE_SELECT_CLIENT.cloneNode(true).content);
+                this.constructed = true;
+            }
+
+            this.DOMUpdate();
+        }
+        
         spawnCards(cardCount) {
             // Zero out existing cards
             this.clientCards.length = 0;

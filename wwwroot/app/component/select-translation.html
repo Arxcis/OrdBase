@@ -66,9 +66,9 @@
         display: flex;
     }
 </style>
-<template>
+<template id="template-select-translation">
 
-    <ordbase-list-translation></ordbase-list-translation>
+    <ordbase-list-container></ordbase-list-container>
 
     <section id="list-show-translations-on-client" class="ordbase-list-translation">
         <h2>Translations</h2>
@@ -107,17 +107,25 @@
 
 <script>
     const TEMPLATE_SELECT_TRANSLATION = document.currentScript.ownerDocument.getElementById('template-select-translation');
+    const TEMPLATE_CARD_TRANSLATION   = TEMPLATE_SELECT_TRANSLATION.content.getElementById('template-card-translation');
+    const TEMPLATE_KEY_AND_ICON       = TEMPLATE_CARD_TRANSLATION.content.getElementById('template-key-and-icon');
 
     class OrdbaseSelectTranslation extends HTMLElement {
 
         constructor() {
             super();
-            this.appendChild(TEMPLATE_SELECT_TRANSLATION.content.cloneNode(true));
-
+            this.constructed = false;
         }
 
-        connectedCallback() {
+        connectedCallback() {   
+            if (!this.constructed) {
+                this.appendChild(TEMPLATE_SELECT_TRANSLATION.content.cloneNode(true));
 
+                this.elementContainerList = this.querySelector('ordbase-list-container');
+                this.elementTranslationList = this.querySelector('list-show-translations-on-client');
+                
+                this.constructed = true;
+            }
         }
 
         updateDom() {

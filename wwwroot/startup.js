@@ -10,8 +10,13 @@ import { loadSelectClient } from './app/event/OnLoadView/loadSelectClient.js';
 // @doc 2017 es16 modules native in browsers https://jakearchibald.com/2017/es-modules-in-browsers/
 //
 
-const ICON_CHECK      = 'fa-check';
-const ICON_TIMES      = 'fa-times';
+export const ICON_CHECK      = 'fa-check';
+export const ICON_TIMES      = 'fa-times';
+
+// Cache static element references
+export const MAIN         = document.getElementById('ordbase-main');    
+export const HEADER       = document.getElementById('ordbase-header');
+export const defaultHandler = (event) => console.log('Default handler... nothing happened');
 
 window.addEventListener('load', () => {
     loadSelectClient();

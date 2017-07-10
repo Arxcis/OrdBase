@@ -10,10 +10,26 @@ import { loadSelectClient }    from './loadSelectClient.js';
 //
 export function loadSelectTranslation (client) {
 
-    let view = unpackTemplate(viewTemplate, {
-        bigHeader : 'Ordbase',
-        smallHeader : 'Edit translation',
-    });
+    // Create elements
+    const translationSelect = document.createElement('ordbase-select-translation');
+
+    // Setup header
+    header.textBig          = 'Ordbase';
+    header.textSmall        = 'Select Translation';
+    header.buttonIconLeft   = ICON_HEADER_BARS;
+    header.buttonIconRight1 = ICON_HEADER_ARROW_LEFT;    
+    header.buttonIconRight2 = ICON_HEADER_PLUS;
+
+    // Dependency injection
+    header.buttonHandlerLeft   = defaultHandler;     
+    header.buttonHandlerRight1 = defaultHandler;     
+    header.buttonHandlerRight2 = defaultHandler;  
+    translationSelect.cardButtonHandler = defaultHandler
+
+    // Batch-update DOM
+    main.innerHTML = ''; 
+    header.DOMUpdate();
+    main.appendChild(selectClient);       
 
     //
     // @AJAX - fetch all containers on selected client
