@@ -1,6 +1,8 @@
 <template id="template-key-and-icon">
 
     <style>
+        @import url('/packages/fontawesome.min.css');
+
         :host {
             margin: 0px 10px 0px 10px;
             flex: 0 1 120px;
@@ -11,10 +13,19 @@
         span {
             display: flex;
         }    
+
+        .fa-check {
+            color: var(--ordbase-color-success);
+        }
+
+        .fa-times {
+            color: var(--ordbase-color-danger);
+        }
+
     </style>
 
-    <span class="language-key">{{ languageKey }}</span>
-    <i class="fa {{ fontawesomeClass }} language-icon" aria-hidden="true"></i>
+    <span>{{ languageKey }}</span>
+    <i class="fa" aria-hidden="true"></i>
     
 </template>
 
@@ -32,7 +43,7 @@
         }
         
         set icon(iconClass)  {  
-            this.root.querySelector('i').classList.add(iconClass); 
+            this.root.querySelector('i.fa').classList.toggle(iconClass); 
         }
     }
     customElements.define('ordbase-key-and-icon', OrdbaseKeyAndIcon);

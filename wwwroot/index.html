@@ -6,16 +6,17 @@
 
         <style>
             /* EXTERNAL CSS */
-            @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+            @import url('./packages/fontawesome.min.css');
             @import url('https://fonts.googleapis.com/css?family=Muli');
 
             /* SHARED CSS */
-            @import url('./app/css/shared.css');
             @import url('./app/css/input.css');
+            @import url('./app/css/index.css');
 
         </style>
 
         <script>
+
             function generateShadowRoot(template) {
                 let root = this.createShadowRoot();
                 root.appendChild(document.importNode(template.content, true));
@@ -25,6 +26,7 @@
             function loadTemplate(templateId) {
                 return document.currentScript.ownerDocument.getElementById(templateId);
             }
+            
         </script>
 
         <!--- VIEW COMPONENTS  -->

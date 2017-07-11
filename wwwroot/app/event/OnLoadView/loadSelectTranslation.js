@@ -19,15 +19,14 @@ export function loadSelectTranslation (client) {
     const translationSelect = document.createElement('ordbase-select-translation');
 
     // Setup header
-    App.header.data = {
-        textBig          : 'Ordbase',
-        textSmall        : 'Select Translation',
-        buttonIconLeft   : ICON_HEADER_BARS,
-        buttonIconRight1 : ICON_HEADER_ARROW_LEFT,    
-        buttonIconRight2 : ICON_HEADER_PLUS,
-    };
+    App.header.textBig          = 'Ordbase';
+    App.header.textSmall        = 'Select Translation';
+    App.header.buttonIconLeft   = ICON_HEADER_BARS;
+    App.header.buttonIconRight1 = ICON_HEADER_ARROW_LEFT;    
+    App.header.buttonIconRight2 = ICON_HEADER_PLUS;
     
-    App.header.onClickButtonRight2 = event => loadSelectClient();
+    App.header.onClickButtonRight1 = event => loadSelectClient();
+    App.header.onClickButtonRight2 = event => App.defaultHandler();
 
     // Batch-update DOM
     App.main.removeChild(App.main.firstChild); // @bench towards innerHTML = ''; 
@@ -38,12 +37,13 @@ export function loadSelectTranslation (client) {
     //
     Api.container.getOnClient(client)
             .then(containersOnClient => {
-
+                
                 for(let i = 0; i < containersOnClient.length; i++) {
                     let button = translationSelect.spawnButtonContainer();
+                    let name = containersOnClient[i];
 
-                    button.id       = containersOnClient[i].name;
-                    button.text     = containersOnClient[i].name;
+                    button.id       = name;
+                    button.text     = name;
                     button.selected = '';
 
                     translationSelect.appendButtonContainer(button);
@@ -55,14 +55,18 @@ export function loadSelectTranslation (client) {
     //  @AJAX - Get all translation groups 
     //  @doc template literals - https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Template_literals
     //
-            .then(translationGroups => {
+            .then(translations => {
 
                     
-                    for (let i = 0; i < translationGroups.length; i++) {
+                    for (let i = 0; i < translations.length; i++) {
 
                         let card = translationSelect.spawnCardTranslation();
+                        let translation = translations[i];
 
-                        Object.keys(translationGroups[i].isComplete).forEach((languageKey, isComplete) => {
+                        card.key = translation.key;
+                        card.onClickCard = event => loadEditTranslation(translation.key);
+
+                        Object.keys(translations[i].isComplete).forEach((languageKey, isComplete) => {
                             let keyAndIcon = card.spawnKeyAndIcon();
 
                             keyAndIcon.languageKey = languageKey;

@@ -1,11 +1,8 @@
 <link rel="import" href="./key-and-icon.html">
 
-<!-- ///////////////////// TEMPLATE  //////////////////////// -->
 <template id="template-card-translation">
 
-    <style>
-    /* -------- CARD-TRANSLATION template -----------*/
-    
+    <style>    
         :host {
             width:100%;
         }
@@ -23,7 +20,7 @@
 
             width:100%;
             min-height: 75px;
-            font-size: 4em;
+            font-size: 3em;
         }
 
         button 
@@ -70,9 +67,8 @@
             this.root = generateShadowRoot.call(this, TEMPLATE_CARD_TRANSLATION);
         }
         
-        set key (key) { 
-            this.root.querySelector('span').innerHTML = key;        
-        }
+        set key (key)            { this.root.querySelector('span').innerHTML = key;  }
+        set onClickCard(handler) { this.root.querySelector('button').onclick = handler; }
 
         spawnKeyAndIcon() { 
             return ELEMENT_KEY_AND_ICON.cloneNode(true);            

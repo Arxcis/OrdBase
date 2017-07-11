@@ -1,7 +1,8 @@
 <template id="template-header">
 
         <style>
-            @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+            @import url('/packages/fontawesome.min.css');
+
 
             /* --- HEADER --- */
             :host {           
@@ -88,9 +89,9 @@
 
         set textBig(text)          { this.root.querySelector('#btn-header-mid-big').innerHTML   =  text;    }  
         set textSmall(text)        { this.root.querySelector('#btn-header-mid-small').innerHTML =  text;    }
-        set buttonIconLeft(icon)   { this.root.querySelector('#btn-header-left i.fa').classList.add(icon);   }
-        set buttonIconRight1(icon) { this.root.querySelector('#btn-header-right1 i.fa').classList.add(icon); } 
-        set buttonIconRight2(icon) { this.root.querySelector('#btn-header-right2 i.fa').classList.add(icon); }   
+        set buttonIconLeft(icon)   { this.root.querySelector('#btn-header-left i.fa').setAttribute('class',   `fa ${icon}`); }
+        set buttonIconRight1(icon) { this.root.querySelector('#btn-header-right1 i.fa').setAttribute('class', `fa ${icon}`); } 
+        set buttonIconRight2(icon) { this.root.querySelector('#btn-header-right2 i.fa').setAttribute('class', `fa ${icon}`); }   
        
         set onClickButtonLeft   (handler) { this.root.querySelector('#btn-header-left').onclick   = handler; };
         set onClickButtonRight1 (handler) { this.root.querySelector('#btn-header-right1').onclick = handler; };

@@ -17,7 +17,7 @@ export function loadSelectClient() {
     App.header.textBig          = 'Ordbase';
     App.header.textSmall        = 'Select Client';
     App.header.buttonIconLeft   = ICON_HEADER_SQUARE;
-    App.header.buttonIconRight1 = 'fa-square';    
+    App.header.buttonIconRight1 = ICON_HEADER_NONE;    
     App.header.buttonIconRight2 = ICON_HEADER_PLUS;
 
 

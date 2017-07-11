@@ -2,11 +2,9 @@
 
 <template id="template-button-container">
         <style>
-            
-
             button {
                 height: 75px;
-                font-size: 4em;
+                font-size: 3em;
 
                 background-color: transparent;
                 color: var(--ordbase-color-dark);
@@ -40,7 +38,12 @@
         }
 
         set id (id) { 
-            this.button.id = `container-btn-${id}`; 
+            this.button.setAttribute('id', `container-btn-${id}`); 
+        }
+
+        set text (text)    { 
+            console.log('hehehe')
+            this.button.innerHTML = text; 
         }
 
         set selected (selected) { 
@@ -48,9 +51,6 @@
                 this.button.classList.add('selected');
             else          
                 this.button.classList.remove('selected');           
-        }
-        set text (text)    { 
-            this.button.innerHTML = text; 
         }
     }
     customElements.define('ordbase-button-container', OrdbaseButtonContainer);

@@ -5,13 +5,20 @@
 - .NET Core 1.1.2
 - Enity Framework Core 1.1.2
 - MicrosoftSql Express 2016
-- Git
+- IIS run-time microsoft
+- Github + git
 
 **For detailed package dependencies see OrdBaseCore.csproj**
 
 ####Frontend:
 - Font Awesome for icons
+    + wwwroot/packages/fontawesome.min.css
+    + wwwroot/fonts/fontawesome-webfont.ttf
+    + wwwroot/fonts/fontawesome-webfont.woff
+    + wwwroot/fonts/fontawesome-webfont.woff2
+
 - Google Font Roboto or Mani 
 - Flexbox CSS framework
 - Google Chrome Canary 60+ for development for ES2016 native support.
 - Babel for supporting older browsers in production.
+- Webpack for compiling javascript and minifying and transpiling

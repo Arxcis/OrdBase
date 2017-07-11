@@ -8,9 +8,16 @@
 
         :host {
             display: flex;
+            height: 100%;
         }
 
-        .ordbase-list-container {
+
+        h2 {
+            margin-left: 20px;
+            font-size: 2em;
+        }
+
+        #list-show-containers-on-client {
                 height: 100%;
                 width: 300px;
                 display: flex;
@@ -18,33 +25,32 @@
                 background-color: var(--ordbase-color-light);
         }
 
-        .ordbase-list-container 
-        h2 {
-            margin-left: 20px;
-        }
-
-        .ordbase-list-translation h2 {
-            margin-left: 20px;
-        }
-
-        .ordbase-list-translation {
+        #list-show-translations-on-client {
             display: flex;
             flex-direction: column;
             flex: 1;
         }
 
+        ordbase-button-container {
+            font-size: 1rem;
+        }
+
+        ordbase-card-translation {
+            font-size: 1rem;
+        }
+
     </style>
 
-    <ul id="list-show-containers-on-client" class="ordbase-list-containers">
+    <section id="list-show-containers-on-client">
         <h2>Containers</h2>        
 
         <!--<ordbase-button-container> </ordbase-button-container>-->
         <!--<ordbase-button-container> </ordbase-button-container>-->
         <!--<ordbase-button-container> </ordbase-button-container>-->
 
-    </ul>
+    </section>
 
-    <section id="list-show-translations-on-client" class="ordbase-list-translation">
+    <section id="list-show-translations-on-client">
         <h2>Translations</h2>
 
         <!--<ordbase-card-translation> </ordbase-card-translation>-->

@@ -2,6 +2,7 @@ bin/
 obj/
 .vs/
 packages/
+fonts/
 .DS_Store
 bower_components/
 config.json
