@@ -1,5 +1,4 @@
-
-
+<link rel="import" href="./card-client.html">
 
 <template id="template-select-client">
     <style>
@@ -16,11 +15,9 @@
     <!-- @note SCRIPT WILL INSERT card-client.html HERE -->
     <!-- @note SCRIPT WILL INSERT card-client.html HERE -->
     <!-- @note SCRIPT WILL INSERT card-client.html HERE -->
-    <!-- @note SCRIPT WILL INSERT card-client.html HERE -->                
-
+    <!-- @note SCRIPT WILL INSERT card-client.html HERE -->
     
 </template>
-
 
 <script>
     const TEMPLATE_SELECT_CLIENT = document.currentScript.ownerDocument.getElementById('template-select-client');
@@ -42,9 +39,6 @@
 
         appendCard(card)  {  
             this.root.appendChild(card);      
-        }
-
-        connectedCallback() { 
         }
     }
     customElements.define('ordbase-select-client', OrdbaseSelectClient);

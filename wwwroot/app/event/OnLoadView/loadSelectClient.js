@@ -42,6 +42,7 @@ export function loadSelectClient() {
                                 card.thumbnail     = 'http://placehold.it/250x125/FFC107';
                                 card.buttonHandler = event => loadSelectTranslation(clientObjects[i].name);
 
+                                console.log(clientObjects[i].name);
                                 clientSelect.appendCard(card);
                             };                            
                         })

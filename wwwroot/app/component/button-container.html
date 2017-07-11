@@ -1,24 +1,29 @@
 <!-- ///////////////////// TEMPLATE  //////////////////////// -->
-<style>
-    /* CONTAINER LIST */
-    .ordbase-button-container {
-        height: 75px;
-        font-size: 4em;
 
-        background-color: transparent;
-        color: var(--ordbase-color-dark);
-        border: 1px solid var(--ordbase-color-select);
-    }   
-
-    .ordbase-button-container.selected,
-    .ordbase-button-container:hover {
-        background-color: var(--ordbase-color-select);
-        color: var(--ordbase-color-white);
-    }
-
-</style>
 <template id="template-button-container">
-        <button id="{{ id }}" class="ordbase-button-container {{ selected }}"> {{ text }} </button>
+    <style>
+        /* CONTAINER LIST */
+        .ordbase-button-container {
+            height: 75px;
+            font-size: 4em;
+
+            background-color: transparent;
+            color: var(--ordbase-color-dark);
+            border: 1px solid var(--ordbase-color-select);
+        }   
+
+        .ordbase-button-container.selected,
+        .ordbase-button-container:hover {
+            background-color: var(--ordbase-color-select);
+            color: var(--ordbase-color-white);
+        }
+
+    </style>
+
+    <button id="{{ id }}" class="ordbase-button-container {{ selected }}"> 
+        {{ text }} 
+    </button>
+
 </template>
 
 <script>
@@ -28,19 +33,23 @@
     class OrdbaseButtonContainer extends HTMLElement { 
         constructor() {
             super();
-            this.buffer = TEMPLATE_BUTTON_CONTAINER.content.querySelector('button').cloneNode(true);
-            this.buffer.onclick = event => event.target.classList.toggle('selected');
+            this.root = document.importNode(TEMPLATE_BUTTON_CONTAINER.content, true);
+            this.root.onclick = event => event.target.classList.toggle('selected');            
         }
 
-        set id (id)             { this.buffer.id = `container-btn-${id}`;  }
+        set id (id) { 
+            this.buffer.id = `container-btn-${id}`; 
+        }
+
         set selected (selected) { 
-            if (selected) this.buffer.classList.add('selected');
-            else          this.buffer.classList.remove('selected');
-                             
+            if (selected) 
+                this.buffer.classList.add('selected');
+            else          
+                this.buffer.classList.remove('selected');           
         }
-        set text (text)    { this.buffer.innerHTML = text; }
-
-        connectedCallback(){ this.innerHTML = ''; this.appendChild(this.buffer.cloneNode(true));  }
+        set text (text)    { 
+            this.buffer.innerHTML = text; 
+        }
     }
     customElements.define('ordbase-button-container', OrdbaseButtonContainer);
 </script>

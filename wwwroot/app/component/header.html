@@ -1,6 +1,11 @@
+
+
+<template id="template-header">
 <style>
+    @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
     /* --- HEADER --- */
-    ordbase-header {           
+    :host {           
         display: flex;
         text-align:  center;
         min-height: 100px;
@@ -9,9 +14,12 @@
     }
     /* --------------- */
 
+    button {
+        background-color: transparent;
+        border: none;
+    }
 
     /* HEADER-ICON-BUTTON */
-    ordbase-header 
     .icon-button {
         font-size: 40px;
         flex: 0;
@@ -20,7 +28,6 @@
         justify-content: center;
     }
 
-    ordbase-header 
     .icon-button i {
         width: 100%;
         height: 100%;
@@ -31,13 +38,11 @@
 
 
     /* HEADER-TEXT-BUTTON */
-    ordbase-header 
     .header-text-button {
         flex-grow: 1;
         color: var(--ordbase-color-white);
     }
 
-    ordbase-header 
     .header-text-button 
     h1 {   
         text-align: left;
@@ -46,9 +51,6 @@
     /* --------------- */
 
 </style>
-
-<template id="template-header">
-
 
     <button id="btn-header-left" class="icon-button">
         <i class="fa fa-square" aria-hidden="true"></i>
@@ -89,13 +91,13 @@
 
         set textBig(text)          { this.root.querySelector('#btn-header-mid-big').innerHTML   =  text;    }  
         set textSmall(text)        { this.root.querySelector('#btn-header-mid-small').innerHTML =  text;    }
-        set buttonIconLeft(icon)   { this.root.querySelector('#btn-header-left').classList.add(icon);   }
-        set buttonIconRight1(icon) { this.root.querySelector('#btn-header-right1').classList.add(icon); } 
-        set buttonIconRight2(icon) { this.root.querySelector('#btn-header-right2').classList.add(icon); }   
+        set buttonIconLeft(icon)   { this.root.querySelector('#btn-header-left i.fa').classList.add(icon);   }
+        set buttonIconRight1(icon) { this.root.querySelector('#btn-header-right1 i.fa').classList.add(icon); } 
+        set buttonIconRight2(icon) { this.root.querySelector('#btn-header-right2 i.fa').classList.add(icon); }   
        
-        set onClickButtonLeft   (handler) { this.root.querySelector('#btn-header-left').addEventListener('click', handler);   };
-        set onClickButtonRight1 (handler) { this.root.querySelector('#btn-header-right1').addEventListener('click', handler); };
-        set onClickButtonRight2 (handler) { this.root.querySelector('#btn-header-right2').addEventListener('click', handler); };
+        set onClickButtonLeft   (handler) { this.root.querySelector('#btn-header-left').onclick   = handler; };
+        set onClickButtonRight1 (handler) { this.root.querySelector('#btn-header-right1').onclick = handler; };
+        set onClickButtonRight2 (handler) { this.root.querySelector('#btn-header-right2').onclick = handler; };
 
         connectedCallback() { }
     }

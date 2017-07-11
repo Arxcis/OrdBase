@@ -1,126 +1,5 @@
-<!-- ///////////////////// TEMPLATE  //////////////////////// -->
-<template id="template-key-and-icon">
-
-        <style>
-            :host {
-                margin: 0px 10px 0px 10px;
-                flex: 0 1 120px;
-
-                display: flex;
-            }
-
-            span {
-                display: flex;
-            }    
-        </style>
-
-        <span class="language-key">{{ languageKey }}</span>
-        <i class="fa {{ fontawesomeClass }} language-icon" aria-hidden="true"></i>
-</template>
-
-<script>
-    var   localDoc = document.currentScript.ownerDocument;
-    const TEMPLATE_KEY_AND_ICON = localDoc.getElementById('template-key-and-icon');
-
-    class OrdbaseKeyAndIcon extends HTMLElement { 
-        constructor() {
-            super();
-            this.root = this.createShadowRoot();            
-            this.root.appendChild(document.importNode(TEMPLATE_KEY_AND_ICON.content, true));
-        }
-
-        set languageKey(key) { this.root.querySelector('span').innerHTML = key; }
-        set icon(iconClass)  {  this.root.querySelector('i').classList.add(iconClass); }
-    }
-    customElements.define('ordbase-key-and-icon', OrdbaseKeyAndIcon);
-</script>
-
-
-<!-- ///////////////////// TEMPLATE  //////////////////////// -->
-<template id="template-card-translation">
-
-<style>
-    /* -------- CARD-TRANSLATION template -----------*/
-    
-        :host {
-            width:100%;
-        }
-
-        button {
-            background-color: transparent;
-            border: none; 
-            color: var(--ordbase-color-dark); 
-
-            display: flex;
-            flex-wrap: wrap;
-
-            margin-right: 0px;
-            padding: 0 4% 0 4%;
-
-            width:100%;
-            min-height: 75px;
-            font-size: 4em;
-        }
-
-        button 
-        span {
-            flex: 0 0 100px;
-        }
-
-        button
-        .languages-complete {
-            flex: 1;
-            display: flex;
-            justify-content: flex-end;
-            flex-wrap: wrap;
-        }
-
-        .fa-check {
-            color: var(--ordbase-color-success);
-        }
-
-        .fa-times {
-            color: var(--ordbase-color-danger);
-        }
-    </style>
-
-    <button class="btn-load-translation-editor">
-        <span class="translation-key">{{ translationKey }}</span>
-        <div  class="languages-complete">
-            
-        <!--template id="template-key-and-icon"-->
-        <!--/template -->
-
-        </div>
-    </button>  
-
-</template>
-
-<script>
-    const TEMPLATE_CARD_TRANSLATION  = localDoc.getElementById('template-card-translation');
-    const ELEMENT_KEY_AND_ICON       = document.createElement('ordbase-key-and-icon');
-    
-    class OrdbaseCardTranslation extends HTMLElement { 
-        constructor() {
-            super();
-            this.root = this.createShadowRoot();            
-            this.root.appendChild(document.importNode(TEMPLATE_CARD_TRANSLATION.content, true));
-        }
-        set key (key) { 
-            this.root.querySelector('span').innerHTML = key;        
-        }
-        spawnKeyAndIcon() { 
-            return ELEMENT_KEY_AND_ICON.cloneNode(true);            
-        }
-
-        appendKeyAndIcon(keyAndIcon) { 
-            this.root.querySelector('div').appendChild(keyAndIcon); 
-        }
-    }
-    customElements.define('ordbase-card-translation', OrdbaseCardTranslation);
-
-</script>
-
+<link rel="import" href="./card-translation.html">
+<link rel="import" href="./button-container.html">
 
 
 <!-- ///////////////////// TEMPLATE  //////////////////////// -->
@@ -159,6 +38,8 @@
     <ul id="list-show-containers-on-client" class="ordbase-list-containers">
         <h2>Containers</h2>        
         <!--template id="template-button-container"-->
+        <!--template id="template-button-container"-->
+        <!--template id="template-button-container"-->
         <!--/template-->
     </ul>
 
@@ -166,12 +47,14 @@
         <h2>Translations</h2>
     
         <!--template id="template-card-translation"-->
+        <!--template id="template-card-translation"-->        
+        <!--template id="template-card-translation"-->
         <!-- /template -->
     </section>
 </template>
 
 <script>
-    const TEMPLATE_SELECT_TRANSLATION = localDoc.getElementById('template-select-translation');
+    const TEMPLATE_SELECT_TRANSLATION = document.currentScript.ownerDocument.getElementById('template-select-translation');
     const ELEMENT_BUTON_CONTAINER     = document.createElement('ordbase-button-container');
     const ELEMENT_CARD_TRANSLATION    = document.createElement('ordbase-card-translation');
 
@@ -183,14 +66,20 @@
             this.root.appendChild(document.importNode(TEMPLATE_SELECT_TRANSLATION.content, true));
         }
 
-        spawnButtonContainer ()       { return ELEMENT_BUTON_CONTAINER.cloneNode(true); }
-        appendButtonContainer (btn)   { this.root.querySelector('#list-show-containers-on-client')
-                                                .appendChild(btn); 
+        spawnButtonContainer () {
+             return ELEMENT_BUTON_CONTAINER.cloneNode(true); 
         }
 
-        spawnCardTranslation ()      { return ELEMENT_CARD_TRANSLATION.cloneNode(true);  }
-        appendCardTranslation (card) { this.root.querySelector('#list-show-translations-on-client')
-                                                  .appendChild(card);
+        appendButtonContainer (btn) {
+             this.root.querySelector('#list-show-containers-on-client').appendChild(btn); 
+        }
+
+        spawnCardTranslation () { 
+            return ELEMENT_CARD_TRANSLATION.cloneNode(true);  
+        }
+
+        appendCardTranslation (card) { 
+            this.root.querySelector('#list-show-translations-on-client').appendChild(card);
         }
     }
     customElements.define('ordbase-select-translation', OrdbaseSelectTranslation);

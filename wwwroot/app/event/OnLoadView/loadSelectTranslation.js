@@ -27,6 +27,7 @@ export function loadSelectTranslation (client) {
         buttonIconRight2 : ICON_HEADER_PLUS,
     };
     
+    App.header.onClickButtonRight2 = event => loadSelectClient();
 
     // Batch-update DOM
     App.main.removeChild(App.main.firstChild); // @bench towards innerHTML = ''; 
