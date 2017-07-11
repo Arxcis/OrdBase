@@ -24,7 +24,7 @@ html, body {
 
 /* @doc remove button styling - https://stackoverflow.com/questions/22672368/how-to-make-a-transparent-html-button*/
 /* @doc CSS cursors  - https://developer.mozilla.org/en/docs/Web/CSS/cursor */
-input, button { 
+body /deep/ input, button { 
     border: none; 
     background-color: transparent;
     cursor: pointer;
@@ -32,10 +32,10 @@ input, button {
     color: var(--ordbase-color-dark); 
  } 
 
-fieldset {
+body /deep/ fieldset {
     border: none;
 }
 
-h2 {
+body /deep/ h2 {
     font-size: 2.5rem;
 }

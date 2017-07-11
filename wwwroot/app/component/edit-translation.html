@@ -1,62 +1,34 @@
-<style>
-
-    /* ------------- FORM ------------- */
-    ordbase-edit-translation 
-    form {
-        height: 100%;
-        margin-left: 20px;
-        font-size: var(--form-font-size);
-    }
-
-    ordbase-edit-translation 
-    form label {
-        color: rgb(84, 84, 84);
-        font-size: 1.5em;
-        font-weight: bold;
-    }
-
-    ordbase-edit-translation 
-    form #checkbox-counter {
-        font-size: 1.5em;
-    }
-
-    /* --------- TRANSLATION FIELDSET ---------- */
-
-    .fieldset-translation
-    .ordbase-input {
-        font-size: 2em;
-        margin: 0px 20px 10px 4px;
-    }
-
-    .fieldset-translation
-    .input-checkbox {
-        width: 25px;
-        height:25px;
-        border: 1px solid #4CAF50;
-    }
-
-
-    .fieldset-translation
-    .input-lang-and-checkbox {
-        display: flex;
-    }
-
-
-    .fieldset-translation
-    .input-label {
-        font-size: 1.2em;
-    }
-
-
-    .fieldset-translation
-    .input-checkbox-div {
-        background-color: white;
-    }
-</style>
+<link rel="import" href="./lib/fieldset-translation.html">
 
 <template id="template-edit-translation">
+        <style>
 
-        <ordbase-list-container></ordbase-list-container>
+            /* ------------- FORM ------------- */ 
+            form {
+                height: 100%;
+                margin-left: 20px;
+                font-size: var(--form-font-size);
+            }
+ 
+            form label {
+                color: rgb(84, 84, 84);
+                font-size: 1.5em;
+                font-weight: bold;
+            }
+ 
+            form #checkbox-counter {
+                font-size: 1.5em;
+            }
+
+        </style>
+
+        <ul id="list-pick-a-container" class="ordbase-list-containers">
+            <h2>Containers</h2>        
+            <!--template id="template-button-container"-->
+            <!--template id="template-button-container"-->
+            <!--template id="template-button-container"-->
+            <!--/template-->
+        </ul>
 
         <form class="ordbase-form-translation">
             
@@ -64,21 +36,10 @@
 
             <div id="fieldset-one-for-each-language">
 
-                <!-- @note SCRIPT WILL GENERATE ELEMENTS DYNAMICLY HERE BASED ON THIS TEMPLATE -->
-                <template id="template-fieldset-translation">
-                    
-                    <fieldset class="fieldset-translation">
-                        <label class="input-label" for="{{ inputId }}">{{ languageCode }}</label>
-                        
-                        <span class="input-lang-and-checkbox">
-                                <input id="{{ inputId }}" class="ordbase-input" type="text" value="{{ inputValue }}"></input>
-                                <span class="input-checkbox-div">
-                                    <input type="checkbox" class="input-checkbox">
-                                </span>
-                        </span>
-                    </fieldset>
-
-                </template>
+                <!-- @note SCRIPT WILL GENERATE fieldset-translation.html DYNAMICLY HERE BASED ON THIS TEMPLATE -->
+                <!-- @note SCRIPT WILL GENERATE fieldset-translation.html DYNAMICLY HERE BASED ON THIS TEMPLATE -->
+                <!-- @note SCRIPT WILL GENERATE fieldset-translation.html DYNAMICLY HERE BASED ON THIS TEMPLATE -->
+                <!-- @note SCRIPT WILL GENERATE fieldset-translation.html DYNAMICLY HERE BASED ON THIS TEMPLATE -->
 
             </div>
 
@@ -89,9 +50,7 @@
 
                 <br><br>
 
-                <button id="btn-form-submit-translation" class="ordbase-btn-form-submit" type="submit"> 
-                    {{ submitButtonText }}
-                </button>
+
                 
             </fieldset>
         </form>
@@ -100,6 +59,7 @@
 
 <script>
     let TEMPLATE_EDIT_TRANSLATION = document.currentScript.ownerDocument.getElementById('template-edit-translation');
+    let ELEMENT_FIELDSET_TRANSLATION = document.createElement('ordbase-fieldset-translation');
 
     class OrdbaseEditTranslation extends HTMLElement {
 

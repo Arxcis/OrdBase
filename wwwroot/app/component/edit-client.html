@@ -1,70 +1,71 @@
-<style>
-
-    ordbase-edit-client {
-        height: 100%;
-    }
-    ordbase-edit-client
-    main {
-        height: 100%;
-        display: flex;
-
-    }
-
-    /* ------------- FORM ------------- */
-
-    ordbase-edit-client 
-    form {
-        font-size: var(--form-font-size);
-    }
-
-    ordbase-edit-client form 
-    label {
-        color: rgb(84, 84, 84);
-        font-size: 1.5em;
-        font-weight: bold;
-    }
-
-    ordbase-edit-client form fieldset
-    .ordbase-input {
-        font-size: 2em;
-        margin: 0px 20px 10px 4px;
-    }
-
-</style>
+<link rel="import" href="./lib/card-translation.html">
+<link rel="import" href="./lib/card-client.html">
 
 <template id="template-edit-client">
+
+    <style>
+        :host {
+            height: 100%;
+            display: flex;
+        }
         
-        <ordbase-list-container></ordbase-list-container>
+        /* ------------- FORM ------------- */
+        form {
+            font-size: var(--form-font-size);
+        }
 
-        <form>
+        form 
+        label {
+            color: rgb(84, 84, 84);
+            font-size: 1.5em;
+            font-weight: bold;
+        }
 
-            <fieldset>
-                <label for="form-client-name">Name</label>
-                <input id="form-client-name" class="ordbase-input" type="text" data-min-size="20">
-            </fieldset>
+         form fieldset
+        .ordbase-input {
+            font-size: 2em;
+            margin: 0px 20px 10px 4px;
+        }
 
-            <fieldset>
-                <label for="form-client-picture">Nettadresse</label>
-                <input id="form-client-picture" class="ordbase-input" type="text" data-min-size="20">
-            </fieldset>
+    </style>
+  
+    <ul id="list-show-containers-on-client" class="ordbase-list-containers">
+        <h2>Containers</h2>        
+        <!--template id="template-button-container"-->
+        <!--template id="template-button-container"-->
+        <!--template id="template-button-container"-->
+        <!--/template-->
+    </ul>
 
-            <fieldset>
-                <label for="form-client-homepage">Bildeadresse</label>
-                <input id="form-client-homepage" class="ordbase-input" type="text" data-min-size="20">
-            </fieldset>
+    <form>
 
-            <fieldset>
-                <label for="form-client-name">Api nøkkel</label>
-                <input id="form-client-name" class="ordbase-input" type="text" data-min-size="20">
-            </fieldset>
-            
-            <br>
-            <br>
+        <fieldset>
+            <label for="form-client-name">Name</label>
+            <input id="form-client-name" class="ordbase-input" type="text" data-min-size="20">
+        </fieldset>
 
-            <button id="btn-form-client-submit" class="ordbase-btn-form-submit" type="submit"> Lagre</button>
-        </form>
+        <fieldset>
+            <label for="form-client-picture">Nettadresse</label>
+            <input id="form-client-picture" class="ordbase-input" type="text" data-min-size="20">
+        </fieldset>
+
+        <fieldset>
+            <label for="form-client-homepage">Bildeadresse</label>
+            <input id="form-client-homepage" class="ordbase-input" type="text" data-min-size="20">
+        </fieldset>
+
+        <fieldset>
+            <label for="form-client-name">Api nøkkel</label>
+            <input id="form-client-name" class="ordbase-input" type="text" data-min-size="20">
+        </fieldset>
         
-        <ordbase-card-client></ordbase-card-client>
+        <br>
+        <br>
+
+        <button id="btn-form-client-submit" class="ordbase-btn-form-submit" type="submit"> Lagre</button>
+    </form>
+    
+    <ordbase-card-client></ordbase-card-client>
 
 </template>
 

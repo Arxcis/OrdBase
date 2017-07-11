@@ -1,73 +1,71 @@
-
-
 <template id="template-header">
-<style>
-    @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
-    /* --- HEADER --- */
-    :host {           
-        display: flex;
-        text-align:  center;
-        min-height: 100px;
-        background-color: var(--ordbase-color-dark);
-        color: var(--ordbase-color-white);
-    }
-    /* --------------- */
+        <style>
+            @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
-    button {
-        background-color: transparent;
-        border: none;
-    }
+            /* --- HEADER --- */
+            :host {           
+                display: flex;
+                text-align:  center;
+                min-height: 100px;
+                background-color: var(--ordbase-color-dark);
+                color: var(--ordbase-color-white);
+            }
+            /* --------------- */
 
-    /* HEADER-ICON-BUTTON */
-    .icon-button {
-        font-size: 40px;
-        flex: 0;
-        flex-basis: 130px;
-        display: flex;
-        justify-content: center;
-    }
+            button {
+                background-color: transparent;
+                border: none;
+            }
 
-    .icon-button i {
-        width: 100%;
-        height: 100%;
+            /* HEADER-ICON-BUTTON */
+            .icon-button {
+                font-size: 40px;
+                flex: 0;
+                flex-basis: 130px;
+                display: flex;
+                justify-content: center;
+            }
 
-        color: var(--ordbase-color-white);
-    }
-    /* --------------- */
+            i {
+                width: 100%;
+                height: 100%;
+
+                color: var(--ordbase-color-white);
+            }
+            /* --------------- */
 
 
-    /* HEADER-TEXT-BUTTON */
-    .header-text-button {
-        flex-grow: 1;
-        color: var(--ordbase-color-white);
-    }
+            /* HEADER-TEXT-BUTTON */
+            .header-text-button {
+                flex-grow: 1;
+                color: var(--ordbase-color-white);
+            }
 
-    .header-text-button 
-    h1 {   
-        text-align: left;
-        font-size: 36px;
-    }
-    /* --------------- */
+            h1 {   
+                text-align: left;
+                font-size: 36px;
+            }
+            /* --------------- */
 
-</style>
+        </style>
 
-    <button id="btn-header-left" class="icon-button">
-        <i class="fa fa-square" aria-hidden="true"></i>
-    </button>
+        <button id="btn-header-left" class="icon-button">
+            <i class="fa fa-square" aria-hidden="true"></i>
+        </button>
 
-    <button id="btn-header-mid" class="header-text-button">
-        <h1 id="btn-header-mid-big">  </h1>
-        <h3 id="btn-header-mid-small"></h3>
-    </button>
+        <button id="btn-header-mid" class="header-text-button">
+            <h1 id="btn-header-mid-big">  </h1>
+            <h3 id="btn-header-mid-small"></h3>
+        </button>
 
-    <button id="btn-header-right1" class="icon-button">
-        <i class="fa fa-square" aria-hidden="true"></i>
-    </button>
+        <button id="btn-header-right1" class="icon-button">
+            <i class="fa fa-square" aria-hidden="true"></i>
+        </button>
 
-    <button id="btn-header-right2" class="icon-button">
-        <i class="fa fa-plus" aria-hidden="true"></i>
-    </button>
+        <button id="btn-header-right2" class="icon-button">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </button>
 
 </template>
 
