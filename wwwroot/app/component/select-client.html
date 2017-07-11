@@ -12,15 +12,15 @@
         }
     </style>
 
-    <!-- @note SCRIPT WILL INSERT card-client.html HERE -->
-    <!-- @note SCRIPT WILL INSERT card-client.html HERE -->
-    <!-- @note SCRIPT WILL INSERT card-client.html HERE -->
-    <!-- @note SCRIPT WILL INSERT card-client.html HERE -->
+    <!-- <ordbase-card-client> </ordbase-card-client> -->
+    <!-- <ordbase-card-client> </ordbase-card-client> -->
+    <!-- <ordbase-card-client> </ordbase-card-client> -->
+    <!-- <ordbase-card-client> </ordbase-card-client> -->
     
 </template>
 
 <script>
-    const TEMPLATE_SELECT_CLIENT = document.currentScript.ownerDocument.getElementById('template-select-client');
+    const TEMPLATE_SELECT_CLIENT = loadTemplate('template-select-client');
     const ELEMENT_CARD_CLIENT    = document.createElement('ordbase-card-client');
 
     // @doc empty javascript array - https://appendto.com/2016/02/empty-array-javascript/
@@ -29,8 +29,7 @@
 
         constructor() {
             super();
-            this.root = this.createShadowRoot();
-            this.root.appendChild(document.importNode(TEMPLATE_SELECT_CLIENT.content, true));
+            this.root = generateShadowRoot.call(this, TEMPLATE_SELECT_CLIENT);
         }
 
         spawnCard()       {  

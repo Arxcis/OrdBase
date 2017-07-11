@@ -1,64 +1,72 @@
+<link rel="import" href="./lib/button-submit.html">
+<link rel="import" href="./lib/button-container.html">
 <link rel="import" href="./lib/fieldset-translation.html">
 
 <template id="template-edit-translation">
-        <style>
+   
+    <style>
+        
+        form {
+            height: 100%;
+            margin-left: 20px;
+            font-size: var(--form-font-size);
+        }
 
-            /* ------------- FORM ------------- */ 
-            form {
-                height: 100%;
-                margin-left: 20px;
-                font-size: var(--form-font-size);
-            }
- 
-            form label {
-                color: rgb(84, 84, 84);
-                font-size: 1.5em;
-                font-weight: bold;
-            }
- 
-            form #checkbox-counter {
-                font-size: 1.5em;
-            }
+        fieldset {
+            border: none;
+        }
 
-        </style>
+        label {
+            color: rgb(84, 84, 84);
+            font-size: 1.5em;
+            font-weight: bold;
+        }
 
-        <ul id="list-pick-a-container" class="ordbase-list-containers">
-            <h2>Containers</h2>        
-            <!--template id="template-button-container"-->
-            <!--template id="template-button-container"-->
-            <!--template id="template-button-container"-->
-            <!--/template-->
-        </ul>
+        #checkbox-counter {
+            font-size: 1.5em;
+        }
 
-        <form class="ordbase-form-translation">
-            
-            <h2> {{ translationKey }} </h2>
+        #list-pick-a-container {
+            display: flex;
+            flex-direction: column;
+        }
 
-            <div id="fieldset-one-for-each-language">
-
-                <!-- @note SCRIPT WILL GENERATE fieldset-translation.html DYNAMICLY HERE BASED ON THIS TEMPLATE -->
-                <!-- @note SCRIPT WILL GENERATE fieldset-translation.html DYNAMICLY HERE BASED ON THIS TEMPLATE -->
-                <!-- @note SCRIPT WILL GENERATE fieldset-translation.html DYNAMICLY HERE BASED ON THIS TEMPLATE -->
-                <!-- @note SCRIPT WILL GENERATE fieldset-translation.html DYNAMICLY HERE BASED ON THIS TEMPLATE -->
-
-            </div>
-
-            <br><br><br>
-            
-            <fieldset>
-                <label id="checkbox-counter">0/4 ferdig</label>
-
-                <br><br>
+    </style>
 
 
-                
-            </fieldset>
-        </form>
+    <section id="list-pick-a-container" class="ordbase-list-containers">
+        <h2>Containers</h2>   
+
+        <!--<ordbase-button-container></ordbase-button-container>-->
+        <!--<ordbase-button-container></ordbase-button-container>-->
+        <!--<ordbase-button-container></ordbase-button-container>-->
+        
+    </section>
+
+    <form class="ordbase-form-translation">
+        
+        <h2> {{ translationKey }} </h2>
+
+        <div id="fieldset-one-for-each-language">
+
+            <!-- <ordbase-fieldset-translation> </ordbase-fieldset-translation>-->
+            <!-- <ordbase-fieldset-translation> </ordbase-fieldset-translation> -->
+            <!-- <ordbase-fieldset-translation> </ordbase-fieldset-translation> -->
+
+        </div>
+
+        
+        <fieldset>
+            <label id="checkbox-counter">0/4 ferdig</label>
+
+            <ordbase-button-submit></ordbase-button-submit>
+        </fieldset>
+    </form>
 
 </template>
 
 <script>
-    let TEMPLATE_EDIT_TRANSLATION = document.currentScript.ownerDocument.getElementById('template-edit-translation');
+    let TEMPLATE_EDIT_TRANSLATION = loadTemplate('template-edit-translation');
     let ELEMENT_FIELDSET_TRANSLATION = document.createElement('ordbase-fieldset-translation');
 
     class OrdbaseEditTranslation extends HTMLElement {

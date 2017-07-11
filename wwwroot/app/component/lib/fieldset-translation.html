@@ -1,35 +1,39 @@
 <template id="template-fieldset-translation">
 
         <style>
-                .ordbase-input {
-                    font-size: 2em;
-                    margin: 0px 20px 10px 4px;
-                }
+            fieldset {
+                border: none;
+            }
 
-                .input-checkbox {
-                    width: 25px;
-                    height:25px;
-                    border: 1px solid #4CAF50;
-                }
+            .ordbase-input {
+                font-size: 2em;
+                margin: 0px 20px 10px 4px;
+            }
 
-
-                .input-lang-and-checkbox {
-                    display: flex;
-                }
-
-
-                .input-label {
-                    font-size: 1.2em;
-                }
+            .input-checkbox {
+                width: 25px;
+                height:25px;
+                border: 1px solid #4CAF50;
+            }
 
 
-                .input-checkbox-div {
-                    background-color: white;
-                }
+            .input-lang-and-checkbox {
+                display: flex;
+            }
+
+
+            .input-label {
+                font-size: 1.2em;
+            }
+
+
+            .input-checkbox-div {
+                background-color: white;
+            }
         </style>
 
 
-        <fieldset class="fieldset-translation">
+        <fieldset>
             <label class="input-label" for="{{ inputId }}">{{ languageCode }}</label>
             
             <span class="input-lang-and-checkbox">
@@ -43,14 +47,13 @@
 </template>
 
 <script>
-    const TEMPLATE_FIELDSET_TRANSLATION = document.currentScript.ownerDocument.getElementById('template-fieldset-translation');
+    const TEMPLATE_FIELDSET_TRANSLATION = loadTemplate('template-fieldset-translation');
 
     class OrdbaseFieldsetTranslation extends HTMLElement {
 
         constructor() {
             super();
-            this.root = this.createShadowRoot();
-            this.root.appendChild(TEMPLATE_EDIT_TRANSLATION.content.cloneNode(true));
+            this.root = generateShadowRoot.call(this, TEMPLATE_EDIT_TRANSLATION);
         }
     }
     customElements.define('ordbase-fieldset-translation', OrdbaseFieldsetTranslation);

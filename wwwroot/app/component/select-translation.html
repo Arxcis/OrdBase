@@ -54,7 +54,7 @@
 </template>
 
 <script>
-    const TEMPLATE_SELECT_TRANSLATION = document.currentScript.ownerDocument.getElementById('template-select-translation');
+    const TEMPLATE_SELECT_TRANSLATION = loadTemplate('template-select-translation');
     const ELEMENT_BUTON_CONTAINER     = document.createElement('ordbase-button-container');
     const ELEMENT_CARD_TRANSLATION    = document.createElement('ordbase-card-translation');
 
@@ -62,8 +62,7 @@
 
         constructor() {
             super();
-            this.root = this.createShadowRoot();
-            this.root.appendChild(document.importNode(TEMPLATE_SELECT_TRANSLATION.content, true));
+            this.root = generateShadowRoot.call(this, TEMPLATE_SELECT_TRANSLATION);
         }
 
         spawnButtonContainer () {

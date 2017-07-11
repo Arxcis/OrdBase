@@ -60,14 +60,13 @@
 </template>
 
 <script>
-    const TEMPLATE_CARD_TRANSLATION  = document.currentScript.ownerDocument.getElementById('template-card-translation');
+    const TEMPLATE_CARD_TRANSLATION  = loadTemplate('template-card-translation');
     const ELEMENT_KEY_AND_ICON       = document.createElement('ordbase-key-and-icon');
     
     class OrdbaseCardTranslation extends HTMLElement { 
         constructor() {
             super();
-            this.root = this.createShadowRoot();            
-            this.root.appendChild(document.importNode(TEMPLATE_CARD_TRANSLATION.content, true));
+            this.root = generateShadowRoot.call(this, TEMPLATE_CARD_TRANSLATION);
         }
         
         set key (key) { 
@@ -85,7 +84,3 @@
     customElements.define('ordbase-card-translation', OrdbaseCardTranslation);
 
 </script>
-
-
-this.root = this.createShadowRoot();
-this.root.innerHTML = CSS + HTML;

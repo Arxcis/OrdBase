@@ -71,7 +71,7 @@
 
 
 <script>
-    const TEMPLATE_HEADER = document.currentScript.ownerDocument.getElementById('template-header');
+    const TEMPLATE_HEADER = loadTemplate('template-header');
 
     const ICON_HEADER_NONE       = '';
     const ICON_HEADER_PLUS       = 'fa-plus';
@@ -83,8 +83,7 @@
 
         constructor() {
             super();
-            this.root = this.createShadowRoot();
-            this.root.appendChild(document.importNode(TEMPLATE_HEADER.content, true));
+            this.root = generateShadowRoot.call(this, TEMPLATE_HEADER);
         }
 
         set textBig(text)          { this.root.querySelector('#btn-header-mid-big').innerHTML   =  text;    }  

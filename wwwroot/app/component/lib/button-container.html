@@ -1,53 +1,55 @@
 <!-- ///////////////////// TEMPLATE  //////////////////////// -->
 
 <template id="template-button-container">
-    <style>
+        <style>
 
-        button {
-            height: 75px;
-            font-size: 4em;
+            button {
+                height: 75px;
+                font-size: 4em;
 
-            background-color: transparent;
-            color: var(--ordbase-color-dark);
-            border: 1px solid var(--ordbase-color-select);
-        }   
+                background-color: transparent;
+                color: var(--ordbase-color-dark);
+                border: 1px solid var(--ordbase-color-select);
+            }   
 
-        button.selected,
-        button:hover {
-            background-color: var(--ordbase-color-select);
-            color: var(--ordbase-color-white);
-        } 
-    </style>
+            button.selected,
+            button:hover {
+                background-color: var(--ordbase-color-select);
+                color: var(--ordbase-color-white);
+            } 
+        </style>
 
-    <button id="{{ id }}" class="ordbase-btn-select-container"> 
-        {{ text }} 
-    </button>
+        <button id="{{ id }}" class="ordbase-btn-select-container"> 
+            {{ text }} 
+        </button>
 
 </template>
 
 <script>
-    var   localDoc = document.currentScript.ownerDocument;
-
-    const TEMPLATE_BUTTON_CONTAINER = localDoc.getElementById('template-button-container');
+    const TEMPLATE_BUTTON_CONTAINER = loadTemplate('template-button-container');
+    
     class OrdbaseButtonContainer extends HTMLElement { 
         constructor() {
             super();
-            this.root = document.importNode(TEMPLATE_BUTTON_CONTAINER.content, true);
-            this.root.onclick = event => event.target.classList.toggle('selected');            
+
+            this.root = generateShadowRoot.call(this, TEMPLATE_BUTTON_CONTAINER);
+
+            this.button = this.root.querySelector('button');
+            this.button.onclick = event => event.target.classList.toggle('selected');            
         }
 
         set id (id) { 
-            this.buffer.id = `container-btn-${id}`; 
+            this.button.id = `container-btn-${id}`; 
         }
 
         set selected (selected) { 
             if (selected) 
-                this.buffer.classList.add('selected');
+                this.button.classList.add('selected');
             else          
-                this.buffer.classList.remove('selected');           
+                this.button.classList.remove('selected');           
         }
         set text (text)    { 
-            this.buffer.innerHTML = text; 
+            this.button.innerHTML = text; 
         }
     }
     customElements.define('ordbase-button-container', OrdbaseButtonContainer);

@@ -42,14 +42,13 @@
 
 <script>
 
-    const TEMPLATE_CARD_CLIENT = document.currentScript.ownerDocument.getElementById('template-card-client');
+    const TEMPLATE_CARD_CLIENT = loadTemplate('template-card-client');
 
     class OrdbaseCardClient extends HTMLElement {
 
         constructor() {
             super();
-            this.root = this.createShadowRoot();
-            this.root.appendChild(document.importNode(TEMPLATE_CARD_CLIENT.content, true));
+            this.root = generateShadowRoot.call(this, TEMPLATE_CARD_CLIENT);
         }
 
         set heading (name){

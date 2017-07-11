@@ -19,13 +19,12 @@
 </template>
 
 <script>
-    const TEMPLATE_KEY_AND_ICON = document.currentScript.ownerDocument.getElementById('template-key-and-icon');
+    const TEMPLATE_KEY_AND_ICON = loadTemplate('template-key-and-icon');
 
     class OrdbaseKeyAndIcon extends HTMLElement { 
         constructor() {
             super();
-            this.root = this.createShadowRoot();            
-            this.root.appendChild(document.importNode(TEMPLATE_KEY_AND_ICON.content, true));
+            this.root = generateShadowRoot.call(this, TEMPLATE_KEY_AND_ICON);
         }
 
         set languageKey(key) { this.root.querySelector('span').innerHTML = key; }

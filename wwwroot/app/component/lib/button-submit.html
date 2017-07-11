@@ -23,13 +23,12 @@
 </template>
 
 <script>
-    const TEMPLATE_BUTTON_SUBMIT = document.currentScript.ownerDocument.getElementById('template-button-submit');
+    const TEMPLATE_BUTTON_SUBMIT = loadTemplate('template-button-submit');
 
     class OrdbaseButtonSubmit extends HTMLElement {
         constructor(){
             super();
-            this.root = this.createShadowRoot();
-            this.root.appendChild(document.importNode(TEMPLATE_BUTTON_SUBMIT.content, true));
+            this.root = generateShadowRoot.call(this, TEMPLATE_BUTTON_SUBMIT);
         }
     }
 </script>

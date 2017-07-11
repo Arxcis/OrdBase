@@ -1,4 +1,5 @@
-<link rel="import" href="./lib/card-translation.html">
+<link rel="import" href="./lib/button-submit.html">
+<link rel="import" href="./lib/button-container.html">
 <link rel="import" href="./lib/card-client.html">
 
 <template id="template-edit-client">
@@ -9,32 +10,34 @@
             display: flex;
         }
         
-        /* ------------- FORM ------------- */
         form {
             font-size: var(--form-font-size);
         }
 
-        form 
         label {
             color: rgb(84, 84, 84);
             font-size: 1.5em;
             font-weight: bold;
         }
 
-         form fieldset
-        .ordbase-input {
+        input {
             font-size: 2em;
             margin: 0px 20px 10px 4px;
+        }
+
+        fieldset {
+            border: none;
         }
 
     </style>
   
     <ul id="list-show-containers-on-client" class="ordbase-list-containers">
         <h2>Containers</h2>        
-        <!--template id="template-button-container"-->
-        <!--template id="template-button-container"-->
-        <!--template id="template-button-container"-->
-        <!--/template-->
+
+        <!--<ordbase-button-container> </ordbase-button-container>-->
+        <!--<ordbase-button-container> </ordbase-button-container>-->
+        <!--<ordbase-button-container> </ordbase-button-container>-->
+
     </ul>
 
     <form>
@@ -62,7 +65,7 @@
         <br>
         <br>
 
-        <button id="btn-form-client-submit" class="ordbase-btn-form-submit" type="submit"> Lagre</button>
+        <ordbase-button-submit></ordbase-button-submit>
     </form>
     
     <ordbase-card-client></ordbase-card-client>
@@ -70,7 +73,7 @@
 </template>
 
 <script>
-    let TEMPLATE_EDIT_CLIENT = document.currentScript.ownerDocument.getElementById('template-edit-client');
+    let TEMPLATE_EDIT_CLIENT = loadTemplate('template-edit-client');
 
     class OrdbaseEditClient extends HTMLElement {
 

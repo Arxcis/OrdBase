@@ -1,4 +1,4 @@
-body /deep/ .ordbase-input { 
+.ordbase-input { 
     outline: none;
     display: block; 
     border-style: solid;
@@ -7,10 +7,10 @@ body /deep/ .ordbase-input {
     border-width: 0 0 1px 0;
 }
 
-body /deep/ .ordbase-input:focus {
+.ordbase-input:focus {
     box-shadow: 0 0 2px 2px var(--ordbase-color-select);
 }
 
-body /deep/ .ordbase-input:disabled {
+.ordbase-input:disabled {
     background: none;
 }
