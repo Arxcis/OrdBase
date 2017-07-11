@@ -9,8 +9,17 @@
         color: var(--ordbase-color-dark);
     }
 
+    input, button { 
+        border: none; 
+        padding: none;
+        color: var(--ordbase-color-dark); 
+    } 
+
     ordbase-card-client
     button {
+        background-color: transparent;
+        border: none; 
+        
         padding: 0px;
         cursor: pointer;
         color: var(--ordbase-color-dark);
@@ -49,33 +58,28 @@
 
         constructor() {
             super();
-            this.buffer = TEMPLATE_CARD_CLIENT.content.cloneNode(true);
+            this.root = this.createShadowRoot();
+            this.root.appendChild(document.importNode(TEMPLATE_CARD_CLIENT.content, true));
         }
 
         set heading (name){
-            this.buffer.querySelector('h2').innerHTML = name || '{{ null heading }}';
+            this.root.querySelector('h2').innerHTML = name || '{{ null heading }}';
             this._name = name;
         }
         
         set text(text) {
-            this.buffer.querySelector('p').innerHTML = text || '{{ null text }}';
+            this.root.querySelector('p').innerHTML = text || '{{ null text }}';
         }
 
         set thumbnail (url) { 
-            this.buffer.querySelector('img').src = url;
+            this.root.querySelector('img').src = url;
         }
 
         set buttonHandler(handler){
-            this.buffer.querySelector('button').onclick = event => handler(this._name);
+            this.root.querySelector('button').onclick =  handler;
         }
 
-        render() {
-            this.innerHTML = '';
-            this.appendChild(this.buffer);            
-        }
-        
         connectedCallback() {
-            this.render();
         }
     }
     customElements.define('ordbase-card-client', OrdbaseCardClient);

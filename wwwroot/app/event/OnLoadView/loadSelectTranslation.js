@@ -26,21 +26,16 @@ export function loadSelectTranslation (client) {
         buttonIconRight1 : ICON_HEADER_ARROW_LEFT,    
         buttonIconRight2 : ICON_HEADER_PLUS,
     };
-        // Dependency injection
-    App.header.handlerButtonLeft   = App.defaultHandler;     
-    App.header.handlerButtonRight1 = App.defaultHandler;     
-    App.header.handlerButtonRight2 = App.defaultHandler;  
     
 
     // Batch-update DOM
-    App.header.DOMUpdate();
     App.main.removeChild(App.main.firstChild); // @bench towards innerHTML = ''; 
     App.main.appendChild(translationSelect);       
 
     //
     // @AJAX - fetch all containers on selected client
     //
-    api.container.getOnClient(client)
+    Api.container.getOnClient(client)
             .then(containersOnClient => {
 
                 for(let i = 0; i < containersOnClient.length; i++) {
@@ -50,10 +45,10 @@ export function loadSelectTranslation (client) {
                     button.text     = containersOnClient[i].name;
                     button.selected = '';
 
-                    translationSelect.appendContainerButton(button);
+                    translationSelect.appendButtonContainer(button);
                 }
 
-                return api.translation.getGroupOnClient(client);
+                return Api.translation.getGroupOnClient(client);
             })
     //
     //  @AJAX - Get all translation groups 
@@ -61,22 +56,20 @@ export function loadSelectTranslation (client) {
     //
             .then(translationGroups => {
 
-                    let groupCounts = group
                     
-                    for (let i = 0; i < groupCount; i++) {
-                        let card = translationSelect.spawnCardTranslation();
-                        let group  = translationGroups[i];
+                    for (let i = 0; i < translationGroups.length; i++) {
 
-                        Object.keys(group.isComplete).forEach((languageKey, isComplete) => {
-                            let keyAndIcon = translationSelect.spawnKeyAndIcon();
+                        let card = translationSelect.spawnCardTranslation();
+
+                        Object.keys(translationGroups[i].isComplete).forEach((languageKey, isComplete) => {
+                            let keyAndIcon = card.spawnKeyAndIcon();
 
                             keyAndIcon.languageKey = languageKey;
                             keyAndIcon.icon = (isComplete) ? ICON_CHECK : ICON_TIMES;
 
-                            button.appendKeyAndIcon(keyAndIcon);
+                            card.appendKeyAndIcon(keyAndIcon);
                         });
-
-                        translationSelect.appendTranslationButton(button);
+                        translationSelect.appendCardTranslation(card);
                     }             
             })
             .catch(reason => console.error('Error:', reason));

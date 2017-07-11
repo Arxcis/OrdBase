@@ -48,7 +48,8 @@
 </style>
 
 <template id="template-header">
-    
+
+
     <button id="btn-header-left" class="icon-button">
         <i class="fa fa-square" aria-hidden="true"></i>
     </button>
@@ -71,6 +72,7 @@
 
 <script>
     const TEMPLATE_HEADER = document.currentScript.ownerDocument.getElementById('template-header');
+
     const ICON_HEADER_NONE       = '';
     const ICON_HEADER_PLUS       = 'fa-plus';
     const ICON_HEADER_BARS       = 'fa-bars';
@@ -81,32 +83,21 @@
 
         constructor() {
             super();
-            this.resetBuffer();
-        }
-        
-        resetBuffer() {
-            this.buffer = TEMPLATE_HEADER.content.cloneNode(true); 
+            this.root = this.createShadowRoot();
+            this.root.appendChild(document.importNode(TEMPLATE_HEADER.content, true));
         }
 
-        render() {
-            this.innerHTML = '';
-            this.appendChild(this.buffer.cloneNode(true));
-            this.resetBuffer();
-        }
-
-        set textBig(text)          { this.buffer.querySelector('#btn-header-mid-big').innerHTML   =  text;    }  
-        set textSmall(text)        { this.buffer.querySelector('#btn-header-mid-small').innerHTML =  text;    }
-        set buttonIconLeft(icon)   { this.buffer.querySelector('#btn-header-left').classList.add(icon);   }
-        set buttonIconRight1(icon) { this.buffer.querySelector('#btn-header-right1').classList.add(icon); } 
-        set buttonIconRight2(icon) { this.buffer.querySelector('#btn-header-right2').classList.add(icon); }   
+        set textBig(text)          { this.root.querySelector('#btn-header-mid-big').innerHTML   =  text;    }  
+        set textSmall(text)        { this.root.querySelector('#btn-header-mid-small').innerHTML =  text;    }
+        set buttonIconLeft(icon)   { this.root.querySelector('#btn-header-left').classList.add(icon);   }
+        set buttonIconRight1(icon) { this.root.querySelector('#btn-header-right1').classList.add(icon); } 
+        set buttonIconRight2(icon) { this.root.querySelector('#btn-header-right2').classList.add(icon); }   
        
-        set onClickButtonLeft   (handler) { console.log(this.buffer); this.buffer.querySelector('#btn-header-left').onclick = event => console.log('hellhel') };
-        set onClickButtonRight1 (handler) { this.buffer.querySelector('#btn-header-right1').onclick = event => console.log('hellhel'); };
-        set onClickButtonRight2 (handler) { this.buffer.querySelector('#btn-header-r1ight2').onclick = event => console.log('hellhel'); };
+        set onClickButtonLeft   (handler) { this.root.querySelector('#btn-header-left').addEventListener('click', handler);   };
+        set onClickButtonRight1 (handler) { this.root.querySelector('#btn-header-right1').addEventListener('click', handler); };
+        set onClickButtonRight2 (handler) { this.root.querySelector('#btn-header-right2').addEventListener('click', handler); };
 
-        connectedCallback() {
-            this.render();
-        }
+        connectedCallback() { }
     }
     customElements.define('ordbase-header', OrdbaseHeader);
 

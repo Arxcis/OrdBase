@@ -1,19 +1,18 @@
-<style>
-    ordbase-select-client {
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        background-color: var(--ordbase-color-light);
-        align-content: flex-start;
-    }
 
-</style>
 
 
 <template id="template-select-client">
+    <style>
+        :host {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            background-color: var(--ordbase-color-light);
+            align-content: flex-start;
+        }
+    </style>
 
-    
     <!-- @note SCRIPT WILL INSERT card-client.html HERE -->
     <!-- @note SCRIPT WILL INSERT card-client.html HERE -->
     <!-- @note SCRIPT WILL INSERT card-client.html HERE -->
@@ -33,12 +32,8 @@
 
         constructor() {
             super();
-            this.buffer = TEMPLATE_SELECT_CLIENT.content.cloneNode(true);
-        }
-
-        render() {
-            this.innerHTML = '';
-            this.appendChild(this.buffer); 
+            this.root = this.createShadowRoot();
+            this.root.appendChild(document.importNode(TEMPLATE_SELECT_CLIENT.content, true));
         }
 
         spawnCard()       {  
@@ -46,11 +41,10 @@
         }
 
         appendCard(card)  {  
-            this.buffer.appendChild(card);      
+            this.root.appendChild(card);      
         }
 
         connectedCallback() { 
-            this.render();
         }
     }
     customElements.define('ordbase-select-client', OrdbaseSelectClient);

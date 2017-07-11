@@ -3,7 +3,7 @@
 import * as App from '/app.js';
 import * as Api from '/app/library/api.js';
 
-//import { loadSelectTranslation } from './loadSelectTranslation.js';
+import { loadSelectTranslation } from './loadSelectTranslation.js';
 
 //
 // @function OnloadViewClientSelector
@@ -20,13 +20,12 @@ export function loadSelectClient() {
     App.header.buttonIconRight1 = 'fa-square';    
     App.header.buttonIconRight2 = ICON_HEADER_PLUS;
 
-    // Dependency injection
-    (App.header.onClickButtonLeft)   = App.defaultHandler;     
-    (App.header.onClickButtonRight1) = App.defaultHandler;     
-    (App.header.onClickButtonRight2) = App.defaultHandler;  
+
+    App.header.onClickButtonLeft   = App.defaultHandler;
+    App.header.onClickButtonRight1 = App.defaultHandler;
+    App.header.onClickButtonRight2 = App.defaultHandler;
 
     // Batch-update DOM
-    App.header.render();
     App.main.innerHTML = '';
     App.main.appendChild(clientSelect);              
     
@@ -41,14 +40,10 @@ export function loadSelectClient() {
                                 card.heading       = clientObjects[i].name;
                                 card.text          = 'https://www.placeholder.no';
                                 card.thumbnail     = 'http://placehold.it/250x125/FFC107';
-                                card.buttonHandler = App.defaultHandler;
+                                card.buttonHandler = event => loadSelectTranslation(clientObjects[i].name);
 
                                 clientSelect.appendCard(card);
-                            };
-                            
-                            // Update DOM again
-                            clientSelect.render();
-
+                            };                            
                         })
                         .catch(reason => console.error('Error:', reason))
 }
