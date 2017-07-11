@@ -73,8 +73,7 @@
 
         constructor() {
             super();
-            this.appendChild(TEMPLATE_EDIT_TRANSLATION.content.cloneNode(true));
-
+            this.root = generateShadowRoot.call(this, TEMPLATE_EDIT_TRANSLATION);
         }
     }
     customElements.define('ordbase-edit-translation', OrdbaseEditTranslation);

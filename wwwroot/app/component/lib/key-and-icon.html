@@ -27,8 +27,13 @@
             this.root = generateShadowRoot.call(this, TEMPLATE_KEY_AND_ICON);
         }
 
-        set languageKey(key) { this.root.querySelector('span').innerHTML = key; }
-        set icon(iconClass)  {  this.root.querySelector('i').classList.add(iconClass); }
+        set languageKey(key) { 
+            this.root.querySelector('span').innerHTML = key; 
+        }
+        
+        set icon(iconClass)  {  
+            this.root.querySelector('i').classList.add(iconClass); 
+        }
     }
     customElements.define('ordbase-key-and-icon', OrdbaseKeyAndIcon);
 </script>

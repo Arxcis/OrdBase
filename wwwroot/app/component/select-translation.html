@@ -37,19 +37,20 @@
 
     <ul id="list-show-containers-on-client" class="ordbase-list-containers">
         <h2>Containers</h2>        
-        <!--template id="template-button-container"-->
-        <!--template id="template-button-container"-->
-        <!--template id="template-button-container"-->
-        <!--/template-->
+
+        <!--<ordbase-button-container> </ordbase-button-container>-->
+        <!--<ordbase-button-container> </ordbase-button-container>-->
+        <!--<ordbase-button-container> </ordbase-button-container>-->
+
     </ul>
 
     <section id="list-show-translations-on-client" class="ordbase-list-translation">
         <h2>Translations</h2>
-    
-        <!--template id="template-card-translation"-->
-        <!--template id="template-card-translation"-->        
-        <!--template id="template-card-translation"-->
-        <!-- /template -->
+
+        <!--<ordbase-card-translation> </ordbase-card-translation>-->
+        <!--<ordbase-card-translation> </ordbase-card-translation>-->
+        <!--<ordbase-card-translation> </ordbase-card-translation>-->
+        
     </section>
 </template>
 
@@ -65,21 +66,11 @@
             this.root = generateShadowRoot.call(this, TEMPLATE_SELECT_TRANSLATION);
         }
 
-        spawnButtonContainer () {
-             return ELEMENT_BUTON_CONTAINER.cloneNode(true); 
-        }
+        spawnButtonContainer () {  return ELEMENT_BUTON_CONTAINER.cloneNode(true);  }
+        spawnCardTranslation () {  return ELEMENT_CARD_TRANSLATION.cloneNode(true);  }
 
-        appendButtonContainer (btn) {
-             this.root.querySelector('#list-show-containers-on-client').appendChild(btn); 
-        }
-
-        spawnCardTranslation () { 
-            return ELEMENT_CARD_TRANSLATION.cloneNode(true);  
-        }
-
-        appendCardTranslation (card) { 
-            this.root.querySelector('#list-show-translations-on-client').appendChild(card);
-        }
+        appendButtonContainer (btn) {   this.root.querySelector('#list-show-containers-on-client').appendChild(btn);  }
+        appendCardTranslation (card) {  this.root.querySelector('#list-show-translations-on-client').appendChild(card); }
     }
     customElements.define('ordbase-select-translation', OrdbaseSelectTranslation);
 </script>

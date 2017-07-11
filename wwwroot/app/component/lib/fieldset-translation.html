@@ -47,15 +47,17 @@
 </template>
 
 <script>
+
     const TEMPLATE_FIELDSET_TRANSLATION = loadTemplate('template-fieldset-translation');
 
     class OrdbaseFieldsetTranslation extends HTMLElement {
 
         constructor() {
             super();
-            this.root = generateShadowRoot.call(this, TEMPLATE_EDIT_TRANSLATION);
+            this.root = generateShadowRoot.call(this, TEMPLATE_FIELDSET_TRANSLATION);
         }
     }
     customElements.define('ordbase-fieldset-translation', OrdbaseFieldsetTranslation);
+
 </script>
 

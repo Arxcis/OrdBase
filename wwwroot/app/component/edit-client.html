@@ -79,15 +79,7 @@
 
         constructor() {
             super();
-            this.appendChild(TEMPLATE_EDIT_CLIENT.content.cloneNode(true));
-        }
-
-        connectedCallback() {
-
-        }
-
-        updateDom() {
-
+            this.root = generateShadowRoot.call(this, TEMPLATE_EDIT_CLIENT);
         }
     }
     customElements.define('ordbase-edit-client', OrdbaseEditClient);
