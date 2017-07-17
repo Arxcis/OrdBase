@@ -39,21 +39,21 @@ let translation = {};
 //
 client.getAll = () => { 
     return getJSON({ 
-        type: 'GET', 
+        httpMethod: 'GET', 
         route: routeBuilder('api','client') 
     });
 }
 
 client.get = (client) => {
     return getJSON({ 
-        type: 'GET', 
+        httpMethod: 'GET', 
         route: routeBuilder('api', client) 
     });
 }
 
 client.create = (client) => {
     return postJSON({ 
-        type:  'POST', 
+        httpMethod:  'POST', 
         route: routeBuilder('api', 'client', 'create'), 
         data:  client 
     });
@@ -64,14 +64,14 @@ client.create = (client) => {
 //
 container.getOnClient = (client) => {
     return getJSON({ 
-        type: 'GET', 
+        httpMethod: 'GET', 
         route: routeBuilder('api', client, 'container') 
     });
 }
 
 container.getOnKey = (client, accessKey) => {
     return getJSON({ 
-        type: 'GET', 
+        httpMethod: 'GET', 
         route: routeBuilder('api', client, 'container', accessKey) 
     });
 }
@@ -81,21 +81,21 @@ container.getOnKey = (client, accessKey) => {
 //
 language.getAll = () => {
     return getJSON({ 
-        type: 'GET', 
+        httpMethod: 'GET', 
         route: routeBuilder('api', 'language') 
     });
 }
 
 language.getOnClient = (client) => {
     return getJSON({ 
-        type: 'GET', 
+        httpMethod: 'GET', 
         route: routeBuilder('api', client, 'language') 
     });
 }
 
 language.create = (language) => {
     return postJSON({ 
-        type: 'POST', 
+        httpMethod: 'POST', 
         route: routeBuilder('api', 'language', 'create'), 
         data:  language 
     });
@@ -106,42 +106,42 @@ language.create = (language) => {
 //
 translation.get = (client, container, accessKey, language) => { 
     return getJSON({ 
-        type: 'GET', 
+        httpMethod: 'GET', 
         route: routeBuilder('api', client, 'translation', container, accessKey, language) 
     }); 
 }
 
 translation.getOnClient = (client) => {  
     return getJSON({
-        type:  'GET',
+        httpMethod:  'GET',
         route: routeBuilder('api', client, 'translation') 
     }); 
 }
 
 translation.getGroupOnClient = (client) => {
     return getJSON({
-        type: 'GET',
+        httpMethod: 'GET',
         route: routeBuilder('api', client, 'translation', 'group')
     })
 }
 
 translation.getOnContainer = (client, container) => { 
     return getJSON({
-        type: 'GET',
+        httpMethod: 'GET',
         route: routeBuilder('api', client, 'translation', 'container', container) 
     }); 
 }
 
 translation.getOnKey = (client, key) => {   // @note - convert accesskey -> key
     return getJSON({
-        type:  'GET',
+        httpMethod:  'GET',
         route: routeBuilder('api', client, 'translation', 'accesskey', key) 
     }); 
 }   
 
 translation.create = (translation) => {
     return postJSON({
-        type:  'POST',
+        httpMethod:  'POST',
         route: routeBuilder('api', 'translation', 'create'),
         data:  translation 
     }); 
@@ -149,7 +149,7 @@ translation.create = (translation) => {
 
 translation.update = (translation) => {  
     return postJSON({
-        type:  'PUT',
+        httpMethod:  'PUT',
         route: routeBuilder('api', 'translation', 'update', translation.client, translation.container, translation.accessKey, translation.language),
         data:  translation 
     });
@@ -157,7 +157,7 @@ translation.update = (translation) => {
 
 translation.delete = (key) => {
     return getJSON({
-        type:  'DELETE',
+        httpMethod:  'DELETE',
         route: routeBuilder('api', 'translation', 'delete', client, container, accessKey, language) 
     });
 }
