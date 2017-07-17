@@ -18,10 +18,10 @@ import { routeBuilder } from './Util.js';
 //
 // @modules - to be exported
 //
-let client = {};
-let language = {};
-let container = {}; 
-let translation = {};     
+export let client = {};
+export let language = {};
+export let container = {}; 
+export let translation = {};     
 
 //
 // CLIENT ROUTES
@@ -33,35 +33,35 @@ client.getAll = () => {
     });
 }
 
-client.get = (client) => {
+client.get = (_client) => {
     return getJSON({ 
         httpMethod: 'GET', 
-        route: routeBuilder('api', client) 
+        route: routeBuilder('api', _client) 
     });
 }
 
-client.create = (client) => {
+client.create = (_client) => {
     return postJSON({ 
         httpMethod:  'POST', 
         route: routeBuilder('api', 'client', 'create'), 
-        data:  client 
+        data:  _client 
     });
 } 
 
 //
 // CONTAINER ROUTES
 //
-container.getOnClient = (client) => {
+container.getOnClient = (_client) => {
     return getJSON({ 
         httpMethod: 'GET', 
-        route: routeBuilder('api', client, 'container') 
+        route: routeBuilder('api', _client, 'container') 
     });
 }
 
-container.getOnKey = (client, accessKey) => {
+container.getOnKey = (_client, _accessKey) => {
     return getJSON({ 
         httpMethod: 'GET', 
-        route: routeBuilder('api', client, 'container', accessKey) 
+        route: routeBuilder('api', _client, 'container', _accessKey) 
     });
 }
 
@@ -75,81 +75,78 @@ language.getAll = () => {
     });
 }
 
-language.getOnClient = (client) => {
+language.getOnClient = (_client) => {
     return getJSON({ 
         httpMethod: 'GET', 
-        route: routeBuilder('api', client, 'language') 
+        route: routeBuilder('api', _client, 'language') 
     });
 }
 
-language.create = (language) => {
+language.create = (_language) => {
     return postJSON({ 
         httpMethod: 'POST', 
         route: routeBuilder('api', 'language', 'create'), 
-        data:  language 
+        data:  _language 
     });
 }
 
 //
 // TRANSLATION ROUTES
 //
-translation.get = (client, container, accessKey, language) => { 
+translation.get = (_client, _container, _accessKey, _language) => { 
     return getJSON({ 
         httpMethod: 'GET', 
-        route: routeBuilder('api', client, 'translation', container, accessKey, language) 
+        route: routeBuilder('api', _client, 'translation', _container, _accessKey, _language) 
     }); 
 }
 
-translation.getOnClient = (client) => {  
+translation.getOnClient = (_client) => {  
     return getJSON({
         httpMethod:  'GET',
-        route: routeBuilder('api', client, 'translation') 
+        route: routeBuilder('api', _client, 'translation') 
     }); 
 }
 
-translation.getGroupOnClient = (client) => {
+translation.getGroupOnClient = (_client) => {
     return getJSON({
         httpMethod: 'GET',
-        route: routeBuilder('api', client, 'translation', 'group')
+        route: routeBuilder('api', _client, 'translation', 'group')
     })
 }
 
-translation.getOnContainer = (client, container) => { 
+translation.getOnContainer = (_client, _container) => { 
     return getJSON({
         httpMethod: 'GET',
-        route: routeBuilder('api', client, 'translation', 'container', container) 
+        route: routeBuilder('api', _client, 'translation', 'container', _container) 
     }); 
 }
 
-translation.getOnKey = (client, key) => {   // @note - convert accesskey -> key
+translation.getOnKey = (_client, _accessKey) => {   // @note - convert accesskey -> key
     return getJSON({
         httpMethod:  'GET',
-        route: routeBuilder('api', client, 'translation', 'accesskey', key) 
+        route: routeBuilder('api', _client, 'translation', 'accesskey', _accessKey) 
     }); 
 }   
 
-translation.create = (translation) => {
+translation.create = (_translation) => {
     return postJSON({
         httpMethod:  'POST',
         route: routeBuilder('api', 'translation', 'create'),
-        data:  translation 
+        data:  _translation 
     }); 
 }
 
-translation.update = (translation) => {  
+translation.update = (_translation) => {  
     return postJSON({
         httpMethod:  'PUT',
-        route: routeBuilder('api', 'translation', 'update', translation.client, translation.container, translation.accessKey, translation.language),
-        data:  translation 
+        route: routeBuilder('api', 'translation', 'update', _translation.client, _translation.container, _translation.accessKey, _translation.language),
+        data:  _translation 
     });
 }
 
-translation.delete = (key) => {
+translation.delete = (_client, _container, _accessKey, _language) => {
     return getJSON({
         httpMethod:  'DELETE',
-        route: routeBuilder('api', 'translation', 'delete', client, container, accessKey, language) 
+        route: routeBuilder('api', 'translation', 'delete', _client, _container, _accessKey, _language) 
     });
 }
-
-
-export { translation, client, container, language };
