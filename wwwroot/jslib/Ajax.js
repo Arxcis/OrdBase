@@ -6,9 +6,10 @@
 
 // @doc Do research on using fetch instead -- https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 // @doc CORS - https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
+// @doc fetch POST request example - https://stackoverflow.com/questions/29775797/fetch-post-json-data
 
 
-import { mandatory } from './util.js';
+import { mandatory } from './Util.js';
 
 //
 // @function getJSON()
@@ -33,7 +34,6 @@ export function getJSON_experimental({ httpMethod = mandatory(), route = mandato
         method: httpMethod     // GET or DELETE
     })
     .then((response) => { return response.json(); })
-    .catch((failure) => { return failure.json();  })
 }
 
 //
@@ -51,7 +51,6 @@ export function postJSON({ type = mandatory(), route = mandatory(), data = manda
     });
 }
 
-// @doc fetch POST request example - https://stackoverflow.com/questions/29775797/fetch-post-json-data
 //
 // @function postJSON
 //
@@ -65,5 +64,4 @@ export function postJSON_experimental({ httpMethod = mandatory(), route = mandat
         body: JSON.stringify(data),
     })
     .then((response) => { return response.json(); })
-    .catch((failure) => { return failure.json();  })
 }
