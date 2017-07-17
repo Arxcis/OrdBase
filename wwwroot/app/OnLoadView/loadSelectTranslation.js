@@ -16,7 +16,7 @@ const ICON_TIMES      = 'fa-times';
 export function loadSelectTranslation (client) {
 
     // Create elements
-    const translationSelect = document.createElement('ordbase-select-translation');
+    const viewSelectTranslation = document.createElement('ordbase-select-translation');
 
     // Setup header
     App.header.textBig          = 'Ordbase';
@@ -30,52 +30,49 @@ export function loadSelectTranslation (client) {
 
     // Batch-update DOM
     App.main.removeChild(App.main.firstChild); // @bench towards innerHTML = ''; 
-    App.main.appendChild(translationSelect);       
+    App.main.appendChild(viewSelectTranslation);       
 
     //
     // @AJAX - fetch all containers on selected client
     //
     Api.container.getOnClient(client)
-            .then(containersOnClient => {
-                
-                for(let i = 0; i < containersOnClient.length; i++) {
-                    let button = translationSelect.spawnButtonContainer();
-                    let name = containersOnClient[i];
+        
+        .then(containersOnClient => {        
+            containersOnClient.forEach(container => {
 
-                    button.id       = name;
-                    button.text     = name;
-                    button.selected = '';
+                let button = viewSelectTranslation.spawnButtonContainer();
 
-                    translationSelect.appendButtonContainer(button);
-                }
+                button.id       = container;
+                button.text     = container;
+                button.selected = '';
 
-                return Api.translation.getGroupOnClient(client);
-            })
+                viewSelectTranslation.appendButtonContainer(button);
+            });
+
+            return Api.translation.getGroupOnClient(client);
+        })
     //
     //  @AJAX - Get all translation groups 
     //  @doc template literals - https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Template_literals
     //
             .then(translations => {
+                translations.forEach(translation => {
 
+                    let card = viewSelectTranslation.spawnCardTranslation();
                     
-                    for (let i = 0; i < translations.length; i++) {
+                    card.key = translation.key;
+                    card.onClickCard = event => loadEditTranslation(translation.key);
 
-                        let card = translationSelect.spawnCardTranslation();
-                        let translation = translations[i];
+                    Object.keys(translations[i].isComplete).forEach((languageKey, isComplete) => {
+                        let keyAndIcon = card.spawnKeyAndIcon();
 
-                        card.key = translation.key;
-                        card.onClickCard = event => loadEditTranslation(translation.key);
+                        keyAndIcon.languageKey = languageKey;
+                        keyAndIcon.icon = (isComplete) ? ICON_CHECK : ICON_TIMES;
 
-                        Object.keys(translations[i].isComplete).forEach((languageKey, isComplete) => {
-                            let keyAndIcon = card.spawnKeyAndIcon();
-
-                            keyAndIcon.languageKey = languageKey;
-                            keyAndIcon.icon = (isComplete) ? ICON_CHECK : ICON_TIMES;
-
-                            card.appendKeyAndIcon(keyAndIcon);
-                        });
-                        translationSelect.appendCardTranslation(card);
-                    }             
+                        card.appendKeyAndIcon(keyAndIcon);
+                    });
+                    viewSelectTranslation.appendCardTranslation(card);
+                });           
             })
             .catch(reason => console.error('Error:', reason));
 }

@@ -6,17 +6,10 @@ import { submitClient }     from '../OnSubmitForm/submitClient.js';
 
 export function loadEditClient(client) {
     
-    const view = unpackTemplate(viewTemplate, {
-        bigHeader : 'OrdBase',
-        smallHeader : 'Edit Client',
-    });
-
     //
     // @AJAX - fetch all containers on selected client
     //
     api.container.getOnClient(client).then( containersOnClient => {
-
-        const containerList = unpackTemplate(containerListTemplate).querySelector('div');
 
         containersOnClient.forEach( container => {
 
@@ -34,11 +27,5 @@ export function loadEditClient(client) {
 
         return api.translation.getGroupOnClient(client);
     })
-    .catch(reason => console.error('Error:', reason))
-    .then(() => {                                  
-        // Clear all previous content, insert new view
-        document.body.innerHTML = ''; 
-        document.body.appendChild(view);
-    });
-
+    .catch(reason => console.error('Error:', reason));
 }

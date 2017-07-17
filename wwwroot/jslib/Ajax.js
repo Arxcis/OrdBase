@@ -4,6 +4,7 @@
 // @file ajax.js
 //
 
+// @doc vanilla Ajax XMLHttpRequest -  https://www.w3schools.com/xml/ajax_xmlhttprequest_response.asp
 // @doc Do research on using fetch instead -- https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
 // @doc CORS - https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
 // @doc fetch POST request example - https://stackoverflow.com/questions/29775797/fetch-post-json-data

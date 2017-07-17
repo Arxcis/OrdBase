@@ -11,7 +11,7 @@ import { loadSelectTranslation } from './loadSelectTranslation.js';
 export function loadSelectClient() {
 
     // Create elements
-    const clientSelect = document.createElement('ordbase-select-client');
+    const viewSelectClient = document.createElement('ordbase-select-client');
 
     // Setup header
     App.header.textBig          = 'Ordbase';
@@ -27,24 +27,24 @@ export function loadSelectClient() {
 
     // Batch-update DOM
     App.main.innerHTML = '';
-    App.main.appendChild(clientSelect);              
+    App.main.appendChild(viewSelectClient);              
     
     // @ajax - Fetch client data from server
-    Api.client.getAll().then(clientObjects => {        
-                            
-                            // Fill cards with data
-                            for (let i = 0; i < clientObjects.length; i++) {
-                                let card = clientSelect.spawnCard();
-                                
-                                card.id            = `card${i}`;
-                                card.heading       = clientObjects[i].name;
-                                card.text          = 'https://www.placeholder.no';
-                                card.thumbnail     = 'http://placehold.it/250x125/FFC107';
-                                card.buttonHandler = event => loadSelectTranslation(clientObjects[i].name);
+    Api.client.getAll()
+        
+        .then(clientObjects => {                                    
+            clientObjects.forEach((client) => {
 
-                                console.log(clientObjects[i].name);
-                                clientSelect.appendCard(card);
-                            };                            
-                        })
-                        .catch(reason => console.error('Error:', reason))
+                let card = viewSelectClient.spawnCard();
+                
+                card.id            = `card${i}`;
+                card.heading       =  client.name;
+                card.text          = 'https://www.placeholder.no';
+                card.thumbnail     = 'http://placehold.it/250x125/FFC107';
+                card.buttonHandler = event => loadSelectTranslation(client.name);
+
+                viewSelectClient.appendCard(card);
+            });                            
+        })
+        .catch(reason => console.error('Error:', reason))
 }
