@@ -1,6 +1,7 @@
 'use strict';
 
 import { getJSON, postJSON } from './Ajax.js';
+import { routeBuilder } from './Util.js';
 
 
 //
@@ -9,18 +10,6 @@ import { getJSON, postJSON } from './Ajax.js';
 // @doc Async Promises MDN - https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise
 // @doc Arro functions MDN - https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/Arrow_functions
 //
-
-//
-// @function routeBuilder(...args)
-// @doc https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments
-//
-function routeBuilder() {
-    let route = '';
-    for (let i = 0; i < arguments.length; i++) {
-        route += '/' + arguments[i];
-    }
-    return route;
-}
 
 // @WARNING! @TODO
 // @NOTE RESOLVE NAMING CONFLICTS BELOW§!!! client module scope variables, and client parameters...!!!!
