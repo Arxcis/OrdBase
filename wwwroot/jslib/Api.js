@@ -1,6 +1,6 @@
 'use strict';
 
-import { getJSON, postJSON } from './ajax.js';
+import { getJSON, postJSON } from './Ajax.js';
 
 
 //

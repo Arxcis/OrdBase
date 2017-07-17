@@ -1,7 +1,7 @@
 'use strict';
 
-import * as App from '/app.js';
-import * as Api from '/app/library/api.js';
+import * as App from '../App.js';
+import * as Api from '/jslib/Api.js';
 
 import { loadEditTranslation } from './loadEditTranslation.js';
 import { loadSelectClient }    from './loadSelectClient.js';

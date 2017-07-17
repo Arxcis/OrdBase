@@ -1,8 +1,8 @@
 'use strict';
 
-import * as api from '../../library/api.js';
+import * as api from '/jslib/Api.js';
 import { loadSelectClient } from './loadSelectClient.js';
-import { submitClient }       from '../OnSubmitForm/submitClient.js';
+import { submitClient }     from '../OnSubmitForm/submitClient.js';
 
 export function loadEditClient(client) {
     

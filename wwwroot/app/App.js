@@ -3,7 +3,7 @@
 // COMPILE WITH BABEL - https://css-tricks.com/transpiling-es6/
 // TRanspile with webpack - https://webpack.github.io/docs/tutorials/getting-started/
 
-import { loadSelectClient } from './app/event/OnLoadView/loadSelectClient.js';
+import { loadSelectClient } from './OnLoadView/loadSelectClient.js';
 
 //
 // @file main.js
@@ -12,7 +12,7 @@ import { loadSelectClient } from './app/event/OnLoadView/loadSelectClient.js';
 
 
 // Cache static element references
-export const main         = document.getElementById('ordbase-main');    
+export const main           = document.getElementById('ordbase-main');    
 export const header         = document.getElementById('ordbase-header');
 export const defaultHandler = (event) => console.log('Default handler... nothing happened');
 

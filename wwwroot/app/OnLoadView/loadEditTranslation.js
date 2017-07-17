@@ -1,7 +1,7 @@
 'use strict';
 
-import * as api from '../../library/api.js'; 
-import { submitTranslation }            from '../OnSubmitForm/submitTranslation.js';
+import * as api from '/jslib/Api.js'; 
+import { submitTranslation }          from '../OnSubmitForm/submitTranslation.js';
 import { loadSelectTranslation }      from './loadSelectTranslation.js';
 import { loadSelectClient }           from './loadSelectClient.js';
 

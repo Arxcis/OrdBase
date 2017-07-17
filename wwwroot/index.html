@@ -10,8 +10,8 @@
             @import url('https://fonts.googleapis.com/css?family=Muli');
 
             /* SHARED CSS */
-            @import url('./app/css/input.css');
-            @import url('./app/css/index.css');
+            @import url('./css/input.css');
+            @import url('./css/index.css');
 
         </style>
 
@@ -30,13 +30,13 @@
         </script>
 
         <!--- VIEW COMPONENTS  -->
-        <link rel="import" href="./app/component/header.html">
-        <link rel="import" href="./app/component/select-client.html">  
-        <link rel="import" href="./app/component/select-translation.html">
-        <link rel="import" href="./app/component/edit-client.html">          
-        <link rel="import" href="./app/component/edit-translation.html">
+        <link rel="import" href="./components/views/header.html">
+        <link rel="import" href="./components/views/select-client.html">  
+        <link rel="import" href="./components/views/select-translation.html">
+        <link rel="import" href="./components/views/edit-client.html">          
+        <link rel="import" href="./components/views/edit-translation.html">
 
-        <script type="module" src="./App.js" defer></script>
+        <script type="module" src="./app/App.js" defer></script>
 
     </head>
     <body>  
@@ -46,6 +46,8 @@
         
             <main id="ordbase-main">
                 
+                <!-- Here views are inserted -->
+
             </main>
         
         <footer id="ordbase-footer"></footer>
