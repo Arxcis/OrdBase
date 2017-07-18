@@ -20,6 +20,7 @@ Som forventa er det vanskelegare å plukke opp at der ein slapp. Eg kan likevel 
 
 2. Sette opp Submit Client og submit Translation forms. Sørge for at de kan poste til databasen.
 
+3. Køyr løysing via IIS lokal på datamaskina
 
 
 ### Til senere

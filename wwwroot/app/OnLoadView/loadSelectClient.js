@@ -33,7 +33,7 @@ export function loadSelectClient() {
     Api.client.getAll()
         
         .then(clientObjects => {                                    
-            clientObjects.forEach((client) => {
+            clientObjects.forEach((client,i) => {
 
                 let card = viewSelectClient.spawnCard();
                 

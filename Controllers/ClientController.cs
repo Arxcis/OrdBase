@@ -18,6 +18,7 @@ namespace OrdBaseCore.Controllers
         //
         // GET
         //
+        [HttpGet("api/")]
     	[HttpGet("api/client")]
     	public IEnumerable<Client> GetAll()
     	{

@@ -28,9 +28,7 @@ namespace OrdBaseCore {
 
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-        
+
         // @doc Set up MySql service - https://damienbod.com/2016/08/26/asp-net-core-1-0-with-mysql-and-entity-framework-core/
         // @doc scoped vs transient vs singleton - https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection#service-lifetimes-and-registration-options
         
@@ -39,7 +37,6 @@ namespace OrdBaseCore {
 
         //
         // @function Startup
-        //  @brief Dont know what special things this does.
         //
         public Startup(IHostingEnvironment env)
         {
@@ -54,6 +51,8 @@ namespace OrdBaseCore {
          //
          // @function ConfigureServices
          //  @brief Sets up the DbContext and all the repositories + db connection
+        // This method gets called by the runtime. Use this method to add services to the container.
+        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
          //
         public void ConfigureServices(IServiceCollection services)
         {
@@ -94,9 +93,11 @@ namespace OrdBaseCore {
 
           // TranslationDb.Seed(context);
             
-            app.UseDefaultFiles();
-            app.UseStaticFiles();
-            app.UseMvc();
+           // app.UseDefaultFiles();
+            //app.UseStaticFiles();
+           //app.UseFileServer();
+            app.UseMvc();            
+            
        }
     }
 

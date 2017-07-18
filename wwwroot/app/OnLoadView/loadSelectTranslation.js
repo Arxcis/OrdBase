@@ -56,7 +56,7 @@ export function loadSelectTranslation (client) {
     //  @doc template literals - https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Template_literals
     //
             .then(translations => {
-                translations.forEach(translation => {
+                translations.forEach((translation, i) => {
 
                     let card = viewSelectTranslation.spawnCardTranslation();
                     
