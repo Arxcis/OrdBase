@@ -1,7 +1,7 @@
 'use strict';
 import html from './template.html';
 
-export class OrdbaseSelectTranslation extends HTMLElement {
+export class Ordbase_SelectTranslation extends HTMLElement {
 
     constructor() {
         super();

@@ -3,7 +3,7 @@ import html from './template.html';
 
 
 
-export class OrdbaseCardClient extends HTMLElement {
+export class Ordbase_CardClient extends HTMLElement {
 
     constructor() {
         super();

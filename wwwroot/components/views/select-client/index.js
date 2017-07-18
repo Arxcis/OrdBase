@@ -2,7 +2,7 @@
 import html from './template.html';
 
 
-export class OrdbaseSelectClient extends HTMLElement {
+export class Ordbase_SelectClient extends HTMLElement {
 
     constructor() {
         super();

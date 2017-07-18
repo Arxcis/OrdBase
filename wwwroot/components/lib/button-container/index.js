@@ -1,7 +1,7 @@
 'use strict';
 import html from './template.html';
 
-export class OrdbaseButtonContainer extends HTMLElement { 
+export class Ordbase_ButtonContainer extends HTMLElement { 
     constructor() {
         super();
         this.root = this.createShadowRoot();

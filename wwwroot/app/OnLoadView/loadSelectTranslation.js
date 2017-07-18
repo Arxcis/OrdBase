@@ -3,17 +3,13 @@
 import * as App from '../App.js';
 import * as Api from '../../jslib/Api.js';
 
-import { OrdbaseSelectTranslation } from '../../components/views/select-translation';
-import { OrdbaseButtonContainer }   from '../../components/lib/button-container';
-import { OrdbaseCardTranslation }   from '../../components/lib/card-translation';
-import { OrdbaseKeyAndIcon }        from '../../components/lib/key-and-icon';
+import { Ordbase_SelectTranslation } from '../../components/views/select-translation';
+import { Ordbase_ButtonContainer }   from '../../components/lib/button-container';
+import { Ordbase_CardTranslation }   from '../../components/lib/card-translation';
+import { Ordbase_KeyAndIcon }        from '../../components/lib/key-and-icon';
 
 //import { loadEditTranslation } from './loadEditTranslation.js';
 import { loadSelectClient }    from './loadSelectClient.js';
-
-
-const ICON_CHECK      = 'fa-check';
-const ICON_TIMES      = 'fa-times';
 
 
 //
@@ -22,16 +18,16 @@ const ICON_TIMES      = 'fa-times';
 export function loadSelectTranslation (client) {
 
     // Create elements
-    const view = new OrdbaseSelectTranslation;
+    const view = new Ordbase_SelectTranslation;
     App.MAIN.removeChild(App.MAIN.firstChild); // @bench towards innerHTML = ''; 
     App.MAIN.appendChild(view);       
 
     // Setup header
     App.HEADER.textBig          = 'Ordbase';
     App.HEADER.textSmall        = 'Select Translation';
-    App.HEADER.buttonIconLeft   = App.ICON_HEADER_BARS;
-    App.HEADER.buttonIconRight1 = App.ICON_HEADER_ARROW_LEFT;    
-    App.HEADER.buttonIconRight2 = App.ICON_HEADER_PLUS;
+    App.HEADER.buttonIconLeft   = App.ICON_BARS;
+    App.HEADER.buttonIconRight1 = App.ICON_ARROW_LEFT;    
+    App.HEADER.buttonIconRight2 = App.ICON_PLUS;
     
     App.HEADER.onClickButtonRight1 = event => loadSelectClient();
     App.HEADER.onClickButtonRight2 = App.defaultHandler;
@@ -44,7 +40,7 @@ export function loadSelectTranslation (client) {
         .then(containersOnClient => {        
             containersOnClient.forEach(container => {
 
-                let button = new OrdbaseButtonContainer;
+                let button = new Ordbase_ButtonContainer;
 
                 button.id       = container;
                 button.text     = container;
@@ -62,17 +58,17 @@ export function loadSelectTranslation (client) {
             .then(translations => {
                 translations.forEach((translation, i) => {
 
-                    let card = new OrdbaseCardTranslation;
+                    let card = new Ordbase_CardTranslation;
                     
                     card.key = translation.key;
                     card.onClickCard = event => loadEditTranslation(translation.key);
 
                     Object.keys(translations[i].isComplete).forEach((languageKey, isComplete) => {
                         
-                        let keyAndIcon = new OrdbaseKeyAndIcon;
+                        let keyAndIcon = new Ordbase_KeyAndIcon;
 
                         keyAndIcon.languageKey = languageKey;
-                        keyAndIcon.icon = (isComplete) ? ICON_CHECK : ICON_TIMES;
+                        keyAndIcon.icon = (isComplete) ? App.ICON_CHECK : App.ICON_TIMES;
 
                         card.appendKeyAndIcon(keyAndIcon);
                     });

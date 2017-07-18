@@ -2,7 +2,7 @@
 import html from './template.html';
 
 
-export class OrdbaseHeader extends HTMLElement {
+export class Ordbase_Header extends HTMLElement {
 
     constructor() {
         super();

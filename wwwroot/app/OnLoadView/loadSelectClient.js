@@ -3,12 +3,12 @@
 import * as App from '../App.js';
 import * as Api from '../../jslib/Api.js';
 
-// Components
-import { OrdbaseSelectClient } from '../../components/views/select-client';
-import { OrdbaseCardClient   } from '../../components/lib/card-client';
+// View and Components
+import { Ordbase_SelectClient } from '../../components/views/select-client';
+import { Ordbase_CardClient   } from '../../components/lib/card-client';
 
 // Event logic
-//import { loadEditClient }        from './loadEditClient.js';
+import { loadEditClient }        from './loadEditClient.js';
 import { loadSelectTranslation } from './loadSelectTranslation.js';
 
 
@@ -18,7 +18,7 @@ import { loadSelectTranslation } from './loadSelectTranslation.js';
 export function loadSelectClient() {
 
     // Create elements
-    const view = new OrdbaseSelectClient;
+    const view = new Ordbase_SelectClient;
     App.MAIN.innerHTML = '';
     App.MAIN.appendChild(view);              
 
@@ -26,14 +26,14 @@ export function loadSelectClient() {
     // Setup header
     App.HEADER.textBig          = 'Ordbase';
     App.HEADER.textSmall        = 'Select Client';
-    App.HEADER.buttonIconLeft   = App.ICON_HEADER_SQUARE;
-    App.HEADER.buttonIconRight1 = App.ICON_HEADER_NONE;    
-    App.HEADER.buttonIconRight2 = App.ICON_HEADER_PLUS;
+    App.HEADER.buttonIconLeft   = App.ICON_SQUARE;
+    App.HEADER.buttonIconRight1 = App.ICON_NONE;    
+    App.HEADER.buttonIconRight2 = App.ICON_PLUS;
 
 
     App.HEADER.onClickButtonLeft   = App.defaultHandler;
     App.HEADER.onClickButtonRight1 = App.defaultHandler;
-    App.HEADER.onClickButtonRight2 = App.defaultHandler;
+    App.HEADER.onClickButtonRight2 = event => loadEditClient();
 
     
     // @ajax - Fetch client data from server
@@ -42,7 +42,7 @@ export function loadSelectClient() {
         .then(clientObjects => {                                    
             clientObjects.forEach((client, i) => {
 
-                let card = new OrdbaseCardClient;
+                let card = new Ordbase_CardClient;
                 
                 card.id            = `card${i}`;
                 card.heading       =  client.name;

@@ -1,26 +1,35 @@
 'use strict';
 
-import * as api from '/jslib/Api.js'; 
+import * as App from '../App.js';
+import * as Api from '../../jslib/Api.js'; 
+
+// View and components
+import { Ordbase_EditTranslation }     from '../../components/views/edit-translation';
+import { Ordbase_ButtonContainer }     from '../../components/lib/button-container';
+import { Ordbase_FieldsetTranslation } from '../../components/lib/fieldset-translation';
+
+// Event handlers
 import { submitTranslation }          from '../OnSubmitForm/submitTranslation.js';
 import { loadSelectTranslation }      from './loadSelectTranslation.js';
 import { loadSelectClient }           from './loadSelectClient.js';
-
-import { OrdbaseEditTranslation } from '/components/views/edit-translation';
-
 
 //
 // @function loadEditTranslation
 //
 export function loadEditTranslation (client, key) {
-    
-    let containersOnClient = {};
 
-    const view = unpackTemplate(viewTemplate, {
-        bigHeader : 'Ordbase',
-        smallHeader : 'Edit translation',
-        translationKey : key,
-        submitButtonText : 'Save changes',
-    });
+    let containersOnClient = {};
+    const view = new Ordbase_EditTranslation;
+
+    App.HEADER.textBig          = 'Ordbase';
+    App.HEADER.textSmall        = 'Edit translation';
+    App.HEADER.buttonIconLeft   = App.ICON_BARS;
+    App.HEADER.buttonIconRight1 = App.ICON_NONE;    
+    App.HEADER.buttonIconRight2 = App.ICON_TIMES;
+    
+    App.HEADER.onClickButtonLeft   = App.defaultHandler;
+    App.HEADER.onClickButtonRight1 = event => loadSelectClient();
+    App.HEADER.onClickButtonRight2 = App.defaultHandler;
 
     //
     // @AJAX - Call to get all containers on a client
@@ -72,9 +81,4 @@ export function loadEditTranslation (client, key) {
         });
     })
     .catch(reason => console.error('Error:', reason))
-    .then(() => {                                  
-        // Clear all previous content, insert new view
-        document.body.innerHTML = ''; 
-        document.body.appendChild(view);
-    });
 }

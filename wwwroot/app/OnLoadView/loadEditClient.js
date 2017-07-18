@@ -1,28 +1,30 @@
 'use strict';
 
-import * as App from '/app/App.js';
-import * as Api from '/jslib/Api.js';
+import * as App from '../App.js';
+import * as Api from '../../jslib/Api.js';
+
+import { Ordbase_ButtonContainer } from '../../components/lib/button-container';
+import { Ordbase_EditClient } from '../../components/views/edit-client';
 
 import { loadSelectClient } from './loadSelectClient.js';
 import { submitClient }     from '../OnSubmitForm/submitClient.js';
 
-import { OrdbaseEditClient } from '/components/view/edit-client';
 
 export function loadEditClient(client) {
     
-    const view = document.createElement('edit-client');    
-    App.main.innerHTML = '';
-    App.main.appendChild(view);
+    const view = new Ordbase_EditClient;
+    App.MAIN.innerHTML = '';
+    App.MAIN.appendChild(view);
 
-    App.header.textBig   = 'Ordbase';    
-    App.header.textSmall = 'Edit client';
-    App.header.buttonIconLeft   = ICON_HEADER_BARS;
-    App.header.buttonIconRight1 = ICON_HEADER_NONE;    
-    App.header.buttonIconRight2 = ICON_HEADER_TIMES;
+    App.HEADER.textBig   = 'Ordbase';    
+    App.HEADER.textSmall = 'Edit client';
+    App.HEADER.buttonIconLeft   = App.ICON_BARS;
+    App.HEADER.buttonIconRight1 = App.ICON_NONE;    
+    App.HEADER.buttonIconRight2 = App.ICON_TIMES;
 
-    App.header.onClickButtonLeft   = App.defaultHandler;
-    App.header.onClickButtonRight1 = App.defaultHandler;
-    App.header.onClickButtonRight2 = App.defaultHandler;
+    App.HEADER.onClickButtonLeft   = App.defaultHandler;
+    App.HEADER.onClickButtonRight1 = App.defaultHandler;
+    App.HEADER.onClickButtonRight2 = event => loadSelectClient();
 
 
     Api.container.getOnClient(client)
@@ -30,7 +32,7 @@ export function loadEditClient(client) {
 
             containersOnClient.forEach( container => {
 
-                const button = view.cloneButtonContainer();
+                const button = new Ordbase_ButtonContainer;
 
                 button.id = `button-${container}`;
                 button.text  = container;

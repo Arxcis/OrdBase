@@ -2,7 +2,7 @@
 import html from './template.html';
 
 
-export class OrdbaseFieldsetTranslation extends HTMLElement {
+export class Ordbase_FieldsetTranslation extends HTMLElement {
 
     constructor() {
         super();

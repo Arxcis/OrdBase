@@ -6,19 +6,18 @@
 import { loadSelectClient } from './OnLoadView/loadSelectClient.js';
 import { OrdbaseHeader }    from '../components/views/header'; 
 
-
-
 //
 // @file main.js
 // @doc 2017 es16 modules native in browsers https://jakearchibald.com/2017/es-modules-in-browsers/
 //
 
-export const ICON_HEADER_NONE       = '';
-export const ICON_HEADER_PLUS       = 'fa-plus';
-export const ICON_HEADER_BARS       = 'fa-bars';
-export const ICON_HEADER_SQUARE     = 'fa-square';
-export const ICON_HEADER_ARROW_LEFT = 'fa-arrow-left';
-export const ICON_HEADER_TIMES      = 'fa-times';
+export const ICON_NONE       = '';
+export const ICON_PLUS       = 'fa-plus';
+export const ICON_BARS       = 'fa-bars';
+export const ICON_SQUARE     = 'fa-square';
+export const ICON_ARROW_LEFT = 'fa-arrow-left';
+export const ICON_TIMES      = 'fa-times';
+export const ICON_CHECK      = 'fa-check';
 
 
 // Cache static element references

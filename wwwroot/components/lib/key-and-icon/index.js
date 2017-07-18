@@ -2,7 +2,7 @@
 import html from './template.html';
 
 
-export class OrdbaseKeyAndIcon extends HTMLElement { 
+export class Ordbase_KeyAndIcon extends HTMLElement { 
     constructor() {
         super();
         this.root = this.createShadowRoot();

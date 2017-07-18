@@ -2,7 +2,7 @@
 import html from './template.html';
 
 
-export class OrdbaseCardTranslation extends HTMLElement { 
+export class Ordbase_CardTranslation extends HTMLElement { 
     constructor() {
         super();
         this.root = this.createShadowRoot();
