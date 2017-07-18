@@ -1,10 +1,16 @@
 'use strict';
 
-import * as App from '/app/App.js';
-import * as Api from '/jslib/Api.js';
+import * as App from '../App.js';
+import * as Api from '../../jslib/Api.js';
 
-import { loadEditClient } from './loadEditClient.js';
+// Components
+import { OrdbaseSelectClient } from '../../components/views/select-client';
+import { OrdbaseCardClient   } from '../../components/lib/card-client';
+
+// Event logic
+//import { loadEditClient }        from './loadEditClient.js';
 import { loadSelectTranslation } from './loadSelectTranslation.js';
+
 
 //
 // @function OnloadViewClientSelector
@@ -12,23 +18,23 @@ import { loadSelectTranslation } from './loadSelectTranslation.js';
 export function loadSelectClient() {
 
     // Create elements
-    const viewSelectClient = document.createElement('ordbase-select-client');
+    const view = new OrdbaseSelectClient;
+    App.MAIN.innerHTML = '';
+    App.MAIN.appendChild(view);              
+
 
     // Setup header
-    App.header.textBig          = 'Ordbase';
-    App.header.textSmall        = 'Select Client';
-    App.header.buttonIconLeft   = ICON_HEADER_SQUARE;
-    App.header.buttonIconRight1 = ICON_HEADER_NONE;    
-    App.header.buttonIconRight2 = ICON_HEADER_PLUS;
+    App.HEADER.textBig          = 'Ordbase';
+    App.HEADER.textSmall        = 'Select Client';
+    App.HEADER.buttonIconLeft   = App.ICON_HEADER_SQUARE;
+    App.HEADER.buttonIconRight1 = App.ICON_HEADER_NONE;    
+    App.HEADER.buttonIconRight2 = App.ICON_HEADER_PLUS;
 
 
-    App.header.onClickButtonLeft   = App.defaultHandler;
-    App.header.onClickButtonRight1 = App.defaultHandler;
-    App.header.onClickButtonRight2 = event => loadEditClient();
+    App.HEADER.onClickButtonLeft   = App.defaultHandler;
+    App.HEADER.onClickButtonRight1 = App.defaultHandler;
+    App.HEADER.onClickButtonRight2 = App.defaultHandler;
 
-    // Batch-update DOM
-    App.main.innerHTML = '';
-    App.main.appendChild(viewSelectClient);              
     
     // @ajax - Fetch client data from server
     Api.client.getAll()
@@ -36,7 +42,7 @@ export function loadSelectClient() {
         .then(clientObjects => {                                    
             clientObjects.forEach((client, i) => {
 
-                let card = viewSelectClient.cloneCard();
+                let card = new OrdbaseCardClient;
                 
                 card.id            = `card${i}`;
                 card.heading       =  client.name;
@@ -44,7 +50,7 @@ export function loadSelectClient() {
                 card.thumbnail     = 'http://placehold.it/250x125/FFC107';
                 card.buttonHandler = event => loadSelectTranslation(client.name);
 
-                viewSelectClient.appendCard(card);
+                view.appendCard(card);
             });                            
         })
         .catch(reason => console.error('Error:', reason))

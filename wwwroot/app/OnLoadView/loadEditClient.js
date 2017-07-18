@@ -6,8 +6,14 @@ import * as Api from '/jslib/Api.js';
 import { loadSelectClient } from './loadSelectClient.js';
 import { submitClient }     from '../OnSubmitForm/submitClient.js';
 
+import { OrdbaseEditClient } from '/components/view/edit-client';
+
 export function loadEditClient(client) {
     
+    const view = document.createElement('edit-client');    
+    App.main.innerHTML = '';
+    App.main.appendChild(view);
+
     App.header.textBig   = 'Ordbase';    
     App.header.textSmall = 'Edit client';
     App.header.buttonIconLeft   = ICON_HEADER_BARS;
@@ -18,28 +24,20 @@ export function loadEditClient(client) {
     App.header.onClickButtonRight1 = App.defaultHandler;
     App.header.onClickButtonRight2 = App.defaultHandler;
 
-    const viewEditClient = document.createElement('edit-client');    
-    App.main.innerHTML = '';
-    App.main.appendChild(viewEditClient);
 
-    Api.container.getOnClient(client).then( containersOnClient => {
+    Api.container.getOnClient(client)
+        .then( containersOnClient => {
 
-        containersOnClient.forEach( container => {
+            containersOnClient.forEach( container => {
 
-            const buttonContainer
+                const button = view.cloneButtonContainer();
 
-            const containerButton = unpackTemplate(containerButtonTemplate, {
-                id : `button-${container}`,
-                text : container,
-                selected : '',
-            }).querySelector('button');
+                button.id = `button-${container}`;
+                button.text  = container;
+                button.selected = '';
 
-            containerButton.onclick = (event) => event.target.classList.toggle('selected'); 
-            containerList.appendChild(containerButton);
-        });
-
-        view.querySelector('#list-show-containers-edit-client').appendChild(containerList);
-        return api.translation.getGroupOnClient(client);
-    })
-    .catch(reason => console.error('Error:', reason));
+                view.appendButtonContainer(button);
+            });
+        })
+        .catch(reason => console.error('Error:', reason));
 }

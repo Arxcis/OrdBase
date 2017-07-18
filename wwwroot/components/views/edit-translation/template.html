@@ -1,8 +1,3 @@
-<link rel="import" href="../lib/button-submit.html">
-<link rel="import" href="../lib/button-container.html">
-<link rel="import" href="../lib/fieldset-translation.html">
-
-<template id="template-edit-translation">
    
     <style>
         
@@ -62,19 +57,3 @@
             <ordbase-button-submit></ordbase-button-submit>
         </fieldset>
     </form>
-
-</template>
-
-<script>
-    const TEMPLATE_EDIT_TRANSLATION = loadTemplate('template-edit-translation');
-    const ELEMENT_FIELDSET_TRANSLATION = document.createElement('ordbase-fieldset-translation');
-
-    class OrdbaseEditTranslation extends HTMLElement {
-
-        constructor() {
-            super();
-            this.root = generateShadowRoot.call(this, TEMPLATE_EDIT_TRANSLATION);
-        }
-    }
-    customElements.define('ordbase-edit-translation', OrdbaseEditTranslation);
-</script>

@@ -1,10 +1,16 @@
 'use strict';
 
 import * as App from '../App.js';
-import * as Api from '/jslib/Api.js';
+import * as Api from '../../jslib/Api.js';
 
-import { loadEditTranslation } from './loadEditTranslation.js';
+import { OrdbaseSelectTranslation } from '../../components/views/select-translation';
+import { OrdbaseButtonContainer }   from '../../components/lib/button-container';
+import { OrdbaseCardTranslation }   from '../../components/lib/card-translation';
+import { OrdbaseKeyAndIcon }        from '../../components/lib/key-and-icon';
+
+//import { loadEditTranslation } from './loadEditTranslation.js';
 import { loadSelectClient }    from './loadSelectClient.js';
+
 
 const ICON_CHECK      = 'fa-check';
 const ICON_TIMES      = 'fa-times';
@@ -16,21 +22,19 @@ const ICON_TIMES      = 'fa-times';
 export function loadSelectTranslation (client) {
 
     // Create elements
-    const viewSelectTranslation = document.createElement('ordbase-select-translation');
+    const view = new OrdbaseSelectTranslation;
+    App.MAIN.removeChild(App.MAIN.firstChild); // @bench towards innerHTML = ''; 
+    App.MAIN.appendChild(view);       
 
     // Setup header
-    App.header.textBig          = 'Ordbase';
-    App.header.textSmall        = 'Select Translation';
-    App.header.buttonIconLeft   = ICON_HEADER_BARS;
-    App.header.buttonIconRight1 = ICON_HEADER_ARROW_LEFT;    
-    App.header.buttonIconRight2 = ICON_HEADER_PLUS;
+    App.HEADER.textBig          = 'Ordbase';
+    App.HEADER.textSmall        = 'Select Translation';
+    App.HEADER.buttonIconLeft   = App.ICON_HEADER_BARS;
+    App.HEADER.buttonIconRight1 = App.ICON_HEADER_ARROW_LEFT;    
+    App.HEADER.buttonIconRight2 = App.ICON_HEADER_PLUS;
     
-    App.header.onClickButtonRight1 = event => loadSelectClient();
-    App.header.onClickButtonRight2 = event => App.defaultHandler();
-
-    // Batch-update DOM
-    App.main.removeChild(App.main.firstChild); // @bench towards innerHTML = ''; 
-    App.main.appendChild(viewSelectTranslation);       
+    App.HEADER.onClickButtonRight1 = event => loadSelectClient();
+    App.HEADER.onClickButtonRight2 = App.defaultHandler;
 
     //
     // @AJAX - fetch all containers on selected client
@@ -40,13 +44,13 @@ export function loadSelectTranslation (client) {
         .then(containersOnClient => {        
             containersOnClient.forEach(container => {
 
-                let button = viewSelectTranslation.cloneButtonContainer();
+                let button = new OrdbaseButtonContainer;
 
                 button.id       = container;
                 button.text     = container;
                 button.selected = '';
 
-                viewSelectTranslation.appendButtonContainer(button);
+                view.appendButtonContainer(button);
             });
 
             return Api.translation.getGroupOnClient(client);
@@ -58,20 +62,21 @@ export function loadSelectTranslation (client) {
             .then(translations => {
                 translations.forEach((translation, i) => {
 
-                    let card = viewSelectTranslation.cloneCardTranslation();
+                    let card = new OrdbaseCardTranslation;
                     
                     card.key = translation.key;
                     card.onClickCard = event => loadEditTranslation(translation.key);
 
                     Object.keys(translations[i].isComplete).forEach((languageKey, isComplete) => {
-                        let keyAndIcon = card.cloneKeyAndIcon();
+                        
+                        let keyAndIcon = new OrdbaseKeyAndIcon;
 
                         keyAndIcon.languageKey = languageKey;
                         keyAndIcon.icon = (isComplete) ? ICON_CHECK : ICON_TIMES;
 
                         card.appendKeyAndIcon(keyAndIcon);
                     });
-                    viewSelectTranslation.appendCardTranslation(card);
+                    view.appendCardTranslation(card);
                 });           
             })
             .catch(reason => console.error('Error:', reason));

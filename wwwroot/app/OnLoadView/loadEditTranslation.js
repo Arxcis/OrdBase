@@ -5,6 +5,9 @@ import { submitTranslation }          from '../OnSubmitForm/submitTranslation.js
 import { loadSelectTranslation }      from './loadSelectTranslation.js';
 import { loadSelectClient }           from './loadSelectClient.js';
 
+import { OrdbaseEditTranslation } from '/components/views/edit-translation';
+
+
 //
 // @function loadEditTranslation
 //

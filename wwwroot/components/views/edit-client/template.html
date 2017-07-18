@@ -1,8 +1,3 @@
-<link rel="import" href="../lib/button-submit.html">
-<link rel="import" href="../lib/button-container.html">
-<link rel="import" href="../lib/card-client.html">
-
-<template id="template-edit-client">
 
     <style>
         :host {
@@ -30,7 +25,7 @@
         }
 
     </style>
-  
+
     <ul id="list-show-containers-on-client" class="ordbase-list-containers">
         <h2>Containers</h2>        
 
@@ -67,27 +62,10 @@
 
         <ordbase-button-submit></ordbase-button-submit>
     </form>
-    
+
     <ordbase-card-client></ordbase-card-client>
 
-</template>
 
-<script>
-    const TEMPLATE_EDIT_CLIENT = loadTemplate('template-edit-client');
-
-    class OrdbaseEditClient extends HTMLElement {
-
-        constructor() {
-            super();
-            this.root = generateShadowRoot.call(this, TEMPLATE_EDIT_CLIENT);
-        }
-
-        cloneButtonContainer() {
-
-        }
-    }
-    customElements.define('ordbase-edit-client', OrdbaseEditClient);
-</script>
 
 
 

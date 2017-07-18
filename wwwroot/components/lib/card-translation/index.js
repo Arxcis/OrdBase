@@ -1,5 +1,5 @@
 'use strict';
-import { html } from './template.html';
+import html from './template.html';
 
 
 export class OrdbaseCardTranslation extends HTMLElement { 
@@ -11,10 +11,6 @@ export class OrdbaseCardTranslation extends HTMLElement {
     
     set key (key)            { this.root.querySelector('span').innerHTML = key;  }
     set onClickCard(handler) { this.root.querySelector('button').onclick = handler; }
-
-    cloneKeyAndIcon() { 
-        return ELEMENT_KEY_AND_ICON.cloneNode(true);            
-    }
 
     appendKeyAndIcon(keyAndIcon) { 
         this.root.querySelector('div').appendChild(keyAndIcon); 

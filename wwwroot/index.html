@@ -17,32 +17,15 @@
 
         <script>
 
-            function generateShadowRoot(template) {
-                let root = this.createShadowRoot();
-                root.appendChild(document.importNode(template.content, true));
-                return root;
-            }
 
-            function loadTemplate(templateId) {
-                return document.currentScript.ownerDocument.getElementById(templateId);
-            }
             
         </script>
 
-        <!--- VIEW COMPONENTS  -->
-        <link rel="import" href="./components/views/header.html">
-        <link rel="import" href="./components/views/select-client.html">  
-        <link rel="import" href="./components/views/select-translation.html">
-        <link rel="import" href="./components/views/edit-client.html">          
-        <link rel="import" href="./components/views/edit-translation.html">
-
-        <script type="module" src="./app/App.js" defer></script>
+        <script type="module" src="./bundle.js"></script>
 
     </head>
-    <body>  
-        <header>
-            <ordbase-header id="ordbase-header"></ordbase-header>
-        </header>
+    <body>      
+        <header id="ordbase-header"> </header>
         
             <main id="ordbase-main">
                 

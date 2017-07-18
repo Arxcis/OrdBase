@@ -2,11 +2,12 @@
 import html from './template.html';
 
 
+export class OrdbaseEditTranslation extends HTMLElement {
 
-export class OrdbaseButtonSubmit extends HTMLElement {
-    constructor(){
+    constructor() {
         super();
         this.root = this.createShadowRoot();
         this.root.innerHTML = html;
     }
 }
+customElements.define('ordbase-edit-translation', OrdbaseEditTranslation);

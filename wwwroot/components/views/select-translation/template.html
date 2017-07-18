@@ -1,9 +1,3 @@
-<link rel="import" href="../lib/card-translation.html">
-<link rel="import" href="../lib/button-container.html">
-
-
-<!-- ///////////////////// TEMPLATE  //////////////////////// -->
-<template id="template-select-translation">
     <style>
 
         :host {
@@ -58,25 +52,3 @@
         <!--<ordbase-card-translation> </ordbase-card-translation>-->
         
     </section>
-</template>
-
-<script>
-    const TEMPLATE_SELECT_TRANSLATION = loadTemplate('template-select-translation');
-    const ELEMENT_BUTON_CONTAINER     = document.createElement('ordbase-button-container');
-    const ELEMENT_CARD_TRANSLATION    = document.createElement('ordbase-card-translation');
-
-    class OrdbaseSelectTranslation extends HTMLElement {
-
-        constructor() {
-            super();
-            this.root = generateShadowRoot.call(this, TEMPLATE_SELECT_TRANSLATION);
-        }
-
-        cloneButtonContainer () {  return ELEMENT_BUTON_CONTAINER.cloneNode(true);  }
-        cloneCardTranslation () {  return ELEMENT_CARD_TRANSLATION.cloneNode(true);  }
-
-        appendButtonContainer (btn) {   this.root.querySelector('#list-show-containers-on-client').appendChild(btn);  }
-        appendCardTranslation (card) {  this.root.querySelector('#list-show-translations-on-client').appendChild(card); }
-    }
-    customElements.define('ordbase-select-translation', OrdbaseSelectTranslation);
-</script>
