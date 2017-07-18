@@ -24,13 +24,14 @@ export function loadEditTranslation (client, key) {
 
     App.HEADER.textBig          = 'Ordbase';
     App.HEADER.textSmall        = 'Edit translation';
+
     App.HEADER.buttonIconLeft   = App.ICON_BARS;
     App.HEADER.buttonIconRight1 = App.ICON_NONE;    
     App.HEADER.buttonIconRight2 = App.ICON_TIMES;
     
     App.HEADER.onClickButtonLeft   = App.defaultHandler;
-    App.HEADER.onClickButtonRight1 = event => loadSelectClient();
-    App.HEADER.onClickButtonRight2 = App.defaultHandler;
+    App.HEADER.onClickButtonRight1 = App.defaultHandler;
+    App.HEADER.onClickButtonRight2 = event => loadSelectClient();
 
     let containersOnClient = {};
     
@@ -49,7 +50,7 @@ export function loadEditTranslation (client, key) {
 
             containersOnClient.forEach( container => {
 
-                const button = new Ordbase_ButtonContainer;
+                let button = new Ordbase_ButtonContainer;
 
                 button.id = `button-${container}`,
                 button.text = container,
@@ -66,7 +67,7 @@ export function loadEditTranslation (client, key) {
 
             translationGroup.forEach( translation => {
 
-                const fieldset = new Ordbase_FieldsetTranslation;
+                let fieldset = new Ordbase_FieldsetTranslation;
 
                 fieldset.languageCode = translation.languageKey;
                 fieldset.inputId      = `input-${translation.languageCode}`;

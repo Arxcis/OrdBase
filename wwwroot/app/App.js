@@ -10,7 +10,6 @@ import { OrdbaseHeader }    from '../components/views/header';
 // @file main.js
 // @doc 2017 es16 modules native in browsers https://jakearchibald.com/2017/es-modules-in-browsers/
 //
-
 export const ICON_NONE       = '';
 export const ICON_PLUS       = 'fa-plus';
 export const ICON_BARS       = 'fa-bars';
