@@ -70,7 +70,7 @@
         set key (key)            { this.root.querySelector('span').innerHTML = key;  }
         set onClickCard(handler) { this.root.querySelector('button').onclick = handler; }
 
-        spawnKeyAndIcon() { 
+        cloneKeyAndIcon() { 
             return ELEMENT_KEY_AND_ICON.cloneNode(true);            
         }
 

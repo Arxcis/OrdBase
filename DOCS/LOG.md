@@ -9,10 +9,10 @@ Som forventa er det vanskelegare å plukke opp at der ein slapp. Eg kan likevel 
 2. Reorganisere mappestruktur.      
 3. XMLHttpRequest to Fetch API.     
 
+4. Installere spotify
 
 ###Todo
 
-0. Installere spotify
 
 1. Fullføre convertering av alle views til den nye custom-element-component-baserte arkitekturen.
     - loadEditClient.js

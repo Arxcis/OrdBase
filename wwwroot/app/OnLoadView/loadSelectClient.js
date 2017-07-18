@@ -1,8 +1,9 @@
 'use strict';
 
-import * as App from '../App.js';
+import * as App from '/app/App.js';
 import * as Api from '/jslib/Api.js';
 
+import { loadEditClient } from './loadEditClient.js';
 import { loadSelectTranslation } from './loadSelectTranslation.js';
 
 //
@@ -23,7 +24,7 @@ export function loadSelectClient() {
 
     App.header.onClickButtonLeft   = App.defaultHandler;
     App.header.onClickButtonRight1 = App.defaultHandler;
-    App.header.onClickButtonRight2 = App.defaultHandler;
+    App.header.onClickButtonRight2 = event => loadEditClient();
 
     // Batch-update DOM
     App.main.innerHTML = '';
@@ -33,9 +34,9 @@ export function loadSelectClient() {
     Api.client.getAll()
         
         .then(clientObjects => {                                    
-            clientObjects.forEach((client,i) => {
+            clientObjects.forEach((client, i) => {
 
-                let card = viewSelectClient.spawnCard();
+                let card = viewSelectClient.cloneCard();
                 
                 card.id            = `card${i}`;
                 card.heading       =  client.name;

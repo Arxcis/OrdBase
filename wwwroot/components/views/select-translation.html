@@ -72,8 +72,8 @@
             this.root = generateShadowRoot.call(this, TEMPLATE_SELECT_TRANSLATION);
         }
 
-        spawnButtonContainer () {  return ELEMENT_BUTON_CONTAINER.cloneNode(true);  }
-        spawnCardTranslation () {  return ELEMENT_CARD_TRANSLATION.cloneNode(true);  }
+        cloneButtonContainer () {  return ELEMENT_BUTON_CONTAINER.cloneNode(true);  }
+        cloneCardTranslation () {  return ELEMENT_CARD_TRANSLATION.cloneNode(true);  }
 
         appendButtonContainer (btn) {   this.root.querySelector('#list-show-containers-on-client').appendChild(btn);  }
         appendCardTranslation (card) {  this.root.querySelector('#list-show-translations-on-client').appendChild(card); }

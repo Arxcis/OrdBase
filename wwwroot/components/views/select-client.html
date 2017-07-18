@@ -32,7 +32,7 @@
             this.root = generateShadowRoot.call(this, TEMPLATE_SELECT_CLIENT);
         }
 
-        spawnCard()       {   return ELEMENT_CARD_CLIENT.cloneNode(true);  }
+        cloneCard()       {   return ELEMENT_CARD_CLIENT.cloneNode(true);  }
         appendCard(card)  {   this.root.appendChild(card);                 }
     }
     customElements.define('ordbase-select-client', OrdbaseSelectClient);

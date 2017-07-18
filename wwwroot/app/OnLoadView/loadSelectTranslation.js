@@ -40,7 +40,7 @@ export function loadSelectTranslation (client) {
         .then(containersOnClient => {        
             containersOnClient.forEach(container => {
 
-                let button = viewSelectTranslation.spawnButtonContainer();
+                let button = viewSelectTranslation.cloneButtonContainer();
 
                 button.id       = container;
                 button.text     = container;
@@ -58,13 +58,13 @@ export function loadSelectTranslation (client) {
             .then(translations => {
                 translations.forEach((translation, i) => {
 
-                    let card = viewSelectTranslation.spawnCardTranslation();
+                    let card = viewSelectTranslation.cloneCardTranslation();
                     
                     card.key = translation.key;
                     card.onClickCard = event => loadEditTranslation(translation.key);
 
                     Object.keys(translations[i].isComplete).forEach((languageKey, isComplete) => {
-                        let keyAndIcon = card.spawnKeyAndIcon();
+                        let keyAndIcon = card.cloneKeyAndIcon();
 
                         keyAndIcon.languageKey = languageKey;
                         keyAndIcon.icon = (isComplete) ? ICON_CHECK : ICON_TIMES;
