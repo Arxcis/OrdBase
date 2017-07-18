@@ -1,7 +1,3 @@
-<link rel="import" href="./key-and-icon.html">
-
-<template id="template-card-translation">
-
     <style>    
         :host {
             width:100%;
@@ -55,29 +51,3 @@
 
         </div>
     </button>  
-</template>
-
-<script>
-    const TEMPLATE_CARD_TRANSLATION  = loadTemplate('template-card-translation');
-    const ELEMENT_KEY_AND_ICON       = document.createElement('ordbase-key-and-icon');
-    
-    class OrdbaseCardTranslation extends HTMLElement { 
-        constructor() {
-            super();
-            this.root = generateShadowRoot.call(this, TEMPLATE_CARD_TRANSLATION);
-        }
-        
-        set key (key)            { this.root.querySelector('span').innerHTML = key;  }
-        set onClickCard(handler) { this.root.querySelector('button').onclick = handler; }
-
-        cloneKeyAndIcon() { 
-            return ELEMENT_KEY_AND_ICON.cloneNode(true);            
-        }
-
-        appendKeyAndIcon(keyAndIcon) { 
-            this.root.querySelector('div').appendChild(keyAndIcon); 
-        }
-    }
-    customElements.define('ordbase-card-translation', OrdbaseCardTranslation);
-
-</script>
