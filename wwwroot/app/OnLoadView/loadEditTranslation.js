@@ -18,8 +18,9 @@ import { loadSelectClient }           from './loadSelectClient.js';
 //
 export function loadEditTranslation (client, key) {
 
-    let containersOnClient = {};
     const view = new Ordbase_EditTranslation;
+    App.MAIN.innerHTML = '';
+    App.MAIN.appendChild(view);
 
     App.HEADER.textBig          = 'Ordbase';
     App.HEADER.textSmall        = 'Edit translation';
@@ -31,54 +32,49 @@ export function loadEditTranslation (client, key) {
     App.HEADER.onClickButtonRight1 = event => loadSelectClient();
     App.HEADER.onClickButtonRight2 = App.defaultHandler;
 
-    //
-    // @AJAX - Call to get all containers on a client
-    //
-    api.container.getOnClient(client).then(_containersOnClient => {
-
-        containersOnClient = _containersOnClient;  
-        return api.container.getOnKey(client, key);
-    })
-    //
-    // @AJAX - Call to get the container which this translationGroup is connected to
-    //
-    .then(selectedContainer => {
-
-        const containerList = unpackTemplate(containerListTemplate).querySelector('div');
-
-        containersOnClient.forEach( container => {
-
-            const containerButton = unpackTemplate(containerButtonTemplate, {
-                id : `button-${container}`,
-                text : container,
-                selected : (selectedContainer == container ? 'selected' : ''),
-            }).querySelector('button');
-
-            containerList.appendChild(containerButton);
-        });
-
-        view.querySelector('#list-show-containers-on-translation').appendChild(containerList);
+    let containersOnClient = {};
     
-        return api.translation.getOnKey(client, key);
-    })
-    //
-    // @AJAX - Call to get a specific translationGroup to build the translation form
-    //
-    .then(translationGroup => {
+    api.container.getOnClient(client)
+        //
+        // @ajax promise
+        //
+        .then(_containersOnClient => {
+            containersOnClient = _containersOnClient;  
+            return api.container.getOnKey(client, key);
+        })
+        //
+        // @ajax promise
+        //
+        .then(selectedContainer => {
 
-        let fieldsetDiv = view.querySelector('#fieldset-one-for-each-language');
-        translationGroup.forEach( translation => {
+            containersOnClient.forEach( container => {
 
-            console.log(translation);
-            const translationFieldset = unpackTemplate( translationFieldsetTemplate, {
-                languageCode : translation.languageKey,
-                inputId : `input-${translation.languageCode}`,
-                inputValue : translation.text,
+                const button = new Ordbase_ButtonContainer;
+
+                button.id = `button-${container}`,
+                button.text = container,
+                button.selected = (selectedContainer == container ? 'selected' : '');
+
+                view.appendButtonContainer(button);
             });
+            return api.translation.getOnKey(client, key);
+        })
+        //
+        // @ajax promise
+        //
+        .then(translationGroup => {
 
-            translationFieldset.querySelector('[type="checkbox"]').checked = translation.isComplete;
-            fieldsetDiv.appendChild(translationFieldset);
-        });
-    })
-    .catch(reason => console.error('Error:', reason))
+            translationGroup.forEach( translation => {
+
+                const fieldset = new Ordbase_FieldsetTranslation;
+
+                fieldset.languageCode = translation.languageKey;
+                fieldset.inputId      = `input-${translation.languageCode}`;
+                fieldset.inputValue   = translation.text;
+                fieldset.checked      = translation.isComplete;
+
+                view.appendFieldset(fieldset);
+            });
+        })
+        .catch(reason => console.error('Error:', reason))
 }
