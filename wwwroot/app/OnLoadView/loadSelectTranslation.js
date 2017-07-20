@@ -8,9 +8,9 @@ import { Ordbase_ButtonContainer }   from '../../components/lib/button-container
 import { Ordbase_CardTranslation }   from '../../components/lib/card-translation';
 import { Ordbase_KeyAndIcon }        from '../../components/lib/key-and-icon';
 
-//import { loadEditTranslation } from './loadEditTranslation.js';
+import { loadNewTranslation }  from './loadNewTranslation.js';
+import { loadEditTranslation } from './loadEditTranslation.js';
 import { loadSelectClient }    from './loadSelectClient.js';
-
 
 //
 // @function loadSelectTranslation
@@ -30,7 +30,7 @@ export function loadSelectTranslation (client) {
     App.HEADER.buttonIconRight2 = App.ICON_PLUS;
     
     App.HEADER.onClickButtonRight1 = event => loadSelectClient();
-    App.HEADER.onClickButtonRight2 = App.defaultHandler;
+    App.HEADER.onClickButtonRight2 = event => loadNewTranslation(client);
 
     //
     // @AJAX - fetch all containers on selected client
@@ -61,7 +61,7 @@ export function loadSelectTranslation (client) {
                     let card = new Ordbase_CardTranslation;
                     
                     card.key = translation.key;
-                    card.onClickCard = event => loadEditTranslation(translation.key);
+                    card.onClickCard = event => loadEditTranslation(client, translation.key);
 
                     Object.keys(translations[i].isComplete).forEach((languageKey, isComplete) => {
                         

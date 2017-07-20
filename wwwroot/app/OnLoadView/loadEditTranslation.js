@@ -18,10 +18,6 @@ import { loadSelectClient }           from './loadSelectClient.js';
 //
 export function loadEditTranslation (client, key) {
 
-    const view = new Ordbase_EditTranslation;
-    App.MAIN.innerHTML = '';
-    App.MAIN.appendChild(view);
-
     App.HEADER.textBig          = 'Ordbase';
     App.HEADER.textSmall        = 'Edit translation';
 
@@ -31,10 +27,14 @@ export function loadEditTranslation (client, key) {
     
     App.HEADER.onClickButtonLeft   = App.defaultHandler;
     App.HEADER.onClickButtonRight1 = App.defaultHandler;
-    App.HEADER.onClickButtonRight2 = event => loadSelectClient();
+    App.HEADER.onClickButtonRight2 = event => loadSelectTranslation(client);
+
+    const view = new Ordbase_EditTranslation;
+    App.MAIN.removeChild(App.MAIN.firstChild);
+    App.MAIN.appendChild(view);
 
     let containersOnClient = {};
-    
+
     Api.container.getOnClient(client)
         //
         // @ajax promise

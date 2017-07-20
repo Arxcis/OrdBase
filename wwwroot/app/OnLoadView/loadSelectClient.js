@@ -9,6 +9,7 @@ import { Ordbase_CardClient   } from '../../components/lib/card-client';
 
 // Event logic
 import { loadEditClient }        from './loadEditClient.js';
+import { loadNewClient }         from './loadNewClient.js'; 
 import { loadSelectTranslation } from './loadSelectTranslation.js';
 
 
@@ -33,7 +34,7 @@ export function loadSelectClient() {
 
     App.HEADER.onClickButtonLeft   = App.defaultHandler;
     App.HEADER.onClickButtonRight1 = App.defaultHandler;
-    App.HEADER.onClickButtonRight2 = event => loadEditClient();
+    App.HEADER.onClickButtonRight2 = event => loadNewClient();
 
     
     // @ajax - Fetch client data from server

@@ -16,14 +16,14 @@ import { loadSelectClient }           from './loadSelectClient.js';
 //
 // @function loadEditTranslation
 //
-export function loadEditTranslation (client, key) {
+export function loadNewTranslation (client) {
 
     const view = new Ordbase_EditTranslation;
     App.MAIN.innerHTML = '';
     App.MAIN.appendChild(view);
 
     App.HEADER.textBig          = 'Ordbase';
-    App.HEADER.textSmall        = 'Edit translation';
+    App.HEADER.textSmall        = 'New translation';
 
     App.HEADER.buttonIconLeft   = App.ICON_BARS;
     App.HEADER.buttonIconRight1 = App.ICON_NONE;    
@@ -31,51 +31,5 @@ export function loadEditTranslation (client, key) {
     
     App.HEADER.onClickButtonLeft   = App.defaultHandler;
     App.HEADER.onClickButtonRight1 = App.defaultHandler;
-    App.HEADER.onClickButtonRight2 = event => loadSelectClient();
-
-    let containersOnClient = {};
-    
-    Api.container.getOnClient(client)
-        //
-        // @ajax promise
-        //
-        .then(_containersOnClient => {
-            containersOnClient = _containersOnClient;  
-            return Api.container.getOnKey(client, key);
-        })
-        //
-        // @ajax promise
-        //
-        .then(selectedContainer => {
-
-            containersOnClient.forEach( container => {
-
-                let button = new Ordbase_ButtonContainer;
-
-                button.id = `button-${container}`,
-                button.text = container,
-                button.selected = (selectedContainer == container ? 'selected' : '');
-
-                view.appendButtonContainer(button);
-            });
-            return Api.translation.getOnKey(client, key);
-        })
-        //
-        // @ajax promise
-        //
-        .then(translationGroup => {
-
-            translationGroup.forEach( translation => {
-
-                let fieldset = new Ordbase_FieldsetTranslation;
-
-                fieldset.languageCode = translation.languageKey;
-                fieldset.inputId      = `input-${translation.languageCode}`;
-                fieldset.inputValue   = translation.text;
-                fieldset.checked      = translation.isComplete;
-
-                view.appendFieldset(fieldset);
-            });
-        })
-        .catch(reason => console.error('Error:', reason))
+    App.HEADER.onClickButtonRight2 = event => loadSelectTranslation(client);
 }

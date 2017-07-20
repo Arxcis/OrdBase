@@ -1,22 +1,47 @@
 
     <style>
+        @import url('/packages/fontawesome.min.css');
+
         :host {
             height: 100%;
             display: flex;
         }
         
+        h2 {
+            font-size: var(--ordbase-h2-font-size);
+        }
+
         section#list-show-containers-on-client {
             margin: 0px;
             padding: 0px;
-            flex: 0 0 200px
+            flex: 0 0 200px;
+            background-color: var(--ordbase-color-light); 
         }
 
+        .div-menu-items {
+
+        }   
+
+        .button-add-item {
+            cursor: pointer;
+            height: var(--ordbase-button-height);
+            width: 100%;
+            background-color: transparent;
+            color: var(--ordbase-color-success);
+            border: 1px solid var(--ordbase-color-success);
+        }
+
+        .button-add-item:hover {
+            background-color: var(--ordbase-color-success);
+            color: var(--ordbase-color-white);
+        } 
+
         form {
-            font-size: var(--form-font-size);
+            font-size: var(--ordbase-form-font-size);
         }
 
         label {
-            color: rgb(84, 84, 84);
+            color: var(--ordbase-color-dark);
             font-size: 1.5em;
             font-weight: bold;
         }
@@ -33,33 +58,43 @@
     </style>
 
     <section id="list-show-containers-on-client" class="ordbase-list-containers">
-        <h2>Containers</h2>        
+        
+        <div id="div-containers" class="div-menu-items">
+            <h2>Containers</h2>        
+            <button id="button-add-container" class="button-add-item">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+            </button>
+        </div>
 
-        <!--<ordbase-button-container> </ordbase-button-container>-->
-        <!--<ordbase-button-container> </ordbase-button-container>-->
-        <!--<ordbase-button-container> </ordbase-button-container>-->
-
+        <div id="div-languages" class="div-menu-items">    
+            <h2>Languages</h2> 
+            <button id="button-add-language" class="button-add-item">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+            </button>
+        </div>
+                
     </section>
 
     <form>
-
+        <h2>Client</h2>        
+        
         <fieldset>
-            <label for="form-client-name">Name</label>
+            <label for="form-client-name">Name</label><br>
             <input id="form-client-name" class="ordbase-input" type="text" data-min-size="20">
         </fieldset>
 
         <fieldset>
-            <label for="form-client-picture">Nettadresse</label>
+            <label for="form-client-picture">Nettadresse</label><br>
             <input id="form-client-picture" class="ordbase-input" type="text" data-min-size="20">
         </fieldset>
 
         <fieldset>
-            <label for="form-client-homepage">Bildeadresse</label>
+            <label for="form-client-homepage">Bildeadresse</label><br>
             <input id="form-client-homepage" class="ordbase-input" type="text" data-min-size="20">
         </fieldset>
 
         <fieldset>
-            <label for="form-client-name">Api nøkkel</label>
+            <label for="form-client-name">Api nøkkel</label><br>
             <input id="form-client-name" class="ordbase-input" type="text" data-min-size="20">
         </fieldset>
         
@@ -69,9 +104,4 @@
         <ordbase-button-submit></ordbase-button-submit>
     </form>
 
-    <ordbase-card-client></ordbase-card-client>
-
-
-
-
-
+    <!--ordbase-card-client></ordbase-card-client-->
