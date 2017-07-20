@@ -1,12 +1,12 @@
 'use strict';
 
-import * as App from '../App.js';
-import * as Api from '../../jslib/Api.js';
+import * as App from './App.js';
+import * as Api from '../jslib/Api.js';
 
-import { Ordbase_SelectTranslation } from '../../components/views/select-translation';
-import { Ordbase_ButtonContainer }   from '../../components/lib/button-container';
-import { Ordbase_CardTranslation }   from '../../components/lib/card-translation';
-import { Ordbase_KeyAndIcon }        from '../../components/lib/key-and-icon';
+import { Ordbase_SelectTranslation } from '../components/views/select-translation';
+import { Ordbase_ButtonContainer }   from '../components/lib/button-container';
+import { Ordbase_CardTranslation }   from '../components/lib/card-translation';
+import { Ordbase_KeyAndIcon }        from '../components/lib/key-and-icon';
 
 import { loadNewTranslation }  from './loadNewTranslation.js';
 import { loadEditTranslation } from './loadEditTranslation.js';

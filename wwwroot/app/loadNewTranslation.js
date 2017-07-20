@@ -1,15 +1,14 @@
 'use strict';
 
-import * as App from '../App.js';
-import * as Api from '../../jslib/Api.js'; 
+import * as App from './App.js';
+import * as Api from '../jslib/Api.js'; 
 
 // View and components
-import { Ordbase_EditTranslation }     from '../../components/views/edit-translation';
-import { Ordbase_ButtonContainer }     from '../../components/lib/button-container';
-import { Ordbase_FieldsetTranslation } from '../../components/lib/fieldset-translation';
+import { Ordbase_EditTranslation }     from '../components/views/edit-translation';
+import { Ordbase_ButtonContainer }     from '../components/lib/button-container';
+import { Ordbase_FieldsetTranslation } from '../components/lib/fieldset-translation';
 
 // Event handlers
-import { submitTranslation }          from '../OnSubmitForm/submitTranslation.js';
 import { loadSelectTranslation }      from './loadSelectTranslation.js';
 import { loadSelectClient }           from './loadSelectClient.js';
 

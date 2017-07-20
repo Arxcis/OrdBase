@@ -1,11 +1,11 @@
 'use strict';
 
-import * as App from '../App.js';
-import * as Api from '../../jslib/Api.js';
+import * as App from './App.js';
+import * as Api from '../jslib/Api.js';
 
 // View and Components
-import { Ordbase_SelectClient } from '../../components/views/select-client';
-import { Ordbase_CardClient   } from '../../components/lib/card-client';
+import { Ordbase_SelectClient } from '../components/views/select-client';
+import { Ordbase_CardClient   } from '../components/lib/card-client';
 
 // Event logic
 import { loadEditClient }        from './loadEditClient.js';

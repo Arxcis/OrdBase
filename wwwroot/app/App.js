@@ -3,7 +3,7 @@
 // COMPILE WITH BABEL - https://css-tricks.com/transpiling-es6/
 // TRanspile with webpack - https://webpack.github.io/docs/tutorials/getting-started/
 
-import { loadSelectClient } from './OnLoadView/loadSelectClient.js';
+import { loadSelectClient } from './loadSelectClient.js';
 import { Ordbase_Header }   from '../components/views/header'; 
 
 //

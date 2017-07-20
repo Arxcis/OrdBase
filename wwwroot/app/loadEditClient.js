@@ -1,13 +1,12 @@
 'use strict';
 
-import * as App from '../App.js';
-import * as Api from '../../jslib/Api.js';
+import * as App from './App.js';
+import * as Api from '../jslib/Api.js';
 
-import { Ordbase_ButtonContainer } from '../../components/lib/button-container';
-import { Ordbase_EditClient } from '../../components/views/edit-client';
+import { Ordbase_ButtonContainer } from '../components/lib/button-container';
+import { Ordbase_EditClient } from '../components/views/edit-client';
 
 import { loadSelectClient } from './loadSelectClient.js';
-import { submitClient }     from '../OnSubmitForm/submitClient.js';
 
 
 export function loadEditClient(client) {

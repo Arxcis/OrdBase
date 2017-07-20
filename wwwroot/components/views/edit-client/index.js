@@ -9,9 +9,10 @@ export class Ordbase_EditClient extends HTMLElement {
         this.root.innerHTML = html;
     }
 
-    appendButtonContainer(button) {
-        this.root.querySelector('#list-show-containers-on-client').appendChild(button);
+    appendMenuItem(item) {
+        this.root.querySelector('#list-show-containers-on-client').appendChild(item);
     }
+
 }
 
 customElements.define('ordbase-edit-client', Ordbase_EditClient);
