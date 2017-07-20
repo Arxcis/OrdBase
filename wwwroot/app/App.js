@@ -4,7 +4,7 @@
 // TRanspile with webpack - https://webpack.github.io/docs/tutorials/getting-started/
 
 import { loadSelectClient } from './OnLoadView/loadSelectClient.js';
-import { OrdbaseHeader }    from '../components/views/header'; 
+import { Ordbase_Header }   from '../components/views/header'; 
 
 //
 // @file main.js
@@ -18,9 +18,8 @@ export const ICON_ARROW_LEFT = 'fa-arrow-left';
 export const ICON_TIMES      = 'fa-times';
 export const ICON_CHECK      = 'fa-check';
 
-
 // Cache static element references
-document.getElementById('ordbase-header').appendChild(new OrdbaseHeader);
+document.getElementById('ordbase-header').appendChild(new Ordbase_Header);
 
 export const MAIN           = document.getElementById('ordbase-main');    
 export const HEADER         = document.getElementById('ordbase-header').querySelector('ordbase-header');

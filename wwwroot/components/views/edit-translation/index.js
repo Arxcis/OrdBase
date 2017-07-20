@@ -10,4 +10,4 @@ export class Ordbase_EditTranslation extends HTMLElement {
         this.root.innerHTML = html;
     }
 }
-customElements.define('ordbase-edit-translation', OrdbaseEditTranslation);
+customElements.define('ordbase-edit-translation', Ordbase_EditTranslation);

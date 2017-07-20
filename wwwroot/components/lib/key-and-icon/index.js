@@ -17,4 +17,4 @@ export class Ordbase_KeyAndIcon extends HTMLElement {
         this.root.querySelector('i.fa').classList.toggle(iconClass); 
     }
 }
-customElements.define('ordbase-key-and-icon', OrdbaseKeyAndIcon);
+customElements.define('ordbase-key-and-icon', Ordbase_KeyAndIcon);

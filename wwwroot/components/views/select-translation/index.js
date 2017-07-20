@@ -12,4 +12,4 @@ export class Ordbase_SelectTranslation extends HTMLElement {
     appendButtonContainer (btn) {   this.root.querySelector('#list-show-containers-on-client').appendChild(btn);  }
     appendCardTranslation (card) {  this.root.querySelector('#list-show-translations-on-client').appendChild(card); }
 }
-customElements.define('ordbase-select-translation', OrdbaseSelectTranslation);
+customElements.define('ordbase-select-translation', Ordbase_SelectTranslation);

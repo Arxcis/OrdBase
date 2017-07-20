@@ -31,4 +31,4 @@ export class Ordbase_CardClient extends HTMLElement {
     connectedCallback() {
     }
 }
-customElements.define('ordbase-card-client', OrdbaseCardClient);
+customElements.define('ordbase-card-client', Ordbase_CardClient);

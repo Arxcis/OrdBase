@@ -12,4 +12,4 @@ export class Ordbase_SelectClient extends HTMLElement {
 
     appendCard(card)  {   this.root.appendChild(card);                 }
 }
-customElements.define('ordbase-select-client', OrdbaseSelectClient);
+customElements.define('ordbase-select-client', Ordbase_SelectClient);

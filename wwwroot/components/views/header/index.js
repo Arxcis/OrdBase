@@ -21,4 +21,4 @@ export class Ordbase_Header extends HTMLElement {
     set onClickButtonRight1 (handler) { this.root.querySelector('#btn-header-right1').onclick = handler; };
     set onClickButtonRight2 (handler) { this.root.querySelector('#btn-header-right2').onclick = handler; };
 }
-customElements.define('ordbase-header', OrdbaseHeader);
+customElements.define('ordbase-header', Ordbase_Header);

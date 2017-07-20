@@ -16,4 +16,4 @@ export class Ordbase_CardTranslation extends HTMLElement {
         this.root.querySelector('div').appendChild(keyAndIcon); 
     }
 }
-customElements.define('ordbase-card-translation', OrdbaseCardTranslation);
+customElements.define('ordbase-card-translation', Ordbase_CardTranslation);

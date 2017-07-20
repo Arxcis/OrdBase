@@ -10,4 +10,4 @@ export class Ordbase_FieldsetTranslation extends HTMLElement {
         this.root.innerHTML = html;
     }
 }
-customElements.define('ordbase-fieldset-translation', OrdbaseFieldsetTranslation);
+customElements.define('ordbase-fieldset-translation', Ordbase_FieldsetTranslation);

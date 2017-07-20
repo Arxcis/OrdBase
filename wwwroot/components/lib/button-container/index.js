@@ -26,4 +26,4 @@ export class Ordbase_ButtonContainer extends HTMLElement {
             this.button.classList.remove('selected');           
     }
 }
-customElements.define('ordbase-button-container', OrdbaseButtonContainer);
+customElements.define('ordbase-button-container', Ordbase_ButtonContainer);
