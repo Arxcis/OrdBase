@@ -24,9 +24,9 @@ export function loadEditTranslation (client, key) {
     App.HEADER.buttonIconRight1 = App.ICON_NONE;    
     App.HEADER.buttonIconRight2 = App.ICON_TIMES;
     
-    App.HEADER.onClickButtonLeft   = App.defaultHandler;
-    App.HEADER.onClickButtonRight1 = App.defaultHandler;
-    App.HEADER.onClickButtonRight2 = event => loadSelectTranslation(client);
+    App.HEADER.buttonLeft.onclick   = App.defaultHandler;
+    App.HEADER.buttonRight1.onclick = App.defaultHandler;
+    App.HEADER.buttonRight2.onclick = event => loadSelectTranslation(client);
 
     const view = new Ordbase_EditTranslation;
     App.MAIN.removeChild(App.MAIN.firstChild);

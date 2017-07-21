@@ -29,8 +29,8 @@ export function loadSelectTranslation (client) {
     App.HEADER.buttonIconRight1 = App.ICON_ARROW_LEFT;    
     App.HEADER.buttonIconRight2 = App.ICON_PLUS;
     
-    App.HEADER.onClickButtonRight1 = event => loadSelectClient();
-    App.HEADER.onClickButtonRight2 = event => loadNewTranslation(client);
+    App.HEADER.buttonRight1.onclick = event => loadSelectClient();
+    App.HEADER.buttonRight2.onclick = event => loadNewTranslation(client);
 
     //
     // @AJAX - fetch all containers on selected client

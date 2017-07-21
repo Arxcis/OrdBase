@@ -11,9 +11,6 @@ import { Ordbase_EditClient }      from '../components/views/edit-client';
 import { loadSelectClient } from './loadSelectClient.js';
 
 export function loadNewClient(client) {
-    
-    const view = new Ordbase_EditClient;
-
 
     App.HEADER.textBig   = 'Ordbase';    
     App.HEADER.textSmall = 'New client';
@@ -21,18 +18,15 @@ export function loadNewClient(client) {
     App.HEADER.buttonIconRight1 = App.ICON_NONE;    
     App.HEADER.buttonIconRight2 = App.ICON_TIMES;
 
-    App.HEADER.onClickButtonLeft   = App.defaultHandler;
-    App.HEADER.onClickButtonRight1 = App.defaultHandler;
-    App.HEADER.onClickButtonRight2 = event => loadSelectClient();
+    App.HEADER.buttonLeft.onclick   = App.defaultHandler;
+    App.HEADER.buttonRight1.onclick = App.defaultHandler;
+    App.HEADER.buttonRight2.onclick = event => loadSelectClient();
 
-
-    let containerGenerator = new Ordbase_ItemGenerator;
+    const view               = new Ordbase_EditClient;    
+    const containerGenerator = new Ordbase_ItemGenerator;        
     containerGenerator.heading = 'Container'; 
-    let languageGenerator  = new Ordbase_ItemGenerator; 
-    languageGenerator.heading  = 'Language';
 
     view.appendMenuItem(containerGenerator);
-    view.appendMenuItem(languageGenerator);
     
     App.MAIN.innerHTML = '';
     App.MAIN.appendChild(view);

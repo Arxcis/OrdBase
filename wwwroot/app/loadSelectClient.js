@@ -32,9 +32,9 @@ export function loadSelectClient() {
     App.HEADER.buttonIconRight2 = App.ICON_PLUS;
 
 
-    App.HEADER.onClickButtonLeft   = App.defaultHandler;
-    App.HEADER.onClickButtonRight1 = App.defaultHandler;
-    App.HEADER.onClickButtonRight2 = event => loadNewClient();
+    App.HEADER.buttonLeft.onclick   = App.defaultHandler;
+    App.HEADER.buttonRight1.onclick = App.defaultHandler;
+    App.HEADER.buttonRight2.onclick = event => loadNewClient();
 
     
     // @ajax - Fetch client data from server

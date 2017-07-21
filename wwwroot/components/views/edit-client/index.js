@@ -10,7 +10,7 @@ export class Ordbase_EditClient extends HTMLElement {
     }
 
     appendMenuItem(item) {
-        this.root.querySelector('#list-show-containers-on-client').appendChild(item);
+        this.root.querySelector('#list-add-containers-on-client').appendChild(item);
     }
 
 }

@@ -17,8 +17,9 @@ export class Ordbase_Header extends HTMLElement {
     set buttonIconRight1(icon) { this.root.querySelector('#btn-header-right1 i.fa').setAttribute('class', `fa ${icon}`); } 
     set buttonIconRight2(icon) { this.root.querySelector('#btn-header-right2 i.fa').setAttribute('class', `fa ${icon}`); }   
     
-    set onClickButtonLeft   (handler) { this.root.querySelector('#btn-header-left').onclick   = handler; };
-    set onClickButtonRight1 (handler) { this.root.querySelector('#btn-header-right1').onclick = handler; };
-    set onClickButtonRight2 (handler) { this.root.querySelector('#btn-header-right2').onclick = handler; };
+    get buttonLeft()   { return this.root.querySelector('#btn-header-left');   }
+    get buttonRight1() { return this.root.querySelector('#btn-header-right1'); }
+    get buttonRight2() { return this.root.querySelector('#btn-header-right2'); } 
+
 }
 customElements.define('ordbase-header', Ordbase_Header);
