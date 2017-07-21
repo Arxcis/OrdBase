@@ -1,5 +1,11 @@
-// @doc https://medium.com/javascript-training/beginner-s-guide-to-webpack-b1f1a3638460
 'use strict';
+
+// @doc https://medium.com/javascript-training/beginner-s-guide-to-webpack-b1f1a3638460
+
+// @note to use webpack
+// 'npm install <package> -g' "webpack": "^3.3.0",
+// 'npm install <package> -g' "webpack-dev-server": "^2.5.1",
+
 
 module.exports = {
   
