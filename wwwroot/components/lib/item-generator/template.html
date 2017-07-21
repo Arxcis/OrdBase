@@ -1,12 +1,10 @@
 <style>
-    @import url('/packages/fontawesome.min.css');
-    
-    h2 {
-        font-size: var(--ordbase-h2-font-size);
-    }
+    @import url('/node_modules/font-awesome/css/font-awesome.min.css');
     
     input {
         display: none;
+        width: 100%;
+        height: var(--ordbase-button-height);
     }
 
     button {
@@ -35,7 +33,6 @@
 
 </style>
 
-<h2>{{ heading }}</h2>        
 <input type="text" value="">
 <button class="button-add-item">
     <i class="fa fa-plus" aria-hidden="true"></i>

@@ -25,12 +25,26 @@ module.exports = {
             {
                 test: /\.html$/,
                 loader: "html-loader",
+                options: {
+                    minimize: true,
+                    removeComments: true,
+                    collapseWhitespace: true,
+                }
             },
         ],
     },
-    watch: false,
+    watch: true,
 
     resolve: {
         modules: ["node_modules", "app", "components", "jslib"],
     },
+
+    // @doc webserver proxy - https://webpack.github.io/docs/webpack-dev-server.html#rewriting-urls-of-proxy-request
+    devServer: {
+        inline: true,
+        port: 8081,
+        proxy: {
+            "/api/**":  "http://localhost:5000"
+        }
+    }
 }

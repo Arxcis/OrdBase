@@ -8,16 +8,24 @@
         
         h2 {
             font-size: var(--ordbase-h2-font-size);
+            margin-left: 10px;
         }
 
-        section#list-add-containers-on-client {
+        #list-add-containers-on-client {
             margin: 0px;
             padding: 0px;
             flex: 0 0 200px;
             background-color: var(--ordbase-color-light); 
         }
+        
+        #list-add-languages-on-client {
+            flex: 0 0 300px;
+            display: flex;
+            flex-direction: column;
+        }
 
         form {
+            padding-left: 10px;
             font-size: var(--ordbase-form-font-size);
         }
 
@@ -38,7 +46,8 @@
 
     </style>
 
-    <section id="list-add-containers-on-client" class="ordbase-list-containers">
+    <section id="list-add-containers-on-client">
+        <h2>Containers</h2>        
         
         <!--ordbase-item-generator></ordbase-item-generator-->
         <!--ordbase-item-generator></ordbase-item-generator-->
@@ -46,7 +55,7 @@
     </section>
 
     <form>
-        <h2>Client</h2>        
+        <h2>Info</h2>        
         
         <fieldset>
             <label for="form-client-name">Name</label><br>
@@ -73,5 +82,14 @@
 
         <ordbase-button-submit></ordbase-button-submit>
     </form>
+
+    <section id="list-add-languages-on-client">
+        <h2>Languages</h2>
+        <!--ordbase-button-select></ordbase-button-select-->
+        <!--ordbase-button-select></ordbase-button-select-->
+
+    </section>
+
+    
 
     <!--ordbase-card-client></ordbase-card-client-->

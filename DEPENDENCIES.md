@@ -12,10 +12,7 @@
 
 ####Frontend:
 - Font Awesome for icons
-    + wwwroot/packages/fontawesome.min.css
-    + wwwroot/fonts/fontawesome-webfont.ttf
-    + wwwroot/fonts/fontawesome-webfont.woff
-    + wwwroot/fonts/fontawesome-webfont.woff2
+    + ('/node_modules/font-awesome/css/font-awesome.min.css'
 
 - Google Font Roboto or Mani 
 - Flexbox CSS framework

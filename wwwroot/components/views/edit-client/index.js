@@ -9,9 +9,13 @@ export class Ordbase_EditClient extends HTMLElement {
         this.root.innerHTML = html;
     }
 
-    appendMenuItem(item) {
-        this.root.querySelector('#list-add-containers-on-client').appendChild(item);
+    appendMenuItem(element) {
+        this.root.getElementById('list-add-containers-on-client').appendChild(element);
     }
+
+    appendLanguageButton(element) {
+        this.root.getElementById('list-add-languages-on-client').appendChild(element);
+    } 
 
 }
 

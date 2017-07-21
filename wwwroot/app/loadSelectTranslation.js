@@ -4,7 +4,7 @@ import * as App from './App.js';
 import * as Api from '../jslib/Api.js';
 
 import { Ordbase_SelectTranslation } from '../components/views/select-translation';
-import { Ordbase_ButtonContainer }   from '../components/lib/button-container';
+import { Ordbase_ButtonSelect }   from '../components/lib/button-select';
 import { Ordbase_CardTranslation }   from '../components/lib/card-translation';
 import { Ordbase_KeyAndIcon }        from '../components/lib/key-and-icon';
 
@@ -19,7 +19,7 @@ export function loadSelectTranslation (client) {
 
     // Create elements
     const view = new Ordbase_SelectTranslation;
-    App.MAIN.removeChild(App.MAIN.firstChild); // @bench towards innerHTML = ''; 
+    App.MAIN.removeChild(App.MAIN.firstChild); // @speed We should bench against innerHTML = ''; 
     App.MAIN.appendChild(view);       
 
     // Setup header
@@ -28,7 +28,8 @@ export function loadSelectTranslation (client) {
     App.HEADER.buttonIconLeft   = App.ICON_BARS;
     App.HEADER.buttonIconRight1 = App.ICON_ARROW_LEFT;    
     App.HEADER.buttonIconRight2 = App.ICON_PLUS;
-    
+
+    App.HEADER.buttonLeft.onclick   = App.defaultHandler;
     App.HEADER.buttonRight1.onclick = event => loadSelectClient();
     App.HEADER.buttonRight2.onclick = event => loadNewTranslation(client);
 
@@ -40,7 +41,7 @@ export function loadSelectTranslation (client) {
         .then(containersOnClient => {        
             containersOnClient.forEach(container => {
 
-                let button = new Ordbase_ButtonContainer;
+                let button = new Ordbase_ButtonSelect;
 
                 button.id       = container;
                 button.text     = container;

@@ -8,37 +8,31 @@ export class Ordbase_ItemGenerator extends HTMLElement {
         this.root = this.createShadowRoot();
         this.root.innerHTML = html;
 
-        this.input = this.root.querySelector('input');
+        this._input = this.root.querySelector('input');
         this.button = this.root.querySelector('button');
         this.faIcon = this.button.querySelector('i');
 
 
         this.button.onclick = event => { 
+
             console.log(this.button, this.faIcon);
             this.button.classList.toggle('cancel');
             this.faIcon.classList.toggle('fa-plus');
             this.faIcon.classList.toggle('fa-times'); 
             
-            if(this.input.style.display === 'block')
-                this.input.style.display = 'none';
+            if(this._input.style.display === 'block')
+                this._input.style.display = 'none';
             else
-                this.input.style.display = 'block';
+                this._input.style.display = 'block';
+
+            this._input.focus();
         }
     }
 
+    get input(){  return this._input;  }
 
-    set heading(text) { this.root.querySelector('h2').innerHTML = text;}    
-    set onInputEnter(handler) {
-        
-        this.input.addEventListener('keyup', (e) => {
-            if (e.keyCode === 13) {
-                console.log('heeglkjkldfjgløkdfjgløkdfjg');
-            }
-        });
-    }
-
-    appendItem(item) { 
-
+    appendMenuItem(item) { 
+        this.root.insertBefore(item, this._input);
     }
 }
 

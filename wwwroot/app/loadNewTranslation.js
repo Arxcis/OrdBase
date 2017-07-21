@@ -5,7 +5,7 @@ import * as Api from '../jslib/Api.js';
 
 // View and components
 import { Ordbase_EditTranslation }     from '../components/views/edit-translation';
-import { Ordbase_ButtonContainer }     from '../components/lib/button-container';
+import { Ordbase_ButtonSelect }     from '../components/lib/button-select';
 import { Ordbase_FieldsetTranslation } from '../components/lib/fieldset-translation';
 
 // Event handlers
