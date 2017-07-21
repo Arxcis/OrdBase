@@ -3,7 +3,8 @@
 import * as App from './App.js';
 import * as Api from '../jslib/Api.js';
 
-import { Ordbase_ItemGenerator } from '../components/lib/item-generator'
+import { Ordbase_ItemGenerator } from '../components/lib/item-generator';
+import { Ordbase_ButtonSubmit }  from '../components/lib/button-submit';
 import { Ordbase_ButtonSelect }  from '../components/lib/button-select';
 import { Ordbase_EditClient }    from '../components/views/edit-client';
 
@@ -39,8 +40,11 @@ export function loadNewClient(client) {
         }   
     });
 
-    view.appendMenuItem(generator);
+    let button = new Ordbase_ButtonSubmit;
+    button.text = 'Create client';
     
+    view.appendButtonSubmit(button);
+    view.appendMenuItem(generator);
 
 
     App.MAIN.removeChild(App.MAIN.firstChild);

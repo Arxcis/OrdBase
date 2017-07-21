@@ -9,6 +9,8 @@ export class Ordbase_ButtonSubmit extends HTMLElement {
         this.root = this.createShadowRoot();
         this.root.innerHTML = html;
     }
+
+    
 }
 
 customElements.define('ordbase-button-submit', Ordbase_ButtonSubmit);

@@ -17,6 +17,10 @@ export class Ordbase_EditClient extends HTMLElement {
         this.root.getElementById('list-add-languages-on-client').appendChild(element);
     } 
 
+    appendButtonSubmit(button) {
+        this.root.querySelector('form').appendChild(button);
+    }
+
 }
 
 customElements.define('ordbase-edit-client', Ordbase_EditClient);
