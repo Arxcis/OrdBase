@@ -8,7 +8,10 @@ export class Ordbase_ButtonSelect extends HTMLElement {
         this.root.innerHTML = html;
 
         this.button = this.root.querySelector('button');
-        this.button.onclick = event => event.target.classList.toggle('selected');            
+        this.button.onclick = event => {
+            event.target.classList.toggle('selected');
+            this.blur();
+        };            
     }
 
     set id (id) { 

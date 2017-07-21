@@ -6,14 +6,24 @@
             cursor: pointer;
             background-color: transparent;
             color: var(--ordbase-color-dark);
-            border: 1px solid var(--ordbase-color-select);
+            
+            border: 0px;
+            /*border: 1px solid var(--ordbase-color-select);*/
         }   
 
-        button.selected,
-        button:hover {
+        button.selected{
             background-color: var(--ordbase-color-select);
             color: var(--ordbase-color-white);
+        }
+        button:hover {
+            background-color: var(--ordbase-color-dark);
+            color: var(--ordbase-color-white);
         } 
+
+        button.selected:focus {
+            outline: none;
+            background-color: var(--ordbase-color-dark);
+        }
     </style>
 
     <button id="{{ id }}"> 

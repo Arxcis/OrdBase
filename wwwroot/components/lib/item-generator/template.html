@@ -13,8 +13,8 @@
         height: var(--ordbase-button-height);
         width: 100%;
         background-color: transparent;
-        color: var(--ordbase-color-success);
-        border: 1px solid var(--ordbase-color-success);
+        color: var(--ordbase-color-dark);
+        border: 0px;
     }
 
     button:focus {
@@ -26,9 +26,10 @@
         color: var(--ordbase-color-white);
     }     
 
-    button.cancel {
-        border: 1px solid var(--ordbase-color-danger);        
-        color: var(--ordbase-color-danger); 
+    button.cancel:hover {
+        background-color: var(--ordbase-color-danger);
+        color: var(--ordbase-color-white);
+
     }
 
 </style>

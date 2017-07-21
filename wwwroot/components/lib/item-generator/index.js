@@ -22,11 +22,18 @@ export class Ordbase_ItemGenerator extends HTMLElement {
             
             if(this._input.style.display === 'block')
                 this._input.style.display = 'none';
-            else
+            else {
                 this._input.style.display = 'block';
-
-            this._input.focus();
+                this._input.focus();
+            }
         }
+
+        this._input.addEventListener('focusout', () => {
+            this._input.style.display = 'none';
+            this.button.classList.remove('cancel');
+            this.faIcon.classList.add('fa-plus');
+            this.faIcon.classList.remove('fa-times');            
+        })
     }
 
     get input(){  return this._input;  }
