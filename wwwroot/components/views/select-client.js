@@ -1,5 +1,5 @@
 'use strict';
-import html from './template.html';
+import html from './select-client.html';
 
 
 export class Ordbase_SelectClient extends HTMLElement {

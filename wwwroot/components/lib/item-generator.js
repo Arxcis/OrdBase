@@ -1,5 +1,5 @@
 'use strict';
-import html from './template.html';
+import html from './item-generator.html';
 
 export class Ordbase_ItemGenerator extends HTMLElement {
 

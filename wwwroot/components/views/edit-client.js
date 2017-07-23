@@ -1,5 +1,5 @@
 'use strict';
-import html from './template.html';
+import html from './edit-client.html';
 
 export class Ordbase_EditClient extends HTMLElement {
 

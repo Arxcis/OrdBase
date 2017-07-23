@@ -1,5 +1,5 @@
 'use strict';
-import html from './template.html';
+import html from './button-select.html';
 
 export class Ordbase_ButtonSelect extends HTMLElement { 
     constructor() {

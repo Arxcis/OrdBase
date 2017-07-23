@@ -1,5 +1,5 @@
 'use strict';
-import html from './template.html';
+import html from './group-key-icon.html';
 
 
 export class Ordbase_GroupKeyIcon extends HTMLElement { 

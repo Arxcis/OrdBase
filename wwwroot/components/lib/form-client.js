@@ -10,4 +10,4 @@ export class Ordbase_FormClient extends HTMLElement {
     }
 }
 
-customElements.define('ordbase-button-submit', Ordbase_ButtonSubmit);
+customElements.define('ordbase-form-client', Ordbase_FormClient);

@@ -1,5 +1,5 @@
 'use strict';
-import html from './template.html';
+import html from './edit-translation.html';
 
 
 export class Ordbase_EditTranslation extends HTMLElement {
