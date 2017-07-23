@@ -3,18 +3,14 @@
 import * as App from './App.js';
 import * as Api from '../jslib/Api.js';
 
-import { Ordbase_ButtonSelect } from '../components/lib/button-select';
-import { Ordbase_EditClient } from '../components/views/edit-client';
+import { Component_ButtonSelect } from '../components/lib/button-select.js';
+import { Component_EditClient } from '../components/views/edit-client.js';
 
 import { loadSelectClient } from './loadSelectClient.js';
 
 
 export function loadEditClient(client) {
     
-    const view = new Ordbase_EditClient;
-    App.MAIN.innerHTML = '';
-    App.MAIN.appendChild(view);
-
     App.HEADER.textBig   = 'Ordbase';    
     App.HEADER.textSmall = 'Edit client';
 
@@ -26,12 +22,14 @@ export function loadEditClient(client) {
     App.HEADER.buttonRight1.onclick = App.defaultHandler;
     App.HEADER.buttonRight2.onclick = event => loadSelectClient();
 
+    const view = App.switchView(new Component_EditClient);
+
     Api.container.getOnClient(client='')
         .then( containersOnClient => {
 
             containersOnClient.forEach( container => {
 
-                const button = new Ordbase_ButtonSelect;
+                const button = new Component_ButtonSelect;
 
                 button.id = `button-${container}`;
                 button.text  = container;

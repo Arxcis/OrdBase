@@ -3,10 +3,10 @@
 import * as App from './App.js';
 import * as Api from '../jslib/Api.js';
 
-import { Ordbase_SelectTranslation } from '../components/views/select-translation';
-import { Ordbase_ButtonSelect }   from '../components/lib/button-select';
-import { Ordbase_CardTranslation }   from '../components/lib/card-translation';
-import { Ordbase_KeyAndIcon }        from '../components/lib/key-and-icon';
+import { Ordbase_SelectTranslation } from '../components/views/select-translation.js';
+import { Ordbase_ButtonSelect }   from '../components/lib/button-select.js';
+import { Ordbase_CardTranslation }   from '../components/lib/card-translation.js';
+import { Ordbase_KeyAndIcon }        from '../components/lib/key-and-icon.js';
 
 import { loadNewTranslation }  from './loadNewTranslation.js';
 import { loadEditTranslation } from './loadEditTranslation.js';
@@ -18,9 +18,7 @@ import { loadSelectClient }    from './loadSelectClient.js';
 export function loadSelectTranslation (client) {
 
     // Create elements
-    const view = new Ordbase_SelectTranslation;
-    App.MAIN.removeChild(App.MAIN.firstChild); // @speed We should bench against innerHTML = ''; 
-    App.MAIN.appendChild(view);       
+    const view =  App.switchView(new Ordbase_SelectTranslation);
 
     // Setup header
     App.HEADER.textBig          = 'Ordbase';

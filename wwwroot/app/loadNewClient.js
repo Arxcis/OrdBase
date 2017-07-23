@@ -36,7 +36,7 @@ export function loadNewClient(client) {
     App.HEADER.buttonRight1.onclick = App.defaultHandler;
     App.HEADER.buttonRight2.onclick = event => loadSelectClient();
 
-    const view      = new Ordbase_EditClient; 
+    const view = new Ordbase_EditClient; 
     
     // 1. Set up container generator
     const generator = new Ordbase_ItemGenerator;
@@ -67,8 +67,7 @@ export function loadNewClient(client) {
 
 
     // 4. Append view to DOM
-    App.MAIN.removeChild(App.MAIN.firstChild);
-    App.MAIN.appendChild(view);
+    App.switchView(view);
 
     // 5. Promise fill in available languages
     Api.language.getAll()

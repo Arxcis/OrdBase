@@ -4,8 +4,8 @@ import * as App from './App.js';
 import * as Api from '../jslib/Api.js';
 
 // View and Components
-import { Ordbase_SelectClient } from '../components/views/select-client';
-import { Ordbase_CardClient   } from '../components/lib/card-client';
+import { Ordbase_SelectClient } from '../components/views/select-client.js';
+import { Ordbase_CardClient   } from '../components/lib/card-client.js';
 
 // Event logic
 import { loadEditClient }        from './loadEditClient.js';
@@ -19,10 +19,7 @@ import { loadSelectTranslation } from './loadSelectTranslation.js';
 export function loadSelectClient() {
 
     // Create elements
-    const view = new Ordbase_SelectClient;
-    App.MAIN.innerHTML = '';
-    App.MAIN.appendChild(view);              
-
+    const view = App.switchView(new Ordbase_SelectClient);
 
     // Setup header
     App.HEADER.textBig          = 'Ordbase';

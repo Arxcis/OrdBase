@@ -4,9 +4,9 @@ import * as App from './App.js';
 import * as Api from '../jslib/Api.js'; 
 
 // View and components
-import { Ordbase_EditTranslation }     from '../components/views/edit-translation';
-import { Ordbase_ButtonSelect }     from '../components/lib/button-select';
-import { Ordbase_FieldsetTranslation } from '../components/lib/fieldset-translation';
+import { Ordbase_EditTranslation }     from '../components/views/edit-translation.js';
+import { Ordbase_ButtonSelect }     from '../components/lib/button-select.js';
+import { Ordbase_FieldsetTranslation } from '../components/lib/fieldset-translation.js';
 
 // Event handlers
 import { loadSelectTranslation }      from './loadSelectTranslation.js';
@@ -17,9 +17,7 @@ import { loadSelectClient }           from './loadSelectClient.js';
 //
 export function loadNewTranslation (client) {
 
-    const view = new Ordbase_EditTranslation;
-    App.MAIN.innerHTML = '';
-    App.MAIN.appendChild(view);
+    const view = App.switchView(new Ordbase_EditTranslation);
 
     App.HEADER.textBig          = 'Ordbase';
     App.HEADER.textSmall        = 'New translation';

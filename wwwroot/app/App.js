@@ -6,6 +6,7 @@
 import { loadSelectClient } from './loadSelectClient.js';
 import { Ordbase_Header }   from '../components/views/header'; 
 
+
 //
 // @file main.js
 // @doc 2017 es16 modules native in browsers https://jakearchibald.com/2017/es-modules-in-browsers/
@@ -18,13 +19,20 @@ export const ICON_ARROW_LEFT = 'fa-arrow-left';
 export const ICON_TIMES      = 'fa-times';
 export const ICON_CHECK      = 'fa-check';
 
-// Cache static element references
-document.getElementById('ordbase-header').appendChild(new Ordbase_Header);
-
-export const MAIN           = document.getElementById('ordbase-main');    
 export const HEADER         = document.getElementById('ordbase-header').querySelector('ordbase-header');
 export const defaultHandler = (event) => console.log('Default handler... nothing happened');
 
+export function switchView(view) {
+    App.MAIN.innerHTML = '';
+    App.MAIN.appendChild(view);
+    return view;
+}
+
+
+// Cache static element references
+document.getElementById('ordbase-header').appendChild(new Ordbase_Header);
+
+const MAIN = document.getElementById('ordbase-main');    
 
 window.addEventListener('load', () => {
     loadSelectClient();
