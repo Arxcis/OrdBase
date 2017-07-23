@@ -3,10 +3,10 @@
 import * as App from './App.js';
 import * as Api from '../jslib/Api.js';
 
-import { Ordbase_SelectTranslation } from '../components/views/select-translation.js';
-import { Ordbase_ButtonSelect }   from '../components/lib/button-select.js';
-import { Ordbase_CardTranslation }   from '../components/lib/card-translation.js';
-import { Ordbase_KeyAndIcon }        from '../components/lib/key-and-icon.js';
+import { Component_SelectTranslation } from '../components/views/select-translation.js';
+import { Component_ButtonSelect }      from '../components/lib/button-select.js';
+import { Component_CardTranslation }   from '../components/lib/card-translation.js';
+import { Component_KeyAndIcon }        from '../components/lib/group-key-icon.js';
 
 import { loadNewTranslation }  from './loadNewTranslation.js';
 import { loadEditTranslation } from './loadEditTranslation.js';
@@ -18,7 +18,7 @@ import { loadSelectClient }    from './loadSelectClient.js';
 export function loadSelectTranslation (client) {
 
     // Create elements
-    const view =  App.switchView(new Ordbase_SelectTranslation);
+    const view =  App.switchView(new Component_SelectTranslation);
 
     // Setup header
     App.HEADER.textBig          = 'Ordbase';
@@ -39,7 +39,7 @@ export function loadSelectTranslation (client) {
         .then(containersOnClient => {        
             containersOnClient.forEach(container => {
 
-                let button = new Ordbase_ButtonSelect;
+                let button = new Component_ButtonSelect;
 
                 button.id       = container;
                 button.text     = container;
@@ -57,14 +57,14 @@ export function loadSelectTranslation (client) {
             .then(translations => {
                 translations.forEach((translation, i) => {
 
-                    let card = new Ordbase_CardTranslation;
+                    let card = new Component_CardTranslation;
                     
                     card.key = translation.key;
                     card.onClickCard = event => loadEditTranslation(client, translation.key);
 
                     Object.keys(translations[i].isComplete).forEach((languageKey, isComplete) => {
                         
-                        let keyAndIcon = new Ordbase_KeyAndIcon;
+                        let keyAndIcon = new Component_KeyAndIcon;
 
                         keyAndIcon.languageKey = languageKey;
                         keyAndIcon.icon = (isComplete) ? App.ICON_CHECK : App.ICON_TIMES;

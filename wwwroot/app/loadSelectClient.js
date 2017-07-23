@@ -4,8 +4,8 @@ import * as App from './App.js';
 import * as Api from '../jslib/Api.js';
 
 // View and Components
-import { Ordbase_SelectClient } from '../components/views/select-client.js';
-import { Ordbase_CardClient   } from '../components/lib/card-client.js';
+import { Component_SelectClient } from '../components/views/select-client.js';
+import { Component_CardClient   } from '../components/lib/card-client.js';
 
 // Event logic
 import { loadEditClient }        from './loadEditClient.js';
@@ -19,7 +19,7 @@ import { loadSelectTranslation } from './loadSelectTranslation.js';
 export function loadSelectClient() {
 
     // Create elements
-    const view = App.switchView(new Ordbase_SelectClient);
+    const view = App.switchView(new Component_SelectClient);
 
     // Setup header
     App.HEADER.textBig          = 'Ordbase';
@@ -40,7 +40,7 @@ export function loadSelectClient() {
         .then(clientObjects => {                                    
             clientObjects.forEach((client, i) => {
 
-                let card = new Ordbase_CardClient;
+                let card = new Component_CardClient;
                 
                 card.id            = `card${i}`;
                 card.heading       =  client.name;

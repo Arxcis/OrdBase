@@ -1,7 +1,7 @@
 'use strict';
 import html from './item-generator.html';
 
-export class Ordbase_ItemGenerator extends HTMLElement {
+export class Component_ItemGenerator extends HTMLElement {
 
     constructor() {
         super();
@@ -43,4 +43,4 @@ export class Ordbase_ItemGenerator extends HTMLElement {
     }
 }
 
-customElements.define('ordbase-item-generator', Ordbase_ItemGenerator);
+customElements.define('component-item-generator', Component_ItemGenerator);

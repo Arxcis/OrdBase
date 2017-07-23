@@ -2,7 +2,7 @@
 import html from './header.html';
 
 
-export class Ordbase_Header extends HTMLElement {
+export class Component_Header extends HTMLElement {
 
     constructor() {
         super();
@@ -22,4 +22,4 @@ export class Ordbase_Header extends HTMLElement {
     get buttonRight2() { return this.root.querySelector('#btn-header-right2'); } 
 
 }
-customElements.define('ordbase-header', Ordbase_Header);
+customElements.define('component-header', Component_Header);

@@ -1,7 +1,7 @@
 'use strict';
 import html from './form-client.html';
 
-export class Ordbase_FormClient extends HTMLElement {
+export class Component_FormClient extends HTMLElement {
     
     constructor(){
         super();
@@ -10,4 +10,4 @@ export class Ordbase_FormClient extends HTMLElement {
     }
 }
 
-customElements.define('ordbase-form-client', Ordbase_FormClient);
+customElements.define('component-form-client', Component_FormClient);

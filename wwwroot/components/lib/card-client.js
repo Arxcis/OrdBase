@@ -3,7 +3,7 @@ import html from './card-client.html';
 
 
 
-export class Ordbase_CardClient extends HTMLElement {
+export class Component_CardClient extends HTMLElement {
 
     constructor() {
         super();
@@ -31,4 +31,4 @@ export class Ordbase_CardClient extends HTMLElement {
     connectedCallback() {
     }
 }
-customElements.define('ordbase-card-client', Ordbase_CardClient);
+customElements.define('component-card-client', Component_CardClient);

@@ -1,7 +1,7 @@
 'use strict';
 import html from './edit-client.html';
 
-export class Ordbase_EditClient extends HTMLElement {
+export class Component_EditClient extends HTMLElement {
 
     constructor() {
         super();
@@ -26,4 +26,4 @@ export class Ordbase_EditClient extends HTMLElement {
     }
 }
 
-customElements.define('ordbase-edit-client', Ordbase_EditClient);
+customElements.define('component-edit-client', Component_EditClient);

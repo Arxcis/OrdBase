@@ -2,7 +2,7 @@
 import html from './edit-translation.html';
 
 
-export class Ordbase_EditTranslation extends HTMLElement {
+export class Component_EditTranslation extends HTMLElement {
 
     constructor() {
         super();
@@ -10,4 +10,4 @@ export class Ordbase_EditTranslation extends HTMLElement {
         this.root.innerHTML = html;
     }
 }
-customElements.define('ordbase-edit-translation', Ordbase_EditTranslation);
+customElements.define('component-edit-translation', Component_EditTranslation);

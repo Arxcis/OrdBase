@@ -2,7 +2,7 @@
 import html from './card-translation.html';
 
 
-export class Ordbase_CardTranslation extends HTMLElement { 
+export class Component_CardTranslation extends HTMLElement { 
     constructor() {
         super();
         this.root = this.createShadowRoot();
@@ -16,4 +16,4 @@ export class Ordbase_CardTranslation extends HTMLElement {
         this.root.querySelector('div').appendChild(keyAndIcon); 
     }
 }
-customElements.define('ordbase-card-translation', Ordbase_CardTranslation);
+customElements.define('component-card-translation', Component_CardTranslation);

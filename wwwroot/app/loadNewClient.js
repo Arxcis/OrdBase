@@ -3,10 +3,10 @@
 import * as App from './App.js';
 import * as Api from '../jslib/Api.js';
 
-import { Ordbase_ItemGenerator } from '../components/lib/item-generator.js';
-import { Ordbase_FormClient }    from '../components/lib/form-client.js';
-import { Ordbase_ButtonSelect }  from '../components/lib/button-select.js';
-import { Ordbase_EditClient }    from '../components/views/edit-client.js';
+import { Component_ItemGenerator } from '../components/lib/item-generator.js';
+import { Component_FormClient }    from '../components/lib/form-client.js';
+import { Component_ButtonSelect }  from '../components/lib/button-select.js';
+import { Component_EditClient }    from '../components/views/edit-client.js';
 
 import { loadSelectClient } from './loadSelectClient.js';
 
@@ -36,15 +36,15 @@ export function loadNewClient(client) {
     App.HEADER.buttonRight1.onclick = App.defaultHandler;
     App.HEADER.buttonRight2.onclick = event => loadSelectClient();
 
-    const view = new Ordbase_EditClient; 
+    const view = new Component_EditClient; 
     
     // 1. Set up container generator
-    const generator = new Ordbase_ItemGenerator;
+    const generator = new Component_ItemGenerator;
 
     generator.input.addEventListener('keyup', (e) => {
         if (e.keyCode === ESC || e.keyCode === TAB) {  // ESC or TAB
 
-            let button = new Ordbase_ButtonSelect;
+            let button = new Component_ButtonSelect;
             button.text = e.target.value;
             button.selected = true;
 
@@ -55,7 +55,7 @@ export function loadNewClient(client) {
     view.appendItemMenu(generator);
 
     // 2. Set up submit button 
-    const button = new Ordbase_ButtonSubmit;
+    const button = new Component_ButtonSubmit;
     button.text = 'Create client';
     view.appendButtonSubmit(button);
 
@@ -74,7 +74,7 @@ export function loadNewClient(client) {
         .then(languages => {
 
             languages.forEach(lang => {
-                let button = new Ordbase_ButtonSelect;
+                let button = new Component_ButtonSelect;
 
                 button.id       = lang.key;
                 button.text     = `${lang.name} - ${lang.key}`;

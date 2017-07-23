@@ -2,7 +2,7 @@
 import html from './fieldset-translation.html';
 
 
-export class Ordbase_FieldsetTranslation extends HTMLElement {
+export class Component_FieldsetTranslation extends HTMLElement {
 
     constructor() {
         super();
@@ -10,4 +10,4 @@ export class Ordbase_FieldsetTranslation extends HTMLElement {
         this.root.innerHTML = html;
     }
 }
-customElements.define('ordbase-fieldset-translation', Ordbase_FieldsetTranslation);
+customElements.define('component-fieldset-translation', Component_FieldsetTranslation);

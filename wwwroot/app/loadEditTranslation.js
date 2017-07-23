@@ -4,9 +4,9 @@ import * as App from './App.js';
 import * as Api from '../jslib/Api.js'; 
 
 // View and components
-import { Ordbase_EditTranslation }     from '../components/views/edit-translation.js';
-import { Ordbase_ButtonSelect }        from '../components/lib/button-select.js';
-import { Ordbase_FieldsetTranslation } from '../components/lib/fieldset-translation.js';
+import { Component_EditTranslation }     from '../components/views/edit-translation.js';
+import { Component_ButtonSelect }        from '../components/lib/button-select.js';
+import { Component_FieldsetTranslation } from '../components/lib/fieldset-translation.js';
 
 // Event handlers
 import { loadSelectTranslation }      from './loadSelectTranslation.js';
@@ -47,7 +47,7 @@ export function loadEditTranslation (client, key) {
 
             containersOnClient.forEach( container => {
 
-                let button = new Ordbase_ButtonSelect;
+                let button = new Component_ButtonSelect;
 
                 button.id = `button-${container}`,
                 button.text = container,
@@ -64,7 +64,7 @@ export function loadEditTranslation (client, key) {
 
             translationGroup.forEach( translation => {
 
-                let fieldset = new Ordbase_FieldsetTranslation;
+                let fieldset = new Component_FieldsetTranslation;
 
                 fieldset.languageCode = translation.languageKey;
                 fieldset.inputId      = `input-${translation.languageCode}`;

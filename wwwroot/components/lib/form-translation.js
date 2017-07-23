@@ -1,7 +1,7 @@
 'use strict';
 import html from './form-translation.html';
 
-export class Ordbase_FormTranslation extends HTMLElement {
+export class Component_FormTranslation extends HTMLElement {
     
     constructor(){
         super();
@@ -10,4 +10,4 @@ export class Ordbase_FormTranslation extends HTMLElement {
     }
 }
 
-customElements.define('ordbase-form-translation', Ordbase_FormTranslation);
+customElements.define('component-form-translation', Component_FormTranslation);

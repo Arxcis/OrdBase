@@ -2,7 +2,7 @@
 import html from './select-client.html';
 
 
-export class Ordbase_SelectClient extends HTMLElement {
+export class Component_SelectClient extends HTMLElement {
 
     constructor() {
         super();
@@ -12,4 +12,4 @@ export class Ordbase_SelectClient extends HTMLElement {
 
     appendCard(card)  {   this.root.appendChild(card);                 }
 }
-customElements.define('ordbase-select-client', Ordbase_SelectClient);
+customElements.define('component-select-client', Component_SelectClient);

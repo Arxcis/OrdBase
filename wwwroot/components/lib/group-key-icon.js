@@ -2,7 +2,7 @@
 import html from './group-key-icon.html';
 
 
-export class Ordbase_GroupKeyIcon extends HTMLElement { 
+export class Component_GroupKeyIcon extends HTMLElement { 
     constructor() {
         super();
         this.root = this.createShadowRoot();
@@ -17,4 +17,4 @@ export class Ordbase_GroupKeyIcon extends HTMLElement {
         this.root.querySelector('i.fa').classList.toggle(iconClass); 
     }
 }
-customElements.define('ordbase-group-key-icon', Ordbase_GroupKeyIcon);
+customElements.define('component-group-key-icon', ComponentGroupKeyIcon);

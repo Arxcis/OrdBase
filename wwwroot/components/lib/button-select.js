@@ -1,7 +1,7 @@
 'use strict';
 import html from './button-select.html';
 
-export class Ordbase_ButtonSelect extends HTMLElement { 
+export class Component_ButtonSelect extends HTMLElement { 
     constructor() {
         super();
         this.root = this.createShadowRoot();
@@ -33,4 +33,4 @@ export class Ordbase_ButtonSelect extends HTMLElement {
         return this.button.classList.contains('selected');
     }
 }
-customElements.define('ordbase-button-select', Ordbase_ButtonSelect);
+customElements.define('component-button-select', Component_ButtonSelect);
