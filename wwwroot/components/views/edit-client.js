@@ -9,18 +9,21 @@ export class Ordbase_EditClient extends HTMLElement {
         this.root.innerHTML = html;
     }
 
-    appendMenuItem(element) {
+    get form () {
+        return this.root.getElementById('form-edit-client');
+    }
+
+    appendItemMenu(element) {
         this.root.getElementById('list-add-containers-on-client').appendChild(element);
     }
 
-    appendLanguageButton(element) {
+    appendButtonLanguage(element) {
         this.root.getElementById('list-add-languages-on-client').appendChild(element);
     } 
 
     appendButtonSubmit(button) {
-        this.root.querySelector('form').appendChild(button);
+        this.form.appendChild(button);
     }
-
 }
 
 customElements.define('ordbase-edit-client', Ordbase_EditClient);

@@ -1,6 +1,4 @@
-
     <style>
-
         :host {
             height: 100%;
             display: flex;
@@ -21,10 +19,7 @@
             padding: 0px;
         }
         
-        #list-add-languages-on-client {
-        }
-
-        form {
+        #form-client {
             padding-left: 10px;
             font-size: var(--ordbase-form-font-size);
         }
@@ -36,7 +31,7 @@
         }
 
         input {
-            font-size: 2em;
+            font-size: var(--ordbase-input-font-size);
             margin: 0px 20px 10px 4px;
             width: 400px;
         }
@@ -45,27 +40,27 @@
             border: none;
         }
 
+        #button-submit {
+            font-size: var(--ordbase-button-font-size);
+            width: 430px;
+            height: var(--ordbase-button-height); 
+
+            cursor: pointer;
+            
+            background-color: transparent;
+            color: var(--ordbase-color-dark); 
+            border: 1px solid var(--ordbase-color-success);
+        }
+
+        #button-submit.selected,
+        #button-submit:hover {
+            background-color: var(--ordbase-color-success);
+            color: var(--ordbase-color-white);
+        }
+
     </style>
 
-        <div id="client-edit-left-menu">
-            <section id="list-add-containers-on-client">
-                <h2>Containers</h2>        
-                
-                <!--ordbase-item-generator></ordbase-item-generator-->
-                <!--ordbase-item-generator></ordbase-item-generator-->
-            </section>
-
-            <section id="list-add-languages-on-client">
-                <h2>Languages</h2>
-                <!--ordbase-button-select></ordbase-button-select-->
-                <!--ordbase-button-select></ordbase-button-select-->
-
-            </section> 
-            
-    </div>
-
-
-    <form>
+    <form id="form-client">
         <h2>Basic Info</h2>        
         
         <fieldset>
@@ -91,10 +86,8 @@
         <br>
         <br>
 
+        <button id="button-submit" class="ordbase-btn-form-submit" type="submit"> 
+            {{ submitButtonText }}
+        </button>
+
     </form>
-
-
-
-    
-
-    <!--ordbase-card-client></ordbase-card-client-->

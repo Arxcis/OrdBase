@@ -33,28 +33,16 @@ namespace OrdBaseCore.Controllers
 
 
         //
-        // @class ClientWithLanguageCodes
-        //  @note This is a helper class for recieving a JSON object from the client, which has both
-        //   the complete information of a new Client object, but also has an array of all the languages
-        //   which will be connected to the new client. In the Relational database, the languages and the 
-        //   clients are two separate tables, which is why they have to be split up here. JSolsvik - 03.07.17
-        //
-        public class ClientWithLanguageCodes 
-        {
-            public Client Client { get; }
-            public string[] LanguageCodes { get; }
-        }
-        //
         // CREATE, UPDATE, DELETE  @doc https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-vsc#implement-the-other-crud-operations|
         //
         [HttpPost("api/client/create")]
-        public IActionResult Create([FromBody] ClientWithLanguageCodes clientWithLanguageCodes) 
+        public IActionResult Create([FromBody] Client client) 
         {   
             // @note validates if JSON body has the correct type
-            if (clientWithLanguageCodes == null)
+            if (client == null)
                 return  BadRequest();
 
-            _clientRepo.Create(clientWithLanguageCodes.Client, clientWithLanguageCodes.LanguageCodes);
+            _clientRepo.Create(client);
             return StatusCode(201);
         } 
     }

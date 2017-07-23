@@ -38,7 +38,7 @@ export class Ordbase_ItemGenerator extends HTMLElement {
 
     get input(){  return this._input;  }
 
-    appendMenuItem(item) { 
+    appendItem(item) { 
         this.root.insertBefore(item, this._input);
     }
 }

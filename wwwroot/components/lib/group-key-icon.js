@@ -2,7 +2,7 @@
 import html from './template.html';
 
 
-export class Ordbase_KeyAndIcon extends HTMLElement { 
+export class Ordbase_GroupKeyIcon extends HTMLElement { 
     constructor() {
         super();
         this.root = this.createShadowRoot();
@@ -17,4 +17,4 @@ export class Ordbase_KeyAndIcon extends HTMLElement {
         this.root.querySelector('i.fa').classList.toggle(iconClass); 
     }
 }
-customElements.define('ordbase-key-and-icon', Ordbase_KeyAndIcon);
+customElements.define('ordbase-group-key-icon', Ordbase_GroupKeyIcon);
