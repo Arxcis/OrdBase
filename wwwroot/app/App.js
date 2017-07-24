@@ -18,6 +18,7 @@ export const ICON_SQUARE     = 'fa-square';
 export const ICON_ARROW_LEFT = 'fa-arrow-left';
 export const ICON_TIMES      = 'fa-times';
 export const ICON_CHECK      = 'fa-check';
+export const ICON_PENCIL     = 'fa-pencil';
 
 // Cache static element references
 

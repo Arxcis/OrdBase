@@ -47,8 +47,21 @@ client.create = (_client) => {
     });
 } 
 
-client.createDefaultContainers = (_client, _containers) => {};
-client.createDefaultLanguages  = (_client, _languages) => {};
+client.createDefaultContainers = (_client, _containers) => {
+    return postJSON({ 
+        httpMethod:  'POST', 
+        route: routeBuilder('api', _client, 'default', 'containers'), 
+        data:  _containers
+    });
+};
+
+client.createDefaultLanguages  = (_client, _languages) => {
+    return postJSON({ 
+        httpMethod:  'POST', 
+        route: routeBuilder('api', _client, 'default', 'languages'), 
+        data:  _languages 
+    });
+};
 
 //
 // CONTAINER ROUTES

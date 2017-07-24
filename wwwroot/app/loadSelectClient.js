@@ -24,7 +24,7 @@ export function loadSelectClient() {
     App.HEADER.textBig          = 'Ordbase';
     App.HEADER.textSmall        = 'Select Client';
     App.HEADER.buttonIconLeft   = App.ICON_SQUARE;
-    App.HEADER.buttonIconRight1 = App.ICON_NONE;    
+    App.HEADER.buttonIconRight1 = App.ICON_PENCIL;    
     App.HEADER.buttonIconRight2 = App.ICON_PLUS;
 
 
@@ -43,7 +43,7 @@ export function loadSelectClient() {
                 
                 card.id            = `card${i}`;
                 card.heading       =  client.name;
-                card.text          = 'https://www.placeholder.no';
+                card.text          =  client.webpageUrl;
                 card.thumbnail     = 'http://placehold.it/250x125/FFC107';
                 card.buttonHandler = event => loadSelectTranslation(client.name);
 
