@@ -2,7 +2,7 @@
 import html from './select-client.html';
 
 
-export class Component_SelectClient extends HTMLElement {
+export class View_SelectClient extends HTMLElement {
 
     constructor() {
         super();
@@ -12,4 +12,4 @@ export class Component_SelectClient extends HTMLElement {
 
     appendCard(card)  {   this.root.appendChild(card);                 }
 }
-customElements.define('component-select-client', Component_SelectClient);
+customElements.define('component-select-client', View_SelectClient);

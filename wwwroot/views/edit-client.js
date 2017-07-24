@@ -1,7 +1,7 @@
 'use strict';
 import html from './edit-client.html';
 
-export class Component_EditClient extends HTMLElement {
+export class View_EditClient extends HTMLElement {
 
     constructor() {
         super();
@@ -26,4 +26,4 @@ export class Component_EditClient extends HTMLElement {
     }
 }
 
-customElements.define('component-edit-client', Component_EditClient);
+customElements.define('view-edit-client', View_EditClient);

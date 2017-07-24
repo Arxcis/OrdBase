@@ -2,7 +2,7 @@
 import html from './edit-translation.html';
 
 
-export class Component_EditTranslation extends HTMLElement {
+export class View_EditTranslation extends HTMLElement {
 
     constructor() {
         super();
@@ -10,4 +10,4 @@ export class Component_EditTranslation extends HTMLElement {
         this.root.innerHTML = html;
     }
 }
-customElements.define('component-edit-translation', Component_EditTranslation);
+customElements.define('view-edit-translation', View_EditTranslation);

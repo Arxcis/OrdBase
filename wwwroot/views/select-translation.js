@@ -1,7 +1,7 @@
 'use strict';
 import html from './select-translation.html';
 
-export class Component_SelectTranslation extends HTMLElement {
+export class View_SelectTranslation extends HTMLElement {
 
     constructor() {
         super();
@@ -12,4 +12,4 @@ export class Component_SelectTranslation extends HTMLElement {
     appendButtonContainer (btn) {   this.root.querySelector('#list-show-containers-on-client').appendChild(btn);  }
     appendCardTranslation (card) {  this.root.querySelector('#list-show-translations-on-client').appendChild(card); }
 }
-customElements.define('component-select-translation', Component_SelectTranslation);
+customElements.define('view-select-translation', View_SelectTranslation);
