@@ -91,6 +91,10 @@ export class Component_ItemGenerator extends HTMLElement {
     setGenerateFunction(func) {
         this.generateFunction = func; 
     }
+
+    getItems() {
+        return this.root.querySelectorAll('.generated');
+    }
 }
 
 customElements.define('component-item-generator', Component_ItemGenerator);

@@ -46,7 +46,7 @@ export class Component_ItemFlipper extends HTMLElement {
     }
 
     getSelectedItems() {
-
+        return this.div_flipUp.children;
     }
 }
 customElements.define('component-item-flipper', Component_ItemFlipper);

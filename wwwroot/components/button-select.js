@@ -15,19 +15,25 @@ export class Component_ButtonSelect extends HTMLElement {
         };            
     }
 
-    set id (id) { 
+    setId(id) { 
         this.button.setAttribute('id', `${id}`); 
     }
 
-    set text (text)    { 
+    getId() {
+        return this.button.id;
+    }
+
+    setText(text)    { 
         this.button.innerHTML = text; 
     }
 
-    set selected (selected) { 
-        if (selected) 
+    setSelected (selected) { 
+        if (selected) {
             this.button.classList.add('selected');
-        else          
-            this.button.classList.remove('selected');           
+        }
+        else {
+            this.button.classList.remove('selected');  
+        }         
     }
 
     get isSelected() {

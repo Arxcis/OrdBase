@@ -47,9 +47,10 @@ export function loadNewClient(client) {
 
     generator.setGenerateFunction(() => {
         let button = new Component_ButtonSelect;
-        button.id   = generator.getValue();
-        button.text = generator.getValue();
-        button.selected = true;
+        let value = generator.getValue();
+        button.setId(value);
+        button.setText(value);
+        button.setSelected(true);
         return button;
     });
 
@@ -66,20 +67,28 @@ export function loadNewClient(client) {
     //
     const form = new Component_FormClient;
 
-    form.submitText = 'Create client';
+    form.setSubmitText('Create client');
 
     form.addEventListener('submit', e => {
         e.preventDefault();
 
-        submitNewClient({
-            form: e.target,
-            containers: generator.getItems().map(button => {
-                return button.id;
-            }),
-            languages: flipper.getSelectedItems().map(button => {
-                return button.id;
-            })
-        });            
+        //
+        // @note to use the .map() function i have to convert the HTML-collections into
+        //       javascript arrays. This is done with the [].slice.call(htmlcollection)
+        //  @doc https://stackoverflow.com/questions/31676135/javascript-map-is-not-a-function
+        //
+        let form = e.target;
+        let containers = [].slice.call(generator.getItems())
+            .map(button => {
+                return button.getId();
+            });
+
+        let languages = [].slice.call(flipper.getSelectedItems())
+            .map(button => {                
+                return button.getId();
+            });
+        
+        submitNewClient(form, containers, languages);            
     });
 
     //
@@ -100,9 +109,9 @@ export function loadNewClient(client) {
             languages.forEach(lang => {
                 let button = new Component_ButtonSelect;
 
-                button.id       = lang.key;
-                button.text     = `${lang.name} - ${lang.key}`;
-                button.selected = false;
+                button.setId(lang.key);
+                button.setText( `${lang.name} - ${lang.key}`);
+                button.setSelected(false);
 
                 flipper.addItem(button);
             });

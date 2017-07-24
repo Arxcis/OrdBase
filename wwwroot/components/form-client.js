@@ -9,10 +9,19 @@ export class Component_FormClient extends HTMLElement {
         this.root.innerHTML = html;
     }
 
-    getName()        { this.root.getElementById('form-client-name').value; }
-    getWebpageUrl()  { this.root.getElementById('form-client-webpage').value; }
-    getThumbnailUrl(){ this.root.getElementById('form-client-thumbnail').value; }
-    getApiKey()      { this.root.getElementById('form-client-apikey').value; }
+    setSubmitText(text) {
+        this.root.getElementById('button-submit').innerHTML = text;
+    }
+
+
+    getClient() {
+        return {
+            Name :         this.root.getElementById('form-client-name').value,
+            WebpageUrl:    this.root.getElementById('form-client-webpage').value,
+            ThumbnailUrl:  this.root.getElementById('form-client-thumbnail').value,
+            ApiKey:        this.root.getElementById('form-client-apikey').value,
+        }
+    }
 }
 
 customElements.define('component-form-client', Component_FormClient);

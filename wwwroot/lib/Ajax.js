@@ -28,6 +28,7 @@ export function getJSON({ httpMethod = mandatory(), route = mandatory()} = {}) {
 // @function postJSON
 //
 export function postJSON({ httpMethod = mandatory(), route = mandatory(), data = mandatory()} = {}) {
+    console.log('postJSON:', '\nmethod',httpMethod, '\nroute', route, '\ndata', data);
     return fetch(route, {
         headers: {
           'Accept': 'application/json',

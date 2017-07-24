@@ -3,20 +3,11 @@
 import * as Api      from '../lib/Api.js';
 import { mandatory } from '../lib/Util.js';
 
-export function submitNewClient({
-                        form       = mandatory(), 
-                        containers = mandatory(), 
-                        languages  = mandatory()} =  mandatory()) {
-    
-    const client = {
-        Name         : form.getName(),
-        WebpageUrl   : form.getWebpageUrl(),
-        ThumbnailUrl : form.getThumbnailUrl(),
-        ApiKey       : form.getApiKey(),
-    }
+export function submitNewClient(form, containers, languages) {
+
 
     console.log('Creating new client...')
-    Api.client.create(client)
+    Api.client.create(form.getClient())
     .then(response => {
         
         console.log('Creating default containers...');
