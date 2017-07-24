@@ -1,5 +1,11 @@
 'use strict';
 
+//
+// @module submitClient
+// @brief The idea is that this module will take care of logic that is updating the server Create Update and Delete.
+//        This is to offload the loadNewClient and loadEditClient scripts, which will then only take care of the Read logic.
+//
+
 import * as Api      from '../lib/Api.js';
 import { mandatory } from '../lib/Util.js';
 
