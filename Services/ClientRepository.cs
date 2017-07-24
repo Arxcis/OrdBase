@@ -43,6 +43,38 @@ namespace OrdBaseCore.Services
             return new NoContentResult {};
         }
 
+        public IActionResult CreateDefaultContainers(string clientKey, IEnumerable<string> defaultContainers)
+        {
+            defaultContainers.Select(container =>
+                _context.Translation.Add(new Translation{
+                    ClientKey   = clientKey,
+                    LanguageKey = "default",
+                    Container   = container,
+                    Key         = "default",
+                    Text        = "default",
+                    IsComplete  = true,
+                })
+            );  
+            _context.SaveChanges();
+            return new NoContentResult {};
+        }
+        public IActionResult CreateDefaultLanguages(string clientKey, IEnumerable<string> defaultLanguages)
+        {
+
+            defaultLanguages.Select(language =>
+                _context.Translation.Add(new Translation{
+                    ClientKey   = clientKey,
+                    LanguageKey = language,
+                    Container   = "default",
+                    Key         = "default",
+                    Text        = "default",
+                    IsComplete  = true,
+                })
+            );  
+            _context.SaveChanges();
+            return new NoContentResult {};            
+        }
+
         //
         // TESTDATA
         //
