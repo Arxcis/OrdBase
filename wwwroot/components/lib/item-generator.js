@@ -8,38 +8,39 @@ export class Component_ItemGenerator extends HTMLElement {
         this.root = this.createShadowRoot();
         this.root.innerHTML = html;
 
-        this._input = this.root.querySelector('input');
+        this.input  = this.root.querySelector('input');
         this.button = this.root.querySelector('button');
         this.faIcon = this.button.querySelector('i');
 
-
-        this.button.onclick = event => { 
+        this.button.addEventListener('click',  event => { 
 
             console.log(this.button, this.faIcon);
             this.button.classList.toggle('cancel');
             this.faIcon.classList.toggle('fa-plus');
             this.faIcon.classList.toggle('fa-times'); 
             
-            if(this._input.style.display === 'block')
-                this._input.style.display = 'none';
+            if(this.input.style.display === 'block')
+                this.input.style.display = 'none';
             else {
-                this._input.style.display = 'block';
-                this._input.focus();
+                this.input.style.display = 'block';
+                this.input.focus();
             }
-        }
+        });
 
-        this._input.addEventListener('focusout', () => {
-            this._input.style.display = 'none';
+        this.input.addEventListener('focusout', () => {
+            this.input.style.display = 'none';
             this.button.classList.remove('cancel');
             this.faIcon.classList.add('fa-plus');
             this.faIcon.classList.remove('fa-times');            
-        })
+        });
     }
 
-    get input(){  return this._input;  }
+    getInput(){  
+        return this.input;  
+    }
 
-    appendItem(item) { 
-        this.root.insertBefore(item, this._input);
+    addItem(item) { 
+        this.root.insertBefore(item, this.input);
     }
 }
 

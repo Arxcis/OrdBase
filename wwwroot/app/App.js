@@ -20,13 +20,16 @@ export const ICON_TIMES      = 'fa-times';
 export const ICON_CHECK      = 'fa-check';
 
 // Cache static element references
+
+// @note hack-below I am not proud of the way I am filling in the Header component here.
+//        Open for suggestions - JSolsvik 24.07.17
 document.getElementById('ordbase-header').appendChild(new Component_Header);
 export const HEADER         = document.getElementById('ordbase-header').querySelector('component-header');
 export const defaultHandler = (event) => console.log('Default handler... nothing happened');
 
 export function switchView(view) {
-    App.MAIN.innerHTML = '';
-    App.MAIN.appendChild(view);
+    MAIN.innerHTML = '';
+    MAIN.appendChild(view);
     return view;
 }
 

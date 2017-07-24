@@ -9,14 +9,13 @@ import { Component_ButtonSelect }  from '../components/lib/button-select.js';
 import { Component_EditClient }    from '../components/views/edit-client.js';
 
 import { loadSelectClient } from './loadSelectClient.js';
+import { submitNewClient }  from './submitNewClient.js';
 
 const ESC = 13;
 const TAB = 9;
 
 export function loadNewClient(client) {
 
-    // 0. Set up header
-    //
     // @note 1. Maybe it is faster to call 1 function an pass an object. But then there is overhead of constructing
     //           and accessing the object.
     // 2. The setter functions hides that it is an actual function call. I am not sure I lke that.
@@ -25,6 +24,10 @@ export function loadNewClient(client) {
     //     on the fly is the default behaviour, when someone tries to set and attribute which is not currently there.
     //      For this reason duct typing may introduces difficult to track down errors.
     // 4. Even accessing a getter which does not exist, does not throw an error.
+    //
+
+    //
+    // 0. Set up header
     //
     App.HEADER.textBig   = 'Ordbase';    
     App.HEADER.textSmall = 'New client';
@@ -38,38 +41,48 @@ export function loadNewClient(client) {
 
     const view = new Component_EditClient; 
     
+    //
     // 1. Set up container generator
+    //
     const generator = new Component_ItemGenerator;
 
-    generator.input.addEventListener('keyup', (e) => {
+    generator.getInput().addEventListener('keyup', (e) => {
         if (e.keyCode === ESC || e.keyCode === TAB) {  // ESC or TAB
 
             let button = new Component_ButtonSelect;
             button.text = e.target.value;
             button.selected = true;
 
-            generator.appendItem(button);
+            generator.addItem(button);
             e.target.value = '';
         }   
     });
-    view.appendItemMenu(generator);
+    view.setContainerGenerator(generator);
 
-    // 2. Set up submit button 
-    const button = new Component_ButtonSubmit;
-    button.text = 'Create client';
-    view.appendButtonSubmit(button);
+    //
+    // 2. Set up form submit event
+    //
+    const form = new Component_FormClient;
 
-    // 3. Set up form submit event
-    view.form.addEventListener('submit', e => {
+    form.text = 'Create client';
+    form.addEventListener('submit', e => {
         e.preventDefault();
-        console.log(e);
+
+        submitNewClient(e);
+
+        console.log(e.target);
+
     });
+    view.setClientForm(form);
 
-
-    // 4. Append view to DOM
+    //
+    // 3. Append view to DOM
+    //
     App.switchView(view);
 
-    // 5. Promise fill in available languages
+    //
+    // 4. Promise fill in available languages
+    //
     Api.language.getAll()
         .then(languages => {
 
@@ -80,7 +93,7 @@ export function loadNewClient(client) {
                 button.text     = `${lang.name} - ${lang.key}`;
                 button.selected = false;
 
-                view.appendButtonLanguage(button);
+                view.addLanguageButton(button);
             });
         })
         .catch(error => console.log(error));

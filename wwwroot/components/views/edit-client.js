@@ -9,20 +9,17 @@ export class Component_EditClient extends HTMLElement {
         this.root.innerHTML = html;
     }
 
-    get form () {
-        return this.root.getElementById('form-edit-client');
+    setContainerGenerator(generator) {
+        this.root.getElementById('list-add-containers-on-client').appendChild(generator);
     }
-
-    appendItemMenu(element) {
-        this.root.getElementById('list-add-containers-on-client').appendChild(element);
+    addLanguageButton(button) {
+        this.root.getElementById('list-add-languages-on-client').appendChild(button);
+    }    
+    setClientForm(form) {
+        this.root.insertBefore(form, this.root.getElementById('hook-form'));
     }
-
-    appendButtonLanguage(element) {
-        this.root.getElementById('list-add-languages-on-client').appendChild(element);
-    } 
-
-    appendButtonSubmit(button) {
-        this.form.appendChild(button);
+    setClientCard(card) {
+        this.root.insertBefore(card, this.root.getElementById('hook-card'));  
     }
 }
 
