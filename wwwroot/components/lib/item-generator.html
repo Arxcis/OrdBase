@@ -9,7 +9,7 @@
         text-align: center;
     }
 
-    button {
+    #button-generate {
         font-size:  var(--ordbase-button-font-size);
         cursor: pointer;
         height: var(--ordbase-button-height);
@@ -19,16 +19,18 @@
         border: 0px;
     }
 
-    button:focus {
+    #button-generate:focus {
         outline: none;
     }
 
-    button:hover {
+    #button-generate:focus,
+    #button-generate:hover {
         background-color: var(--ordbase-color-success);
         color: var(--ordbase-color-white);
     }     
 
-    button.cancel:hover {
+    #button-generate.cancel:focus,
+    #button-generate.cancel:hover {
         background-color: var(--ordbase-color-danger);
         color: var(--ordbase-color-white);
 
@@ -37,6 +39,6 @@
 </style>
 
 <input type="text" value="">
-<button class="button-add-item">
+<button id="button-generate" class="button-add-item">
     <i class="fa fa-plus" aria-hidden="true"></i>
 </button>

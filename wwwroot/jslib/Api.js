@@ -47,6 +47,9 @@ client.create = (_client) => {
     });
 } 
 
+client.createDefaultContainers = (_client, _containers) => {};
+client.createDefaultLanguages  = (_client, _languages) => {};
+
 //
 // CONTAINER ROUTES
 //

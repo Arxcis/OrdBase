@@ -11,8 +11,6 @@ import { Component_EditClient }    from '../components/views/edit-client.js';
 import { loadSelectClient } from './loadSelectClient.js';
 import { submitNewClient }  from './submitNewClient.js';
 
-const ESC = 13;
-const TAB = 9;
 
 export function loadNewClient(client) {
 
@@ -46,21 +44,17 @@ export function loadNewClient(client) {
     //
     const generator = new Component_ItemGenerator;
 
-    generator.getInput().addEventListener('keyup', (e) => {
-        if (e.keyCode === ESC || e.keyCode === TAB) {  // ESC or TAB
-
-            let button = new Component_ButtonSelect;
-            button.text = e.target.value;
-            button.selected = true;
-
-            generator.addItem(button);
-            e.target.value = '';
-        }   
+    generator.setGenerateFunction(() => {
+        let button = new Component_ButtonSelect;
+        button.text = generator.getValue();
+        button.selected = true;
+        return button;
     });
+
     view.setContainerGenerator(generator);
 
     //
-    // 2. Set up form submit event
+    // 2. Set up form
     //
     const form = new Component_FormClient;
 
@@ -68,11 +62,14 @@ export function loadNewClient(client) {
     form.addEventListener('submit', e => {
         e.preventDefault();
 
-        submitNewClient(e);
+        let languageButtons = view.getLanguageButtons();
+        let containerButtons = generator.getItems();
 
-        console.log(e.target);
+        
 
+        submitNewClient(e.target, );
     });
+
     view.setClientForm(form);
 
     //

@@ -8,6 +8,7 @@ export class Component_ButtonSelect extends HTMLElement {
         this.root.innerHTML = html;
 
         this.button = this.root.querySelector('button');
+
         this.button.onclick = event => {
             event.target.classList.toggle('selected');
             this.blur();
@@ -31,6 +32,10 @@ export class Component_ButtonSelect extends HTMLElement {
 
     get isSelected() {
         return this.button.classList.contains('selected');
+    }
+
+    focus(){
+        this.button.focus();
     }
 }
 customElements.define('component-button-select', Component_ButtonSelect);
