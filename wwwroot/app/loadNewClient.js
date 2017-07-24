@@ -4,8 +4,10 @@ import * as App from './App.js';
 import * as Api from '../jslib/Api.js';
 
 import { Component_ItemGenerator } from '../components/lib/item-generator.js';
+import { Component_ItemFlipper }   from '../components/lib/item-flipper.js';
 import { Component_FormClient }    from '../components/lib/form-client.js';
 import { Component_ButtonSelect }  from '../components/lib/button-select.js';
+
 import { Component_EditClient }    from '../components/views/edit-client.js';
 
 import { loadSelectClient } from './loadSelectClient.js';
@@ -37,7 +39,6 @@ export function loadNewClient(client) {
     App.HEADER.buttonRight1.onclick = App.defaultHandler;
     App.HEADER.buttonRight2.onclick = event => loadSelectClient();
 
-    const view = new Component_EditClient; 
     
     //
     // 1. Set up container generator
@@ -51,10 +52,16 @@ export function loadNewClient(client) {
         return button;
     });
 
-    view.setContainerGenerator(generator);
 
     //
-    // 2. Set up form
+    // 2. Set up language flipper
+    //
+    const flipper = new Component_ItemFlipper;
+    flipper.setHeaderUp('Selected')    
+    flipper.setHeaderDown('Available');
+
+    //
+    // 3. Set up form
     //
     const form = new Component_FormClient;
 
@@ -63,18 +70,18 @@ export function loadNewClient(client) {
         e.preventDefault();
 
         let languageButtons = view.getLanguageButtons();
-        let containerButtons = generator.getItems();
-
-        
+        let containerButtons = generator.getItems();    
 
         submitNewClient(e.target, );
     });
 
+    //
+    // 3. Create view, inject components and append view to DOM.
+    //
+    const view = new Component_EditClient; 
     view.setClientForm(form);
-
-    //
-    // 3. Append view to DOM
-    //
+    view.setContainerGenerator(generator);
+    view.setLanguageFlipper(flipper);
     App.switchView(view);
 
     //
@@ -90,7 +97,7 @@ export function loadNewClient(client) {
                 button.text     = `${lang.name} - ${lang.key}`;
                 button.selected = false;
 
-                view.addLanguageButton(button);
+                flipper.addItem(button);
             });
         })
         .catch(error => console.log(error));
