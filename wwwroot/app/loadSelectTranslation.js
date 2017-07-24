@@ -6,7 +6,7 @@ import * as Api from '../jslib/Api.js';
 import { Component_SelectTranslation } from '../components/views/select-translation.js';
 import { Component_ButtonSelect }      from '../components/lib/button-select.js';
 import { Component_CardTranslation }   from '../components/lib/card-translation.js';
-import { Component_KeyAndIcon }        from '../components/lib/group-key-icon.js';
+import { Component_GroupKeyIcon }        from '../components/lib/group-key-icon.js';
 
 import { loadNewTranslation }  from './loadNewTranslation.js';
 import { loadEditTranslation } from './loadEditTranslation.js';

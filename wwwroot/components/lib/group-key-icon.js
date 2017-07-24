@@ -17,4 +17,4 @@ export class Component_GroupKeyIcon extends HTMLElement {
         this.root.querySelector('i.fa').classList.toggle(iconClass); 
     }
 }
-customElements.define('component-group-key-icon', ComponentGroupKeyIcon);
+customElements.define('component-group-key-icon', Component_GroupKeyIcon);
