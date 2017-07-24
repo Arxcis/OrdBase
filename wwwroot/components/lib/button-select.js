@@ -16,7 +16,7 @@ export class Component_ButtonSelect extends HTMLElement {
     }
 
     set id (id) { 
-        this.button.setAttribute('id', `container-btn-${id}`); 
+        this.button.setAttribute('id', `${id}`); 
     }
 
     set text (text)    { 

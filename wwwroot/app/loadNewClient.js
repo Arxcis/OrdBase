@@ -47,6 +47,7 @@ export function loadNewClient(client) {
 
     generator.setGenerateFunction(() => {
         let button = new Component_ButtonSelect;
+        button.id   = generator.getValue();
         button.text = generator.getValue();
         button.selected = true;
         return button;
@@ -65,14 +66,20 @@ export function loadNewClient(client) {
     //
     const form = new Component_FormClient;
 
-    form.text = 'Create client';
+    form.submitText = 'Create client';
+
     form.addEventListener('submit', e => {
         e.preventDefault();
 
-        let languageButtons = view.getLanguageButtons();
-        let containerButtons = generator.getItems();    
-
-        submitNewClient(e.target, );
+        submitNewClient({
+            form: e.target,
+            containers: generator.getItems().map(button => {
+                return button.id;
+            }),
+            languages: flipper.getSelectedItems().map(button => {
+                return button.id;
+            })
+        });            
     });
 
     //

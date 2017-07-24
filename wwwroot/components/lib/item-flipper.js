@@ -37,12 +37,16 @@ export class Component_ItemFlipper extends HTMLElement {
         item.focus();
     }
 
-
     setHeaderUp(text)   { 
         this.root.getElementById('header-flip-up').innerHTML = text;
     }
+    
     setHeaderDown(text) { 
         this.root.getElementById('header-flip-down').innerHTML = text;
+    }
+
+    getSelectedItems() {
+
     }
 }
 customElements.define('component-item-flipper', Component_ItemFlipper);
