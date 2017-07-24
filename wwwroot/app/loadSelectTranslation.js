@@ -1,12 +1,13 @@
 'use strict';
 
 import * as App from './App.js';
-import * as Api from '../jslib/Api.js';
+import * as Api from '../lib/Api.js';
 
-import { Component_SelectTranslation } from '../components/views/select-translation.js';
-import { Component_ButtonSelect }      from '../components/lib/button-select.js';
-import { Component_CardTranslation }   from '../components/lib/card-translation.js';
-import { Component_GroupKeyIcon }        from '../components/lib/group-key-icon.js';
+import { View_SelectTranslation } from '../views/select-translation.js';
+
+import { Component_ButtonSelect }    from '../components/button-select.js';
+import { Component_CardTranslation } from '../components/card-translation.js';
+import { Component_GroupKeyIcon }    from '../components/group-key-icon.js';
 
 import { loadNewTranslation }  from './loadNewTranslation.js';
 import { loadEditTranslation } from './loadEditTranslation.js';
@@ -18,7 +19,7 @@ import { loadSelectClient }    from './loadSelectClient.js';
 export function loadSelectTranslation (client) {
 
     // Create elements
-    const view =  App.switchView(new Component_SelectTranslation);
+    const view =  App.switchView(new View_SelectTranslation);
 
     // Setup header
     App.HEADER.textBig          = 'Ordbase';

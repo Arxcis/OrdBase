@@ -1,17 +1,17 @@
 'use strict';
 
 import * as App from './App.js';
-import * as Api from '../jslib/Api.js';
+import * as Api from '../lib/Api.js';
 
-import { Component_ItemGenerator } from '../components/lib/item-generator.js';
-import { Component_ItemFlipper }   from '../components/lib/item-flipper.js';
-import { Component_FormClient }    from '../components/lib/form-client.js';
-import { Component_ButtonSelect }  from '../components/lib/button-select.js';
+import { View_EditClient }  from '../views/edit-client.js';
 
-import { Component_EditClient }    from '../components/views/edit-client.js';
+import { Component_ItemGenerator } from '../components/item-generator.js';
+import { Component_ItemFlipper }   from '../components/item-flipper.js';
+import { Component_FormClient }    from '../components/form-client.js';
+import { Component_ButtonSelect }  from '../components/button-select.js';
 
 import { loadSelectClient } from './loadSelectClient.js';
-import { submitNewClient }  from './submitNewClient.js';
+import { submitNewClient }  from './submitClient.js';
 
 
 export function loadNewClient(client) {
@@ -85,7 +85,7 @@ export function loadNewClient(client) {
     //
     // 3. Create view, inject components and append view to DOM.
     //
-    const view = new Component_EditClient; 
+    const view = new View_EditClient; 
     view.setClientForm(form);
     view.setContainerGenerator(generator);
     view.setLanguageFlipper(flipper);

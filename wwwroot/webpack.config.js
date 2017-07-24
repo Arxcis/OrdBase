@@ -42,7 +42,7 @@ module.exports = {
     watch: true,
 
     resolve: {
-        modules: ["node_modules", "app", "components", "jslib"],
+        modules: ["node_modules", "app", "components", "views", "lib"],
     },
 
     // @doc webserver proxy - https://webpack.github.io/docs/webpack-dev-server.html#rewriting-urls-of-proxy-request

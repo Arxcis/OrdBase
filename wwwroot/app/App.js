@@ -3,9 +3,9 @@
 // COMPILE WITH BABEL - https://css-tricks.com/transpiling-es6/
 // TRanspile with webpack - https://webpack.github.io/docs/tutorials/getting-started/
 
-import { loadSelectClient } from './loadSelectClient.js';
-import { Component_Header }   from '../components/views/header.js'; 
+import { View_Header }   from '../views/header.js'; 
 
+import { loadSelectClient } from './loadSelectClient.js';
 
 //
 // @file main.js
@@ -21,10 +21,10 @@ export const ICON_CHECK      = 'fa-check';
 
 // Cache static element references
 
-// @note hack-below I am not proud of the way I am filling in the Header component here.
+// @note hack-below I am not proud of the way I am filling in the Header view here.
 //        Open for suggestions - JSolsvik 24.07.17
-document.getElementById('ordbase-header').appendChild(new Component_Header);
-export const HEADER         = document.getElementById('ordbase-header').querySelector('component-header');
+document.getElementById('ordbase-header').appendChild(new View_Header);
+export const HEADER         = document.getElementById('ordbase-header').querySelector('view-header');
 export const defaultHandler = (event) => console.log('Default handler... nothing happened');
 
 export function switchView(view) {

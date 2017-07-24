@@ -1,13 +1,12 @@
 'use strict';
 
 import * as App from './App.js';
-import * as Api from '../jslib/Api.js';
+import * as Api from '../lib/Api.js';
 
-// View and Components
-import { Component_SelectClient } from '../components/views/select-client.js';
-import { Component_CardClient   } from '../components/lib/card-client.js';
+import { View_SelectClient }      from '../views/select-client.js';
 
-// Event logic
+import { Component_CardClient   } from '../components/card-client.js';
+
 import { loadEditClient }        from './loadEditClient.js';
 import { loadNewClient }         from './loadNewClient.js'; 
 import { loadSelectTranslation } from './loadSelectTranslation.js';
@@ -19,7 +18,7 @@ import { loadSelectTranslation } from './loadSelectTranslation.js';
 export function loadSelectClient() {
 
     // Create elements
-    const view = App.switchView(new Component_SelectClient);
+    const view = App.switchView(new View_SelectClient);
 
     // Setup header
     App.HEADER.textBig          = 'Ordbase';

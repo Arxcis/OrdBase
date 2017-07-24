@@ -1,7 +1,7 @@
 'use strict';
 
-import * as Api      from '../jslib/Api.js';
-import { mandatory } from '../jslib/Util.js';
+import * as Api      from '../lib/Api.js';
+import { mandatory } from '../lib/Util.js';
 
 export function submitNewClient({
                         form       = mandatory(), 
