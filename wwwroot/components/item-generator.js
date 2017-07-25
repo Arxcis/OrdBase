@@ -66,23 +66,25 @@ export class Component_ItemGenerator extends HTMLElement {
             this.input.value = '';
 
             // 2. Create event listener for destruction of item
-            item.addEventListener('click', e => {
+            item.addEventListener('click', e => this.destroyItem(item));
 
-                if (item.nextSibling.classList.contains('generated')) {
-                    item.nextSibling.focus();
-                }
-                else if (item.previousSibling.nodeName != '#text') {
-                    item.previousSibling.focus();       
-                }
-                else {         
-                    this.button.focus();
-                }
-                this.root.removeChild(item);
-            });
-
-            // 3. 
         }
     }
+
+    destroyItem(item) {
+
+        if (item.nextSibling.classList.contains('generated')) {
+            item.nextSibling.focus();
+        }
+        else if (item.previousSibling.nodeName != '#text') {
+            item.previousSibling.focus();       
+        }
+        else {         
+            this.button.focus();
+        }
+        this.root.removeChild(item);
+    }
+
 
     getValue() {
         return this.input.value;
@@ -98,6 +100,7 @@ export class Component_ItemGenerator extends HTMLElement {
 
     addItem(item) {
         this.root.insertBefore(item, this.input);
+        item.addEventListener('click', e => this.destroyItem(item));
     }
 }
 

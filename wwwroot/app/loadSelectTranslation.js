@@ -25,12 +25,12 @@ export function loadSelectTranslation (client) {
     App.HEADER.textBig          = 'Ordbase';
     App.HEADER.textSmall        = 'Select Translation';
     App.HEADER.buttonIconLeft   = App.ICON_BARS;
-    App.HEADER.buttonIconRight1 = App.ICON_ARROW_LEFT;    
-    App.HEADER.buttonIconRight2 = App.ICON_PLUS;
+    App.HEADER.buttonIconRight1 = App.ICON_PLUS;
+    App.HEADER.buttonIconRight2 = App.ICON_ARROW_LEFT;    
 
     App.HEADER.buttonLeft.onclick   = App.defaultHandler;
-    App.HEADER.buttonRight1.onclick = event => loadSelectClient();
-    App.HEADER.buttonRight2.onclick = event => loadNewTranslation(client);
+    App.HEADER.buttonRight1.onclick = event => loadNewTranslation(client);
+    App.HEADER.buttonRight2.onclick = event => loadSelectClient();
 
     //
     // @AJAX - fetch all containers on selected client
