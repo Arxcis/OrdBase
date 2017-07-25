@@ -9,26 +9,42 @@ export class Component_CardClient extends HTMLElement {
         super();
         this.root = this.createShadowRoot();
         this.root.innerHTML = html;
+        this.button = this.root.querySelector('button');
     }
 
-    set heading (name){
-        this.root.querySelector('h2').innerHTML = name || '{{ null heading }}';
+    setHeading (name){
+        this.root.getElementById('card-h2')
+                 .innerHTML = name || '{{ null heading }}';
         this._name = name;
     }
     
-    set text(text) {
-        this.root.querySelector('p').innerHTML = text || '{{ null text }}';
+    setId(id) {
+        this.setAttribute('id', id);
     }
 
-    set thumbnail (url) { 
-        this.root.querySelector('img').src = url;
+    setText(text) {
+        this.root.getElementById('card-p')
+                 .innerHTML = text || '{{ null text }}';
     }
 
-    set buttonHandler(handler){
-        this.root.querySelector('button').onclick =  handler;
+    setThumbnail (url) { 
+        this.root.getElementById('card-img').src = url;
     }
 
-    connectedCallback() {
+    setClickHandler(handler) {
+        this.button.onclick = handler;
+    }
+
+    getClickHandler() {
+        return this.clickHandler;
+    }
+
+    toggleEditable() {
+        this.button.classList.toggle('editable');
+    }
+
+    isEditable() {
+        return this.button.classList.contains('editable');        
     }
 }
 customElements.define('component-card-client', Component_CardClient);

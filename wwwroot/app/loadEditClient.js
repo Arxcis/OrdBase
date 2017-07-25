@@ -13,7 +13,7 @@ import { loadSelectClient } from './loadSelectClient.js';
 export function loadEditClient(client) {
     
     App.HEADER.textBig   = 'Ordbase';    
-    App.HEADER.textSmall = 'Edit client';
+    App.HEADER.textSmall = `Edit ${client}`;
 
     App.HEADER.buttonIconLeft   = App.ICON_BARS;
     App.HEADER.buttonIconRight1 = App.ICON_NONE;    

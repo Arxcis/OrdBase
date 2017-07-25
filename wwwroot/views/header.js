@@ -22,7 +22,7 @@ export class View_Header extends HTMLElement {
     }
 
     set buttonIconLeft(icon) { 
-        this.root.getElementById('btn-header-left i.fa')
+        this.root.querySelector('#btn-header-left i.fa')
                  .setAttribute('class', `fa ${icon}`) 
     }
 

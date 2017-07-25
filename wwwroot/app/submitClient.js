@@ -9,6 +9,8 @@
 import * as Api      from '../lib/Api.js';
 import { mandatory } from '../lib/Util.js';
 
+import { loadSelectClient } from './loadSelectClient.js';
+
 export function submitNewClient(form, containers, languages) {
 
 
@@ -22,6 +24,7 @@ export function submitNewClient(form, containers, languages) {
         console.log('Creating default languages...');
         Api.client.createDefaultLanguages(client, languages);           
 
+        loadSelectClient();
     })
     .catch(error => console.log(error));
 } 

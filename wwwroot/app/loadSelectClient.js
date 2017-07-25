@@ -17,41 +17,50 @@ import { loadSelectTranslation } from './loadSelectTranslation.js';
 //
 export function loadSelectClient() {
 
-    // Create elements
-    const view = App.switchView(new View_SelectClient);
-    let cards = new Array;
+    // Create local variables
+    const view  = App.switchView(new View_SelectClient);
+    const cards = new Array;
 
-    // Setup header
+    // Set header data
     App.HEADER.textBig          = 'Ordbase';
     App.HEADER.textSmall        = 'Select Client';
     App.HEADER.buttonIconLeft   = App.ICON_SQUARE;
     App.HEADER.buttonIconRight1 = App.ICON_PENCIL;    
     App.HEADER.buttonIconRight2 = App.ICON_PLUS;
 
-    App.HEADER.buttonLeft.onclick   = App.defaultHandler;
-    
+    // Set header logic
+    App.HEADER.buttonLeft.onclick   = App.defaultHandler;    
     App.HEADER.buttonRight1.onclick = event => {
-        for (let i = 0; i < cards.length; i++) {
-            
-        }
-    };
+        cards.forEach(card => {
+            card.toggleEditable();            
 
+            if (card.isEditable()) {
+                App.HEADER.textSmall = 'Select Client to Edit';
+                card.setClickHandler(card._handler2);
+            } else {
+                App.HEADER.textSmall = 'Select Client';                
+                card.setClickHandler(card._handler1);
+            }
+        });
+    };
     App.HEADER.buttonRight2.onclick = event => loadNewClient();
 
-    
-    // @ajax - Fetch client data from server
-    Api.client.getAll()
-        
+
+    Api.client.getAll()  
         .then(clientObjects => {                                    
             clientObjects.forEach((client, i) => {
 
                 let card = new Component_CardClient;
                 
-                card.id            = `card${i}`;
-                card.heading       =  client.name;
-                card.text          =  client.webpageUrl;
-                card.thumbnail     = 'http://placehold.it/250x125/FFC107';
-                card.buttonHandler = event => loadSelectTranslation(client.name);
+                card.setId(`card${i}`);
+                card.setHeading(client.name);
+                card.setText(client.webpageUrl);
+                card.setThumbnail('http://placehold.it/250x125/FFC107');
+
+                // @note Duct-typing logic variables, used for later in edit click event
+                card._handler1 = event => loadSelectTranslation(client.name);
+                card._handler2 = event => loadEditClient(client.name);
+                card.setClickHandler(card._handler1);
 
                 cards.push(card);
                 view.appendCard(card);
