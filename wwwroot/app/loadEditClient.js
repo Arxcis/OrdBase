@@ -18,8 +18,8 @@ export function loadEditClient(client) {
     //
     // 0. Set up header
     //
-    App.HEADER.textBig   = 'Ordbase';    
-    App.HEADER.textSmall = `Edit ${client}`;
+    App.HEADER.textSmall   = 'Ordbase';    
+    App.HEADER.textBig = `Edit ${client}`;
 
     App.HEADER.buttonIconLeft   = App.ICON_BARS;
     App.HEADER.buttonIconRight1 = App.ICON_NONE;    
@@ -42,14 +42,12 @@ export function loadEditClient(client) {
         return button;
     });
 
-
     //
     // 2. Set up language flipper
     //
     const flipper = new Component_ItemFlipper;
     flipper.setHeaderUp('Selected')    
     flipper.setHeaderDown('Available');
-
 
     //
     // 3. Set up form
@@ -74,13 +72,11 @@ export function loadEditClient(client) {
         submitNewClient(form, containers, languages);            
     });
 
-
     const view = new View_EditClient;
     view.setContainerGenerator(generator);
     view.setLanguageFlipper(flipper);
     view.setClientForm(form);
     App.switchView(view);
-
 
 
     Api.container.getOnClient(client='')
