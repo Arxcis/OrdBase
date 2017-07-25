@@ -33,7 +33,7 @@ namespace OrdBaseCore.Repositories
         	return _context.Client.ToArray();
         }
         
-        IEnumerable<string> GetDefaultContainers(string clientKey)
+        public IEnumerable<string> GetDefaultContainers(string clientKey)
         {
             return (from cl in _context.ClientContainer
                     where cl.ClientKey == clientKey
@@ -41,7 +41,7 @@ namespace OrdBaseCore.Repositories
                         .ToArray();
         }     
 
-        IEnumerable<string> GetDefaultLanguages(string clientKey)
+        public IEnumerable<string> GetDefaultLanguages(string clientKey)
         {
             return (from cl in _context.ClientLanguage
                     where cl.ClientKey == clientKey
