@@ -33,6 +33,17 @@ namespace OrdBaseCore.Controllers
             return _clientRepo.Get(clientKey);
     	}
 
+        [HttpGet("api/{clientKey}/default/containers")]
+        public IEnumerable<string> GetDefaultContainers(string clientKey) 
+        {
+            return _clientRepo.GetDefaultContainers(clientKey);
+        }
+
+        [HttpGet("api/{clientKey}/default/languages")] 
+        public IEnumerable<string> GetDefaultLanguages(string clientKey) 
+        {
+            return _clientRepo.GetDefaultLanguages(clientKey);
+        }
 
         //
         // CREATE, UPDATE, DELETE  @doc https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-vsc#implement-the-other-crud-operations|
@@ -52,7 +63,7 @@ namespace OrdBaseCore.Controllers
         // @note By creating this data separately, it is easier to track down what went wrong from the client side, instead of doing one big chunk. This default data will be used when new 
         // translations are created.  - JSolsvik 24.07.17
         //
-        [HttpPost("api/{clientKey}/default/containers")]        
+
         [HttpPost("api/{clientKey}/default/containers/create")]
         public IActionResult  CreateDefaultContainers(string clientKey, [FromBody] IEnumerable<string> defaultContainers)
         {
@@ -64,7 +75,6 @@ namespace OrdBaseCore.Controllers
             return StatusCode(201);
         }
 
-        [HttpPost("api/{clientKey}/default/languages")] 
         [HttpPost("api/{clientKey}/default/languages/create")]         
         public IActionResult CreateDefaultLanguages(string clientKey, [FromBody] IEnumerable<string> defaultLanguages) 
         {

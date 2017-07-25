@@ -10,6 +10,8 @@ namespace OrdBaseCore.IData
         IEnumerable<Client> GetAll();
         
         IActionResult Create(Client client);
+        IEnumerable<string> GetDefaultLanguages(string clientId);
+        IEnumerable<string> GetDefaultContainers(string clientId);        
         IActionResult CreateDefaultContainers(string clientId, IEnumerable<string> defaultContainers);
         IActionResult CreateDefaultLanguages(string clientId, IEnumerable<string> defultLanguages);
         IActionResult UpdateDefaultContainers(string clientId, IEnumerable<string> defultLanguages);
