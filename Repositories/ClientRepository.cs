@@ -20,10 +20,10 @@ namespace OrdBaseCore.Repositories
         //
         // GET
         // 
-        public IEnumerable<Client> Get(string name) 
+        public IEnumerable<Client> Get(string clientKey) 
         {
         	return (from c in _context.Client
-        			where c.Key == name
+        			where c.Key == clientKey
         			select c)
         				.ToArray();
         } 
@@ -32,7 +32,22 @@ namespace OrdBaseCore.Repositories
         {
         	return _context.Client.ToArray();
         }
+        
+        IEnumerable<string> GetDefaultContainers(string clientKey)
+        {
+            return (from cl in _context.ClientContainer
+                    where cl.ClientKey == clientKey
+                    select cl.ContainerKey)
+                        .ToArray();
+        }     
 
+        IEnumerable<string> GetDefaultLanguages(string clientKey)
+        {
+            return (from cl in _context.ClientLanguage
+                    where cl.ClientKey == clientKey
+                    select cl.LanguageKey)
+                        .ToArray();
+        }
         //
         // CREATE
         //
@@ -42,6 +57,8 @@ namespace OrdBaseCore.Repositories
             _context.SaveChanges();
             return new NoContentResult {};
         }
+
+
 
         public IActionResult CreateDefaultContainers(string clientKey, IEnumerable<string> defaultContainers)
         {
@@ -88,7 +105,7 @@ namespace OrdBaseCore.Repositories
             _context.SaveChanges();
             return new NoContentResult {};            
         }
-        
+
         public IActionResult UpdateDefaultLanguages(string clientKey, IEnumerable<string> defaultLanguages) 
         {
             
