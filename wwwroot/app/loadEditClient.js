@@ -79,18 +79,18 @@ export function loadEditClient(client) {
     App.switchView(view);
 
 
-    Api.container.getOnClient(client='')
+    Api.container.getOnClient(client)
         .then( containersOnClient => {
 
             containersOnClient.forEach( container => {
 
                 const button = new Component_ButtonSelect;
 
-                button.id = `button-${container}`;
-                button.text  = container;
-                button.selected = '';
+                button.setId(container);
+                button.setText(container);
+                button.setSelected(true);
 
-                view.appendButtonContainer(button);
+                generator.addItem(button);
             });
         })
         .catch(reason => console.error('Error:', reason));

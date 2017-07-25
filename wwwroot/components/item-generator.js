@@ -95,6 +95,10 @@ export class Component_ItemGenerator extends HTMLElement {
     getItems() {
         return this.root.querySelectorAll('.generated');
     }
+
+    addItem(item) {
+        this.root.insertBefore(item, this.input);
+    }
 }
 
 customElements.define('component-item-generator', Component_ItemGenerator);
