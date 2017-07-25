@@ -18,8 +18,8 @@ export function loadEditClient(client) {
     //
     // 0. Set up header
     //
-    App.HEADER.textSmall   = 'Ordbase';    
-    App.HEADER.textBig = `Edit ${client}`;
+    App.HEADER.textBig   = 'Ordbase';    
+    App.HEADER.textSmall = `Update ${client}`;
 
     App.HEADER.buttonIconLeft   = App.ICON_BARS;
     App.HEADER.buttonIconRight1 = App.ICON_NONE;    
@@ -53,7 +53,7 @@ export function loadEditClient(client) {
     // 3. Set up form
     //
     const form = new Component_FormClient;
-    form.setSubmitText('Create client');
+    form.setSubmitText('Update client');
     form.addEventListener('submit', e => {
         e.preventDefault();
 
@@ -73,7 +73,7 @@ export function loadEditClient(client) {
     });
 
     //
-    // 3. Create view, inject components and append view to DOM.
+    // 4. Create view, inject components and append view to DOM.
     //
     const view = new View_EditClient;
     view.setContainerGenerator(generator);
@@ -82,7 +82,7 @@ export function loadEditClient(client) {
     App.switchView(view);
 
     //
-    // 4. Promise fill containers into generator
+    // 5. Promise fill containers into generator
     //
     Api.container.getOnClient(client)
         .then( containers => {
@@ -101,7 +101,7 @@ export function loadEditClient(client) {
         .catch(reason => console.error('Error:', reason));
     
     //
-    // 5. Promise fill languages into flipper
+    // 6. Promise fill languages into flipper
     //
     Api.language.getOnClient(client)
         .then(languages => {
@@ -111,15 +111,15 @@ export function loadEditClient(client) {
 
                 button.setId(lang.key);
                 button.setText( `${lang.name} - ${lang.key}`);
-                button.setSelected(false);
+                button.setSelected(true);
 
-                flipper.addItem(button);
+                flipper.addItem(button, true);
             });
         })
         .catch(error => console.log(error));
     
     //
-    // 6. Promise fill client data into form
+    // 7. Promise fill client data into form
     //
     Api.client.get(client)
         .then(client => {
