@@ -37,7 +37,7 @@ namespace OrdBaseCore.Repositories
                         .ToArray();
         }
 
-        public IEnumerable<object> GetGroupsAll(string clientKey)
+        public IEnumerable<object> GetGroupAll(string clientKey)
         {
             return (from t in _context.Translation
                     where t.ClientKey == clientKey
@@ -89,7 +89,7 @@ namespace OrdBaseCore.Repositories
                     select t)
                         .ToArray();
         }
-        
+
         //
         // POST - Create, update, delete
         //

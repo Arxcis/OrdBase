@@ -15,17 +15,17 @@ namespace OrdBaseCore.Controllers
             _containerRepo = containerRepo;
         }
 
-    	[Route("api/{client}/container")]
-    	[Route("api/{client}/container/all")]		
-    	public string[] GetAll(string client) 
+    	[Route("api/{clientKey}/container")]
+    	[Route("api/{clientKey}/container/all")]		
+    	public string[] GetAll(string clientKey) 
     	{
-    		return _containerRepo.GetAll(client); 
+    		return _containerRepo.GetAll(clientKey); 
     	}
 
-    	[Route("api/{client}/container/{accesskey}")]
-    	public string[] Get(string client, string accesskey) 
+    	[Route("api/{clientKey}/container/group/{translationKey}")]
+    	public string[] GetGroup(string clientKey, string translationKey) 
     	{
-    		return _containerRepo.Get(client, accesskey); 
+    		return _containerRepo.GetGroup(clientKey, translationKey); 
     	} 
     }
 }

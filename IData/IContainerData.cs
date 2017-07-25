@@ -5,7 +5,7 @@ namespace OrdBaseCore.IData
 {
     public interface IContainerData
     {
-    	string[] Get(string clientKey, string translationKey);
+    	string[] GetGroup(string clientKey, string translationKey);
     	string[] GetAll(string clientKey);
     }	
 }

@@ -38,9 +38,9 @@ namespace OrdBaseCore.Controllers
         //
         [HttpGet("api/{clientKey}/translation/group")]        
         [HttpGet("api/{clientKey}/translation/group/all")]
-        public IEnumerable<object> GetGroupsAll(string clientKey)
+        public IEnumerable<object> GetGroupAll(string clientKey)
         {
-            return _translationRepo.GetGroupsAll(clientKey);
+            return _translationRepo.GetGroupAll(clientKey);
         } 
 
         [HttpGet("api/{clientKey}/translation/container/{containerKey}")]
