@@ -21,21 +21,21 @@ namespace OrdBaseCore.Repositories
         //  @note This repository will not have any create,update,delete, because containers do not have their own 
         //          table in the repository, but are part of the Translation table.
         //
-        public string[] Get(string client, string accesskey) 
+        public string[] Get(string clientKey, string translationKey) 
         { 
             return (from t in _context.Translation
-                    where t.ClientKey == client && t.Key == accesskey
-                    group t by t.Container into grp
+                    where t.ClientKey == clientKey && t.Key == translationKey
+                    group t by t.ContainerKey into grp
                     select grp.Key)
                         .Distinct()
                         .ToArray();
         }
 
-        public string[] GetOnClient(string client) 
+        public string[] GetAll(string client) 
         {
             return (from t in _context.Translation
                     where t.ClientKey == client
-                    select t.Container)
+                    select t.ContainerKey)
                         .Distinct()
                         .ToArray();
                         

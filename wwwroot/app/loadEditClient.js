@@ -19,7 +19,7 @@ export function loadEditClient(client) {
     // 0. Set up header
     //
     App.HEADER.textBig   = 'Ordbase';    
-    App.HEADER.textSmall = `Update ${client}`;
+    App.HEADER.textSmall = `Edit ${client}`;
 
     App.HEADER.buttonIconLeft   = App.ICON_BARS;
     App.HEADER.buttonIconRight1 = App.ICON_NONE;    
@@ -53,7 +53,11 @@ export function loadEditClient(client) {
     // 3. Set up form
     //
     const form = new Component_FormClient;
-    form.setSubmitText('Update client');
+    form.setSubmitText(`Update ${client}`);
+    
+    //
+    // 4. Form submit event
+    //
     form.addEventListener('submit', e => {
         e.preventDefault();
 
@@ -69,11 +73,11 @@ export function loadEditClient(client) {
             });
         
         // Handing of the submit request logic to separate script
-        submitNewClient(form, containers, languages);            
+        submitEditClient(form, containers, languages);            
     });
 
     //
-    // 4. Create view, inject components and append view to DOM.
+    // 5. Create view, inject components and append view to DOM.
     //
     const view = new View_EditClient;
     view.setContainerGenerator(generator);
@@ -82,7 +86,7 @@ export function loadEditClient(client) {
     App.switchView(view);
 
     //
-    // 5. Promise fill containers into generator
+    // 6. Promise fill containers into generator
     //
     Api.container.getOnClient(client)
         .then( containers => {
@@ -101,7 +105,7 @@ export function loadEditClient(client) {
         .catch(reason => console.error('Error:', reason));
     
     //
-    // 6. Promise fill languages into flipper
+    // 7. Promise fill languages into flipper
     //
     Api.language.getOnClient(client)
         .then(languages => {
@@ -119,7 +123,7 @@ export function loadEditClient(client) {
         .catch(error => console.log(error));
     
     //
-    // 7. Promise fill client data into form
+    // 8. Promise fill client data into form
     //
     Api.client.get(client)
         .then(client => {

@@ -67,6 +67,10 @@ export function loadNewClient(client) {
     //
     const form = new Component_FormClient;
     form.setSubmitText('Create client');
+    
+    //
+    // 4. Form submit event
+    //
     form.addEventListener('submit', e => {
         e.preventDefault();
 
@@ -91,7 +95,7 @@ export function loadNewClient(client) {
     });
 
     //
-    // 3. Create view, inject components and append view to DOM.
+    // 5. Create view, inject components and append view to DOM.
     //
     const view = new View_EditClient; 
     view.setContainerGenerator(generator);
@@ -100,7 +104,7 @@ export function loadNewClient(client) {
     App.switchView(view);
 
     //
-    // 4. Promise fill in available languages
+    // 6. Promise fill in available languages
     //
     Api.language.getAll()
         .then(languages => {

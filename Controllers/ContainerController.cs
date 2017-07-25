@@ -6,7 +6,7 @@ using OrdBaseCore.IData;
 
 namespace OrdBaseCore.Controllers
 {	
-    public class ContainerController : Controller, IContainerData
+    public class ContainerController : Controller
     {
         private readonly IContainerData _containerRepo;
 
@@ -16,9 +16,10 @@ namespace OrdBaseCore.Controllers
         }
 
     	[Route("api/{client}/container")]
-    	public string[] GetOnClient(string client) 
+    	[Route("api/{client}/container/all")]		
+    	public string[] GetAll(string client) 
     	{
-    		return _containerRepo.GetOnClient(client); 
+    		return _containerRepo.GetAll(client); 
     	}
 
     	[Route("api/{client}/container/{accesskey}")]

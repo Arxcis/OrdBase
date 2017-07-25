@@ -22,17 +22,17 @@ namespace OrdBaseCore.Repositories
         //
         // GET
         //
-        public IEnumerable<Language> GetAll()
+        public IEnumerable<Language> GetGlobal()
         {
             return _context.Language.ToArray();
         }
 
-        public IEnumerable<Language> GetOnClient(string client)
+        public IEnumerable<Language> GetAll(string clientKey)
         {
             return (from t in _context.Translation
                     join l in _context.Language on t.LanguageKey equals l.Key
-                    join c in _context.Client on t.ClientKey equals c.Name
-                    where c.Name == client
+                    join c in _context.Client on t.ClientKey equals c.Key
+                    where c.Key == clientKey
                     select l)
                         .ToArray();
         }
@@ -61,9 +61,9 @@ namespace OrdBaseCore.Repositories
             return new NoContentResult {};
         }
 
-        public IActionResult Delete(string key) 
+        public IActionResult Delete(string languageKey) 
         {
-            var language = _context.Language.First(t => t.Key == key);
+            var language = _context.Language.First(t => t.Key == languageKey);
 
             if (language == null)
                 return new NotFoundResult {};
