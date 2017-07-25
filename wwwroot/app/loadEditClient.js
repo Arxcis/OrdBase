@@ -72,17 +72,22 @@ export function loadEditClient(client) {
         submitNewClient(form, containers, languages);            
     });
 
+    //
+    // 3. Create view, inject components and append view to DOM.
+    //
     const view = new View_EditClient;
     view.setContainerGenerator(generator);
     view.setLanguageFlipper(flipper);
     view.setClientForm(form);
     App.switchView(view);
 
-
+    //
+    // 4. Promise fill containers into generator
+    //
     Api.container.getOnClient(client)
-        .then( containersOnClient => {
+        .then( containers => {
 
-            containersOnClient.forEach( container => {
+            containers.forEach( container => {
 
                 const button = new Component_ButtonSelect;
 
@@ -94,4 +99,31 @@ export function loadEditClient(client) {
             });
         })
         .catch(reason => console.error('Error:', reason));
+    
+    //
+    // 5. Promise fill languages into flipper
+    //
+    Api.language.getOnClient(client)
+        .then(languages => {
+
+            languages.forEach(lang => {
+                let button = new Component_ButtonSelect;
+
+                button.setId(lang.key);
+                button.setText( `${lang.name} - ${lang.key}`);
+                button.setSelected(false);
+
+                flipper.addItem(button);
+            });
+        })
+        .catch(error => console.log(error));
+    
+    //
+    // 6. Promise fill client data into form
+    //
+    Api.client.get(client)
+        .then(client => {
+            form.setClient(client[0]);
+        })
+        .catch(error => console.log(error));        
 }

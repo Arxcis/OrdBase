@@ -8,7 +8,6 @@ export class View_Header extends HTMLElement {
         super();
         this.root = this.createShadowRoot();
         this.root.innerHTML = html;
-        console.log(this.root);   
     }
 
     set textBig(text) { 

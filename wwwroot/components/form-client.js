@@ -16,11 +16,18 @@ export class Component_FormClient extends HTMLElement {
 
     getClient() {
         return {
-            Name :         this.root.getElementById('form-client-name').value,
-            WebpageUrl:    this.root.getElementById('form-client-webpage').value,
-            ThumbnailUrl:  this.root.getElementById('form-client-thumbnail').value,
-            ApiKey:        this.root.getElementById('form-client-apikey').value,
+            name :         this.root.getElementById('form-client-name').value,
+            webpageUrl:    this.root.getElementById('form-client-webpage').value,
+            thumbnailUrl:  this.root.getElementById('form-client-thumbnail').value,
+            apiKey:        this.root.getElementById('form-client-apikey').value,
         }
+    }
+
+    setClient(client) {
+        this.root.getElementById('form-client-name').value = client.name;
+        this.root.getElementById('form-client-webpage').value = client.webpageUrl;
+        this.root.getElementById('form-client-thumbnail').value = client.thumbnailUrl;
+        this.root.getElementById('form-client-apikey').value = client.apiKey;
     }
 }
 

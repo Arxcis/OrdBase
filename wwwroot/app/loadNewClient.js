@@ -86,6 +86,7 @@ export function loadNewClient(client) {
                 return button.getId();
             });
         
+        // Handing of the submit request logic to separate script
         submitNewClient(form, containers, languages);            
     });
 
