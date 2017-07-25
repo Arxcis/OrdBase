@@ -113,7 +113,7 @@ export function loadEditClient(client) {
                 button.setText( `${lang.name} - ${lang.key}`);
                 button.setSelected(true);
 
-                flipper.addItem(button, true);
+                flipper.addItem(button, { selected : true });
             });
         })
         .catch(error => console.log(error));

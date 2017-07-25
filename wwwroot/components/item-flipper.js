@@ -12,8 +12,8 @@ export class Component_ItemFlipper extends HTMLElement {
         this.div_flipDown = this.root.getElementById('flip-down');
     }
 
-    addItem(item, selected = false) {
-        (selected) ? this.div_flipUp.appendChild(item):
+    addItem(item, options = { selected : false }) {
+        (arguments[1].selected) ? this.div_flipUp.appendChild(item):
                      this.div_flipDown.appendChild(item);
 
         item.addEventListener('click', e => {
