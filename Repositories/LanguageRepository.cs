@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using OrdBaseCore.Models;
 using OrdBaseCore.IData;
 
-namespace OrdBaseCore.Services
+namespace OrdBaseCore.Repositories
 {
 	// 
 	// @class LanguageRepository

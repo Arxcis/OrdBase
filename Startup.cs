@@ -22,7 +22,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 // OrdBase
 using OrdBaseCore.Models;
 using OrdBaseCore.IData;
-using OrdBaseCore.Services;
+using OrdBaseCore.Repositories;
 
 
 // @doc Set up MySql service - https://damienbod.com/2016/08/26/asp-net-core-1-0-with-mysql-and-entity-framework-core/

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using OrdBaseCore.Models;
 using OrdBaseCore.IData;
 
-namespace OrdBaseCore.Services
+namespace OrdBaseCore.Repositories
 {
     public class TranslationRepository : ITranslationData
     {

@@ -19,6 +19,7 @@ export function loadSelectClient() {
 
     // Create elements
     const view = App.switchView(new View_SelectClient);
+    let cards = new Array;
 
     // Setup header
     App.HEADER.textBig          = 'Ordbase';
@@ -27,9 +28,15 @@ export function loadSelectClient() {
     App.HEADER.buttonIconRight1 = App.ICON_PENCIL;    
     App.HEADER.buttonIconRight2 = App.ICON_PLUS;
 
-
     App.HEADER.buttonLeft.onclick   = App.defaultHandler;
-    App.HEADER.buttonRight1.onclick = App.defaultHandler;
+    
+    App.HEADER.buttonRight1.onclick = event => {
+        
+        for (let i = 0; i < cards.length; i++) {
+
+        }
+    };
+
     App.HEADER.buttonRight2.onclick = event => loadNewClient();
 
     
@@ -47,6 +54,7 @@ export function loadSelectClient() {
                 card.thumbnail     = 'http://placehold.it/250x125/FFC107';
                 card.buttonHandler = event => loadSelectTranslation(client.name);
 
+                cards.push(card);
                 view.appendCard(card);
             });                            
         })

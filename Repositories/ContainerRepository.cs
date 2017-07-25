@@ -3,7 +3,7 @@ using System.Linq;
 using OrdBaseCore.Models;
 using OrdBaseCore.IData;
 
-namespace OrdBaseCore.Services
+namespace OrdBaseCore.Repositories
 {	
 	// 
 	// @class ContainerRepository

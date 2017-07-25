@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 
-using OrdBaseCore.Services;
+using OrdBaseCore.Repositories;
 using OrdBaseCore.Models;
 
 namespace OrdBaseCore.Models 
