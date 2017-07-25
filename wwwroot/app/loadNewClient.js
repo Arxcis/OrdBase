@@ -66,9 +66,7 @@ export function loadNewClient(client) {
     // 3. Set up form
     //
     const form = new Component_FormClient;
-
     form.setSubmitText('Create client');
-
     form.addEventListener('submit', e => {
         e.preventDefault();
 
@@ -95,9 +93,9 @@ export function loadNewClient(client) {
     // 3. Create view, inject components and append view to DOM.
     //
     const view = new View_EditClient; 
-    view.setClientForm(form);
     view.setContainerGenerator(generator);
     view.setLanguageFlipper(flipper);
+    view.setClientForm(form);
     App.switchView(view);
 
     //
