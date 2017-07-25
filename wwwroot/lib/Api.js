@@ -73,7 +73,7 @@ container.getOnClient = (_client) => {
     });
 }
 
-container.getOnKey = (_client, _translationKey) => {
+container.getGroup = (_client, _translationKey) => {
     return getJSON({ 
         httpMethod: 'GET', 
         route: routeBuilder('api', _client, 'container', _translationKey) 
@@ -122,7 +122,7 @@ translation.getOnClient = (_client) => {
     }); 
 }
 
-translation.getGroupOnClient = (_client) => {
+translation.getGroup = (_client) => {
     return getJSON({
         httpMethod: 'GET',
         route: routeBuilder('api', _client, 'translation', 'group')

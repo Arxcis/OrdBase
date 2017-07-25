@@ -8,7 +8,7 @@ using OrdBaseCore.Models;
 namespace OrdBaseCore.Migrations
 {
     [DbContext(typeof(TranslationDb))]
-    [Migration("20170725114853_client_collection_fields")]
+    [Migration("20170725123253_client_collection_fields")]
     partial class client_collection_fields
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

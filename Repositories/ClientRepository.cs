@@ -81,9 +81,9 @@ namespace OrdBaseCore.Repositories
         public static void AddTestData(TranslationDb context)
         {
             context.Client.AddRange(
-                new Client { Key = "FMSF",         ApiKey = "1"},
-                new Client { Key = "DIFI",         ApiKey = "2"},
-                new Client { Key = "Skatteetaten", ApiKey = "3"}
+                new Client { Key = "FMSF",         ApiKey = "1", WebpageUrl = "https://wwww.plaholder.magic"},
+                new Client { Key = "DIFI",         ApiKey = "2", WebpageUrl = "https://wwww.plaholder.magic"},
+                new Client { Key = "Skatteetaten", ApiKey = "3", WebpageUrl = "https://wwww.plaholder.magic"}
             );
             context.SaveChanges();
         }
