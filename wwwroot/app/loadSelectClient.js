@@ -31,9 +31,8 @@ export function loadSelectClient() {
     App.HEADER.buttonLeft.onclick   = App.defaultHandler;
     
     App.HEADER.buttonRight1.onclick = event => {
-        
         for (let i = 0; i < cards.length; i++) {
-
+            
         }
     };
 
