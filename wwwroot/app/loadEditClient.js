@@ -11,7 +11,7 @@ import { Component_ItemFlipper   } from '../components/item-flipper.js';
 import { Component_FormClient    } from '../components/form-client.js';
 
 import { loadSelectClient } from './loadSelectClient.js';
-
+import { loadUpdateClient } from './submitClient.js';
 
 export function loadEditClient(client) {
     
@@ -73,7 +73,7 @@ export function loadEditClient(client) {
             });
         
         // Handing of the submit request logic to separate script
-        submitEditClient(form, containers, languages);            
+        submitUpdateClient(form, containers, languages);            
     });
 
     //

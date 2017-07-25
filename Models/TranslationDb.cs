@@ -103,7 +103,8 @@ namespace OrdBaseCore.Models
 
         public static void Seed(TranslationDb context) 
         {
-            LanguageRepository.AddTestData(context);
+            ContainerRepository.AddTestData(context);
+            //LanguageRepository.AddTestData(context);
             ClientRepository.AddTestData(context);
             TranslationRepository.AddTestData(context);
 

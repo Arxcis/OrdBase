@@ -25,7 +25,7 @@ export let translation = {};
 //
 // CLIENT ROUTES
 //
-client.getAll = () => { 
+client.getAll = () => {
     return getJSON({ 
         httpMethod: 'GET', 
         route: routeBuilder('api','client', 'all') 
@@ -62,6 +62,23 @@ client.createDefaultLanguages  = (_client, _languages) => {
         data:  _languages 
     });
 };
+
+client.updateDefaultContainers = (_client, _containers) => {
+    return postJSON({ 
+        httpMethod:  'POST', 
+        route: routeBuilder('api', _client, 'default', 'containers', 'update'), 
+        data:  _containers
+    });
+};
+
+client.updateDefaultLanguages  = (_client, _languages) => {
+    return postJSON({ 
+        httpMethod:  'POST', 
+        route: routeBuilder('api', _client, 'default', 'languages', 'update'), 
+        data:  _languages 
+    });
+};
+
 
 //
 // CONTAINER ROUTES

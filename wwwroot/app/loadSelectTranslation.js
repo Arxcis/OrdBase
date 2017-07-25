@@ -49,7 +49,7 @@ export function loadSelectTranslation (client) {
                 view.appendButtonContainer(button);
             });
 
-            return Api.translation.getGroupOnClient(client);
+            return Api.translation.getGroup(client);
         })
     //
     //  @AJAX - Get all translation groups 

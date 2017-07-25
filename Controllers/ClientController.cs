@@ -52,11 +52,12 @@ namespace OrdBaseCore.Controllers
         // @note By creating this data separately, it is easier to track down what went wrong from the client side, instead of doing one big chunk. This default data will be used when new 
         // translations are created.  - JSolsvik 24.07.17
         //
-        [HttpPost("api/{clientKey}/default/containers")]
+        [HttpPost("api/{clientKey}/default/containers")]        
+        [HttpPost("api/{clientKey}/default/containers/create")]
         public IActionResult  CreateDefaultContainers(string clientKey, [FromBody] IEnumerable<string> defaultContainers)
         {
             // Check if any of the data is null og nullstring            
-            if (defaultContainers.Where(str => str == null || str == "").Count() > 0)
+            if (defaultContainers == null || defaultContainers.Where(str => str == null || str == "").Count() > 0)
                 return  BadRequest();
 
             _clientRepo.CreateDefaultContainers(clientKey, defaultContainers);
@@ -64,14 +65,39 @@ namespace OrdBaseCore.Controllers
         }
 
         [HttpPost("api/{clientKey}/default/languages")] 
+        [HttpPost("api/{clientKey}/default/languages/create")]         
         public IActionResult CreateDefaultLanguages(string clientKey, [FromBody] IEnumerable<string> defaultLanguages) 
         {
             // Check if any of the data is null og nullstring
-            if (defaultLanguages.Where(str => str == null || str == "").Count() > 0)
+            if (defaultLanguages == null || defaultLanguages.Where(str => str == null || str == "").Count() > 0)
                 return  BadRequest();
 
             _clientRepo.CreateDefaultLanguages(clientKey, defaultLanguages);
             return StatusCode(201);
         }
+
+        [HttpPost("api/{clientKey}/default/containers/update")]
+        public IActionResult  UpdateDefaultContainers(string clientKey, [FromBody] IEnumerable<string> defaultContainers)
+        {
+            // Check if any of the data is null og nullstring            
+            if (defaultContainers == null || defaultContainers.Where(str => str == null || str == "").Count() > 0)
+                return  BadRequest();
+
+            _clientRepo.UpdateDefaultContainers(clientKey, defaultContainers);
+            return StatusCode(201);
+        }
+
+        [HttpPost("api/{clientKey}/default/languages/update")] 
+        public IActionResult UpdateDefaultLanguages(string clientKey, [FromBody] IEnumerable<string> defaultLanguages) 
+        {
+            // Check if any of the data is null og nullstring
+            if (defaultLanguages == null || defaultLanguages.Where(str => str == null || str == "").Count() > 0)
+                return  BadRequest();
+
+            _clientRepo.UpdateDefaultLanguages(clientKey, defaultLanguages);
+            return StatusCode(201);
+        }
+
+
     }
 }

@@ -39,5 +39,16 @@ namespace OrdBaseCore.Repositories
                         .Distinct()
                         .ToArray();
         }
+
+        //
+        // TESTDATA add
+        //
+        public static void AddTestData(TranslationDb context) 
+        {
+            context.Container.AddRange(
+                new Container { Key = "Main"},
+                new Container { Key = "Special"}                
+            );
+        }
     }
 }

@@ -13,9 +13,6 @@ import { loadSelectClient } from './loadSelectClient.js';
 
 export function submitNewClient(form, containerArray, languageArray) {
 
-
-
-    
     console.log('Creating new client...')
     Api.client.create(form.getClient())
     .then(response => {
@@ -28,14 +25,21 @@ export function submitNewClient(form, containerArray, languageArray) {
 
         loadSelectClient();
     })
-    .catch(error => console.log(error));
+    .catch(error => console.log(error)); // @TODO Display error in view
 } 
 
-export function submitEditClient(form, containerArray, languageArray) {
+export function submitUpdateClient(form, containerArray, languageArray) {
 
+    console.log('Updating existing client...');
 
+    Api.client.update(form.getClient()).then(response => {
+       
+        Api.client.updateDefaultContainers(client, containerArray);
+        Api.client.updateDefaultLanguages(client, languageArray);
 
-
+        loadSelectClient();    
+    })
+    .catch(error => console.log(error));  // @TODO Display error in view
 }
 export function deleteClient()     {}
 

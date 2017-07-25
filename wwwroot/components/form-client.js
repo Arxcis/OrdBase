@@ -16,7 +16,7 @@ export class Component_FormClient extends HTMLElement {
 
     getClient() {
         return {
-            name :         this.root.getElementById('form-client-name').value,
+            key :         this.root.getElementById('form-client-name').value,
             webpageUrl:    this.root.getElementById('form-client-webpage').value,
             thumbnailUrl:  this.root.getElementById('form-client-thumbnail').value,
             apiKey:        this.root.getElementById('form-client-apikey').value,
@@ -24,7 +24,7 @@ export class Component_FormClient extends HTMLElement {
     }
 
     setClient(client) {
-        this.root.getElementById('form-client-name').value = client.name;
+        this.root.getElementById('form-client-name').value = client.key;
         this.root.getElementById('form-client-webpage').value = client.webpageUrl;
         this.root.getElementById('form-client-thumbnail').value = client.thumbnailUrl;
         this.root.getElementById('form-client-apikey').value = client.apiKey;

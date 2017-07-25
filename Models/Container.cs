@@ -8,7 +8,7 @@ namespace OrdBaseCore.Models {
 
         [Key]
         [StringLength(64)]
-        public string ContainerKey { get; set; } 
+        public string Key { get; set; } 
 
         // @brief Setting up many to many navigation property
         public virtual List<ClientContainer> Clients { get; set; } 

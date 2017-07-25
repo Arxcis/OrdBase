@@ -7,5 +7,5 @@
 //
 
 export function submitNewTranslation()  {}
-export function submitEditTranslation() {}
+export function submitUpdateTranslation() {}
 export function deleteTranslation()     {}

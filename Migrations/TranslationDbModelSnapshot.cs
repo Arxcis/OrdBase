@@ -73,11 +73,11 @@ namespace OrdBaseCore.Migrations
 
             modelBuilder.Entity("OrdBaseCore.Models.Container", b =>
                 {
-                    b.Property<string>("ContainerKey")
+                    b.Property<string>("Key")
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(64);
 
-                    b.HasKey("ContainerKey");
+                    b.HasKey("Key");
 
                     b.ToTable("Container");
                 });

@@ -47,19 +47,20 @@ export function loadSelectClient() {
 
 
     Api.client.getAll()  
-        .then(clientObjects => {                                    
-            clientObjects.forEach((client, i) => {
+        .then(clients => {                                    
+            console.log('getting -> ', clients);
+            clients.forEach((client, i) => {
 
                 let card = new Component_CardClient;
                 
                 card.setId(`card${i}`);
-                card.setHeading(client.name);
+                card.setHeading(client.key);
                 card.setText(client.webpageUrl);
-                card.setThumbnail('http://placehold.it/250x125/FFC107');
+                card.setThumbnail(client.thumbnailUrl);
 
                 // @note Duct-typing logic variables, used for later in edit click event
-                card._handler1 = event => loadSelectTranslation(client.name);
-                card._handler2 = event => loadEditClient(client.name);
+                card._handler1 = event => loadSelectTranslation(client.key);
+                card._handler2 = event => loadEditClient(client.key);
                 card.setClickHandler(card._handler1);
 
                 cards.push(card);
