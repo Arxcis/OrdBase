@@ -1,7 +1,7 @@
 'use strict';
 
 import * as App from './App.js';
-import * as Api from '../lib/Api.js';
+import * as Route from '../lib/Route.js';
 
 import { View_EditClient }        from '../views/edit-client.js';
 
@@ -86,7 +86,7 @@ export function loadEditClient(client) {
 //
 function async_getGeneratorData(generator, client) {
 
-    Api.client.getDefaultContainers(client)
+    Route.client_getDefaultContainers(client)
     .then( containers => {
         console.log('containers ', containers);
 
@@ -111,7 +111,7 @@ function async_getFlipperData(flipper, client) {
 
     let buttonArray = new Array();
 
-    Api.language.getGlobal()
+    Route.language_getGlobal()
     .then(languages => {
         console.log('global ', languages);
 
@@ -125,7 +125,7 @@ function async_getFlipperData(flipper, client) {
             buttonArray.push(button);
             flipper.addItem(button, { selected : false });
         });
-        return Api.client.getDefaultLanguages(client);
+        return Route.client_getDefaultLanguages(client);
     })
     .then(languages => {
         console.log('selected ', languages);
@@ -151,7 +151,7 @@ function async_getFlipperData(flipper, client) {
 // 10. Fill client data into form
 //
 function async_getFormData(form, client) {
-    Api.client.get(client)
+    Route.client_get(client)
     .then(client => {
         form.setClient(client[0]);
     })
@@ -179,11 +179,11 @@ function async_submitFormData(clientKey, form, generator, flipper){
 
     console.log('Updating existing client...');
 
-    Api.client.update(clientObject).then(response => {
+    Route.client_update(clientObject).then(response => {
         console.log('editresponse', response);
 
-        Api.client.updateDefaultContainers(clientKey, containerArray).catch(error => console.error(error));
-        Api.client.updateDefaultLanguages(clientKey,  languageArray).catch(error => console.error(error));
+        Route.client_updateDefaultContainers(clientKey, containerArray).catch(error => console.error(error));
+        Route.client_updateDefaultLanguages(clientKey,  languageArray).catch(error => console.error(error));
 
         loadSelectClient();
     })

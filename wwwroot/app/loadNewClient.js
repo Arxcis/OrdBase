@@ -1,7 +1,7 @@
 'use strict';
 
 import * as App from './App.js';
-import * as Api from '../lib/Api.js';
+import * as Route from '../lib/Route.js';
 
 import { View_EditClient }  from '../views/edit-client.js';
 
@@ -83,7 +83,7 @@ function async_getFlipperData(flipper) {
     //
     // 6. Promise fill in available languages
     //
-    Api.language.getGlobal().then(languages => {
+    Route.language_getGlobal().then(languages => {
 
         languages.forEach(lang => {
             let button = new Component_ButtonSelect;
@@ -119,10 +119,11 @@ function async_submitNewClient(form, generator, flipper) {
                               return button.getId(); 
                           });
 
-    Api.client.create(client)
+    Route.client_create(client)
     .then(response => {
         
-        Api.client.createDefaultContainers(client.key, containerArray).catch(error => console.error(error));        Api.client.createDefaultLanguages(client.key, languageArray).catch(error => console.error(error));           
+        Route.client_createDefaultContainers(client.key, containerArray).catch(error => console.error(error));        
+        Route.client_createDefaultLanguages(client.key, languageArray).catch(error => console.error(error));           
 
         loadSelectClient();
     })

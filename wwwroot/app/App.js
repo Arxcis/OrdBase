@@ -25,6 +25,7 @@ export const ICON_TRASH      = 'fa-trash';
 // @note hack-below I am not proud of the way I am filling in the Header view here.
 //        Open for suggestions - JSolsvik 24.07.17
 document.getElementById('ordbase-header').appendChild(new View_Header);
+
 export const HEADER         = document.getElementById('ordbase-header').querySelector('view-header');
 export const defaultHandler = (event) => console.log('Default handler... nothing happened');
 

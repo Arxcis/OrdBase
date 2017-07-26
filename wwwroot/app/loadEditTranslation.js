@@ -1,7 +1,7 @@
 'use strict';
 
-import * as App from './App.js';
-import * as Api from '../lib/Api.js'; 
+import * as App   from './App.js';
+import * as Route from '../lib/Route.js'; 
 
 import { View_EditTranslation }          from '../views/edit-translation.js';
 
@@ -30,13 +30,13 @@ export function loadEditTranslation (client, key) {
 
     let containersOnClient = {};
 
-    Api.container.getOnClient(client)
+    Route.container_getGlobal(client)
         //
         // @ajax promise
         //
         .then(_containersOnClient => {
             containersOnClient = _containersOnClient;  
-            return Api.container.getOnKey(client, key);
+            return Route.container_getGroup(client, key);
         })
         //
         // @ajax promise
@@ -53,7 +53,7 @@ export function loadEditTranslation (client, key) {
 
                 view.appendButtonContainer(button);
             });
-            return Api.translation.getOnKey(client, key);
+            return Route.translation_getGroup(client, key);
         })
         //
         // @ajax promise

@@ -1,7 +1,7 @@
 'use strict';
 
 import * as App from './App.js';
-import * as Api from '../lib/Api.js';
+import * as Route from '../lib/Route.js';
 
 import { View_SelectClient }      from '../views/select-client.js';
 
@@ -78,7 +78,7 @@ function setCardState(cards, newState) {
 //
 function async_getCardData(view, cards) {
 
-    Api.client.getAll().then(clients => {
+    Route.client_getAll().then(clients => {
 
         clients.forEach((client, i) => {
 
@@ -106,7 +106,7 @@ function async_getCardData(view, cards) {
 
 function async_deleteCard(clientKey, view, card) {
 
-    Api.client.delete(clientKey)
+    Route.client_delete(clientKey)
     .then(res => {
         view.root.removeChild(card);
         loadSelectClient();

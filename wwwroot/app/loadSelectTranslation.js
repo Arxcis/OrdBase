@@ -1,7 +1,7 @@
 'use strict';
 
 import * as App from './App.js';
-import * as Api from '../lib/Api.js';
+import * as Route from '../lib/Route.js';
 
 import { View_SelectTranslation } from '../views/select-translation.js';
 
@@ -47,7 +47,7 @@ export function loadSelectTranslation (clientKey) {
 
 function async_getFlipperData(flipper, clientKey) {
 
-        Api.client.getDefaultContainers(clientKey)  
+        Route.client_getDefaultContainers(clientKey)  
         .then(containers => {        
             containers.forEach(container => {
 
@@ -68,7 +68,7 @@ function async_getTranslationCardData(cards, clientKey, view) {
     //  @AJAX - Get all translation groups 
     //  @doc template literals - https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Template_literals
     //
-    Api.translation.getGroupAll(clientKey).then(groups => {
+    Route.translation_getGroupAll(clientKey).then(groups => {
         
         groups.forEach((group, i) => {
 

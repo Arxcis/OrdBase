@@ -1,8 +1,6 @@
 'use strict';
 
-import { getJSON, postJSON, deleteJSON } from './Ajax.js';
-import { routeBuilder } from './Util.js';
-
+import * as Fetch from './fetch.js';
 
 //
 // @doc Destructuring arguments with default values ecma 6 - http://2ality.com/2015/01/es6-destructuring.html
@@ -10,9 +8,17 @@ import { routeBuilder } from './Util.js';
 // @doc Arro functions MDN - https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/Arrow_functions
 //
 
-// @WARNING! @TODO
-// @NOTE RESOLVE NAMING CONFLICTS BELOW§!!! client module scope variables, and client parameters...!!!!
-// @WARNING!
+//
+// @function routeBuilder(...args)
+// @doc https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments
+//
+export function routeBuilder() {
+    let route = '';
+    for (let i = 0; i < arguments.length; i++) {
+        route += '/' + arguments[i];
+    }
+    return route;
+}
 
 //
 // @modules - to be exported
@@ -25,84 +31,73 @@ export let translation = {};
 //
 // CLIENT ROUTES
 //
-client.getAll = () => {
-    return getJSON({ 
-        httpMethod: 'GET', 
+export function client_getAll () {
+    return Fetch.GET({  
         route: routeBuilder('api','client', 'all') 
     });
 }
 
-client.get = (_clientKey) => {
-    return getJSON({ 
-        httpMethod: 'GET', 
+export function client_get (_clientKey) {
+    return Fetch.GET({  
         route: routeBuilder('api', _clientKey) 
     });
 }
 
-client.create = (_client) => {
-    return postJSON({ 
-        httpMethod:  'POST', 
+export function client_create (_client) {
+    return Fetch.POST({ 
         route: routeBuilder('api', 'client', 'create'), 
         data:  _client 
     });
 } 
 
-client.update = (_client) => {  
-    return postJSON({
-        httpMethod:  'PUT',
+export function client_update (_client) {  
+    return Fetch.PUT({
         route: routeBuilder('api', 'client', 'update', _client.key),
         data:  _client, 
     });
 }
 
-client.delete = (_clientKey) => {
-    return deleteJSON({
-        httpMethod: 'DELETE',
+export function client_delete (_clientKey) {
+    return Fetch.DELETE({
         route: routeBuilder('api', 'client', 'delete', _clientKey)
     });
 }
 
-client.getDefaultContainers = (_client) => {
-    return getJSON({ 
-        httpMethod:  'GET', 
+export function client_getDefaultContainers (_client) {
+    return Fetch.GET({ 
         route: routeBuilder('api', _client, 'default', 'containers'), 
     });
 };
 
-client.getDefaultLanguages  = (_client) => {
-    return getJSON({ 
-        httpMethod:  'GET', 
+export function client_getDefaultLanguages  (_client) {
+    return Fetch.GET({ 
         route: routeBuilder('api', _client, 'default', 'languages'), 
     });
 };
 
-client.createDefaultContainers = (_client, _containers) => {
-    return postJSON({ 
-        httpMethod:  'POST', 
+export function client_createDefaultContainers (_client, _containers) {
+    return Fetch.POST({ 
         route: routeBuilder('api', _client, 'default', 'containers', 'create'), 
         data:  _containers 
     });
 };
 
-client.createDefaultLanguages  = (_client, _languages) => {
-    return postJSON({ 
-        httpMethod:  'POST', 
+export function client_createDefaultLanguages  (_client, _languages) {
+    return Fetch.POST({ 
         route: routeBuilder('api', _client, 'default', 'languages', 'create'), 
         data:  _languages 
     });
 };
 
-client.updateDefaultContainers = (_client, _containers) => {
-    return postJSON({ 
-        httpMethod:  'POST', 
+export function client_updateDefaultContainers (_client, _containers) {
+    return Fetch.POST({ 
         route: routeBuilder('api', _client, 'default', 'containers', 'update'), 
         data:  _containers
     });
 };
 
-client.updateDefaultLanguages  = (_client, _languages) => {
-    return postJSON({ 
-        httpMethod:  'POST', 
+export function client_updateDefaultLanguages  (_client, _languages) {
+    return Fetch.POST({ 
         route: routeBuilder('api', _client, 'default', 'languages', 'update'), 
         data:  _languages 
     });
@@ -112,16 +107,14 @@ client.updateDefaultLanguages  = (_client, _languages) => {
 //
 // CONTAINER ROUTES
 //
-container.getGlobal = (_client) => {
-    return getJSON({ 
-        httpMethod: 'GET', 
+export function container_getGlobal (_client) {
+    return Fetch.GET({  
         route: routeBuilder('api', 'container') 
     });
 }
 
-container.getGroup = (_client, _translationKey) => {
-    return getJSON({ 
-        httpMethod: 'GET', 
+export function container_getGroup (_client, _translationKey) {
+    return Fetch.GET({  
         route: routeBuilder('api', _client, 'container', _translationKey) 
     });
 }
@@ -129,16 +122,14 @@ container.getGroup = (_client, _translationKey) => {
 //
 // LANGUAGE ROUTES
 //
-language.getGlobal = () => {
-    return getJSON({ 
-        httpMethod: 'GET', 
+export function language_getGlobal () {
+    return Fetch.GET({  
         route: routeBuilder('api', 'language') 
     });
 }
 
-language.create = (_language) => {
-    return postJSON({ 
-        httpMethod: 'POST', 
+export function language_create (_language) {
+    return Fetch.POST({ 
         route: routeBuilder('api', 'language', 'create'), 
         data:  _language 
     });
@@ -147,60 +138,52 @@ language.create = (_language) => {
 //
 // TRANSLATION ROUTES
 //
-translation.get = (_client, _container, _translationKey, _language) => { 
-    return getJSON({ 
-        httpMethod: 'GET', 
+export function translation_get (_client, _container, _translationKey, _language) { 
+    return Fetch.GET({  
         route: routeBuilder('api', _client, 'translation', _container, _translationKey, _language) 
     }); 
 }
 
-translation.getOnClient = (_client) => {  
-    return getJSON({
-        httpMethod:  'GET',
+export function translation_getOnClient (_client) {  
+    return Fetch.GET({
         route: routeBuilder('api', _client, 'translation') 
     }); 
 }
 
-translation.getGroupAll = (_client) => {
-    return getJSON({
-        httpMethod: 'GET',
+export function translation_getGroupAll (_client) {
+    return Fetch.GET({
         route: routeBuilder('api', _client, 'translation', 'group')
     })
 }
 
-translation.getOnContainer = (_client, _container) => { 
-    return getJSON({
-        httpMethod: 'GET',
+export function translation_getOnContainer (_client, _container) { 
+    return Fetch.GET({
         route: routeBuilder('api', _client, 'translation', 'container', _container) 
     }); 
 }
 
-translation.getOnKey = (_client, _translationKey) => {   // @note - convert translationKey -> key
-    return getJSON({
-        httpMethod:  'GET',
+export function translation_getGroup (_client, _translationKey) {   // @note - convert translationKey -> key
+    return Fetch.GET({
         route: routeBuilder('api', _client, 'translation', 'translationKey', _translationKey) 
     }); 
 }   
 
-translation.create = (_translation) => {
-    return postJSON({
-        httpMethod:  'POST',
+export function translation_create (_translation) {
+    return Fetch.POST({
         route: routeBuilder('api', 'translation', 'create'),
         data:  _translation 
     }); 
 }
 
-translation.update = (_translation) => {  
-    return postJSON({
-        httpMethod:  'PUT',
+export function translation_update (_translation) {  
+    return Fetch.PUT({
         route: routeBuilder('api', 'translation', 'update', _translation.client, _translation.container, _translation.translationKey, _translation.language),
         data:  _translation 
     });
 }
 
-translation.delete = (_client, _container, _translationKey, _language) => {
-    return deleteJSON({
-        httpMethod:  'DELETE',
+export function translation_delete(_client, _container, _translationKey, _language) {
+    return Fetch.DELETE({
         route: routeBuilder('api', 'translation', 'delete', _client, _container, _translationKey, _language) 
     });
 }
