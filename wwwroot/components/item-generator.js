@@ -60,14 +60,9 @@ export class Component_ItemGenerator extends HTMLElement {
         if (this.input.value != '') {
             // 1. Create item and insert in proper place
             const item = this.generateFunction.apply(this);
-            item.classList.add('generated');
-
-            this.root.insertBefore(item, this.input);
+            
+            this.addItem(item);
             this.input.value = '';
-
-            // 2. Create event listener for destruction of item
-            item.addEventListener('click', e => this.destroyItem(item));
-
         }
     }
 
@@ -99,6 +94,7 @@ export class Component_ItemGenerator extends HTMLElement {
     }
 
     addItem(item) {
+        item.classList.add('generated')
         this.root.insertBefore(item, this.input);
         item.addEventListener('click', e => this.destroyItem(item));
     }

@@ -11,6 +11,7 @@ namespace OrdBaseCore.IData
         
         IActionResult Create(Client client);
         IActionResult Update(Client client);
+        IActionResult Delete(string clientKey);
         IEnumerable<string> GetDefaultLanguages(string clientKey);
         IEnumerable<string> GetDefaultContainers(string clientKey);        
         IActionResult CreateDefaultContainers(string clientKey, IEnumerable<string> defaultContainers);

@@ -69,7 +69,11 @@ namespace OrdBaseCore.Controllers
             return _clientRepo.Update(client);
         }        
 
-
+        [HttpDelete("api/client/delete/{clientKey}")]
+        public IActionResult Delete(string clientKey) 
+        {
+            return _clientRepo.Delete(clientKey);
+        }
 
         [HttpPost("api/{clientKey}/default/containers/create")]
         public IActionResult  CreateDefaultContainers(string clientKey, [FromBody] string[] defaultContainers)

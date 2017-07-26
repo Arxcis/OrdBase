@@ -25,6 +25,11 @@ export class View_Header extends HTMLElement {
                  .setAttribute('class', `fa ${icon}`) 
     }
 
+    setButtonIconRight0(icon) { 
+        this.root.querySelector('#btn-header-right0 i.fa')
+                 .setAttribute('class', `fa ${icon}`);
+    }
+
     setButtonIconRight1(icon) { 
         this.root.querySelector('#btn-header-right1 i.fa')
                  .setAttribute('class', `fa ${icon}`);
@@ -37,6 +42,10 @@ export class View_Header extends HTMLElement {
 
     getButtonLeft() { 
         return this.root.getElementById('btn-header-left');
+    }
+
+    getButtonRight0() {
+        return this.root.getElementById('btn-header-right0');
     }
 
     getButtonRight1() { 

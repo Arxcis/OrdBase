@@ -31,20 +31,22 @@ export class Component_CardClient extends HTMLElement {
         this.root.getElementById('card-img').src = url;
     }
 
-    setClickHandler(handler) {
-        this.button.onclick = handler;
+
+    setState_Selectable() {
+        this.button.classList.remove('deleteable');
+        this.button.classList.remove('editable');
+        this.button.onclick = this.selectHandler;        
+    }
+    setState_Deleteable() {
+        this.button.classList.remove('editable');
+        this.button.classList.add('deleteable');
+        this.button.onclick = this.deleteHandler;                
     }
 
-    getClickHandler() {
-        return this.clickHandler;
-    }
-
-    toggleEditable() {
-        this.button.classList.toggle('editable');
-    }
-
-    isEditable() {
-        return this.button.classList.contains('editable');        
+    setState_Editable() {
+        this.button.classList.remove('deleteable');
+        this.button.classList.add('editable');
+        this.button.onclick = this.editHandler;
     }
 }
 customElements.define('component-card-client', Component_CardClient);

@@ -36,7 +36,7 @@ export function loadEditClient(client) {
     App.HEADER.setTextSmall(`Edit ${client}`);
     
     App.HEADER.setButtonIconLeft(App.ICON_BARS);
-    App.HEADER.setButtonIconRight1(App.ICON_TRASH);    
+    App.HEADER.setButtonIconRight1(App.ICON_NONE);    
     App.HEADER.setButtonIconRight2(App.ICON_TIMES);
 
     App.HEADER.getButtonLeft().onclick   = App.defaultHandler;

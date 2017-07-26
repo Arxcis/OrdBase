@@ -12,7 +12,7 @@ import { Component_ButtonSelect }  from '../components/button-select.js';
 
 import { loadSelectClient } from './loadSelectClient.js';
 
-export function loadNewClient(client) {
+export function loadNewClient(clientKey) {
 
     //
     // 0. Create component instances
@@ -64,7 +64,7 @@ export function loadNewClient(client) {
     form.setSubmitText('Create client');
     form.addEventListener('submit', e => {
         e.preventDefault();
-        async_submitNewClient(form, generator, flipper);            
+        async_submitNewClient(clientKey, form, generator, flipper);            
     });
 
     //
@@ -81,7 +81,7 @@ function async_getFlipperData(flipper) {
     //
     // 6. Promise fill in available languages
     //
-    Api.language.getAll().then(languages => {
+    Api.language.getGlobal().then(languages => {
 
         languages.forEach(lang => {
             let button = new Component_ButtonSelect;
@@ -96,13 +96,15 @@ function async_getFlipperData(flipper) {
     .catch(error => console.log(error));
 }
 
-function async_submitNewClient(form, generator, flipper) {
+function async_submitNewClient(clientKey, form, generator, flipper) {
 
     //
     // @note to use the .map() function i have to convert the HTML-collections into
     //       javascript arrays. This is done with the [].slice.call(htmlcollection)
     //  @doc https://stackoverflow.com/questions/31676135/javascript-map-is-not-a-function
     //
+    let clientObject = form.getClient();
+
     let containerArray = [].slice
                            .call(generator.getItems())
                            .map(button => { 
@@ -115,15 +117,10 @@ function async_submitNewClient(form, generator, flipper) {
                               return button.getId(); 
                           });
 
-    console.log('Creating new client...')
-    Api.client.create(form.getClient())
+    Api.client.create(clientObject)
     .then(response => {
         
-        console.log('Creating default containers...');
-        Api.client.createDefaultContainers(client, containerArray).catch(error => console.error(error));
-
-        console.log('Creating default languages...');
-        Api.client.createDefaultLanguages(client, languageArray).catch(error => console.error(error));           
+        Api.client.createDefaultContainers(clientKey, containerArray).catch(error => console.error(error));        Api.client.createDefaultLanguages(clientKey, languageArray).catch(error => console.error(error));           
 
         loadSelectClient();
     })

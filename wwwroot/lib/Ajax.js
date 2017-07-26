@@ -19,11 +19,18 @@ export function getJSON({ httpMethod = mandatory(), route = mandatory()} = {}) {
     console.log('getJSON:', '\nmethod',httpMethod, '\nroute', route);
 
     return fetch(route, { 
-        method: httpMethod     // GET or DELETE
+        method: httpMethod  
     })
-    .then((response) => { return response.json(); })
+    .then((response) => { return response.json(); });
 }
 
+
+
+export function deleteJSON({httpMethod = mandatory(), route = mandatory()} = {}) {
+    console.log('deleteFetch:', '\nroute', route);
+    
+    return fetch(route, {  method: httpMethod });
+}
 
 //
 // @function postJSON
@@ -37,5 +44,5 @@ export function postJSON({ httpMethod = mandatory(), route = mandatory(), data =
         },
         method: httpMethod,                 // POST or PUT
         body: JSON.stringify(data),
-    })
+    });
 }

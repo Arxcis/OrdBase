@@ -1,6 +1,6 @@
 'use strict';
 
-import { getJSON, postJSON } from './Ajax.js';
+import { getJSON, postJSON, deleteJSON } from './Ajax.js';
 import { routeBuilder } from './Util.js';
 
 
@@ -32,10 +32,10 @@ client.getAll = () => {
     });
 }
 
-client.get = (_client) => {
+client.get = (_clientKey) => {
     return getJSON({ 
         httpMethod: 'GET', 
-        route: routeBuilder('api', _client) 
+        route: routeBuilder('api', _clientKey) 
     });
 }
 
@@ -55,6 +55,12 @@ client.update = (_client) => {
     });
 }
 
+client.delete = (_clientKey) => {
+    return deleteJSON({
+        httpMethod: 'DELETE',
+        route: routeBuilder('api', 'client', 'delete', _clientKey)
+    });
+}
 
 client.getDefaultContainers = (_client) => {
     return getJSON({ 
@@ -106,10 +112,10 @@ client.updateDefaultLanguages  = (_client, _languages) => {
 //
 // CONTAINER ROUTES
 //
-container.getAll = (_client) => {
+container.getGlobal = (_client) => {
     return getJSON({ 
         httpMethod: 'GET', 
-        route: routeBuilder('api', _client, 'default','containers') 
+        route: routeBuilder('api', 'container') 
     });
 }
 
@@ -193,7 +199,7 @@ translation.update = (_translation) => {
 }
 
 translation.delete = (_client, _container, _translationKey, _language) => {
-    return getJSON({
+    return deleteJSON({
         httpMethod:  'DELETE',
         route: routeBuilder('api', 'translation', 'delete', _client, _container, _translationKey, _language) 
     });

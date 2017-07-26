@@ -78,6 +78,17 @@ namespace OrdBaseCore.Repositories
             return new NoContentResult {};   
         }
 
+        public IActionResult Delete(string clientKey) 
+        {
+            var client = _context.Client.First(c => c.Key == clientKey);
+            if (client == null)
+                return new NotFoundResult {};
+
+            _context.Client.Remove(client);
+            _context.SaveChanges();
+            return new NoContentResult {};
+        }
+
         public IActionResult CreateDefaultContainers(string clientKey, IEnumerable<string> defaultContainers)
         {
 
