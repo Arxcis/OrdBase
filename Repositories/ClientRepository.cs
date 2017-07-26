@@ -61,18 +61,14 @@ namespace OrdBaseCore.Repositories
         public IActionResult Update(Client item) 
         {
             // @note Do some research into if there is any better cleaner way to update entry in the database. -JSolsvik 26.07.17
-            var client = _context.Client.First(
-                c => c.Key          == item.Key &&
-                     c.ApiKey       == item.ApiKey &&
-                     c.WebpageUrl   == item.WebpageUrl &&
-                     c.ThumbnailUrl == item.ThumbnailUrl);
+            var client = _context.Client.First(c => c.Key == item.Key);
 
             if (client == null)
                 return new NotFoundResult {};
 
-            client.Key = item.Key;
-            client.ApiKey = item.ApiKey;
-            client.WebpageUrl = item.WebpageUrl;
+            client.Key          = item.Key;
+            client.ApiKey       = item.ApiKey;
+            client.WebpageUrl   = item.WebpageUrl;
             client.ThumbnailUrl = item.ThumbnailUrl;
 
             _context.Client.Update(client);

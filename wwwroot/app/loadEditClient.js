@@ -172,11 +172,11 @@ function async_submitFormData(client, form, generator, flipper){
     console.log('Updating existing client...');
 
     Api.client.update(form.getClient()).then(response => {
-       
-        Api.client.updateDefaultContainers(client, containerArray);
-        Api.client.updateDefaultLanguages(client, languageArray);
+        console.log('editresponse', response);
 
-        loadSelectClient();    
+        Api.client.updateDefaultContainers(client, containerArray).catch(error => console.error(error));
+        Api.client.updateDefaultLanguages(client, languageArray).catch(error => console.error(error));
     })
-    .catch(error => console.log(error));  // @TODO Display error in view
+    .catch(error => console.error(error));  // @TODO Display error in view
+
 }

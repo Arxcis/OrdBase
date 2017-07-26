@@ -50,7 +50,7 @@ client.create = (_client) => {
 client.update = (_client) => {  
     return postJSON({
         httpMethod:  'PUT',
-        route: routeBuilder('api', 'client', 'update', _client.key, _client.apiKey, _client.webpageUrl, _client.thumbnailUrl),
+        route: routeBuilder('api', 'client', 'update', _client.key),
         data:  _client, 
     });
 }

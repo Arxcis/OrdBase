@@ -60,18 +60,12 @@ namespace OrdBaseCore.Controllers
         }
 
 
-        [HttpPut("api/client/update/{clientKey}/{apiKey}/{webpageUrl}/{thumbnailUrl}")]
+        [HttpPut("api/client/update/{clientKey}")]
 
-        public IActionResult Update(string clientKey, string apiKey, string webpageUrl, string thumbnailUrl, [FromBody] Client client)
+        public IActionResult Update(string clientKey, [FromBody] Client client)
         {
-            if (client == null || client.Key          != clientKey 
-                               || client.ApiKey       != apiKey
-                               || client.WebpageUrl   != webpageUrl 
-                               || client.ThumbnailUrl != thumbnailUrl) 
-            {
+            if (client == null || client.Key  != clientKey) 
                 return BadRequest();
-            }
-
             return _clientRepo.Update(client);
         }        
 
