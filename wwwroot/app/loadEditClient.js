@@ -84,8 +84,9 @@ export function loadEditClient(client) {
 //
 function async_getGeneratorData(generator, client) {
 
-    Api.container.getOnClient(client)
+    Api.client.getDefaultContainers(client)
     .then( containers => {
+        console.log('containers ', containers);
 
         containers.forEach( container => {
 
@@ -110,6 +111,7 @@ function async_getFlipperData(flipper, client) {
 
     Api.language.getGlobal()
     .then(languages => {
+        console.log('global ', languages);
 
         languages.forEach(lang => {
             let button = new Component_ButtonSelect;
@@ -124,7 +126,7 @@ function async_getFlipperData(flipper, client) {
         return Api.client.getDefaultLanguages(client);
     })
     .then(languages => {
-
+        console.log('selected ', languages);
         languages.forEach(lang => {
 
             let isDefaultButton = false;
@@ -132,7 +134,7 @@ function async_getFlipperData(flipper, client) {
             for (let i = 0; i < buttonArray.length; i++) {
                 
                 let button = buttonArray[i];
-                if (button.getId() === lang.key) {
+                if (button.getId() === lang) {
                     button.setSelected(true);     
                     flipper.flipItem(button);
                     break;
@@ -157,12 +159,16 @@ function async_getFormData(form, client) {
 //
 // 11. Submit data from form, generator and flipper
 //
-function async_submitFormData(client, form, generator, flipper){
+function async_submitFormData(clientKey, form, generator, flipper){
+
+    let clientObject = form.getClient();
 
     let containerArray = [].slice.call(generator.getItems())
         .map(button => {
             return button.getId();
         });
+
+    console.log(containerArray);
 
     let languageArray = [].slice.call(flipper.getSelectedItems())
         .map(button => {                
@@ -171,11 +177,13 @@ function async_submitFormData(client, form, generator, flipper){
 
     console.log('Updating existing client...');
 
-    Api.client.update(form.getClient()).then(response => {
+    Api.client.update(clientObject).then(response => {
         console.log('editresponse', response);
 
-        Api.client.updateDefaultContainers(client, containerArray).catch(error => console.error(error));
-        Api.client.updateDefaultLanguages(client, languageArray).catch(error => console.error(error));
+        Api.client.updateDefaultContainers(clientKey, containerArray).catch(error => console.error(error));
+        Api.client.updateDefaultLanguages(clientKey,  languageArray).catch(error => console.error(error));
+
+        loadSelectClient();
     })
     .catch(error => console.error(error));  // @TODO Display error in view
 

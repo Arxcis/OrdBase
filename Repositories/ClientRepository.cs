@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using OrdBaseCore.Models;
 using OrdBaseCore.IData;
 
+// @doc Better to use where to check for exist only https://github.com/aspnet/EntityFramework/issues/7064
+
 namespace OrdBaseCore.Repositories
 {
     public class ClientRepository : IClientData
@@ -82,7 +84,7 @@ namespace OrdBaseCore.Repositories
             // @note This could be simplified using AddRange(select blabalbla)
 
            foreach (var containerKey in defaultContainers) {
-                _context.ClientContainer.Add ( new ClientContainer 
+                _context.ClientContainer.Add( new ClientContainer 
                 {
                     ClientKey = clientKey,
                     ContainerKey = containerKey,
@@ -107,45 +109,72 @@ namespace OrdBaseCore.Repositories
             return new NoContentResult {};            
         }
 
-        //
-        // @note On these two methods i am just flushing the old containers down the toilet replacing them with a new set.
-        //       There are many possibilities here and the way I have done it should probably be revised at some point,
-        //        but it was simple to implement and easy to understand. JSolsvik - 25.07.17
-        //
         public IActionResult UpdateDefaultContainers(string clientKey, IEnumerable<string> defaultContainers) 
         {
+            var newContainers = from dc in defaultContainers
+                                select new ClientContainer {
+                                    ClientKey = clientKey,
+                                    ContainerKey = dc
+                                };
 
-            var newDefaultClientContainers = defaultContainers.Select(dc => new ClientContainer { ClientKey = clientKey, ContainerKey = dc });
-            var oldDefaultClientContainers = (from dcc in _context.ClientContainer
-                                             where dcc.ClientKey == clientKey
-                                             select dcc);
+            var oldContainers = from cc in _context.ClientContainer
+                                where cc.ClientKey == clientKey
+                                select cc;
 
-            _context.ClientContainer.RemoveRange(oldDefaultClientContainers);
-            _context.SaveChanges();
+            foreach (var cont in newContainers) 
+            {
+                if (_context.Container.Where(c => c.Key == cont.ContainerKey).Count() == 0) 
+                {
+                    _context.Container.Add(new Container { Key = cont.ContainerKey});
+                }
+
+                if (oldContainers.Where(oc => oc.ContainerKey == cont.ContainerKey).Count() == 0) 
+                {
+                    _context.ClientContainer.Add(cont);
+                }
+            };
+
+            foreach (var cont in oldContainers) 
+            {
+                if (newContainers.Where(nc => nc.ContainerKey == cont.ContainerKey).Count() == 0) 
+                {
+                    _context.ClientContainer.Remove(cont);
+                } 
+            }
             
-            _context.ClientContainer.AddRange(newDefaultClientContainers);
-            _context.SaveChanges();
-            return new NoContentResult {};            
-        }
-
-        public IActionResult UpdateDefaultLanguages(string clientKey, IEnumerable<string> defaultLanguages) 
-        {
-            
-
-
-            var newDefaultClientLanguages = defaultLanguages.Select(dl => new ClientLanguage { ClientKey = clientKey, LanguageKey = dl });
-            var oldDefaultClientLanguages = (from dcl in _context.ClientLanguage
-                                             where dcl.ClientKey == clientKey
-                                             select dcl);
-
-            _context.ClientLanguage.RemoveRange(oldDefaultClientLanguages);
-            _context.SaveChanges();
-            
-            _context.ClientLanguage.AddRange(newDefaultClientLanguages);
             _context.SaveChanges();
             return new NoContentResult {};            
         }
         
+        public IActionResult UpdateDefaultLanguages(string clientKey, IEnumerable<string> newDefaultLanguages) 
+        {
+            var newLanguages = from ncl in newDefaultLanguages
+                                select new ClientLanguage {
+                                    ClientKey = clientKey,
+                                    LanguageKey = ncl
+                                };        
+
+            var oldLanguages = from cl in _context.ClientLanguage
+                               where cl.ClientKey == clientKey
+                               select cl;
+
+            foreach (var lang in newLanguages)
+            {
+                if (!oldLanguages.Contains(lang)) {
+                    _context.ClientLanguage.Add(lang);
+                }
+            };
+
+            foreach (var lang in oldLanguages) 
+            {
+                if (!newLanguages.Contains(lang)) {
+                    _context.ClientLanguage.Remove(lang);
+                }
+            }
+
+            _context.SaveChanges();
+            return new NoContentResult {};            
+        }
 
         //
         // TESTDATA

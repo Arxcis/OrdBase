@@ -69,54 +69,50 @@ namespace OrdBaseCore.Controllers
             return _clientRepo.Update(client);
         }        
 
-        public class JSONArray {
-            public string[] Array { get; set; }
-        }
+
 
         [HttpPost("api/{clientKey}/default/containers/create")]
-        public IActionResult  CreateDefaultContainers(string clientKey, [FromBody] JSONArray defaultContainers)
+        public IActionResult  CreateDefaultContainers(string clientKey, [FromBody] string[] defaultContainers)
         {
             // Check if any of the data is null og nullstring            
             if (defaultContainers == null)
                 return  BadRequest();
 
-            _clientRepo.CreateDefaultContainers(clientKey, defaultContainers.Array);
+            _clientRepo.CreateDefaultContainers(clientKey, defaultContainers);
             return StatusCode(201);
         }
 
         [HttpPost("api/{clientKey}/default/languages/create")]         
-        public IActionResult CreateDefaultLanguages(string clientKey, [FromBody] JSONArray defaultLanguages) 
+        public IActionResult CreateDefaultLanguages(string clientKey, [FromBody] string[] defaultLanguages) 
         {
             // Check if any of the data is null og nullstring
             if (defaultLanguages == null)
                 return  BadRequest();
 
-            _clientRepo.CreateDefaultLanguages(clientKey, defaultLanguages.Array);
+            _clientRepo.CreateDefaultLanguages(clientKey, defaultLanguages);
             return StatusCode(201);
         }
 
         [HttpPost("api/{clientKey}/default/containers/update")]
-        public IActionResult  UpdateDefaultContainers(string clientKey, [FromBody] JSONArray defaultContainers)
+        public IActionResult  UpdateDefaultContainers(string clientKey, [FromBody] string[] defaultContainers)
         {
             // Check if any of the data is null og nullstring            
             if (defaultContainers == null)
                 return  BadRequest();
 
-            _clientRepo.UpdateDefaultContainers(clientKey, defaultContainers.Array);
+            _clientRepo.UpdateDefaultContainers(clientKey, defaultContainers);
             return StatusCode(201);
         }
 
         [HttpPost("api/{clientKey}/default/languages/update")] 
-        public IActionResult UpdateDefaultLanguages(string clientKey, [FromBody] JSONArray defaultLanguages) 
+        public IActionResult UpdateDefaultLanguages(string clientKey, [FromBody] string[] defaultLanguages) 
         {
             // Check if any of the data is null og nullstring
             if (defaultLanguages == null)
                 return  BadRequest();
 
-            _clientRepo.UpdateDefaultLanguages(clientKey, defaultLanguages.Array);
+            _clientRepo.UpdateDefaultLanguages(clientKey, defaultLanguages);
             return StatusCode(201);
         }
-
-
     }
 }

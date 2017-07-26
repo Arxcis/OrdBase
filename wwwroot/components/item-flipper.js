@@ -38,7 +38,6 @@ export class Component_ItemFlipper extends HTMLElement {
             this.div_flipDown.appendChild(item);
         }
 
-        item.focus();
     }
 
     setHeaderUp(text)   { 

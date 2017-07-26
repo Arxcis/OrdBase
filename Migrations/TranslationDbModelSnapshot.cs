@@ -74,7 +74,6 @@ namespace OrdBaseCore.Migrations
             modelBuilder.Entity("OrdBaseCore.Models.Container", b =>
                 {
                     b.Property<string>("Key")
-                        .ValueGeneratedOnAdd()
                         .HasMaxLength(64);
 
                     b.HasKey("Key");

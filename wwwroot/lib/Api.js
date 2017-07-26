@@ -74,7 +74,7 @@ client.createDefaultContainers = (_client, _containers) => {
     return postJSON({ 
         httpMethod:  'POST', 
         route: routeBuilder('api', _client, 'default', 'containers', 'create'), 
-        data:  _containers
+        data:  _containers 
     });
 };
 
@@ -106,10 +106,10 @@ client.updateDefaultLanguages  = (_client, _languages) => {
 //
 // CONTAINER ROUTES
 //
-container.getOnClient = (_client) => {
+container.getAll = (_client) => {
     return getJSON({ 
         httpMethod: 'GET', 
-        route: routeBuilder('api', _client, 'container') 
+        route: routeBuilder('api', _client, 'default','containers') 
     });
 }
 

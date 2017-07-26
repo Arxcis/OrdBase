@@ -8,6 +8,7 @@ namespace OrdBaseCore.Models {
 
         [Key]
         [StringLength(64)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string Key { get; set; } 
 
         // @brief Setting up many to many navigation property

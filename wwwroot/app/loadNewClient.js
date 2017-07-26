@@ -120,13 +120,13 @@ function async_submitNewClient(form, generator, flipper) {
     .then(response => {
         
         console.log('Creating default containers...');
-        Api.client.createDefaultContainers(client, containerArray);
+        Api.client.createDefaultContainers(client, containerArray).catch(error => console.error(error));
 
         console.log('Creating default languages...');
-        Api.client.createDefaultLanguages(client, languageArray);           
+        Api.client.createDefaultLanguages(client, languageArray).catch(error => console.error(error));           
 
         loadSelectClient();
     })
-    .catch(error => console.log(error)); // @TODO Display error in view
+    .catch(error => console.error(error)); // @TODO Display error in view
 } 
 
