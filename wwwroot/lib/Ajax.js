@@ -16,6 +16,7 @@ import { mandatory } from './Util.js';
 // @function getJSON()
 //
 export function getJSON({ httpMethod = mandatory(), route = mandatory()} = {}) {
+    console.log('getJSON:', '\nmethod',httpMethod, '\nroute', route);
 
     return fetch(route, { 
         method: httpMethod     // GET or DELETE
@@ -37,5 +38,4 @@ export function postJSON({ httpMethod = mandatory(), route = mandatory(), data =
         method: httpMethod,                 // POST or PUT
         body: JSON.stringify(data),
     })
-    .then((response) => { return response.json(); })
 }

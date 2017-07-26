@@ -78,26 +78,30 @@ namespace OrdBaseCore.Repositories
 
         public IActionResult CreateDefaultContainers(string clientKey, IEnumerable<string> defaultContainers)
         {
-            defaultContainers.Select(containerKey =>
-                _context.ClientContainer.Add( new ClientContainer 
+
+            // @note This could be simplified using AddRange(select blabalbla)
+
+           foreach (var containerKey in defaultContainers) {
+                _context.ClientContainer.Add ( new ClientContainer 
                 {
                     ClientKey = clientKey,
                     ContainerKey = containerKey,
-                })
-            );
+                });
+           };
 
             _context.SaveChanges();
             return new NoContentResult {};
         }
         public IActionResult CreateDefaultLanguages(string clientKey, IEnumerable<string> defaultLanguages)
         {
-            defaultLanguages.Select(languageKey =>
+            foreach (var languageKey in defaultLanguages) {
+
                 _context.ClientLanguage.Add( new ClientLanguage 
                 {
                     ClientKey = clientKey,
                     LanguageKey = languageKey,
-                })
-            );
+                });
+            };
 
             _context.SaveChanges();
             return new NoContentResult {};            
@@ -117,6 +121,8 @@ namespace OrdBaseCore.Repositories
                                              select dcc);
 
             _context.ClientContainer.RemoveRange(oldDefaultClientContainers);
+            _context.SaveChanges();
+            
             _context.ClientContainer.AddRange(newDefaultClientContainers);
             _context.SaveChanges();
             return new NoContentResult {};            
@@ -125,12 +131,16 @@ namespace OrdBaseCore.Repositories
         public IActionResult UpdateDefaultLanguages(string clientKey, IEnumerable<string> defaultLanguages) 
         {
             
+
+
             var newDefaultClientLanguages = defaultLanguages.Select(dl => new ClientLanguage { ClientKey = clientKey, LanguageKey = dl });
             var oldDefaultClientLanguages = (from dcl in _context.ClientLanguage
                                              where dcl.ClientKey == clientKey
                                              select dcl);
 
             _context.ClientLanguage.RemoveRange(oldDefaultClientLanguages);
+            _context.SaveChanges();
+            
             _context.ClientLanguage.AddRange(newDefaultClientLanguages);
             _context.SaveChanges();
             return new NoContentResult {};            
