@@ -11,15 +11,30 @@ import { Component_ItemFlipper   } from '../components/item-flipper.js';
 import { Component_FormClient    } from '../components/form-client.js';
 
 import { loadSelectClient } from './loadSelectClient.js';
-import { loadUpdateClient } from './submitClient.js';
 
 export function loadEditClient(client) {
-    
+
     //
-    // 0. Set up header
+    // 0. Create component instances
+    //
+    const view = new View_EditClient;     
+    const generator = new Component_ItemGenerator;
+    const flipper = new Component_ItemFlipper;
+    const form = new Component_FormClient;
+
+    //
+    // 1. Async calls 
+    //
+    async_getGeneratorData(generator, client);
+    async_getFlipperData(flipper, client);
+    async_getFormData(form, client);
+
+    //
+    // 3. Set up header
     //
     App.HEADER.setTextBig('Ordbase');    
     App.HEADER.setTextSmall(`Edit ${client}`);
+    
     App.HEADER.setButtonIconLeft(App.ICON_BARS);
     App.HEADER.setButtonIconRight1(App.ICON_TRASH);    
     App.HEADER.setButtonIconRight2(App.ICON_TIMES);
@@ -29,9 +44,8 @@ export function loadEditClient(client) {
     App.HEADER.getButtonRight2().onclick = event => loadSelectClient();
 
     //
-    // 1. Set up container generator
+    // 4. Set up container generator
     //
-    const generator = new Component_ItemGenerator;
     generator.setGenerateFunction(() => {
         let button = new Component_ButtonSelect;
         let value = generator.getValue();
@@ -42,91 +56,127 @@ export function loadEditClient(client) {
     });
 
     //
-    // 2. Set up language flipper
+    // 5. Set up language flipper
     //
-    const flipper = new Component_ItemFlipper;
     flipper.setHeaderUp('Selected')    
     flipper.setHeaderDown('Available');
 
     //
-    // 3. Set up form
+    // 6. Set up form
     //
-    const form = new Component_FormClient;
     form.setSubmitText(`Update ${client}`);
-    
-    //
-    // 4. Form submit event
-    //
     form.addEventListener('submit', e => {
         e.preventDefault();
-
-        let form = e.target;
-        let containers = [].slice.call(generator.getItems())
-            .map(button => {
-                return button.getId();
-            });
-
-        let languages = [].slice.call(flipper.getSelectedItems())
-            .map(button => {                
-                return button.getId();
-            });
-        
-        // Handing of the submit request logic to separate script
-        submitUpdateClient(form, containers, languages);            
+        async_submitFormData(client, form, generator, flipper);            
     });
 
     //
-    // 5. Create view, inject components and append view to DOM.
+    // 7. Create view, inject components and append view to DOM.
     //
-    const view = new View_EditClient;
     view.setContainerGenerator(generator);
     view.setLanguageFlipper(flipper);
     view.setClientForm(form);
     App.switchView(view);
+}
 
-    //
-    // 6. Promise fill containers into generator
-    //
+//
+// 8. Fill container buttons into generator
+//
+function async_getGeneratorData(generator, client) {
+
     Api.container.getOnClient(client)
-        .then( containers => {
+    .then( containers => {
 
-            containers.forEach( container => {
+        containers.forEach( container => {
 
-                const button = new Component_ButtonSelect;
+            const button = new Component_ButtonSelect;
 
-                button.setId(container);
-                button.setText(container);
-                button.setSelected(true);
+            button.setId(container);
+            button.setText(container);
+            button.setSelected(true);
 
-                generator.addItem(button);
-            });
+            generator.addItem(button);
+        });
+    })
+    .catch(reason => console.error('Error:', reason));
+}
+
+//
+// 9. Fill languages into flipper
+//
+function async_getFlipperData(flipper, client) {
+
+    let buttonArray = new Array();
+
+    Api.language.getGlobal()
+    .then(languages => {
+
+        languages.forEach(lang => {
+            let button = new Component_ButtonSelect;
+
+            button.setId(lang.key);
+            button.setText( `${lang.name} - ${lang.key}`);
+            button.setSelected(false);
+
+            buttonArray.push(button);
+            flipper.addItem(button, { selected : false });
+        });
+        return Api.client.getDefaultLanguages(client);
+    })
+    .then(languages => {
+
+        languages.forEach(lang => {
+
+            let isDefaultButton = false;
+            
+            for (let i = 0; i < buttonArray.length; i++) {
+                
+                let button = buttonArray[i];
+                if (button.getId() === lang.key) {
+                    button.setSelected(true);     
+                    flipper.flipItem(button);
+                    break;
+                }
+            }
         })
-        .catch(reason => console.error('Error:', reason));
-    
-    //
-    // 7. Promise fill languages into flipper
-    //
-    Api.language.getOnClient(client)
-        .then(languages => {
+    })
+    .catch(error => console.log(error));
+}
 
-            languages.forEach(lang => {
-                let button = new Component_ButtonSelect;
-
-                button.setId(lang.key);
-                button.setText( `${lang.name} - ${lang.key}`);
-                button.setSelected(true);
-
-                flipper.addItem(button, { selected : true });
-            });
-        })
-        .catch(error => console.log(error));
-    
-    //
-    // 8. Promise fill client data into form
-    //
+//
+// 10. Fill client data into form
+//
+function async_getFormData(form, client) {
     Api.client.get(client)
-        .then(client => {
-            form.setClient(client[0]);
-        })
-        .catch(error => console.log(error));        
+    .then(client => {
+        form.setClient(client[0]);
+    })
+    .catch(error => console.log(error));        
+}
+
+//
+// 11. Submit data from form, generator and flipper
+//
+function async_submitFormData(client, form, generator, flipper){
+
+    let containerArray = [].slice.call(generator.getItems())
+        .map(button => {
+            return button.getId();
+        });
+
+    let languageArray = [].slice.call(flipper.getSelectedItems())
+        .map(button => {                
+            return button.getId();
+        });
+
+    console.log('Updating existing client...');
+
+    Api.client.update(form.getClient()).then(response => {
+       
+        Api.client.updateDefaultContainers(client, containerArray);
+        Api.client.updateDefaultLanguages(client, languageArray);
+
+        loadSelectClient();    
+    })
+    .catch(error => console.log(error));  // @TODO Display error in view
 }

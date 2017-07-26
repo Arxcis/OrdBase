@@ -11,8 +11,6 @@ import { Component_FormClient }    from '../components/form-client.js';
 import { Component_ButtonSelect }  from '../components/button-select.js';
 
 import { loadSelectClient } from './loadSelectClient.js';
-import { submitNewClient }  from './submitClient.js';
-
 
 export function loadNewClient(client) {
 
@@ -27,7 +25,7 @@ export function loadNewClient(client) {
     //
     // 1. Fire async call
     //
-    async_getLanguages(flipper);
+    async_getFlipperData(flipper);
 
     //
     // 2. Set up header
@@ -42,7 +40,6 @@ export function loadNewClient(client) {
     App.HEADER.getButtonRight1().onclick = App.defaultHandler;
     App.HEADER.getButtonRight2().onclick = event => loadSelectClient();
 
-    
     //
     // 3. Component generator
     //
@@ -80,7 +77,7 @@ export function loadNewClient(client) {
 
 }
 
-function async_getLanguages(flipper) {
+function async_getFlipperData(flipper) {
     //
     // 6. Promise fill in available languages
     //

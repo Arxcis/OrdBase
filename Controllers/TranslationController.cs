@@ -83,16 +83,6 @@ namespace OrdBaseCore.Controllers
         public IActionResult Update(string clientKey, string languageKey, string containerKey, string translationKey,
                                          [FromBody] Translation translation)
         {   
-            //
-            // @note Following the RestAPI http put standard here
-            //        Maybe the client should generated a single temp id.
-            // @note2 BadRequest() can only be done inside the controller as I am aware of,
-            //         At first glance this is seems like a violation of the "no-logic-inside-the-controoller-paradigm"
-            //         I think the problem here is that ASP.NET casts the HTTP object to a data-specific type already
-            //         in the parameter-list of the controller. This is a clear DEPENDENCY of the underlying
-            //         database implementation, but again we could also say that for all the Translation[] 
-            //           return types in the controller. - J Solsvik 23. 06. 17
-            //
             if (translation == null || translation.ClientKey    != clientKey 
                                     || translation.LanguageKey  != languageKey
                                     || translation.ContainerKey != containerKey 

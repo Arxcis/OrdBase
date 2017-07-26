@@ -15,6 +15,7 @@ export class Component_ItemFlipper extends HTMLElement {
     }
 
     addItem(item, options = mandatory()) {
+        
         (arguments[1].selected) ? this.div_flipUp.appendChild(item):
                                   this.div_flipDown.appendChild(item);
 

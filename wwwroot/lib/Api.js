@@ -47,10 +47,33 @@ client.create = (_client) => {
     });
 } 
 
+client.update = (_client) => {  
+    return postJSON({
+        httpMethod:  'PUT',
+        route: routeBuilder('api', 'client', 'update', _client.key, _client.apiKey, _client.webpageUrl, _client.thumbnailUrl),
+        data:  _client, 
+    });
+}
+
+
+client.getDefaultContainers = (_client) => {
+    return getJSON({ 
+        httpMethod:  'GET', 
+        route: routeBuilder('api', _client, 'default', 'containers'), 
+    });
+};
+
+client.getDefaultLanguages  = (_client) => {
+    return getJSON({ 
+        httpMethod:  'GET', 
+        route: routeBuilder('api', _client, 'default', 'languages'), 
+    });
+};
+
 client.createDefaultContainers = (_client, _containers) => {
     return postJSON({ 
         httpMethod:  'POST', 
-        route: routeBuilder('api', _client, 'default', 'containers'), 
+        route: routeBuilder('api', _client, 'default', 'containers', 'create'), 
         data:  _containers
     });
 };
@@ -58,7 +81,7 @@ client.createDefaultContainers = (_client, _containers) => {
 client.createDefaultLanguages  = (_client, _languages) => {
     return postJSON({ 
         httpMethod:  'POST', 
-        route: routeBuilder('api', _client, 'default', 'languages'), 
+        route: routeBuilder('api', _client, 'default', 'languages', 'create'), 
         data:  _languages 
     });
 };
@@ -100,17 +123,10 @@ container.getGroup = (_client, _translationKey) => {
 //
 // LANGUAGE ROUTES
 //
-language.getAll = () => {
+language.getGlobal = () => {
     return getJSON({ 
         httpMethod: 'GET', 
         route: routeBuilder('api', 'language') 
-    });
-}
-
-language.getOnClient = (_client) => {
-    return getJSON({ 
-        httpMethod: 'GET', 
-        route: routeBuilder('api', _client, 'language') 
     });
 }
 

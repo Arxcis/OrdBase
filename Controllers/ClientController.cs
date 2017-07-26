@@ -59,10 +59,21 @@ namespace OrdBaseCore.Controllers
             return StatusCode(201);
         }
 
-        //
-        // @note By creating this data separately, it is easier to track down what went wrong from the client side, instead of doing one big chunk. This default data will be used when new 
-        // translations are created.  - JSolsvik 24.07.17
-        //
+
+        [HttpPut("api/client/update/{clientKey}/{apiKey}/{webpageUrl}/{thumbnailUrl}")]
+
+        public IActionResult Update(string clientKey, string apiKey, string webpageUrl, string thumbnailUrl, [FromBody] Client client)
+        {
+            if (client == null || client.Key          != clientKey 
+                               || client.ApiKey       != apiKey
+                               || client.WebpageUrl   != webpageUrl 
+                               || client.ThumbnailUrl != thumbnailUrl) 
+            {
+                return BadRequest();
+            }
+
+            return _clientRepo.Update(client);
+        }        
 
         [HttpPost("api/{clientKey}/default/containers/create")]
         public IActionResult  CreateDefaultContainers(string clientKey, [FromBody] IEnumerable<string> defaultContainers)
