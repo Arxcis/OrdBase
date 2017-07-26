@@ -9,7 +9,9 @@ export class View_SelectTranslation extends HTMLElement {
         this.root.innerHTML = html;
     }
 
-    appendButtonContainer (btn) {   this.root.querySelector('#list-show-containers-on-client').appendChild(btn);  }
+
+
+    setFlipper (flipper) {   this.root.querySelector('#list-show-containers-on-client').appendChild(flipper);  }
     appendCardTranslation (card) {  this.root.querySelector('#list-show-translations-on-client').appendChild(card); }
 }
 customElements.define('view-select-translation', View_SelectTranslation);

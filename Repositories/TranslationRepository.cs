@@ -42,10 +42,10 @@ namespace OrdBaseCore.Repositories
             return (from t in _context.Translation
                     where t.ClientKey == clientKey
                     group t by t.Key
-                    into set
+                    into grp
                     select new {
-                        Key = set.Key,
-                        IsComplete = set.ToDictionary(o => o.LanguageKey, o => o.IsComplete)
+                        Key = grp.Key,
+                        IsComplete = grp.ToDictionary(o => o.LanguageKey, o => o.IsComplete)
                     });
         }
         

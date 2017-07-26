@@ -36,10 +36,12 @@ export function loadEditClient(client) {
     App.HEADER.setTextSmall(`Edit ${client}`);
     
     App.HEADER.setButtonIconLeft(App.ICON_BARS);
+    App.HEADER.setButtonIconRight0(App.ICON_NONE);        
     App.HEADER.setButtonIconRight1(App.ICON_NONE);    
     App.HEADER.setButtonIconRight2(App.ICON_TIMES);
 
     App.HEADER.getButtonLeft().onclick   = App.defaultHandler;
+    App.HEADER.getButtonRight0().onclick = App.defaultHandler;    
     App.HEADER.getButtonRight1().onclick = App.defaultHandler;
     App.HEADER.getButtonRight2().onclick = event => loadSelectClient();
 

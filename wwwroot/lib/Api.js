@@ -161,7 +161,7 @@ translation.getOnClient = (_client) => {
     }); 
 }
 
-translation.getGroup = (_client) => {
+translation.getGroupAll = (_client) => {
     return getJSON({
         httpMethod: 'GET',
         route: routeBuilder('api', _client, 'translation', 'group')

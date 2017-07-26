@@ -33,10 +33,12 @@ export function loadNewClient(clientKey) {
     App.HEADER.setTextBig(   'Ordbase');    
     App.HEADER.setTextSmall( 'New client');
     App.HEADER.setButtonIconLeft  (App.ICON_BARS);
+    App.HEADER.setButtonIconRight0(App.ICON_NONE);    
     App.HEADER.setButtonIconRight1(App.ICON_NONE);    
     App.HEADER.setButtonIconRight2(App.ICON_TIMES);
 
     App.HEADER.getButtonLeft().onclick   = App.defaultHandler;
+    App.HEADER.getButtonRight0().onclick = App.defaultHandler;    
     App.HEADER.getButtonRight1().onclick = App.defaultHandler;
     App.HEADER.getButtonRight2().onclick = event => loadSelectClient();
 
@@ -64,7 +66,7 @@ export function loadNewClient(clientKey) {
     form.setSubmitText('Create client');
     form.addEventListener('submit', e => {
         e.preventDefault();
-        async_submitNewClient(clientKey, form, generator, flipper);            
+        async_submitNewClient(form, generator, flipper);            
     });
 
     //
@@ -96,14 +98,14 @@ function async_getFlipperData(flipper) {
     .catch(error => console.log(error));
 }
 
-function async_submitNewClient(clientKey, form, generator, flipper) {
+function async_submitNewClient(form, generator, flipper) {
 
     //
     // @note to use the .map() function i have to convert the HTML-collections into
     //       javascript arrays. This is done with the [].slice.call(htmlcollection)
     //  @doc https://stackoverflow.com/questions/31676135/javascript-map-is-not-a-function
     //
-    let clientObject = form.getClient();
+    let client = form.getClient();
 
     let containerArray = [].slice
                            .call(generator.getItems())
@@ -117,10 +119,10 @@ function async_submitNewClient(clientKey, form, generator, flipper) {
                               return button.getId(); 
                           });
 
-    Api.client.create(clientObject)
+    Api.client.create(client)
     .then(response => {
         
-        Api.client.createDefaultContainers(clientKey, containerArray).catch(error => console.error(error));        Api.client.createDefaultLanguages(clientKey, languageArray).catch(error => console.error(error));           
+        Api.client.createDefaultContainers(client.key, containerArray).catch(error => console.error(error));        Api.client.createDefaultLanguages(client.key, languageArray).catch(error => console.error(error));           
 
         loadSelectClient();
     })
