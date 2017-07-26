@@ -16,16 +16,15 @@ import { loadSelectClient }           from './loadSelectClient.js';
 //
 export function loadEditTranslation (client, key) {
 
-    App.HEADER.textBig          = 'Ordbase';
-    App.HEADER.textSmall        = 'Edit translation';
-
-    App.HEADER.buttonIconLeft   = App.ICON_BARS;
-    App.HEADER.buttonIconRight1 = App.ICON_NONE;    
-    App.HEADER.buttonIconRight2 = App.ICON_TIMES;
+    App.HEADER.setTextBig('Ordbase');
+    App.HEADER.setTextSmall('Edit translation');
+    App.HEADER.setButtonIconLeft(App.ICON_BARS);
+    App.HEADER.setButtonIconRight1(App.ICON_NONE);    
+    App.HEADER.setButtonIconRight2(App.ICON_TIMES);
     
-    App.HEADER.buttonLeft.onclick   = App.defaultHandler;
-    App.HEADER.buttonRight1.onclick = App.defaultHandler;
-    App.HEADER.buttonRight2.onclick = event => loadSelectTranslation(client);
+    App.HEADER.getButtonLeft().onclick   = App.defaultHandler;
+    App.HEADER.getButtonRight1().onclick = App.defaultHandler;
+    App.HEADER.getButtonRight2().onclick = event => loadSelectTranslation(client);
 
     const view = App.switchView(new View_EditTranslation);
 

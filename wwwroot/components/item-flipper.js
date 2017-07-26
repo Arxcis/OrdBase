@@ -1,5 +1,7 @@
 'use strict';
+
 import  html  from './item-flipper.html';
+import { mandatory } from '../lib/Util.js';
 
 export class Component_ItemFlipper extends HTMLElement { 
   
@@ -12,9 +14,9 @@ export class Component_ItemFlipper extends HTMLElement {
         this.div_flipDown = this.root.getElementById('flip-down');
     }
 
-    addItem(item, options = { selected : false }) {
+    addItem(item, options = mandatory()) {
         (arguments[1].selected) ? this.div_flipUp.appendChild(item):
-                     this.div_flipDown.appendChild(item);
+                                  this.div_flipDown.appendChild(item);
 
         item.addEventListener('click', e => {
             this.flipItem(e.target)

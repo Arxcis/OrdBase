@@ -11,22 +11,6 @@ import { mandatory } from '../lib/Util.js';
 
 import { loadSelectClient } from './loadSelectClient.js';
 
-export function submitNewClient(form, containerArray, languageArray) {
-
-    console.log('Creating new client...')
-    Api.client.create(form.getClient())
-    .then(response => {
-        
-        console.log('Creating default containers...');
-        Api.client.createDefaultContainers(client, containerArray);
-
-        console.log('Creating default languages...');
-        Api.client.createDefaultLanguages(client, languageArray);           
-
-        loadSelectClient();
-    })
-    .catch(error => console.log(error)); // @TODO Display error in view
-} 
 
 export function submitUpdateClient(form, containerArray, languageArray) {
 

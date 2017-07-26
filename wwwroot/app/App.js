@@ -18,6 +18,7 @@ export const ICON_ARROW_LEFT = 'fa-arrow-left';
 export const ICON_TIMES      = 'fa-times';
 export const ICON_CHECK      = 'fa-check';
 export const ICON_PENCIL     = 'fa-pencil';
+export const ICON_TRASH      = 'fa-trash';
 
 // Cache static element references
 
@@ -32,8 +33,6 @@ export function switchView(view) {
     MAIN.appendChild(view);
     return view;
 }
-
-
 
 const MAIN = document.getElementById('ordbase-main');    
 

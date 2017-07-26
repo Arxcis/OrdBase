@@ -18,16 +18,15 @@ export function loadEditClient(client) {
     //
     // 0. Set up header
     //
-    App.HEADER.textBig   = 'Ordbase';    
-    App.HEADER.textSmall = `Edit ${client}`;
+    App.HEADER.setTextBig('Ordbase');    
+    App.HEADER.setTextSmall(`Edit ${client}`);
+    App.HEADER.setButtonIconLeft(App.ICON_BARS);
+    App.HEADER.setButtonIconRight1(App.ICON_TRASH);    
+    App.HEADER.setButtonIconRight2(App.ICON_TIMES);
 
-    App.HEADER.buttonIconLeft   = App.ICON_BARS;
-    App.HEADER.buttonIconRight1 = App.ICON_NONE;    
-    App.HEADER.buttonIconRight2 = App.ICON_TIMES;
-
-    App.HEADER.buttonLeft.onclick   = App.defaultHandler;
-    App.HEADER.buttonRight1.onclick = App.defaultHandler;
-    App.HEADER.buttonRight2.onclick = event => loadSelectClient();
+    App.HEADER.getButtonLeft().onclick   = App.defaultHandler;
+    App.HEADER.getButtonRight1().onclick = App.defaultHandler;
+    App.HEADER.getButtonRight2().onclick = event => loadSelectClient();
 
     //
     // 1. Set up container generator

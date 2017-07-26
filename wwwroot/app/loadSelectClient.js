@@ -22,15 +22,15 @@ export function loadSelectClient() {
     const cards = new Array;
 
     // Set header data
-    App.HEADER.textBig          = 'Ordbase';
-    App.HEADER.textSmall        = 'Select Client';
-    App.HEADER.buttonIconLeft   = App.ICON_SQUARE;
-    App.HEADER.buttonIconRight1 = App.ICON_PENCIL;    
-    App.HEADER.buttonIconRight2 = App.ICON_PLUS;
+    App.HEADER.setTextBig         ( 'Ordbase');
+    App.HEADER.setTextSmall       ( 'Select Client');
+    App.HEADER.setButtonIconLeft  ( App.ICON_SQUARE);
+    App.HEADER.setButtonIconRight1( App.ICON_PENCIL);    
+    App.HEADER.setButtonIconRight2( App.ICON_PLUS);
 
     // Set header logic
-    App.HEADER.buttonLeft.onclick   = App.defaultHandler;    
-    App.HEADER.buttonRight1.onclick = event => {
+    App.HEADER.getButtonLeft().onclick   = App.defaultHandler;    
+    App.HEADER.getButtonRight1().onclick = event => {
         cards.forEach(card => {
             card.toggleEditable();            
 
@@ -43,7 +43,7 @@ export function loadSelectClient() {
             }
         });
     };
-    App.HEADER.buttonRight2.onclick = event => loadNewClient();
+    App.HEADER.getButtonRight2().onclick = event => loadNewClient();
 
 
     Api.client.getAll()  

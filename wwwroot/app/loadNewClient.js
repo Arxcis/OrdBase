@@ -16,35 +16,36 @@ import { submitNewClient }  from './submitClient.js';
 
 export function loadNewClient(client) {
 
-    // @note 1. Maybe it is faster to call 1 function an pass an object. But then there is overhead of constructing
-    //           and accessing the object.
-    // 2. The setter functions hides that it is an actual function call. I am not sure I lke that.
-    // 3. If getters and setters are spelled wrong in javascript they don't throw an error. Functions on the other hand do. 
-    ///    This is because objects in javascript are extensible by default, using duct-typing, and creating new attributes 
-    //     on the fly is the default behaviour, when someone tries to set and attribute which is not currently there.
-    //      For this reason duct typing may introduces difficult to track down errors.
-    // 4. Even accessing a getter which does not exist, does not throw an error.
     //
+    // 0. Create component instances
+    //
+    const view = new View_EditClient;     
+    const generator = new Component_ItemGenerator;
+    const flipper = new Component_ItemFlipper;
+    const form = new Component_FormClient;
+    
+    //
+    // 1. Fire async call
+    //
+    async_getLanguages(flipper);
 
     //
-    // 0. Set up header
+    // 2. Set up header
     //
-    App.HEADER.textBig   = 'Ordbase';    
-    App.HEADER.textSmall = 'New client';
-    App.HEADER.buttonIconLeft   = App.ICON_BARS;
-    App.HEADER.buttonIconRight1 = App.ICON_NONE;    
-    App.HEADER.buttonIconRight2 = App.ICON_TIMES;
+    App.HEADER.setTextBig(   'Ordbase');    
+    App.HEADER.setTextSmall( 'New client');
+    App.HEADER.setButtonIconLeft  (App.ICON_BARS);
+    App.HEADER.setButtonIconRight1(App.ICON_NONE);    
+    App.HEADER.setButtonIconRight2(App.ICON_TIMES);
 
-    App.HEADER.buttonLeft.onclick   = App.defaultHandler;
-    App.HEADER.buttonRight1.onclick = App.defaultHandler;
-    App.HEADER.buttonRight2.onclick = event => loadSelectClient();
+    App.HEADER.getButtonLeft().onclick   = App.defaultHandler;
+    App.HEADER.getButtonRight1().onclick = App.defaultHandler;
+    App.HEADER.getButtonRight2().onclick = event => loadSelectClient();
 
     
     //
-    // 1. Set up container generator
+    // 3. Component generator
     //
-    const generator = new Component_ItemGenerator;
-
     generator.setGenerateFunction(() => {
         let button = new Component_ButtonSelect;
         let value = generator.getValue();
@@ -54,70 +55,81 @@ export function loadNewClient(client) {
         return button;
     });
 
-
     //
-    // 2. Set up language flipper
+    // 4. Component flipper
     //
-    const flipper = new Component_ItemFlipper;
     flipper.setHeaderUp('Selected')    
     flipper.setHeaderDown('Available');
 
     //
-    // 3. Set up form
+    // 5. Component form
     //
-    const form = new Component_FormClient;
     form.setSubmitText('Create client');
-    
-    //
-    // 4. Form submit event
-    //
     form.addEventListener('submit', e => {
         e.preventDefault();
-
-        //
-        // @note to use the .map() function i have to convert the HTML-collections into
-        //       javascript arrays. This is done with the [].slice.call(htmlcollection)
-        //  @doc https://stackoverflow.com/questions/31676135/javascript-map-is-not-a-function
-        //
-        let form = e.target;
-        let containers = [].slice.call(generator.getItems())
-            .map(button => {
-                return button.getId();
-            });
-
-        let languages = [].slice.call(flipper.getSelectedItems())
-            .map(button => {                
-                return button.getId();
-            });
-        
-        // Handing of the submit request logic to separate script
-        submitNewClient(form, containers, languages);            
+        async_submitNewClient(form, generator, flipper);            
     });
 
     //
-    // 5. Create view, inject components and append view to DOM.
+    // 6. Inject components and append view to DOM.
     //
-    const view = new View_EditClient; 
     view.setContainerGenerator(generator);
     view.setLanguageFlipper(flipper);
     view.setClientForm(form);
     App.switchView(view);
 
+}
+
+function async_getLanguages(flipper) {
     //
     // 6. Promise fill in available languages
     //
-    Api.language.getAll()
-        .then(languages => {
+    Api.language.getAll().then(languages => {
 
-            languages.forEach(lang => {
-                let button = new Component_ButtonSelect;
+        languages.forEach(lang => {
+            let button = new Component_ButtonSelect;
 
-                button.setId(lang.key);
-                button.setText( `${lang.name} - ${lang.key}`);
-                button.setSelected(false);
+            button.setId(lang.key);
+            button.setText( `${lang.name} - ${lang.key}`);
+            button.setSelected(false);
 
-                flipper.addItem(button);
-            });
-        })
-        .catch(error => console.log(error));
+            flipper.addItem(button, { selected : false });
+        });
+    })
+    .catch(error => console.log(error));
 }
+
+function async_submitNewClient(form, generator, flipper) {
+
+    //
+    // @note to use the .map() function i have to convert the HTML-collections into
+    //       javascript arrays. This is done with the [].slice.call(htmlcollection)
+    //  @doc https://stackoverflow.com/questions/31676135/javascript-map-is-not-a-function
+    //
+    let containerArray = [].slice
+                           .call(generator.getItems())
+                           .map(button => { 
+                               return button.getId(); 
+                            });
+
+    let languageArray = [].slice
+                          .call(flipper.getSelectedItems())
+                          .map(button => { 
+                              return button.getId(); 
+                          });
+
+    console.log('Creating new client...')
+    Api.client.create(form.getClient())
+    .then(response => {
+        
+        console.log('Creating default containers...');
+        Api.client.createDefaultContainers(client, containerArray);
+
+        console.log('Creating default languages...');
+        Api.client.createDefaultLanguages(client, languageArray);           
+
+        loadSelectClient();
+    })
+    .catch(error => console.log(error)); // @TODO Display error in view
+} 
+

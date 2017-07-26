@@ -10,40 +10,40 @@ export class View_Header extends HTMLElement {
         this.root.innerHTML = html;
     }
 
-    set textBig(text) { 
+    setTextBig(text) { 
         this.root.getElementById('btn-header-mid-big')
                  .innerHTML = text;    
     }
 
-    set textSmall(text) { 
+    setTextSmall(text) { 
         this.root.getElementById('btn-header-mid-small')
                  .innerHTML = text;    
     }
 
-    set buttonIconLeft(icon) { 
+    setButtonIconLeft(icon) { 
         this.root.querySelector('#btn-header-left i.fa')
                  .setAttribute('class', `fa ${icon}`) 
     }
 
-    set buttonIconRight1(icon) { 
+    setButtonIconRight1(icon) { 
         this.root.querySelector('#btn-header-right1 i.fa')
                  .setAttribute('class', `fa ${icon}`);
     }
 
-    set buttonIconRight2(icon) { 
+    setButtonIconRight2(icon) { 
         this.root.querySelector('#btn-header-right2 i.fa')
                  .setAttribute('class', `fa ${icon}`);
     }
 
-    get buttonLeft() { 
+    getButtonLeft() { 
         return this.root.getElementById('btn-header-left');
     }
 
-    get buttonRight1() { 
+    getButtonRight1() { 
         return this.root.getElementById('btn-header-right1'); 
     }
 
-    get buttonRight2() { 
+    getButtonRight2() { 
         return this.root.getElementById('btn-header-right2'); 
     } 
 
