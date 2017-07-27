@@ -17,7 +17,7 @@ import { mandatory } from './Util.js';
 //
 export function GET({ route = mandatory() } = mandatory()) {
 
-    console.log('fetch.get:','\nroute', route);
+    console.log('fetch.GET:','\nroute', route);
 
     return fetch(route, { 
         method: 'GET'  
@@ -32,7 +32,7 @@ export function GET({ route = mandatory() } = mandatory()) {
 //
 export function DELETE({ route = mandatory()} = mandatory()) {
     
-    console.log('fetch.delete:', '\nroute', route);
+    console.log('fetch.DELETE:', '\nroute', route);
 
     return fetch(route, {  
         method: 'DELETE' 
@@ -43,7 +43,7 @@ export function DELETE({ route = mandatory()} = mandatory()) {
 // @function PUT
 //
 export function PUT({ route = mandatory(), data = mandatory()} = mandatory()) {
-    console.log('fetch.put:', '\nroute', route, '\ndata', data);
+    console.log('fetch.PUT:', '\nroute', route, '\ndata', data);
 
     return fetch(route, {
         headers: {
@@ -59,7 +59,7 @@ export function PUT({ route = mandatory(), data = mandatory()} = mandatory()) {
 // @function POST
 //
 export function POST({ route = mandatory(), data = mandatory()} = mandatory()) {
-    console.log('fetch.post:', '\nroute', route, '\ndata', data);
+    console.log('fetch.POST:', '\nroute', route, '\ndata', data);
     return fetch(route, {
         headers: {
           'Accept': 'application/json',

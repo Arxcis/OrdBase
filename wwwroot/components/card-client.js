@@ -10,6 +10,11 @@ export class Component_CardClient extends HTMLElement {
         this.root = this.createShadowRoot();
         this.root.innerHTML = html;
         this.button = this.root.querySelector('button');
+
+        this.selectHandler = () => console.log('default.....');
+        this.editHandler   = () => console.log('default.....');
+        this.deleteHandler = () => console.log('default.....');
+        
     }
 
     setHeading (name){
@@ -30,7 +35,6 @@ export class Component_CardClient extends HTMLElement {
     setThumbnail (url) { 
         this.root.getElementById('card-img').src = url;
     }
-
 
     setState_Selectable() {
         this.button.classList.remove('deleteable');

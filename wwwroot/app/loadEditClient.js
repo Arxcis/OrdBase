@@ -25,9 +25,9 @@ export function loadEditClient(client) {
     //
     // 1. Async calls 
     //
-    async_getGeneratorData(generator, client);
-    async_getFlipperData(flipper, client);
-    async_getFormData(form, client);
+    async_populateGenerator(generator, client);
+    async_populateFlipper(flipper, client);
+    async_populateForm(form, client);
 
     //
     // 3. Set up header
@@ -48,14 +48,14 @@ export function loadEditClient(client) {
     //
     // 4. Set up container generator
     //
-    generator.setGenerateFunction(() => {
+    generator.generateHandler = () => {
         let button = new Component_ButtonSelect;
         let value = generator.getValue();
         button.setId(value);
         button.setText(value);
         button.setSelected(true);
         return button;
-    });
+    };
 
     //
     // 5. Set up language flipper
@@ -69,7 +69,7 @@ export function loadEditClient(client) {
     form.setSubmitText(`Update ${client}`);
     form.addEventListener('submit', e => {
         e.preventDefault();
-        async_submitFormData(client, form, generator, flipper);            
+        async_updateClient(client, form, generator, flipper);            
     });
 
     //
@@ -84,7 +84,7 @@ export function loadEditClient(client) {
 //
 // 8. Fill container buttons into generator
 //
-function async_getGeneratorData(generator, client) {
+function async_populateGenerator(generator, client) {
 
     Route.client_getDefaultContainers(client)
     .then( containers => {
@@ -107,7 +107,7 @@ function async_getGeneratorData(generator, client) {
 //
 // 9. Fill languages into flipper
 //
-function async_getFlipperData(flipper, client) {
+function async_populateFlipper(flipper, client) {
 
     let buttonArray = new Array();
 
@@ -150,7 +150,7 @@ function async_getFlipperData(flipper, client) {
 //
 // 10. Fill client data into form
 //
-function async_getFormData(form, client) {
+function async_populateForm(form, client) {
     Route.client_get(client)
     .then(client => {
         form.setClient(client[0]);
@@ -161,26 +161,13 @@ function async_getFormData(form, client) {
 //
 // 11. Submit data from form, generator and flipper
 //
-function async_submitFormData(clientKey, form, generator, flipper){
+function async_updateClient(clientKey, form, generator, flipper){
 
-    let clientObject = form.getClient();
-
-    let containerArray = [].slice.call(generator.getItems())
-        .map(button => {
-            return button.getId();
-        });
-
-    console.log(containerArray);
-
-    let languageArray = [].slice.call(flipper.getSelectedItems())
-        .map(button => {                
-            return button.getId();
-        });
-
-    console.log('Updating existing client...');
+    let clientObject   = form.getClient();
+    let containerArray = generator.getItemArray().map(button => { return button.getId(); });
+    let languageArray  = flipper.getSelectedItemArray().map(button => { return button.getId(); });
 
     Route.client_update(clientObject).then(response => {
-        console.log('editresponse', response);
 
         Route.client_updateDefaultContainers(clientKey, containerArray).catch(error => console.error(error));
         Route.client_updateDefaultLanguages(clientKey,  languageArray).catch(error => console.error(error));

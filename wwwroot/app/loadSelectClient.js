@@ -26,7 +26,7 @@ export function loadSelectClient() {
     //
     // 1. Fire async call
     //
-    async_getCardData(view, cards);
+    async_generateCards(view, cards);
 
     //
     // 2. Set up header
@@ -76,12 +76,12 @@ function setCardState(cards, newState) {
 //
 // 4. Generate client cards
 //
-function async_getCardData(view, cards) {
+function async_generateCards(view, cards) {
 
     Route.client_getAll().then(clients => {
 
         clients.forEach((client, i) => {
-            console.log(client);
+
             let card = new Component_CardClient;
             
             card.setId(`card${i}`);
@@ -94,7 +94,6 @@ function async_getCardData(view, cards) {
             card.editHandler   = event => loadEditClient(client.key);
             card.deleteHandler = event => async_deleteCard(client.key, view, card);
             
-
             card.setState_Selectable();
 
             cards.push(card);

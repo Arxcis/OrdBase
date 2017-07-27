@@ -25,7 +25,7 @@ export function loadNewClient(clientKey) {
     //
     // 1. Fire async call
     //
-    async_getFlipperData(flipper);
+    async_populateFlipper(flipper);
 
     //
     // 2. Set up header
@@ -45,14 +45,14 @@ export function loadNewClient(clientKey) {
     //
     // 3. Component generator
     //
-    generator.setGenerateFunction(() => {
+    generator.generateHandler = () => {
         let button = new Component_ButtonSelect;
         let value = generator.getValue();
         button.setId(value);
         button.setText(value);
         button.setSelected(true);
         return button;
-    });
+    };
 
     //
     // 4. Component flipper
@@ -79,7 +79,7 @@ export function loadNewClient(clientKey) {
 
 }
 
-function async_getFlipperData(flipper) {
+function async_populateFlipper(flipper) {
     //
     // 6. Promise fill in available languages
     //
@@ -101,23 +101,11 @@ function async_getFlipperData(flipper) {
 function async_submitNewClient(form, generator, flipper) {
 
     //
-    // @note to use the .map() function i have to convert the HTML-collections into
-    //       javascript arrays. This is done with the [].slice.call(htmlcollection)
     //  @doc https://stackoverflow.com/questions/31676135/javascript-map-is-not-a-function
     //
-    let client = form.getClient();
-
-    let containerArray = [].slice
-                           .call(generator.getItems())
-                           .map(button => { 
-                               return button.getId(); 
-                            });
-
-    let languageArray = [].slice
-                          .call(flipper.getSelectedItems())
-                          .map(button => { 
-                              return button.getId(); 
-                          });
+    let client         = form.getClient();
+    let containerArray = generator.getItemArray().map(button =>       { return button.getId(); });
+    let languageArray  = flipper.getSelectedItemArray().map(button => { return button.getId(); });
 
     Route.client_create(client)
     .then(response => {

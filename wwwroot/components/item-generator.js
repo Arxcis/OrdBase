@@ -16,7 +16,7 @@ export class Component_ItemGenerator extends HTMLElement {
         this.button = this.root.getElementById('button-generate');
         this.faIcon = this.button.querySelector('i');
 
-        this.generateFunction = () => { return document.createElement('div'); }
+        this.generateHandler = () => { return document.createElement('div'); }
 
         //
         // Event click
@@ -59,7 +59,7 @@ export class Component_ItemGenerator extends HTMLElement {
     generateItem() {
         if (this.input.value != '') {
             // 1. Create item and insert in proper place
-            const item = this.generateFunction.apply(this);
+            const item = this.generateHandler.apply(this);
             
             this.addItem(item);
             this.input.value = '';
@@ -85,12 +85,8 @@ export class Component_ItemGenerator extends HTMLElement {
         return this.input.value;
     }
 
-    setGenerateFunction(func) {
-        this.generateFunction = func; 
-    }
-
-    getItems() {
-        return this.root.querySelectorAll('.generated');
+    getItemArray() {
+        return [].slice.call(this.root.querySelectorAll('.generated'));
     }
 
     addItem(item) {

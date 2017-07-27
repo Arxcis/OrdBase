@@ -35,25 +35,36 @@ namespace OrdBaseCore.Controllers
         // GET translation/group
         //
         [HttpGet("api/{clientKey}/translation/group/{translationKey}")]
-        public object GetGroup(string clientKey, string translationKey) 
+        public IEnumerable<Translation> GetGroup(string clientKey, string translationKey) 
         {
             return  _translationRepo.GetGroup(clientKey, translationKey);
         }   
 
         [HttpGet("api/{clientKey}/translation/group/all")]
-        public IEnumerable<IEnumerable<object>> GetGroupAll(string clientKey)
+        public IEnumerable<IEnumerable<Translation>> GetGroupAll(string clientKey)
         {
             return _translationRepo.GetGroupAll(clientKey);
         } 
 
+        //
+        // GET translation/group/meta
+        //
         [HttpGet("api/{clientKey}/translation/group/meta/{translationKey}")]
-        public object GetGroupMeta(string clientKey, string translationKey)
+        public TranslationGroupMeta GetGroupMeta(string clientKey, string translationKey)
         {
             return _translationRepo.GetGroupMeta(clientKey, translationKey);
         } 
         
+        [HttpGet("api/{clientKey}/translation/group/meta/container/{containerKey}")]
+        public IEnumerable<TranslationGroupMeta> GetGroupMetaOnContainer(string clientKey, string containerKey)
+        {
+            return _translationRepo.GetGroupMetaOnContainer(clientKey, containerKey);
+        } 
+
+
         [HttpGet("api/{clientKey}/translation/group/meta/all")]
-        public IEnumerable<object> GetGroupMetaAll(string clientKey)
+        [HttpGet("api/{clientKey}/translation/group/meta/container/all")]        
+        public IEnumerable<TranslationGroupMeta> GetGroupMetaAll(string clientKey)
         {
             return _translationRepo.GetGroupMetaAll(clientKey);
         } 

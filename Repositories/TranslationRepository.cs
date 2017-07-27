@@ -60,26 +60,41 @@ namespace OrdBaseCore.Repositories
                     .ToArray();
         }
 
-        public object GetGroupMeta(string clientKey, string translationKey)
+        public TranslationGroupMeta GetGroupMeta(string clientKey, string translationKey)
         {
             return (from t in _context.Translation
                     where t.ClientKey == clientKey && t.Key == translationKey
                     group t by t.Key
                     into grp
-                    select new {
+                    select new TranslationGroupMeta { 
                         Key = grp.Key,
                         IsComplete = grp.ToDictionary(o => o.LanguageKey, o => o.IsComplete)
                     })
                     .First();
         }
+
+
+        public IEnumerable<TranslationGroupMeta> GetGroupMetaOnContainer(string clientKey, string containerKey)
+        {
+            return (from t in _context.Translation
+                    where t.ClientKey == clientKey && t.ContainerKey == containerKey
+                    group t by t.Key
+                    into grp
+                    select new TranslationGroupMeta
+                    {
+                        Key = grp.Key,
+                        IsComplete = grp.ToDictionary(o => o.LanguageKey, o => o.IsComplete)
+                    })
+                    .ToArray();
+        }
         
-        public IEnumerable<object> GetGroupMetaAll(string clientKey)
+        public IEnumerable<TranslationGroupMeta> GetGroupMetaAll(string clientKey)
         {
             return (from t in _context.Translation
                     where t.ClientKey == clientKey
                     group t by t.Key
                     into grp
-                    select new 
+                    select new TranslationGroupMeta
                     {
                         Key = grp.Key,
                         IsComplete = grp.ToDictionary(o => o.LanguageKey, o => o.IsComplete)

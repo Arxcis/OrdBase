@@ -143,6 +143,12 @@ export function translation_getGroupMeta(clientKey, translationKey) {
     })
 }
 
+export function translation_getGroupMetaOnContainer (clientKey, containerKey) {
+    return Fetch.GET({
+        route: routeBuilder('api', clientKey, 'translation', 'group', 'meta', 'container', containerKey)
+    })
+}
+
 export function translation_getGroupMetaAll (clientKey) {
     return Fetch.GET({
         route: routeBuilder('api', clientKey, 'translation', 'group', 'meta', 'all')

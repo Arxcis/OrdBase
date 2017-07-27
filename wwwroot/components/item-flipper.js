@@ -48,8 +48,8 @@ export class Component_ItemFlipper extends HTMLElement {
         this.root.getElementById('header-flip-down').innerHTML = text;
     }
 
-    getSelectedItems() {
-        return this.div_flipUp.children;
+    getSelectedItemArray() {
+        return [].slice.call(this.div_flipUp.children);
     }
 }
 customElements.define('component-item-flipper', Component_ItemFlipper);

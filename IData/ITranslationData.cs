@@ -20,8 +20,10 @@ namespace OrdBaseCore.IData
 		//
 		IEnumerable<Translation> GetGroup(string clientKey, string translationKey);		
 		IEnumerable<IEnumerable<Translation>> GetGroupAll(string clientKey);
-    	object GetGroupMeta(string clientKey, string translationKey);
-    	IEnumerable<object> GetGroupMetaAll(string clientKey);
+    	TranslationGroupMeta GetGroupMeta(string clientKey, string translationKey);
+    	IEnumerable<TranslationGroupMeta> GetGroupMetaOnContainer(string clientKey, string containerKey);    	
+		IEnumerable<TranslationGroupMeta> GetGroupMetaAll(string clientKey);
+	
 		//
 		// GET translation/container
 		//

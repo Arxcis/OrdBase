@@ -20,7 +20,7 @@ export class Component_ButtonSelect extends HTMLElement {
     }
 
     getId() {
-        return this.button.id;
+        return this.button.getAttribute('id');
     }
 
     setText(text)    { 
