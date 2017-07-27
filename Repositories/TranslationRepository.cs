@@ -139,13 +139,22 @@ namespace OrdBaseCore.Repositories
         //
         public IActionResult Create(Translation translation) 
         {   
-            //
-            // @TODO - validate that ClientKey and languae already exists!! - JSolsvik 23.06
-            //
             _context.Translation.Add(translation);
             _context.SaveChanges();
             return new NoContentResult {};
         }
+
+        public IActionResult CreateMany(Translation[] translationArray) 
+        {   
+            foreach (var translation in translationArray) 
+            {
+                _context.Translation.Add(translation);            
+            }
+            
+            _context.SaveChanges();
+            return new NoContentResult {};
+        }
+
 
         public IActionResult Update(Translation item) 
         {   

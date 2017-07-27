@@ -38,8 +38,10 @@ namespace OrdBaseCore.IData
 		//
 		// Create, update, delete
 		//
-		IActionResult Create(Translation Translation);
+		IActionResult Create(Translation translation);
+		IActionResult CreateMany(Translation[] array);		
 		IActionResult Update(Translation Translation);
-		IActionResult Delete(string clientKey, string languageKey, string containerKey, string translationKey);
+		IActionResult Delete(string clientKey, string containerKey, string translationKey, string languageKey);
+		IActionResult DeleteGroup(string clientKey, string containerKey, string translationKey);		
     }	
 }
