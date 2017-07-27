@@ -107,7 +107,7 @@ namespace OrdBaseCore.Controllers
             return _translationRepo.Create(translation);
         } 
 
-        [HttpPost("api/translation/create/many/{clientKey}/{containerKey}/{translationKey}")]
+        [HttpPost("api/translation/create/many")]
         public IActionResult CreateMany(Translation[] translationArray) 
         {   
             if (translationArray == null)
@@ -135,7 +135,7 @@ namespace OrdBaseCore.Controllers
             return _translationRepo.Delete(clientKey, languageKey, containerKey, translationKey);
         }
 
-        [HttpDelete("api/translation/delete/{clientKey}/{containerKey}/{translationKey}")]
+        [HttpDelete("api/translation/delete/group/{clientKey}/{containerKey}/{translationKey}")]
         public IActionResult DeleteGroup(string clientKey, string containerKey, string translationKey)
         {
             return _translationRepo.DeleteGroup(clientKey, containerKey, translationKey);

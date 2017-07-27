@@ -13,21 +13,28 @@ export class View_SelectTranslation extends HTMLElement {
     }
 
     clearTranslationCards() {
-        this.root.querySelector('#list-translations-on-client').innerHTML = '';   
+        this.root.getElementById('list-translations-on-client').innerHTML = '';   
     }
-
-    addTranslationCard (card)   {   
-        this.root.querySelector('#list-translations-on-client').appendChild(card);   
-    }    
 
     setContainerButtonAll(button) {
         this.activeContainerButton = button;
 
         button.onclick =  (e) => {
-            this.switchButtonHandler(button, this.activeContainerButton);
+            
+            let oldButton = this.activeContainerButton;
+            this.activeContainerButton = button;
+            this.switchButtonHandler(button, oldButton);
         };
         this.root.getElementById('section-containers-on-client')
                  .insertBefore(button, this.root.getElementById('list-containers-on-client'));                
+    }
+
+    setTranslationGenerator(generator) {
+        this.root.getElementById('section-translations-on-client').appendChild(generator);
+    }
+
+    getTranslationGenerator() {
+        return this.root.querySelector('component-item-generator');
     }
 
     addContainerButton (button) {       

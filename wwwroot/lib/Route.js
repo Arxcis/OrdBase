@@ -191,6 +191,14 @@ export function translation_create (translation) {
     }); 
 }
 
+
+export function translation_createMany (translationArray) {
+    return Fetch.POST({
+        route: routeBuilder('api', 'translation', 'create', 'many'),
+        data:  translationArray 
+    }); 
+}
+
 export function translation_update (translation) {  
     return Fetch.PUT({
         route: routeBuilder('api', 'translation', 'update', translation.clientKey, translation.containerKey, translation.key, translation.languageKey),
@@ -203,6 +211,13 @@ export function translation_delete(clientKey, containerKey, translationKey, lang
         route: routeBuilder('api', 'translation', 'delete', clientKey, containerKey, translationKey, languageKey) 
     });
 }
+
+export function translation_deleteGroup(clientKey, containerKey, translationKey) {
+    return Fetch.DELETE({
+        route: routeBuilder('api', 'translation', 'delete', 'group', clientKey, containerKey, translationKey) 
+    });
+}
+
 
 //
 // ROUTE container

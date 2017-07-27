@@ -91,9 +91,9 @@ export class Component_ItemGenerator extends HTMLElement {
     }
 
     addItem(item) {
-        item.classList.add('generated')
-        this.root.insertBefore(item, this.input);
-        item.addEventListener('click', e => this.destroyHandler.apply(this, item));
+            item.classList.add('generated')
+            this.root.insertBefore(item, this.input);
+            item.addEventListener('click', e => this.destroyHandler.apply(this, item));
     }
 }
 
