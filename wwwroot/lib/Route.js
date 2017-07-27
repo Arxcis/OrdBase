@@ -1,6 +1,6 @@
 'use strict';
 
-import * as Fetch from './fetch.js';
+import * as Fetch from './Fetch.js';
 
 //
 // @doc Destructuring arguments with default values ecma 6 - http://2ality.com/2015/01/es6-destructuring.html
@@ -21,15 +21,7 @@ export function routeBuilder() {
 }
 
 //
-// @modules - to be exported
-//
-export let client = {};
-export let language = {};
-export let container = {}; 
-export let translation = {};     
-
-//
-// CLIENT ROUTES
+// GET client
 //
 export function client_getAll () {
     return Fetch.GET({  
@@ -37,90 +29,186 @@ export function client_getAll () {
     });
 }
 
-export function client_get (_clientKey) {
+export function client_get (clientKey) {
     return Fetch.GET({  
-        route: routeBuilder('api', _clientKey) 
+        route: routeBuilder('api', clientKey) 
     });
 }
 
-export function client_create (_client) {
+//
+// GET client/default
+//
+export function client_getDefaultContainers (clientKey) {
+    return Fetch.GET({ 
+        route: routeBuilder('api', clientKey, 'default', 'container', 'all'), 
+    });
+};
+
+export function client_getDefaultLanguages  (clientKey) {
+    return Fetch.GET({ 
+        route: routeBuilder('api', clientKey, 'default', 'language', 'all'), 
+    });
+};
+
+//
+// CREATE, UPDATE, DELETE client
+//
+export function client_create (client) {
     return Fetch.POST({ 
         route: routeBuilder('api', 'client', 'create'), 
-        data:  _client 
+        data:  client 
     });
 } 
 
-export function client_update (_client) {  
+export function client_update (client) {  
     return Fetch.PUT({
-        route: routeBuilder('api', 'client', 'update', _client.key),
-        data:  _client, 
+        route: routeBuilder('api', 'client', 'update', client.key),
+        data:  client, 
     });
 }
 
-export function client_delete (_clientKey) {
+export function client_delete (clientKey) {
     return Fetch.DELETE({
-        route: routeBuilder('api', 'client', 'delete', _clientKey)
+        route: routeBuilder('api', 'client', 'delete', clientKey)
     });
 }
 
-export function client_getDefaultContainers (_client) {
-    return Fetch.GET({ 
-        route: routeBuilder('api', _client, 'default', 'containers'), 
-    });
-};
-
-export function client_getDefaultLanguages  (_client) {
-    return Fetch.GET({ 
-        route: routeBuilder('api', _client, 'default', 'languages'), 
-    });
-};
-
-export function client_createDefaultContainers (_client, _containers) {
+//
+// CREATE client/default
+//
+export function client_createDefaultContainers (clientKey, _containers) {
     return Fetch.POST({ 
-        route: routeBuilder('api', _client, 'default', 'containers', 'create'), 
+        route: routeBuilder('api', clientKey, 'default', 'container', 'create', 'many'), 
         data:  _containers 
     });
 };
 
-export function client_createDefaultLanguages  (_client, _languages) {
+export function client_createDefaultLanguages  (clientKey, _languages) {
     return Fetch.POST({ 
-        route: routeBuilder('api', _client, 'default', 'languages', 'create'), 
+        route: routeBuilder('api', clientKey, 'default', 'language', 'create', 'many'), 
         data:  _languages 
     });
 };
 
-export function client_updateDefaultContainers (_client, _containers) {
+//
+// UPDATE client/default
+//
+export function client_updateDefaultContainers (clientKey, _containers) {
     return Fetch.POST({ 
-        route: routeBuilder('api', _client, 'default', 'containers', 'update'), 
+        route: routeBuilder('api', clientKey, 'default', 'container', 'update', 'many'), 
         data:  _containers
     });
 };
 
-export function client_updateDefaultLanguages  (_client, _languages) {
+export function client_updateDefaultLanguages  (clientKey, _languages) {
     return Fetch.POST({ 
-        route: routeBuilder('api', _client, 'default', 'languages', 'update'), 
+        route: routeBuilder('api', clientKey, 'default', 'language', 'update', 'many'), 
         data:  _languages 
     });
 };
 
+//
+// GET translation
+//
+export function translation_get (clientKey, containerKey, translationKey, languageKey) { 
+    return Fetch.GET({  
+        route: routeBuilder('api', clientKey, 'translation', containerKey, translationKey, languageKey) 
+    }); 
+}
+
+export function translation_getAll (clientKey) {  
+    return Fetch.GET({
+        route: routeBuilder('api', clientKey, 'translation', 'all') 
+    }); 
+}
 
 //
-// CONTAINER ROUTES
+// GET translation/group
 //
-export function container_getGlobal (_client) {
+export function translation_getGroup(clientKey, translationKey) {
+    return Fetch.GET({
+        route: routeBuilder('api', clientKey, 'translation', 'group', translationKey)
+    })
+}
+
+export function translation_getGroupAll (clientKey) {
+    return Fetch.GET({
+        route: routeBuilder('api', clientKey, 'translation', 'group', 'all')
+    })
+}
+
+export function translation_getGroupMeta(clientKey, translationKey) {
+    return Fetch.GET({
+        route: routeBuilder('api', clientKey, 'translation', 'group', 'meta', translationKey)
+    })
+}
+
+export function translation_getGroupMetaAll (clientKey) {
+    return Fetch.GET({
+        route: routeBuilder('api', clientKey, 'translation', 'group', 'meta', 'all')
+    })
+}
+
+
+//
+// GET translation/container
+//
+export function translation_getOnContainer (clientKey, containerKey) { 
+    return Fetch.GET({
+        route: routeBuilder('api', clientKey, 'translation', 'container', containerKey) 
+    }); 
+}
+
+export function translation_getOnContainerLanguage(clientKey, containerKey, languageKey) { 
+    return Fetch.GET({
+        route: routeBuilder('api', clientKey, 'translation', 'container', containerKey, languageKey) 
+    }); 
+}
+
+
+//
+// GET translation/language
+//
+export function translation_getOnLanguage(clientKey, languageKey) { 
+    return Fetch.GET({
+        route: routeBuilder('api', clientKey, 'translation', 'language', languageKey) 
+    }); 
+}
+
+//
+// POST, PUT, DELETE translation
+//
+export function translation_create (translation) {
+    return Fetch.POST({
+        route: routeBuilder('api', 'translation', 'create'),
+        data:  translation 
+    }); 
+}
+
+export function translation_update (translation) {  
+    return Fetch.PUT({
+        route: routeBuilder('api', 'translation', 'update', translation.clientKey, translation.containerKey, translation.key, translation.languageKey),
+        data:  translation 
+    });
+}
+
+export function translation_delete(clientKey, containerKey, translationKey, languageKey) {
+    return Fetch.DELETE({
+        route: routeBuilder('api', 'translation', 'delete', clientKey, containerKey, translationKey, languageKey) 
+    });
+}
+
+//
+// ROUTE container
+//
+export function container_getGlobal () {
     return Fetch.GET({  
         route: routeBuilder('api', 'container') 
     });
 }
 
-export function container_getGroup (_client, _translationKey) {
-    return Fetch.GET({  
-        route: routeBuilder('api', _client, 'container', _translationKey) 
-    });
-}
-
 //
-// LANGUAGE ROUTES
+// ROUTE language
 //
 export function language_getGlobal () {
     return Fetch.GET({  
@@ -128,62 +216,9 @@ export function language_getGlobal () {
     });
 }
 
-export function language_create (_language) {
+export function language_create (language) {
     return Fetch.POST({ 
         route: routeBuilder('api', 'language', 'create'), 
-        data:  _language 
-    });
-}
-
-//
-// TRANSLATION ROUTES
-//
-export function translation_get (_client, _container, _translationKey, _language) { 
-    return Fetch.GET({  
-        route: routeBuilder('api', _client, 'translation', _container, _translationKey, _language) 
-    }); 
-}
-
-export function translation_getOnClient (_client) {  
-    return Fetch.GET({
-        route: routeBuilder('api', _client, 'translation') 
-    }); 
-}
-
-export function translation_getGroupAll (_client) {
-    return Fetch.GET({
-        route: routeBuilder('api', _client, 'translation', 'group')
-    })
-}
-
-export function translation_getOnContainer (_client, _container) { 
-    return Fetch.GET({
-        route: routeBuilder('api', _client, 'translation', 'container', _container) 
-    }); 
-}
-
-export function translation_getGroup (_client, _translationKey) {   // @note - convert translationKey -> key
-    return Fetch.GET({
-        route: routeBuilder('api', _client, 'translation', 'translationKey', _translationKey) 
-    }); 
-}   
-
-export function translation_create (_translation) {
-    return Fetch.POST({
-        route: routeBuilder('api', 'translation', 'create'),
-        data:  _translation 
-    }); 
-}
-
-export function translation_update (_translation) {  
-    return Fetch.PUT({
-        route: routeBuilder('api', 'translation', 'update', _translation.client, _translation.container, _translation.translationKey, _translation.language),
-        data:  _translation 
-    });
-}
-
-export function translation_delete(_client, _container, _translationKey, _language) {
-    return Fetch.DELETE({
-        route: routeBuilder('api', 'translation', 'delete', _client, _container, _translationKey, _language) 
+        data:  language 
     });
 }

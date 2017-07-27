@@ -15,46 +15,85 @@ namespace OrdBaseCore.Repositories
         { 
             _context = context; 
         }
+
+        //
+        // GET translation
+        //
         public IEnumerable<Translation> Get(string clientKey, string languageKey, string containerKey, string translationKey)
         {
             return (from t in _context.Translation
-
                     where t.ClientKey    == clientKey &&
                           t.LanguageKey  == languageKey &&
                           t.ContainerKey == containerKey &&
                           t.Key          == translationKey
-
                     select t)
-                        .ToArray();        
+                    .ToArray();        
         }
 
         public IEnumerable<Translation> GetAll(string clientKey)
         {
             return (from t in _context.Translation
-
                     where t.ClientKey == clientKey
                     select t)
-                        .ToArray();
+                    .ToArray();
         }
 
-        public IEnumerable<object> GetGroupAll(string clientKey)
+        //
+        // GET translation/group
+        // 
+        public IEnumerable<Translation> GetGroup(string clientKey, string translationKey)
+        {
+            return (from t in _context.Translation
+                    where t.ClientKey == clientKey && t.Key == translationKey
+                    select t)
+                    .ToArray();
+        }
+
+
+        public IEnumerable<IEnumerable<Translation>> GetGroupAll(string clientKey)
         {
             return (from t in _context.Translation
                     where t.ClientKey == clientKey
                     group t by t.Key
                     into grp
+                    select grp.ToArray())
+                    .ToArray();
+        }
+
+        public object GetGroupMeta(string clientKey, string translationKey)
+        {
+            return (from t in _context.Translation
+                    where t.ClientKey == clientKey && t.Key == translationKey
+                    group t by t.Key
+                    into grp
                     select new {
                         Key = grp.Key,
                         IsComplete = grp.ToDictionary(o => o.LanguageKey, o => o.IsComplete)
-                    });
+                    })
+                    .First();
         }
         
+        public IEnumerable<object> GetGroupMetaAll(string clientKey)
+        {
+            return (from t in _context.Translation
+                    where t.ClientKey == clientKey
+                    group t by t.Key
+                    into grp
+                    select new 
+                    {
+                        Key = grp.Key,
+                        IsComplete = grp.ToDictionary(o => o.LanguageKey, o => o.IsComplete)
+                    })
+                    .ToArray();
+        }
+
+        //
+        // GET translation/container
+        //
         public IEnumerable<Translation> GetOnContainer (string clientKey, string containerKey) 
         {
             return (from t in _context.Translation
-
-                    where t.ClientKey == clientKey &&
-                          t.ContainerKey == containerKey
+                    where t.ClientKey == clientKey && t.ContainerKey == containerKey
                     select t)
                         .ToArray();
         }
@@ -62,24 +101,14 @@ namespace OrdBaseCore.Repositories
          public IEnumerable<KeyValuePair<string,string>> GetOnContainerLanguage (string clientKey, string languageKey, string containerKey) 
         {
             return (from t in _context.Translation
-
-                    where t.ClientKey    == clientKey &&
-                          t.LanguageKey  == languageKey &&
-                          t.ContainerKey == containerKey
+                    where t.ClientKey == clientKey && t.LanguageKey  == languageKey && t.ContainerKey == containerKey
                     select t)
                         .ToDictionary(o => o.Key, o => o.Text);            
         }
 
-        public IEnumerable<Translation> GetOnKey(string clientKey, string translationKey)
-        {
-            return (from t in _context.Translation
-
-                    where t.ClientKey == clientKey &&
-                          t.Key       == translationKey
-                    select t)
-                        .ToArray();
-        }
-
+        //
+        // GET translation/language
+        //
         public IEnumerable<Translation> GetOnLanguage(string clientKey, string languageKey)
         {
             return (from t in _context.Translation
@@ -91,7 +120,7 @@ namespace OrdBaseCore.Repositories
         }
 
         //
-        // POST - Create, update, delete
+        // POST, PUT, DELETE translation
         //
         public IActionResult Create(Translation translation) 
         {   
@@ -140,7 +169,7 @@ namespace OrdBaseCore.Repositories
         }
 
         //
-        // TESTDATA add
+        // TESTDATA translation
         //
         public static void AddTestData(TranslationDb context) 
         { 

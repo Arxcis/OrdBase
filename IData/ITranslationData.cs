@@ -10,15 +10,27 @@ namespace OrdBaseCore.IData
     public interface ITranslationData
     {
 		//
-		// Get
+		// GET translation
 		//
     	IEnumerable<Translation> Get(string clientKey, string languageKey, string containerKey, string translationKey);
     	IEnumerable<Translation> GetAll(string clientKey);
-		IEnumerable<object>      GetGroupAll(string clientKey);
+
+		//
+		// GET translation/group
+		//
+		IEnumerable<Translation> GetGroup(string clientKey, string translationKey);		
+		IEnumerable<IEnumerable<Translation>> GetGroupAll(string clientKey);
+    	object GetGroupMeta(string clientKey, string translationKey);
+    	IEnumerable<object> GetGroupMetaAll(string clientKey);
+		//
+		// GET translation/container
+		//
     	IEnumerable<Translation> GetOnContainer(string clientKey, string containerKey);
-    	IEnumerable<KeyValuePair<string,string>> GetOnContainerLanguage(string clientKey, string containerKey, string languageKey); // @optimize
-    	IEnumerable<Translation> GetOnKey(string clientKey, string translationKey);
+		IEnumerable<KeyValuePair<string,string>> GetOnContainerLanguage(string clientKey, string containerKey, string languageKey); // @optimize
 		
+		//
+		// GET translation/language
+		//
     	IEnumerable<Translation> GetOnLanguage(string clientKey, string languageKey);
 		
 		//

@@ -81,7 +81,7 @@ function async_getCardData(view, cards) {
     Route.client_getAll().then(clients => {
 
         clients.forEach((client, i) => {
-
+            console.log(client);
             let card = new Component_CardClient;
             
             card.setId(`card${i}`);

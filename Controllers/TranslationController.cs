@@ -17,7 +17,7 @@ namespace OrdBaseCore.Controllers
         }
 
         //
-        // GET REQUESTS
+        // GET translation
         //
         [HttpGet("api/{clientKey}/translation/{containerKey}/{translationKey}/{languageKey}")]
     	public IEnumerable<Translation> Get(string clientKey, string languageKey, string containerKey, string translationKey)
@@ -25,7 +25,6 @@ namespace OrdBaseCore.Controllers
             return _translationRepo.Get(clientKey, languageKey, containerKey, translationKey); 
         }
         
-        [HttpGet("api/{clientKey}/translation")]        
         [HttpGet("api/{clientKey}/translation/all")]
         public IEnumerable<Translation> GetAll(string clientKey)
         {
@@ -33,16 +32,36 @@ namespace OrdBaseCore.Controllers
         }
 
         //
-        // @note Groups together translations by key. 
-        //       All translations which share the same key are grouped together.
+        // GET translation/group
         //
-        [HttpGet("api/{clientKey}/translation/group")]        
+        [HttpGet("api/{clientKey}/translation/group/{translationKey}")]
+        public object GetGroup(string clientKey, string translationKey) 
+        {
+            return  _translationRepo.GetGroup(clientKey, translationKey);
+        }   
+
         [HttpGet("api/{clientKey}/translation/group/all")]
-        public IEnumerable<object> GetGroupAll(string clientKey)
+        public IEnumerable<IEnumerable<object>> GetGroupAll(string clientKey)
         {
             return _translationRepo.GetGroupAll(clientKey);
         } 
 
+        [HttpGet("api/{clientKey}/translation/group/meta/{translationKey}")]
+        public object GetGroupMeta(string clientKey, string translationKey)
+        {
+            return _translationRepo.GetGroupMeta(clientKey, translationKey);
+        } 
+        
+        [HttpGet("api/{clientKey}/translation/group/meta/all")]
+        public IEnumerable<object> GetGroupMetaAll(string clientKey)
+        {
+            return _translationRepo.GetGroupMetaAll(clientKey);
+        } 
+
+
+        //
+        // GET translation/container
+        //
         [HttpGet("api/{clientKey}/translation/container/{containerKey}")]
         public IEnumerable<object> GetOnContainer(string clientKey, string containerKey)
         {
@@ -55,12 +74,10 @@ namespace OrdBaseCore.Controllers
             return _translationRepo.GetOnContainerLanguage(clientKey, languageKey, containerKey); 
         }
 
-        [HttpGet("api/{clientKey}/translation/key/{translationKey}")]
-        public IEnumerable<Translation> GetOnKey(string clientKey, string translationKey)
-        {
-            return _translationRepo.GetOnKey(clientKey, translationKey); 
-        }
 
+        //
+        // GET translation/language
+        //
         [HttpGet("api/{clientKey}/translation/language/{languageKey}")]
         public IEnumerable<Translation> GetOnLanguage(string clientKey, string languageKey)
         {
@@ -68,7 +85,7 @@ namespace OrdBaseCore.Controllers
         }
         
         //
-        // CREATE, UPDATE, DELETE REQUESTS
+        // POST, PUT, DELETE translation
         //  @doc https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-vsc#implement-the-other-crud-operations|
         //
         [HttpPost("api/translation/create")]
