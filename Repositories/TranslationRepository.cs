@@ -150,7 +150,6 @@ namespace OrdBaseCore.Repositories
             {
                 _context.Translation.Add(translation);            
             }
-            
             _context.SaveChanges();
             return new NoContentResult {};
         }
@@ -176,7 +175,7 @@ namespace OrdBaseCore.Repositories
             return new NoContentResult {};
         }
 
-        public IActionResult Delete(string clientKey, string languageKey, string containerKey, string translationKey) 
+        public IActionResult Delete(string clientKey,string containerKey, string translationKey, string languageKey) 
         {   
             var translation = _context.Translation.First(
                 t => t.ClientKey    == clientKey &&
@@ -188,6 +187,22 @@ namespace OrdBaseCore.Repositories
                 return new NotFoundResult {};
 
             _context.Translation.Remove(translation);
+            _context.SaveChanges();
+            return new NoContentResult {};
+        }
+
+
+        public IActionResult DeleteGroup(string clientKey, string containerKey, string translationKey) 
+        {   
+            var translationGroup = _context.Translation.Where(
+                t => t.ClientKey    == clientKey &&
+                     t.ContainerKey == containerKey &&
+                     t.Key          == translationKey);    
+            
+            if (translationGroup == null)
+                return new NotFoundResult {};
+
+            _context.Translation.RemoveRange(translationGroup);
             _context.SaveChanges();
             return new NoContentResult {};
         }
