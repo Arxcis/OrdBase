@@ -157,6 +157,7 @@ function async_submitNewTranslationGroup(generator, _clientKey, _containerKey, _
         return Route.translation_createMany(translationArray) 
     })
     .then(res => {
+        generator.setInputValue('');
         return Route.translation_getGroupMeta(_clientKey, _translationKey);
     })
     .then(groupMeta => {
