@@ -144,7 +144,7 @@ namespace OrdBaseCore.Repositories
             return new NoContentResult {};
         }
 
-        public IActionResult CreateMany(Translation[] translationArray) 
+        public IActionResult CreateMany(IEnumerable<Translation> translationArray) 
         {   
             _context.Translation.AddRange(translationArray);            
             _context.SaveChanges();

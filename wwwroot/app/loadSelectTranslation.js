@@ -145,7 +145,7 @@ function async_submitNewTranslationGroup(generator, _clientKey, _containerKey, _
                 clientKey : _clientKey,
                 languageKey : language,
                 containerKey : _containerKey,
-                translationKey : _translationKey,
+                key : _translationKey,
                 text : 'default',
                 isComplete : false,
             });

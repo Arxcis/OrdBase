@@ -107,8 +107,9 @@ namespace OrdBaseCore.Controllers
             return _translationRepo.Create(translation);
         } 
 
+
         [HttpPost("api/translation/create/many")]
-        public IActionResult CreateMany(Translation[] translationArray) 
+        public IActionResult CreateMany([FromBody]IEnumerable<Translation> translationArray) 
         {   
             if (translationArray == null)
                 return  BadRequest();

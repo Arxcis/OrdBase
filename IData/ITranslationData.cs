@@ -1,3 +1,4 @@
+
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,7 +40,7 @@ namespace OrdBaseCore.IData
 		// Create, update, delete
 		//
 		IActionResult Create(Translation translation);
-		IActionResult CreateMany(Translation[] array);		
+		IActionResult CreateMany(IEnumerable<Translation> array);		
 		IActionResult Update(Translation Translation);
 		IActionResult Delete(string clientKey, string containerKey, string translationKey, string languageKey);
 		IActionResult DeleteGroup(string clientKey, string containerKey, string translationKey);		
