@@ -68,7 +68,7 @@ function async_getTranslationCardData(cards, clientKey, view) {
     //  @AJAX - Get all translation groups 
     //  @doc template literals - https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Template_literals
     //
-    Route.translation_getGroupAll(clientKey).then(groups => {
+    Route.translation_getGroupMetaAll(clientKey).then(groups => {
         
         groups.forEach((group, i) => {
 

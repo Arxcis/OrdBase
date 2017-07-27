@@ -36,7 +36,7 @@ export function loadEditTranslation (client, key) {
         //
         .then(_containersOnClient => {
             containersOnClient = _containersOnClient;  
-            return Route.container_getGroup(client, key);
+            return Route.client_getDefaultContainers(client);
         })
         //
         // @ajax promise
