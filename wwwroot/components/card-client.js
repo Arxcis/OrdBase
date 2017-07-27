@@ -3,7 +3,7 @@ import html from './card-client.html';
 
 
 
-export class Component_CardClient extends HTMLElement {
+export class Component_ClientCard extends HTMLElement {
 
     constructor() {
         super();
@@ -53,4 +53,4 @@ export class Component_CardClient extends HTMLElement {
         this.button.onclick = this.editHandler;
     }
 }
-customElements.define('component-card-client', Component_CardClient);
+customElements.define('component-card-client', Component_ClientCard);

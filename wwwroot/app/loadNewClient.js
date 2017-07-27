@@ -7,8 +7,8 @@ import { View_EditClient }  from '../views/edit-client.js';
 
 import { Component_ItemGenerator } from '../components/item-generator.js';
 import { Component_ItemFlipper }   from '../components/item-flipper.js';
-import { Component_FormClient }    from '../components/form-client.js';
-import { Component_ButtonSelect }  from '../components/button-select.js';
+import { Component_ClientForm }    from '../components/form-client.js';
+import { Component_SelectButton }  from '../components/button-select.js';
 
 import { loadSelectClient } from './loadSelectClient.js';
 
@@ -17,10 +17,10 @@ export function loadNewClient(clientKey) {
     //
     // 0. Create component instances
     //
-    const view = new View_EditClient;     
+    const view      = new View_EditClient;     
     const generator = new Component_ItemGenerator;
-    const flipper = new Component_ItemFlipper;
-    const form = new Component_FormClient;
+    const flipper   = new Component_ItemFlipper;
+    const form      = new Component_ClientForm;
     
     //
     // 1. Fire async call
@@ -45,14 +45,14 @@ export function loadNewClient(clientKey) {
     //
     // 3. Component generator
     //
-    generator.generateHandler = () => {
-        let button = new Component_ButtonSelect;
+    generator.OnGenerate(() => {
+        let button = new Component_SelectButton;
         let value = generator.getValue();
         button.setId(value);
         button.setText(value);
         button.setSelected(true);
         return button;
-    };
+    });
 
     //
     // 4. Component flipper
@@ -86,7 +86,7 @@ function async_populateFlipper(flipper) {
     Route.language_getGlobal().then(languages => {
 
         languages.forEach(lang => {
-            let button = new Component_ButtonSelect;
+            let button = new Component_SelectButton;
 
             button.setId(lang.key);
             button.setText( `${lang.name} - ${lang.key}`);

@@ -4,8 +4,7 @@ import * as App from './App.js';
 import * as Route from '../lib/Route.js';
 
 import { View_SelectClient }      from '../views/select-client.js';
-
-import { Component_CardClient   } from '../components/card-client.js';
+import { Component_ClientCard   } from '../components/card-client.js';
 
 import { loadEditClient }        from './loadEditClient.js';
 import { loadNewClient }         from './loadNewClient.js'; 
@@ -82,7 +81,7 @@ function async_generateCards(view, cards) {
 
         clients.forEach((client, i) => {
 
-            let card = new Component_CardClient;
+            let card = new Component_ClientCard;
             
             card.setId(`card${i}`);
             card.setHeading(client.key);

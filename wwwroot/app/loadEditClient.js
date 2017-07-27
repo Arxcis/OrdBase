@@ -5,10 +5,10 @@ import * as Route from '../lib/Route.js';
 
 import { View_EditClient }        from '../views/edit-client.js';
 
-import { Component_ButtonSelect  } from '../components/button-select.js';
+import { Component_SelectButton  } from '../components/button-select.js';
 import { Component_ItemGenerator } from '../components/item-generator.js';
 import { Component_ItemFlipper   } from '../components/item-flipper.js';
-import { Component_FormClient    } from '../components/form-client.js';
+import { Component_ClientForm    } from '../components/form-client.js';
 
 import { loadSelectClient } from './loadSelectClient.js';
 
@@ -17,10 +17,10 @@ export function loadEditClient(client) {
     //
     // 0. Create component instances
     //
-    const view = new View_EditClient;     
+    const view      = new View_EditClient;     
     const generator = new Component_ItemGenerator;
-    const flipper = new Component_ItemFlipper;
-    const form = new Component_FormClient;
+    const flipper   = new Component_ItemFlipper;
+    const form      = new Component_ClientForm;
 
     //
     // 1. Async calls 
@@ -48,14 +48,22 @@ export function loadEditClient(client) {
     //
     // 4. Set up container generator
     //
-    generator.generateHandler = () => {
-        let button = new Component_ButtonSelect;
+    generator.OnGenerate(()=> {
+        let button = new Component_SelectButton;
         let value = generator.getValue();
+
+        generator.setInputValue('');
+
         button.setId(value);
         button.setText(value);
         button.setSelected(true);
-        return button;
-    };
+        
+        button.OnClick(() => {
+            generator.removeItem(button);
+        });
+
+        generator.addItem(button);
+    });
 
     //
     // 5. Set up language flipper
@@ -92,7 +100,7 @@ function async_populateGenerator(generator, client) {
 
         containers.forEach( container => {
 
-            const button = new Component_ButtonSelect;
+            const button = new Component_SelectButton;
 
             button.setId(container);
             button.setText(container);
@@ -116,11 +124,15 @@ function async_populateFlipper(flipper, client) {
         console.log('global ', languages);
 
         languages.forEach(lang => {
-            let button = new Component_ButtonSelect;
+            let button = new Component_SelectButton;
 
             button.setId(lang.key);
             button.setText( `${lang.name} - ${lang.key}`);
             button.setSelected(false);
+
+            button.OnClick(() => {
+                button.toggleSelected();
+            });
 
             buttonArray.push(button);
             flipper.addItem(button, { selected : false });

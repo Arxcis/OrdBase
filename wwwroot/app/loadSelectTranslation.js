@@ -5,10 +5,9 @@ import * as Route from '../lib/Route.js';
 
 import { View_SelectTranslation } from '../views/select-translation.js';
 
-import { Component_ButtonSelect }    from '../components/button-select.js';
-import { Component_CardTranslation } from '../components/card-translation.js';
-import { Component_GroupKeyIcon }    from '../components/group-key-icon.js';
-import { Component_ItemGenerator }    from '../components/item-generator.js';
+import { Component_SelectButton }    from '../components/button-select.js';
+import { Component_TranslationCard } from '../components/card-translation.js';
+import { Component_ItemGenerator }   from '../components/item-generator.js';
 
 import { loadSelectClient }    from './loadSelectClient.js';
 
@@ -19,7 +18,7 @@ export function loadSelectTranslation (clientKey) {
 
     // Create elements
     const view          = new View_SelectTranslation;
-    const button        = new Component_ButtonSelect;
+    const button        = new Component_SelectButton;
     const generator     = new Component_ItemGenerator;
     const languageArray = Route.client_getDefaultLanguages(clientKey);
 
@@ -48,23 +47,21 @@ export function loadSelectTranslation (clientKey) {
     generator.generateHandler = () => {
         let containerKey   = view.activeContainerButton.getId();
         let translationKey = generator.getValue();
+       
+
         async_submitNewTranslationGroup(clientKey, containerKey, translationKey, languageArray)
         .catch(err => {
             console.error(err);
             loadSelectTranslation(clientKey);
         });
 
-        let card = new Component_CardTranslation;
+        let card = new Component_TranslationCard;
         card.key = translationKey;
         card.onClickCard = event => console.log('Hello from ${card.key}!!');
 
         languageArray.forEach(language => {
-            let keyAndIcon = new Component_GroupKeyIcon;
 
-            keyAndIcon.languageKey = language;
-            keyAndIcon.icon = App.ICON_TIMES;
-
-            card.appendKeyAndIcon(keyAndIcon);
+            // @TODO GENERATE KEY AND ICON HERE, on Component_TranslationCard
         });
         return card;
     };
@@ -97,19 +94,15 @@ function generateTranslationCards(generator, groups) {
             
     groups.forEach((group, i) => {
 
-        let card = new Component_CardTranslation;
+        let card = new Component_TranslationCard;
         
         card.key = group.key;
         card.onClickCard = event => console.log('Hello from ${group.key}!!');
 
         Object.keys(group.isComplete).forEach((languageKey, isComplete) => {
             
-            let keyAndIcon = new Component_GroupKeyIcon;
+            // @TODO GENERATE KEY AND ICON HERE, on Component_TranslationCard
 
-            keyAndIcon.languageKey = languageKey;
-            keyAndIcon.icon = (isComplete) ? App.ICON_CHECK : App.ICON_TIMES;
-
-            card.appendKeyAndIcon(keyAndIcon);
         });
         console.log(card);
         generator.addItem(card);
@@ -127,7 +120,7 @@ function async_generateSelectButtons(view, buttons, clientKey) {
     .then(containers => {        
         containers.forEach((container, i) => {
 
-            let button = new Component_ButtonSelect;
+            let button = new Component_SelectButton;
 
             button.setId( container);
             button.setText( container);
