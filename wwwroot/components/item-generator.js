@@ -17,6 +17,7 @@ export class Component_ItemGenerator extends HTMLElement {
         this.faIcon = this.button.querySelector('i');
 
         this.generateHandler = () => { return document.createElement('div'); }
+        this.destroyHandler  = (item) => { this.destroyItem(item); }
 
         //
         // Event click
@@ -92,7 +93,7 @@ export class Component_ItemGenerator extends HTMLElement {
     addItem(item) {
         item.classList.add('generated')
         this.root.insertBefore(item, this.input);
-        item.addEventListener('click', e => this.destroyItem(item));
+        item.addEventListener('click', e => this.destroyHandler.apply(this, item));
     }
 }
 

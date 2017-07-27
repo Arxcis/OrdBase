@@ -8,7 +8,7 @@ export class View_SelectTranslation extends HTMLElement {
         this.root = this.createShadowRoot();
         this.root.innerHTML = html;
 
-        this.selectedButton = null;
+        this.activeContainerButton = null;
         this.switchButtonHandler = (button) => console.log('default: ', button);
     }
 
@@ -21,10 +21,10 @@ export class View_SelectTranslation extends HTMLElement {
     }    
 
     setContainerButtonAll(button) {
-        this.selectedButton = button;
+        this.activeContainerButton = button;
 
         button.onclick =  (e) => {
-            this.switchButtonHandler(button, this.selectedButton);
+            this.switchButtonHandler(button, this.activeContainerButton);
         };
         this.root.getElementById('section-containers-on-client')
                  .insertBefore(button, this.root.getElementById('list-containers-on-client'));                
@@ -32,7 +32,7 @@ export class View_SelectTranslation extends HTMLElement {
 
     addContainerButton (button) {       
         button.onclick =  (e) => {
-            this.switchButtonHandler(button, this.selectedButton);
+            this.switchButtonHandler(button, this.activeContainerButton);
         };
 
         this.root.querySelector('#list-containers-on-client').appendChild(button);        
