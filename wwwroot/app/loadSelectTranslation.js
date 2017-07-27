@@ -20,59 +20,24 @@ export function loadSelectTranslation (clientKey) {
     const view          = new View_SelectTranslation;
     const button        = new Component_SelectButton;
     const generator     = new Component_ItemGenerator;
-    const languageArray = Route.client_getDefaultLanguages(clientKey);
-
-    const buttonArray = new Array();
+    const buttonArray   = new Array();
 
     // Async calls
-    async_generateSelectButtons(view,  buttonArray, clientKey);
-    async_generateTranslationCards(generator, clientKey);
-    async_selectButtonHandler(view, clientKey);
+    async_generateSelectButtons(view, generator, buttonArray, clientKey);
+    async_generateTranslationCards(generator, clientKey, 'all');
 
     // Setup header
-    App.HEADER.setTextBig          ( 'Ordbase');
-    App.HEADER.setTextSmall        ( `Select ${clientKey} Translation`);
-    App.HEADER.setButtonIconLeft   ( App.ICON_BARS);
-    App.HEADER.setButtonIconRight1 ( App.ICON_PLUS);
-    App.HEADER.setButtonIconRight2 ( App.ICON_ARROW_LEFT);    
+    App.HEADER.setTextBig         ( 'Ordbase');
+    App.HEADER.setTextSmall       ( `Select ${clientKey} Translation`);
+    App.HEADER.setButtonIconLeft  ( App.ICON_BARS);
+    App.HEADER.setButtonIconRight0( App.ICON_NONE);
+    App.HEADER.setButtonIconRight1( App.ICON_TRASH);
+    App.HEADER.setButtonIconRight2( App.ICON_ARROW_LEFT);    
 
     App.HEADER.getButtonLeft().onclick   = App.defaultHandler;
     App.HEADER.getButtonRight0().onclick = App.defaultHandler;    
     App.HEADER.getButtonRight1().onclick = App.defaultHandler;
     App.HEADER.getButtonRight2().onclick = event => loadSelectClient();
-
-    //
-    // Component_ItemGenerator
-    //
-    generator.generateHandler = () => {
-        let containerKey   = view.activeContainerButton.getId();
-        let translationKey = generator.getValue();
-       
-
-        async_submitNewTranslationGroup(clientKey, containerKey, translationKey, languageArray)
-        .catch(err => {
-            console.error(err);
-            loadSelectTranslation(clientKey);
-        });
-
-        let card = new Component_TranslationCard;
-        card.key = translationKey;
-        card.onClickCard = event => console.log('Hello from ${card.key}!!');
-
-        languageArray.forEach(language => {
-
-            // @TODO GENERATE KEY AND ICON HERE, on Component_TranslationCard
-        });
-        return card;
-    };
-
-    generator.destroyHandler = (card) => {
-
-        let containerKey   = view.activeContainerButton.getId();
-        let translationKey = card.getKey();
-
-        async_deleteTranslationGroup(clientKey, containerKey, translationKey);
-    };
 
     //
     // Component_SelectButton
@@ -81,100 +46,124 @@ export function loadSelectTranslation (clientKey) {
     button.setText('All containers');
     button.setSelected(true);
 
+    button.OnClick(() => {
+
+        view.getActiveContainerButton().setSelected(false);
+        button.setSelected(true);
+        view.setActiveContainerButton(button);
+
+        async_generateTranslationCards(generator, clientKey, button.getId());
+    });
+
+    //
+    // Component_ItemGenerator
+    //
+    generator.OnGenerate(() => {
+        let containerKey   = view.getActiveContainerButton().getId();
+        let translationKey = generator.getValue();
+       
+        async_submitNewTranslationGroup(generator, clientKey, containerKey, translationKey)
+    });
+
     //
     // Insert components into view, and add view to DOM
     //
     view.setTranslationGenerator(generator);
-    view.setContainerButtonAll(button)
+    view.setActiveContainerButton(button);
+    view.addContainerButton(button);
     App.switchView(view);
 }
 
 
-function generateTranslationCards(generator, groups) {
-            
-    groups.forEach((group, i) => {
+function makeTranslationCard(groupMeta) {
+    
+    let card = new Component_TranslationCard;
+    card.key = groupMeta.key;
 
-        let card = new Component_TranslationCard;
-        
-        card.key = group.key;
-        card.onClickCard = event => console.log('Hello from ${group.key}!!');
-
-        Object.keys(group.isComplete).forEach((languageKey, isComplete) => {
-            
-            // @TODO GENERATE KEY AND ICON HERE, on Component_TranslationCard
-
-        });
-        console.log(card);
-        generator.addItem(card);
-    });               
+    Object.keys(groupMeta.isComplete).forEach((languageKey, isComplete) => {
+        card.makeLanguageKeyAndIcon(languageKey, isComplete);
+    });
+    return card;
 }
 
-
 //
-// ASYNC CALLS
+// ASYNC GET CALLS
 //
-function async_generateSelectButtons(view, buttons, clientKey) {
+function async_generateSelectButtons(view, generator, buttons, clientKey) {
 
-
-    Route.client_getDefaultContainers(clientKey)  
-    .then(containers => {        
-        containers.forEach((container, i) => {
+    Route.client_getDefaultContainers(clientKey).then(containerArray => {        
+        
+        containerArray.forEach((container, i) => {
 
             let button = new Component_SelectButton;
 
             button.setId( container);
             button.setText( container);
             button.setSelected(false)
+
+            button.OnClick(() => {
+                view.getActiveContainerButton().setSelected(false);
+                button.setSelected(true);
+                view.setActiveContainerButton(button);
+
+                async_generateTranslationCards(generator, clientKey, button.getId());
+            });
         
-            view.addContainerButton(button);    
+            view.addContainerButton(button);
         });
     })
 }
 
 
-function async_generateTranslationCards(generator, clientKey) {
+function async_generateTranslationCards(generator, clientKey, containerKey) {
+    
+    
+    Route.translation_getGroupMetaOnContainer(clientKey, containerKey).then(groupMetaArray => {
 
-    Route.translation_getGroupMetaAll(clientKey).then(res => {
-        generateTranslationCards(generator, res);
+        generator.clearItems();
+        
+        groupMetaArray.forEach((groupMeta, i) => {
+            let card = makeTranslationCard(groupMeta);            
+            generator.addItem(card);
+        });    
     })
-    .catch(err => console.error('Error:', err));
+    .catch(err => console.error('Error:', err));  
 }
 
-function async_selectButtonHandler(view, clientKey) {
+//
+// ASYNC CREATE DELETE
+//
+function async_submitNewTranslationGroup(generator, _clientKey, _containerKey, _translationKey) {
 
-    view.switchButtonHandler = (newButton, oldButton) => {
+    Route.client_getDefaultLanguages(_clientKey).then(languageArray => {
+  
+        let translationArray = new Array();
 
-        let container = newButton.getId();
-
-        oldButton.setSelected(false);
-        newButton.setSelected(true);
-
-        Route.translation_getGroupMetaOnContainer(clientKey, container).then(groups => {
-            view.clearTranslationCards();
+        languageArray.forEach(language => {
         
-            generateTranslationCards(view, groups)
-        })
-        .catch(err => console.error('Error:', err));        
-    }
-}
-
-function async_submitNewTranslationGroup(_clientKey, _containerKey, _translationKey, languageArray) {
-
-    let translationArray = new Array();
-
-    languageArray.forEach(language => {
-        
-        translationArray.push({
-            clientKey : _clientKey,
-            languageKey : language,
-            containerKey : _containerKey,
-            translationKey : _translationKey,
-            text : 'default',
-            isComplete : false,
+            translationArray.push({
+                clientKey : _clientKey,
+                languageKey : language,
+                containerKey : _containerKey,
+                translationKey : _translationKey,
+                text : 'default',
+                isComplete : false,
+            });
         });
-    });
 
-    Route.translation_createMany(translationArray).catch(err => console.error('Error:', err));
+        return translationArray;
+    })
+    .then(translationArray => { 
+        return Route.translation_createMany(translationArray) 
+    })
+    .then(res => {
+        return Route.translation_getGroupMeta(_clientKey, _translationKey);
+    })
+    .then(groupMeta => {
+        let card = makeTranslationCard(groupMeta, generator);
+        generator.addItem(card);
+    })
+    .catch(err => console.error(err));
 }
 
 function async_deleteTranslationGroup(clientKey, containerKey, translationKey) {

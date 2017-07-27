@@ -146,10 +146,7 @@ namespace OrdBaseCore.Repositories
 
         public IActionResult CreateMany(Translation[] translationArray) 
         {   
-            foreach (var translation in translationArray) 
-            {
-                _context.Translation.Add(translation);            
-            }
+            _context.Translation.AddRange(translationArray);            
             _context.SaveChanges();
             return new NoContentResult {};
         }

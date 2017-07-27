@@ -11,10 +11,7 @@
             /*border: 1px solid var(--ordbase-color-select);*/
         }   
 
-        button.selected{
-            background-color: var(--ordbase-color-select);
-            color: var(--ordbase-color-white);
-        }
+
 
         button:focus {
             outline: none;                        
@@ -26,10 +23,14 @@
             color: var(--ordbase-color-white);
         } 
 
-        button.selected:focus {
-            outline: none;
-            background-color: var(--ordbase-color-dark);
+        button.selected:focus,
+        button.selected {
+            background-color: var(--ordbase-color-select);
+            color: var(--ordbase-color-white);
         }
+
+
+
     </style>
 
     <button id="{{ id }}"> 

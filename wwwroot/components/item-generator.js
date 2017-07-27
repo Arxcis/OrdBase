@@ -40,8 +40,10 @@ export class Component_ItemGenerator extends HTMLElement {
         //
         this.input.addEventListener('focusout', e => {
             
-            if(this.input.value != '')
+            if(this.input.value != '') {
                 this.generateHandler(this, e);
+                this.input.value = '';
+            }
 
             this.input.style.display = 'none';
             this.button.classList.remove('cancel');
@@ -55,7 +57,6 @@ export class Component_ItemGenerator extends HTMLElement {
         this.generateHandler = handler;
 
         this.input.addEventListener('keydown', e => {
-            console.log('OnGenerate fire!...');
             if (e.keyCode === ENTER) {
                 this.generateHandler.apply(this, e);
             }
@@ -82,6 +83,15 @@ export class Component_ItemGenerator extends HTMLElement {
 
     removeItem(item) {
         this.root.removeChild(item);
+    }
+
+    clearItems() {
+        let items = this.root.querySelectorAll('.generated');
+
+        [].slice.call(items)
+        .forEach(e => { 
+            this.root.removeChild(e); 
+        });
     }
 }
 

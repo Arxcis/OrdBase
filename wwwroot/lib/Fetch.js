@@ -17,13 +17,12 @@ import { mandatory } from './Util.js';
 //
 export function GET({ route = mandatory() } = mandatory()) {
 
-    console.log('fetch.GET:','\nroute', route);
+    return fetch(route, { method: 'GET' }).then((res) => { 
 
-    return fetch(route, { 
-        method: 'GET'  
-    })
-    .then((res) => { 
-        return res.json(); 
+        let resjson = res.json();
+        console.log('fetch.GET:','\nroute', route, '\ndata', resjson);
+
+        return resjson; 
     });
 }
 
@@ -34,9 +33,7 @@ export function DELETE({ route = mandatory()} = mandatory()) {
     
     console.log('fetch.DELETE:', '\nroute', route);
 
-    return fetch(route, {  
-        method: 'DELETE' 
-    });
+    return fetch(route, { method: 'DELETE' });
 }
 
 //

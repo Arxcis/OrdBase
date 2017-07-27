@@ -9,24 +9,18 @@ export class View_SelectTranslation extends HTMLElement {
         this.root.innerHTML = html;
 
         this.activeContainerButton = null;
-        this.switchButtonHandler = (button) => console.log('default: ', button);
     }
 
-    clearTranslationCards() {
-        this.root.getElementById('list-translations-on-client').innerHTML = '';   
-    }
-
-    setContainerButtonAll(button) {
+    setActiveContainerButton(button) {
         this.activeContainerButton = button;
+    }
 
-        button.onclick =  (e) => {
-            
-            let oldButton = this.activeContainerButton;
-            this.activeContainerButton = button;
-            this.switchButtonHandler(button, oldButton);
-        };
-        this.root.getElementById('section-containers-on-client')
-                 .insertBefore(button, this.root.getElementById('list-containers-on-client'));                
+    getActiveContainerButton() {
+        return this.activeContainerButton;
+    }
+
+    addContainerButton (button) {       
+        this.root.querySelector('#list-containers-on-client').appendChild(button);    
     }
 
     setTranslationGenerator(generator) {
@@ -37,12 +31,5 @@ export class View_SelectTranslation extends HTMLElement {
         return this.root.querySelector('component-item-generator');
     }
 
-    addContainerButton (button) {       
-        button.onclick =  (e) => {
-            this.switchButtonHandler(button, this.activeContainerButton);
-        };
-
-        this.root.querySelector('#list-containers-on-client').appendChild(button);        
-    }
 }
 customElements.define('view-select-translation', View_SelectTranslation);
