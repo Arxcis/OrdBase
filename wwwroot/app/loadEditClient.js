@@ -2,6 +2,7 @@
 
 import * as App from './App.js';
 import * as Route from '../lib/Route.js';
+import { force } from '../lib/Util.js'; 
 
 import { View_EditClient }        from '../views/edit-client.js';
 
@@ -12,7 +13,7 @@ import { Component_ClientForm    } from '../components/form-client.js';
 
 import { loadSelectClient } from './loadSelectClient.js';
 
-export function loadEditClient(client) {
+export function loadEditClient(clientKey) {
 
     //
     // 0. Create component instances
@@ -25,15 +26,15 @@ export function loadEditClient(client) {
     //
     // 1. Async calls 
     //
-    __async__populateGenerator(generator, client);
-    __async__populateFlipper(flipper, client);
-    __async__populateForm(form, client);
+    __async__populateGenerator({generator: generator, clientKey: clientKey});
+    __async__populateFlipper({flipper: flipper, clientKey: clientKey});
+    __async__populateForm({form: form, clientKey: clientKey});
 
     //
     // 3. Set up header
     //
     App.HEADER.setTextBig('Ordbase');    
-    App.HEADER.setTextSmall(`Edit ${client}`);
+    App.HEADER.setTextSmall(`Edit ${clientKey}`);
     
     App.HEADER.setButtonIconLeft(App.ICON_BARS);
     App.HEADER.setButtonIconRight0(App.ICON_NONE);        
@@ -51,8 +52,6 @@ export function loadEditClient(client) {
     generator.OnGenerate(()=> {
         let button = new Component_SelectButton;
         let value = generator.getValue();
-
-        generator.setInputValue('');
 
         button.setId(value);
         button.setText(value);
@@ -74,10 +73,10 @@ export function loadEditClient(client) {
     //
     // 6. Set up form
     //
-    form.setSubmitText(`Update ${client}`);
+    form.setSubmitText(`Update ${clientKey}`);
     form.addEventListener('submit', e => {
         e.preventDefault();
-        __async__updateClient(client, form, generator, flipper);            
+        __async__updateClient({ clientKey: clientKey, form: form, generator: generator, flipper: flipper});            
     });
 
     //
@@ -92,9 +91,12 @@ export function loadEditClient(client) {
 //
 // 8. Fill container buttons into generator
 //
-function __async__populateGenerator(generator, client) {
+function __async__populateGenerator({
+            generator = force('generator'), 
+            clientKey = force('clientKey'),
+    }) {
 
-    Route.client_getDefaultContainers(client)
+    Route.client_getDefaultContainers(clientKey)
     .then( containers => {
         console.log('containers ', containers);
 
@@ -105,7 +107,7 @@ function __async__populateGenerator(generator, client) {
             button.setId(container);
             button.setText(container);
             button.setSelected(true);
-            
+
             button.OnClick(() => {
                 generator.removeItem(button);
             });
@@ -118,8 +120,10 @@ function __async__populateGenerator(generator, client) {
 //
 // 9. Fill languages into flipper
 //
-function __async__populateFlipper(flipper, client) {
-
+function __async__populateFlipper({
+            flipper = force('flipper'), 
+            clientKey = force('clientKey'),
+    }) {
     let buttonArray = new Array();
 
     Route.language_getGlobal()
@@ -140,7 +144,7 @@ function __async__populateFlipper(flipper, client) {
             buttonArray.push(button);
             flipper.addItem(button, { selected : false });
         });
-        return Route.client_getDefaultLanguages(client);
+        return Route.client_getDefaultLanguages(clientKey);
     })
     .then(languages => {
         console.log('selected ', languages);
@@ -165,8 +169,12 @@ function __async__populateFlipper(flipper, client) {
 //
 // 10. Fill client data into form
 //
-function __async__populateForm(form, client) {
-    Route.client_get(client)
+function __async__populateForm({
+            form = force('form'), 
+            clientKey = force('clientKey'),
+    }) {
+
+    Route.client_get(clientKey)
     .then(client => {
         form.setClient(client[0]);
     })
@@ -176,7 +184,12 @@ function __async__populateForm(form, client) {
 //
 // 11. Submit data from form, generator and flipper
 //
-function __async__updateClient(clientKey, form, generator, flipper){
+function __async__updateClient({
+            clientKey = force('clientKey'), 
+            form      = force('form'), 
+            generator = force('generator'), 
+            flipper   = force('flipper')
+    }) {
 
     let clientObject   = form.getClient();
     let containerArray = generator.getItemArray().map(button => { return button.getId(); });

@@ -5,7 +5,7 @@
 //  @brief small usefull functions which helps reduce repitition.
 //
 
-export function mandatory(message = '') {
+export function force(message = '') {
     throw new Error(`Missing parameter: ${message}`);
 }
 

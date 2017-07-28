@@ -2,6 +2,7 @@
 
 import * as App from './App.js';
 import * as Route from '../lib/Route.js';
+import { force } from '../lib/Util.js'; 
 
 import { View_SelectClient }      from '../views/select-client.js';
 import { Component_ClientCard   } from '../components/card-client.js';
@@ -20,12 +21,12 @@ export function loadSelectClient() {
     // 0. Create component instances
     //
     const view  = new View_SelectClient;
-    const cards = new Array;
+    const cardArray = new Array;
 
     //
     // 1. Fire async call
     //
-    async_generateCards(view, cards);
+    __async__generateCards({view: view, cardArray: cardArray});
 
     //
     // 2. Set up header
@@ -39,8 +40,8 @@ export function loadSelectClient() {
     App.HEADER.setButtonIconRight2( App.ICON_PLUS);
 
     App.HEADER.getButtonLeft().onclick   = App.defaultHandler;    
-    App.HEADER.getButtonRight0().onclick = event => { setCardState(cards, 'deleteable')};    
-    App.HEADER.getButtonRight1().onclick = event => { setCardState(cards, 'editable')};
+    App.HEADER.getButtonRight0().onclick = event => { setCardState(cardArray, 'deleteable')};    
+    App.HEADER.getButtonRight1().onclick = event => { setCardState(cardArray, 'editable')};
     App.HEADER.getButtonRight2().onclick = event => loadNewClient();
 
     //
@@ -49,8 +50,12 @@ export function loadSelectClient() {
     App.switchView(view);
 }
 
-let state = '';
 
+//
+// @note the situation going on here with some sort of statehandling is hacky. I would prefer
+//        a more clean solution.. TBD what that would be .. - JSolsvik 28.07.17
+//
+let state = '';
 function setCardState(cards, newState) {
     
     state = (state == newState)? '' : newState;
@@ -75,7 +80,10 @@ function setCardState(cards, newState) {
 //
 // 4. Generate client cards
 //
-function async_generateCards(view, cards) {
+function __async__generateCards({ 
+            view      = force('view'), 
+            cardArray = force('cardArray'), 
+    }) {
 
     Route.client_getAll().then(clients => {
 
@@ -91,18 +99,22 @@ function async_generateCards(view, cards) {
             // @note Duct-typing logic variables, used for later in edit click event
             card.selectHandler = event => loadSelectTranslation(client.key);
             card.editHandler   = event => loadEditClient(client.key);
-            card.deleteHandler = event => async_deleteCard(client.key, view, card);
+            card.deleteHandler = event => __async__deleteCard({clientKey: client.key, view: view, card: card});
             
             card.setState_Selectable();
 
-            cards.push(card);
+            cardArray.push(card);
             view.appendCard(card);
         });                            
     })
     .catch(reason => console.error('Error:', reason));
 }
 
-function async_deleteCard(clientKey, view, card) {
+function __async__deleteCard({
+            clientKey = force('clientKey'), 
+            view      = force('view'), 
+            card      = force('card'),
+    }) {
 
     Route.client_delete(clientKey)
     .then(res => {
@@ -110,5 +122,4 @@ function async_deleteCard(clientKey, view, card) {
         loadSelectClient();
     })
     .catch(reason => console.error('Error:', reason));
-
 }

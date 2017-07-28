@@ -2,6 +2,7 @@
 
 import * as App from './App.js';
 import * as Route from '../lib/Route.js';
+import { force } from '../lib/Util.js'; 
 
 import { View_EditClient }  from '../views/edit-client.js';
 
@@ -25,7 +26,7 @@ export function loadNewClient(clientKey) {
     //
     // 1. Fire async call
     //
-    async_populateFlipper(flipper);
+    __async__populateFlipper({flipper: flipper});
 
     //
     // 2. Set up header
@@ -66,7 +67,7 @@ export function loadNewClient(clientKey) {
     form.setSubmitText('Create client');
     form.addEventListener('submit', e => {
         e.preventDefault();
-        async_submitNewClient(form, generator, flipper);            
+        __async__submitNewClient({form: form, generator: generator, flipper: flipper});            
     });
 
     //
@@ -79,7 +80,7 @@ export function loadNewClient(clientKey) {
 
 }
 
-function async_populateFlipper(flipper) {
+function __async__populateFlipper({ flipper = force('flipper') }) {
     //
     // 6. Promise fill in available languages
     //
@@ -98,7 +99,11 @@ function async_populateFlipper(flipper) {
     .catch(error => console.log(error));
 }
 
-function async_submitNewClient(form, generator, flipper) {
+function __async__submitNewClient({
+            form      = force('form'), 
+            generator = force('generator'), 
+            flipper   = force('flipper'),
+    }) {
 
     //
     //  @doc https://stackoverflow.com/questions/31676135/javascript-map-is-not-a-function

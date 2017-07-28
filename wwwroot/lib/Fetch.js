@@ -10,12 +10,12 @@
 // @doc fetch POST request example - https://stackoverflow.com/questions/29775797/fetch-post-json-data
 
 
-import { mandatory } from './Util.js';
+import { force } from './Util.js';
 
 //
 // @function GET
 //
-export function GET({ route = mandatory() } = mandatory()) {
+export function GET({ route = force() } = force()) {
 
     return fetch(route, { method: 'GET' }).then((res) => { 
 
@@ -29,7 +29,7 @@ export function GET({ route = mandatory() } = mandatory()) {
 //
 // @function DELETE
 //
-export function DELETE({ route = mandatory()} = mandatory()) {
+export function DELETE({ route = force()} = force()) {
     
     console.log('fetch.DELETE:', '\nroute', route);
 
@@ -39,7 +39,7 @@ export function DELETE({ route = mandatory()} = mandatory()) {
 //
 // @function PUT
 //
-export function PUT({ route = mandatory(), data = mandatory()} = mandatory()) {
+export function PUT({ route = force(), data = force()} = force()) {
     console.log('fetch.PUT:', '\nroute', route, '\ndata', data);
 
     return fetch(route, {
@@ -55,7 +55,7 @@ export function PUT({ route = mandatory(), data = mandatory()} = mandatory()) {
 //
 // @function POST
 //
-export function POST({ route = mandatory(), data = mandatory()} = mandatory()) {
+export function POST({ route = force(), data = force()} = force()) {
     console.log('fetch.POST:', '\nroute', route, '\ndata', data);
     return fetch(route, {
         headers: {

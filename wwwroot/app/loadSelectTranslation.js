@@ -2,7 +2,7 @@
 
 import * as App from './App.js';
 import * as Route from '../lib/Route.js';
-import { mandatory as force }  from '../lib/Util.js';
+import { force } from '../lib/Util.js'; 
 
 import { View_SelectTranslation } from '../views/select-translation.js';
 

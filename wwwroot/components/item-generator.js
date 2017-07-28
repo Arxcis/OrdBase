@@ -23,34 +23,37 @@ export class Component_ItemGenerator extends HTMLElement {
         //
         this.button.addEventListener('click',  e => { 
 
-            this.button.classList.toggle('cancel');
-            this.faIcon.classList.toggle('fa-plus');
-            this.faIcon.classList.toggle('fa-times'); 
-            
-            if(this.input.style.display === 'block')
-                this.input.style.display = 'none';
+            if (this.input.style.display === 'block') {
+                this.deactivateInput();
+
+                if(this.input.value != ''){
+                    this.generateHandler.apply(this, e);
+                    this.input.value = '';
+                }
+            }
             else {
-                this.input.style.display = 'block';
-                this.input.focus();
+                this.activateInput();                
             }
         });
+    }
 
-        //
-        // Event focusout
-        //
-        this.input.addEventListener('focusout', e => {
-            
-            if(this.input.value != '') {
-                this.generateHandler(this, e);
-                this.input.value = '';
-            }
+    deactivateInput() {
+        this.input.style.display = 'none';
+        this.button.classList.remove('cancel');
+        this.faIcon.classList.remove('fa-times');                 
+        this.faIcon.classList.add('fa-plus');
 
-            this.input.style.display = 'none';
-            this.button.classList.remove('cancel');
-            this.faIcon.classList.add('fa-plus');
-            this.faIcon.classList.remove('fa-times');            
-        });
+        this.button.focus();
+    }
 
+    activateInput() {
+        this.input.style.display = 'block';
+        
+        this.faIcon.classList.remove('fa-plus');
+        this.faIcon.classList.add('fa-times'); 
+        this.button.classList.add('cancel');   
+        
+        this.input.focus();
     }
 
     OnGenerate(handler) {
@@ -58,7 +61,11 @@ export class Component_ItemGenerator extends HTMLElement {
 
         this.input.addEventListener('keydown', e => {
             if (e.keyCode === ENTER) {
-                this.generateHandler.apply(this, e);
+
+                if(this.input.value != '') {
+                    this.generateHandler.apply(this, e);
+                    this.input.value = '';
+                }
             }
         });
     }
@@ -77,7 +84,7 @@ export class Component_ItemGenerator extends HTMLElement {
     }
 
     getItemArray() {
-        return [].slice.apply(this.root.getElementById('div-generated-items').children);
+            return [].slice.apply(this.root.getElementById('div-generated-items').children);
     }
 
     addItem(item) {
@@ -87,6 +94,7 @@ export class Component_ItemGenerator extends HTMLElement {
 
     removeItem(item) {
         this.root.getElementById('div-generated-items').removeChild(item);
+        this.deactivateInput();
     }
 
     clearItems() {
