@@ -119,7 +119,10 @@ function makeTranslationCard({ groupMeta = force('groupMeta') }) {
     })
 
     card.selectHandler = () => { console.log('select handler'); }
-    card.deleteHandler = () => { console.log('delete handler'); }            
+    card.deleteHandler = () => { 
+        __async__deleteTranslationGroup({clientKey: groupMeta.clientKey, containerKey: groupMeta.containerKey, translationKey: groupMeta.key});
+        card.parentElement.removeChild(card);
+    }            
     card.button.onclick = card.selectHandler;
 
     return card;

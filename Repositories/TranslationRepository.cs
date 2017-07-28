@@ -70,6 +70,7 @@ namespace OrdBaseCore.Repositories
                     select new TranslationGroupMeta
                     {
                         Key = grp.Key,
+                        ClientKey   = clientKey,
                         ContainerKey = grp.First().ContainerKey,
                         IsComplete = grp.Select(o => new KeyValuePair<string, bool> (o.LanguageKey, o.IsComplete))
                                         .ToArray()
@@ -87,7 +88,8 @@ namespace OrdBaseCore.Repositories
                     select new TranslationGroupMeta
                     {
                         Key = grp.Key,
-                        ContainerKey = grp.First().ContainerKey,
+                        ClientKey    = clientKey,
+                        ContainerKey = containerKey,
                         IsComplete = grp.Select(o => new KeyValuePair<string, bool> (o.LanguageKey, o.IsComplete))
                                         .ToArray()
                     })
@@ -103,6 +105,7 @@ namespace OrdBaseCore.Repositories
                     select new TranslationGroupMeta
                     {
                         Key = grp.Key,
+                        ClientKey    = clientKey,
                         ContainerKey = grp.First().ContainerKey,
                         IsComplete = grp.Select(o => new KeyValuePair<string, bool> (o.LanguageKey, o.IsComplete))
                                         .ToArray()
