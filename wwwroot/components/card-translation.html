@@ -25,12 +25,19 @@
             flex: 0 0 100px;
         }
 
+        button:focus,
         button:hover {
-            background-color: var(--ordbase-color-select);
+            background-color: var(--ordbase-color-dark);
             color: var(--ordbase-color-white);
             cursor: pointer;
         }
 
+
+        button.selected:focus,
+        button.selected {
+            background-color: var(--ordbase-color-select);
+            color: var(--ordbase-color-white);
+        }
 
         #array-languagekey-complete {
             flex: 1;

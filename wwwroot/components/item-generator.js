@@ -28,7 +28,6 @@ export class Component_ItemGenerator extends HTMLElement {
                 this.deactivateInput();
 
                 if(this.input.value != ''){
-                    this.generateHandler.apply(this, e);
                     this.input.value = '';
                 }
             }

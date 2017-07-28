@@ -31,8 +31,8 @@ export function loadSelectClient() {
     //
     // 2. Set up header
     //
-    App.HEADER.setTextBig         ( 'Ordbase');
-    App.HEADER.setTextSmall       ( 'Select Client');
+    App.HEADER.setTextSmall         ( 'Ordbase');
+    App.HEADER.setTextBig       ( 'Select Client');
 
     App.HEADER.setButtonIconLeft  ( App.ICON_SQUARE);
     App.HEADER.setButtonIconRight0( App.ICON_TRASH);
@@ -46,10 +46,14 @@ export function loadSelectClient() {
             card.toggleDeleteable();
         })
 
-        if (cardArray[0].isDeleteable())
-            App.HEADER.textSmall = 'Delete Client';
-        else 
-            App.HEADER.textSmall = 'Select Client';   
+        if (cardArray[0].isDeleteable()) {
+            App.HEADER.setTextBig('Delete Client');
+            App.HEADER.setButtonColorLeft('--ordbase-color-danger');            
+        }
+        else { 
+            App.HEADER.setTextBig('Select Client');
+            App.HEADER.setButtonColorLeft('--ordbase-color-success');
+        }   
     };    
 
     App.HEADER.getButtonRight1().onclick = event => { 
@@ -58,10 +62,14 @@ export function loadSelectClient() {
             card.toggleEditable();
         })
 
-        if (cardArray[0].isEditable())
-            App.HEADER.textSmall = 'Edit Client';
-        else 
-            App.HEADER.textSmall = 'Select Client'; 
+        if (cardArray[0].isEditable()) {
+            App.HEADER.setTextBig('Edit Client');
+            App.HEADER.setButtonColorLeft('--ordbase-color-select');            
+        }
+        else {
+            App.HEADER.setTextBig('Select Client'); 
+            App.HEADER.setButtonColorLeft('--ordbase-color-success');            
+        }        
     };
     App.HEADER.getButtonRight2().onclick = event => loadNewClient();
 

@@ -9,15 +9,14 @@ export class View_SelectTranslation extends HTMLElement {
         this.root.innerHTML = html;
 
         this.activeContainerButton = null;
+        this.activeTranslationCard = null;        
     }
 
-    setActiveContainerButton(button) {
-        this.activeContainerButton = button;
-    }
+    setActiveContainerButton(button) { this.activeContainerButton = button; }
+    setActiveTranslationCard(card) { this.activeTranslationCard = card; }
 
-    getActiveContainerButton() {
-        return this.activeContainerButton;
-    }
+    getActiveContainerButton() { return this.activeContainerButton; }
+    getActiveTranslationCard() { return this.activeTranslationCard; }
 
     addContainerButton (button) {       
         this.root.querySelector('#list-containers-on-client').appendChild(button);    
