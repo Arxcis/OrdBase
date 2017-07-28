@@ -2,7 +2,7 @@
 
 import * as App from './App.js';
 import * as Route from '../lib/Route.js';
-import { mandatory as panic }  from '../lib/Util.js';
+import { mandatory as force }  from '../lib/Util.js';
 
 import { View_SelectTranslation } from '../views/select-translation.js';
 
@@ -101,8 +101,8 @@ export function loadSelectTranslation (clientKey) {
 // ASYNC GET CALLS
 //
 function __async__getDefaultLanguages({
-            clientKey = panic('clientKey'), 
-            languageArray = panic('languageArray'),
+            clientKey     = force('clientKey'), 
+            languageArray = force('languageArray'),
     }){
         Route.client_getDefaultLanguages(clientKey).then(resLanguageArray => {
             resLanguageArray.forEach(language => {
@@ -114,11 +114,11 @@ function __async__getDefaultLanguages({
     }
 
 function __async__generateSelectButtons({
-            view        = panic('view'), 
-            generator   = panic('generator'),  
-            buttonArray = panic('buttonArray'), 
-            cardArray   = panic('cardArray'), 
-            clientKey   = panic('clientKey')
+            view        = force('view'), 
+            generator   = force('generator'),  
+            buttonArray = force('buttonArray'), 
+            cardArray   = force('cardArray'), 
+            clientKey   = force('clientKey')
     }) {
 
 
@@ -152,10 +152,10 @@ function __async__generateSelectButtons({
 
 
 function __async__generateTranslationCards({
-            generator    = panic('generator'), 
-            cardArray    = panic('cardArray'), 
-            clientKey    = panic('clientKey'), 
-            containerKey = panic('containerKey')
+            generator    = force('generator'), 
+            cardArray    = force('cardArray'), 
+            clientKey    = force('clientKey'), 
+            containerKey = force('containerKey')
     }) {
 
     Route.translation_getGroupMetaOnContainer(clientKey, containerKey).then(groupMetaArray => {
@@ -180,10 +180,10 @@ function __async__generateTranslationCards({
 // ASYNC CREATE DELETE
 //
 function __async__submitNewTranslationGroup({
-            generator        = panic('generator'), 
-            clientKey        = panic('clientKey'), 
-            translationKey   = panic('translationKey'),
-            translationArray = panic('translationArray'),            
+            generator        = force('generator'), 
+            clientKey        = force('clientKey'), 
+            translationKey   = force('translationKey'),
+            translationArray = force('translationArray'),            
     }) {
 
     Route.translation_createMany(translationArray).then(res => {
@@ -206,9 +206,9 @@ function __async__submitNewTranslationGroup({
 }
 
 function __async__deleteTranslationGroup({
-            clientKey      = panic('clientKey'), 
-            containerKey   = panic('containerKey'), 
-            translationKey = panic('translationKey'),
+            clientKey      = force('clientKey'), 
+            containerKey   = force('containerKey'), 
+            translationKey = force('translationKey'),
     }) {
     Route.translation_deleteGroup(clientKey, containerKey, translationKey).catch(err => console.error('Error:', err));
 }
