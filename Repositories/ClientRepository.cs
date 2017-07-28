@@ -122,7 +122,7 @@ namespace OrdBaseCore.Repositories
 
         public IActionResult UpdateDefaultContainers(string clientKey, IEnumerable<string> defaultContainers) 
         {
-            // @doc Why list here --> https://stackoverflow.com/questions/2113498/sqlexception-from-entity-framework-new-transaction-is-not-allowed-because-ther
+            // @doc Why List? here --> https://stackoverflow.com/questions/2113498/sqlexception-from-entity-framework-new-transaction-is-not-allowed-because-ther
             List<ClientContainer> newContainers = (from dc in defaultContainers
                                                     select new ClientContainer {
                                                         ClientKey = clientKey,

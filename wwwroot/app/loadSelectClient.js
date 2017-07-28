@@ -40,41 +40,35 @@ export function loadSelectClient() {
     App.HEADER.setButtonIconRight2( App.ICON_PLUS);
 
     App.HEADER.getButtonLeft().onclick   = App.defaultHandler;    
-    App.HEADER.getButtonRight0().onclick = event => { setCardState(cardArray, 'deleteable')};    
-    App.HEADER.getButtonRight1().onclick = event => { setCardState(cardArray, 'editable')};
+    App.HEADER.getButtonRight0().onclick = event => { 
+
+        cardArray.forEach(card => {
+            card.toggleDeleteable();
+        })
+
+        if (cardArray[0].isDeleteable())
+            App.HEADER.textSmall = 'Delete Client';
+        else 
+            App.HEADER.textSmall = 'Select Client';   
+    };    
+
+    App.HEADER.getButtonRight1().onclick = event => { 
+     
+        cardArray.forEach(card => {
+            card.toggleEditable();
+        })
+
+        if (cardArray[0].isEditable())
+            App.HEADER.textSmall = 'Edit Client';
+        else 
+            App.HEADER.textSmall = 'Select Client'; 
+    };
     App.HEADER.getButtonRight2().onclick = event => loadNewClient();
 
     //
     // 3. Insert new view into DOM
     //
     App.switchView(view);
-}
-
-
-//
-// @note the situation going on here with some sort of statehandling is hacky. I would prefer
-//        a more clean solution.. TBD what that would be .. - JSolsvik 28.07.17
-//
-let state = '';
-function setCardState(cards, newState) {
-    
-    state = (state == newState)? '' : newState;
-
-    cards.forEach(card => {
-
-        if (state === 'editable') {
-            App.HEADER.textSmall = 'Select Client to Edit';
-            card.setState_Editable();
-        }
-        else if (state === 'deleteable') {
-            App.HEADER.textSmall = 'Select Client to Delete';
-            card.setState_Deleteable();            
-        }
-        else {
-            App.HEADER.textSmall = 'Select Client';                
-            card.setState_Selectable();
-        }
-    });
 }
 
 //
@@ -96,12 +90,11 @@ function __async__generateCards({
             card.setText(client.webpageUrl);
             card.setThumbnail(client.thumbnailUrl);
 
-            // @note Duct-typing logic variables, used for later in edit click event
+            // @note Duct-typing logic variables, used for later in edit click even
             card.selectHandler = event => loadSelectTranslation(client.key);
             card.editHandler   = event => loadEditClient(client.key);
             card.deleteHandler = event => __async__deleteCard({clientKey: client.key, view: view, card: card});
-            
-            card.setState_Selectable();
+            card.button.onclick = card.selectHandler;
 
             cardArray.push(card);
             view.appendCard(card);

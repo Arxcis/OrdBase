@@ -4,6 +4,7 @@ import html from './item-generator.html';
 const ESC   = 27;
 const ENTER = 13;
 const TAB   = 9;
+const BACKSPACE = 8;
 
 export class Component_ItemGenerator extends HTMLElement {
 
@@ -66,6 +67,9 @@ export class Component_ItemGenerator extends HTMLElement {
                     this.generateHandler.apply(this, e);
                     this.input.value = '';
                 }
+            }
+            else if (e.keyCode === ESC) {
+                this.deactivateInput();
             }
         });
     }

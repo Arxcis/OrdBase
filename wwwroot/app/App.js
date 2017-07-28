@@ -20,6 +20,9 @@ export const ICON_CHECK      = 'fa-check';
 export const ICON_PENCIL     = 'fa-pencil';
 export const ICON_TRASH      = 'fa-trash';
 
+const BACKSPACE = 8;
+const HOME = 36;
+
 // Cache static element references
 
 // @note hack-below I am not proud of the way I am filling in the Header view here.
@@ -36,6 +39,11 @@ export function switchView(view) {
 }
 
 const MAIN = document.getElementById('ordbase-main');    
+
+document.addEventListener('keydown', (e) => {
+    if (e.keyCode === HOME)    
+        loadSelectClient();
+})
 
 window.addEventListener('load', () => {
     loadSelectClient();

@@ -33,7 +33,7 @@ export function loadSelectTranslation (clientKey) {
 
     // Setup header
     App.HEADER.setTextBig         ( 'Ordbase');
-    App.HEADER.setTextSmall       ( `Select ${clientKey} Translation`);
+    App.HEADER.setTextSmall       ( `Select Translation`);
     App.HEADER.setButtonIconLeft  ( App.ICON_BARS);
     App.HEADER.setButtonIconRight0( App.ICON_NONE);
     App.HEADER.setButtonIconRight1( App.ICON_TRASH);
@@ -41,8 +41,21 @@ export function loadSelectTranslation (clientKey) {
 
     App.HEADER.getButtonLeft().onclick   = App.defaultHandler;
     App.HEADER.getButtonRight0().onclick = App.defaultHandler;    
-    App.HEADER.getButtonRight1().onclick = App.defaultHandler;
-    App.HEADER.getButtonRight2().onclick = event => loadSelectClient();
+    App.HEADER.getButtonRight1().onclick = e => {
+            
+        cardArray.forEach(card => {
+            console.log(card);
+            card.toggleDeleteable();
+        })
+
+        if(cardArray[0].isDeleteable())
+            App.HEADER.textSmall = 'Delete Translation';
+        else {
+            App.HEADER.textSmall = 'Select Translation'; 
+        }               
+    }
+
+    App.HEADER.getButtonRight2().onclick = e => loadSelectClient();
 
     //
     // Component_SelectButton
@@ -97,6 +110,7 @@ export function loadSelectTranslation (clientKey) {
     App.switchView(view);
 }
 
+
 //
 // ASYNC GET CALLS
 //
@@ -104,6 +118,7 @@ function __async__getDefaultLanguages({
             clientKey     = force('clientKey'), 
             languageArray = force('languageArray'),
     }){
+        
         Route.client_getDefaultLanguages(clientKey).then(resLanguageArray => {
             resLanguageArray.forEach(language => {
                 languageArray.push(language);

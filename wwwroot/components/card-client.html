@@ -11,6 +11,25 @@
             color: var(--ordbase-color-dark);
         }
 
+        @keyframes focusAnimation {
+            from {
+                width: 250px;
+                height: 220px;
+            }
+            to {
+                width: 251px;
+                height: 221px;
+            }
+        }
+
+        button:hover,
+        button:focus {
+            width: 251px;
+            height: 221px;
+            animation-name: focusAnimation;
+            animation-duration: .4s;
+        }
+
         button {
             background-color: transparent;
             border: none; 
