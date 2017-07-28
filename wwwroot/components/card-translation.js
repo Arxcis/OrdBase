@@ -7,27 +7,23 @@ export class Component_TranslationCard extends HTMLElement {
         super();
         this.root = this.createShadowRoot();
         this.root.innerHTML = html;
+
+        this.template = this.root.getElementById('template-languagekey-complete');
     }
     
     set key (key)            { this.root.querySelector('span').innerHTML = key;  }
     set onClickCard(handler) { this.root.querySelector('button').onclick = handler; }
 
-    makeLanguageKeyAndIcon(languageKey, isComplete) { 
-        let languageElement = document.createElement('div');
-        let isCompleteIcon  = document.createElement('i');
+    makeLanguagekeyComplete(languageKey, isComplete) { 
 
-        languageElement.innerHTML = languageKey;
-        isCompleteIcon.classList.add('fa');
-       
-        if (isComplete) {
-            isCompleteIcon.classList.add('fa-check');
+        let fragment = this.template.content.cloneNode(true);
+        
+        fragment.querySelector('span').innerHTML = languageKey;
+        if (isComplete === true) {
+            fragment.querySelector('i').classList.remove('fa-times');
+            fragment.querySelector('i').classList.add('fa-check');
         }
-        else {
-            isCompleteIcon.classList.add('fa-times');
-        }
-
-        this.root.getElementById('div-languages-complete').appendChild(languageElement);
-        this.root.getElementById('div-languages-complete').appendChild(isCompleteIcon);  
+        this.root.getElementById('array-languagekey-complete').appendChild(fragment);
     }
 }
 customElements.define('component-card-translation', Component_TranslationCard);

@@ -62,7 +62,6 @@ export class Component_ItemGenerator extends HTMLElement {
             }
         });
     }
-
         
     setInputValue(_value) {
         this.input.value = _value;
@@ -72,27 +71,30 @@ export class Component_ItemGenerator extends HTMLElement {
         return this.input.value;
     }
 
+    setButtonHeight(height) {
+        this.button.style.height = `${height}px`;
+        this.input.style.height  = `${height-10}px`
+    }
+
     getItemArray() {
-        return [].slice.call(this.root.querySelectorAll('.generated'));
+        return [].slice.apply(this.root.getElementById('div-generated-items').children);
     }
 
     addItem(item) {
-            item.classList.add('generated')
-            this.root.insertBefore(item, this.input);
+        item.classList.add('generated')
+        this.root.getElementById('div-generated-items').appendChild(item);
     }
 
     removeItem(item) {
-        this.root.removeChild(item);
+        this.root.getElementById('div-generated-items').removeChild(item);
     }
 
     clearItems() {
-        let items = this.root.querySelectorAll('.generated');
-
-        [].slice.call(items)
-        .forEach(e => { 
-            this.root.removeChild(e); 
-        });
+        this.root.getElementById('div-generated-items').innerHTML = '';
     }
+
+    activate()   { this.button.style.display = 'block'; }
+    deactivate() { this.button.style.display  = 'none'; }
 }
 
 customElements.define('component-item-generator', Component_ItemGenerator);

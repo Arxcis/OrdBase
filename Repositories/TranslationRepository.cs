@@ -60,15 +60,19 @@ namespace OrdBaseCore.Repositories
                     .ToArray();
         }
 
+
         public TranslationGroupMeta GetGroupMeta(string clientKey, string translationKey)
         {
             return (from t in _context.Translation
                     where t.ClientKey == clientKey && t.Key == translationKey
                     group t by t.Key
                     into grp
-                    select new TranslationGroupMeta { 
+                    select new TranslationGroupMeta
+                    {
                         Key = grp.Key,
-                        IsComplete = grp.ToDictionary(o => o.LanguageKey, o => o.IsComplete)
+                        ContainerKey = grp.First().ContainerKey,
+                        IsComplete = grp.Select(o => new KeyValuePair<string, bool> (o.LanguageKey, o.IsComplete))
+                                        .ToArray()
                     })
                     .First();
         }
@@ -83,7 +87,9 @@ namespace OrdBaseCore.Repositories
                     select new TranslationGroupMeta
                     {
                         Key = grp.Key,
-                        IsComplete = grp.ToDictionary(o => o.LanguageKey, o => o.IsComplete)
+                        ContainerKey = grp.First().ContainerKey,
+                        IsComplete = grp.Select(o => new KeyValuePair<string, bool> (o.LanguageKey, o.IsComplete))
+                                        .ToArray()
                     })
                     .ToArray();
         }
@@ -97,7 +103,9 @@ namespace OrdBaseCore.Repositories
                     select new TranslationGroupMeta
                     {
                         Key = grp.Key,
-                        IsComplete = grp.ToDictionary(o => o.LanguageKey, o => o.IsComplete)
+                        ContainerKey = grp.First().ContainerKey,
+                        IsComplete = grp.Select(o => new KeyValuePair<string, bool> (o.LanguageKey, o.IsComplete))
+                                        .ToArray()
                     })
                     .ToArray();
         }

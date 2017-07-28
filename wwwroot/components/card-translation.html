@@ -1,4 +1,6 @@
     <style>    
+@import url('./node_modules/font-awesome/css/font-awesome.min.css');
+
         :host {
             width:100%;
         }
@@ -19,23 +21,28 @@
             font-size: var(--ordbase-button-font-size);
         }
 
-        button 
-        span {
+        button span {
             flex: 0 0 100px;
-        }
-
-        button
-        .languages-complete {
-            flex: 1;
-            display: flex;
-            justify-content: flex-end;
-            flex-wrap: wrap;
         }
 
         button:hover {
             background-color: var(--ordbase-color-select);
             color: var(--ordbase-color-white);
             cursor: pointer;
+        }
+
+
+        #array-languagekey-complete {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .languagekey-complete {
+            display: flex;
+            flex: 0 0 100px;
+            margin: 0px 20px 0px 20px;
         }
 
         .fa-check {
@@ -49,11 +56,17 @@
 
     <button class="btn-load-translation-editor">
         <span class="translation-key">{{ translationKey }}</span>
-        <div  id="div-languages-complete" class="languages-complete">
+        
+        <div  id="array-languagekey-complete">
             
-            <!--component-group-key-icon> <component-group-key-icon>-->
-            <!--component-group-key-icon> <component-group-key-icon>-->
-            <!--component-group-key-icon> <component-group-key-icon>-->
+            <template id="template-languagekey-complete">
+
+                <div class="languagekey-complete">
+                    <span>{{languageKey}}</span>
+                    <i class="fa fa-times"></i>
+                </div>
+        
+            </template>
 
         </div>
     </button>  
