@@ -33,8 +33,8 @@ export function loadEditClient(clientKey) {
     //
     // 3. Set up header
     //
-    App.HEADER.setTextBig('Ordbase');    
-    App.HEADER.setTextSmall(`Edit ${clientKey}`);
+    App.HEADER.setTextSmall('Ordbase');    
+    App.HEADER.setTextBig(`Edit ${clientKey}`);
     
     App.HEADER.setButtonIconLeft(App.ICON_BARS);
     App.HEADER.setButtonIconRight0(App.ICON_NONE);        

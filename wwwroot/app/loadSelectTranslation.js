@@ -38,8 +38,8 @@ export function loadSelectTranslation (clientKey) {
     //
     // 2. Setup header
     //
-    App.HEADER.setTextBig         ( 'Ordbase');
-    App.HEADER.setTextSmall       ( `Select Translation`);
+    App.HEADER.setTextSmall         ( 'Ordbase');
+    App.HEADER.setTextBig       ( `Select Translation`);
     App.HEADER.setButtonIconLeft  ( App.ICON_BARS);
     App.HEADER.setButtonIconRight0( App.ICON_NONE);
     App.HEADER.setButtonIconRight1( App.ICON_TRASH);

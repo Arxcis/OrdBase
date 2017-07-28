@@ -34,6 +34,7 @@ export function loadSelectClient() {
     App.HEADER.setTextSmall         ( 'Ordbase');
     App.HEADER.setTextBig       ( 'Select Client');
 
+    App.HEADER.setButtonColorLeft('--ordbase-color-success');
     App.HEADER.setButtonIconLeft  ( App.ICON_SQUARE);
     App.HEADER.setButtonIconRight0( App.ICON_TRASH);
     App.HEADER.setButtonIconRight1( App.ICON_PENCIL);    
