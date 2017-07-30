@@ -30,14 +30,6 @@ namespace OrdBaseCore.Repositories
                     .ToArray();        
         }
 
-        public IEnumerable<Translation> GetAll(string clientKey)
-        {
-            return (from t in _context.Translation
-                    where t.ClientKey == clientKey
-                    select t)
-                    .ToArray();
-        }
-
         //
         // GET translation/group
         // 
@@ -48,18 +40,6 @@ namespace OrdBaseCore.Repositories
                     select t)
                     .ToArray();
         }
-
-
-        public IEnumerable<IEnumerable<Translation>> GetGroupAll(string clientKey)
-        {
-            return (from t in _context.Translation
-                    where t.ClientKey == clientKey
-                    group t by t.Key
-                    into grp
-                    select grp.ToArray())
-                    .ToArray();
-        }
-
 
         public TranslationGroupMeta GetGroupMeta(string clientKey, string translationKey)
         {
@@ -78,71 +58,12 @@ namespace OrdBaseCore.Repositories
                     .First();
         }
 
-
-        public IEnumerable<TranslationGroupMeta> GetGroupMetaOnContainer(string clientKey, string containerKey)
-        {
-            return (from t in _context.Translation
-                    where t.ClientKey == clientKey && t.ContainerKey == containerKey
-                    group t by t.Key
-                    into grp
-                    select new TranslationGroupMeta
-                    {
-                        Key = grp.Key,
-                        ClientKey    = clientKey,
-                        ContainerKey = containerKey,
-                        IsComplete = grp.Select(o => new KeyValuePair<string, bool> (o.LanguageKey, o.IsComplete))
-                                        .ToArray()
-                    })
-                    .ToArray();
-        }
-        
-        public IEnumerable<TranslationGroupMeta> GetGroupMetaAll(string clientKey)
-        {
-            return (from t in _context.Translation
-                    where t.ClientKey == clientKey
-                    group t by t.Key
-                    into grp
-                    select new TranslationGroupMeta
-                    {
-                        Key = grp.Key,
-                        ClientKey    = clientKey,
-                        ContainerKey = grp.First().ContainerKey,
-                        IsComplete = grp.Select(o => new KeyValuePair<string, bool> (o.LanguageKey, o.IsComplete))
-                                        .ToArray()
-                    })
-                    .ToArray();
-        }
-
-        //
-        // GET translation/container
-        //
-        public IEnumerable<Translation> GetOnContainer (string clientKey, string containerKey) 
-        {
-            return (from t in _context.Translation
-                    where t.ClientKey == clientKey && t.ContainerKey == containerKey
-                    select t)
-                        .ToArray();
-        }
-
-         public IEnumerable<KeyValuePair<string,string>> GetOnContainerLanguage (string clientKey, string languageKey, string containerKey) 
+         public IEnumerable<KeyValuePair<string,string>> GetKeyValue (string clientKey, string languageKey, string containerKey) 
         {
             return (from t in _context.Translation
                     where t.ClientKey == clientKey && t.LanguageKey  == languageKey && t.ContainerKey == containerKey
                     select t)
                         .ToDictionary(o => o.Key, o => o.Text);            
-        }
-
-        //
-        // GET translation/language
-        //
-        public IEnumerable<Translation> GetOnLanguage(string clientKey, string languageKey)
-        {
-            return (from t in _context.Translation
-
-                    where t.ClientKey   == clientKey &&
-                          t.LanguageKey == languageKey
-                    select t)
-                        .ToArray();
         }
 
         //
@@ -155,7 +76,7 @@ namespace OrdBaseCore.Repositories
             return new NoContentResult {};
         }
 
-        public IActionResult CreateMany(IEnumerable<Translation> translationArray) 
+        public IActionResult CreateArray(IEnumerable<Translation> translationArray) 
         {   
             _context.Translation.AddRange(translationArray);            
             _context.SaveChanges();

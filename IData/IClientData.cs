@@ -21,7 +21,7 @@ namespace OrdBaseCore.IData
         //
         // SET Containers and languages connected to client
         //
-        IActionResult SetContainers(string clientKey, IEnumerable<string> defaultContainers);
-        IActionResult SetLanguages(string clientKey, IEnumerable<string> defultLanguages);
+        IActionResult SetContainers(string clientKey, IEnumerable<string> containerArray);
+        IActionResult SetLanguages(string clientKey, IEnumerable<string> languageArray);
     }	
 }
