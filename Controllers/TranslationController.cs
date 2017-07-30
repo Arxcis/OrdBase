@@ -38,7 +38,7 @@ namespace OrdBaseCore.Controllers
         } 
 
         [HttpGet("api/translation/container")]
-        public IEnumerable<TranslationKeyValue> GetKeyValue([FromQuery] TranslationQuery query)
+        public IEnumerable<KeyValuePair<string,string>> GetKeyValue([FromQuery] TranslationQuery query)
         {
             return _translationRepo.GetKeyValue(query); 
         }
@@ -69,7 +69,10 @@ namespace OrdBaseCore.Controllers
         [HttpPut("api/translation/update")]
         public IActionResult Update([FromQuery] TranslationQuery query, [FromBody] Translation translation)
         {   
-            if (translation == null || query == null) 
+            if (query == null || translation == null || query.ClientKey      != translation.ClientKey    ||
+                                                        query.LanguageKey    != translation.LanguageKey  ||
+                                                        query.ContainerKey   != translation.ContainerKey ||
+                                                        query.TranslationKey != translation.Key) 
                 return BadRequest();
             
             return _translationRepo.Update(query, translation);
@@ -78,12 +81,23 @@ namespace OrdBaseCore.Controllers
         [HttpDelete("api/translation/delete")]
         public IActionResult Delete([FromQuery] TranslationQuery query)
         {
+            if (query == null || query.ClientKey      == null
+                              || query.LanguageKey    == null
+                              || query.ContainerKey   == null
+                              || query.TranslationKey == null)
+                return BadRequest();
+
             return _translationRepo.Delete(query);
         }
 
         [HttpDelete("api/translation/delete/group")]
         public IActionResult DeleteGroup([FromQuery] TranslationGroupQuery query)
         {
+            if (query == null || query.ClientKey      == null
+                              || query.ContainerKey   == null
+                              || query.TranslationKey == null)
+                return BadRequest();
+
             return _translationRepo.DeleteGroup(query);
         }
     }

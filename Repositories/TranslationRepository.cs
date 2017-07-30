@@ -22,48 +22,66 @@ namespace OrdBaseCore.Repositories
         public IEnumerable<Translation> Get(TranslationQuery query)
         {
             return (from t in _context.Translation
-                    where t.ClientKey    ==  query.ClientKey &&
-                          t.LanguageKey  ==  query.LanguageKey &&
-                          t.ContainerKey ==  query.ContainerKey &&
-                          t.Key          ==  query.TranslationKey
+                    where t.ClientKey    == query.ClientKey      || query.ClientKey      == null &&
+                          t.LanguageKey  == query.LanguageKey    || query.LanguageKey    == null &&
+                          t.ContainerKey == query.ContainerKey   || query.ContainerKey   == null &&
+                          t.Key          == query.TranslationKey || query.TranslationKey == null
                     select t)
                     .ToArray();        
+        }
+
+        public IEnumerable<KeyValuePair<string,string>> GetKeyValue (TranslationQuery query) 
+        {
+            return (from t in _context.Translation
+                    where t.ClientKey    == query.ClientKey      || query.ClientKey      == null &&
+                          t.LanguageKey  == query.LanguageKey    || query.LanguageKey    == null &&
+                          t.ContainerKey == query.ContainerKey   || query.ContainerKey   == null &&
+                          t.Key          == query.TranslationKey || query.TranslationKey == null
+                    select new KeyValuePair<string,string>(t.Key, t.Text))
+                    .ToArray();            
         }
 
         //
         // GET translation/group
         // 
-        public IEnumerable<Translation> GetGroup(string clientKey, string translationKey)
+        public IEnumerable<TranslationGroup> GetGroup(TranslationGroupQuery query)
         {
             return (from t in _context.Translation
-                    where t.ClientKey == clientKey && t.Key == translationKey
-                    select t)
+                    where t.ClientKey    == query.ClientKey      || query.ClientKey      == null &&
+                          t.ContainerKey == query.ContainerKey   || query.ContainerKey   == null &&
+                          t.Key          == query.TranslationKey || query.TranslationKey == null
+                    group t by t.Key
+                    into grp
+                    select new TranslationGroup
+                    {
+                        Key          = grp.Key,
+                        ClientKey    = query.ClientKey,
+                        ContainerKey = query.ContainerKey,
+                        Items        = grp.ToArray()
+                    }) 
                     .ToArray();
         }
 
-        public TranslationGroupMeta GetGroupMeta(string clientKey, string translationKey)
+        public IEnumerable<TranslationGroupMeta> GetGroupMeta(TranslationGroupQuery query)
         {
             return (from t in _context.Translation
-                    where t.ClientKey == clientKey && t.Key == translationKey
+                    where t.ClientKey    == query.ClientKey      || query.ClientKey      == null &&
+                          t.ContainerKey == query.ContainerKey   || query.ContainerKey   == null &&
+                          t.Key          == query.TranslationKey || query.TranslationKey == null
                     group t by t.Key
                     into grp
                     select new TranslationGroupMeta
                     {
-                        Key = grp.Key,
-                        ClientKey   = clientKey,
-                        ContainerKey = grp.First().ContainerKey,
-                        IsComplete = grp.Select(o => new KeyValuePair<string, bool> (o.LanguageKey, o.IsComplete))
-                                        .ToArray()
+                        Key          = grp.Key,
+                        ClientKey    = query.ClientKey,
+                        ContainerKey = query.ContainerKey,
+                        Items        = grp.Select(t => new TranslationGroupMeta.Item 
+                        { 
+                            LanguageKey = t.LanguageKey,
+                            IsComplete  = t.IsComplete ,
+                        })
                     })
-                    .First();
-        }
-
-         public IEnumerable<KeyValuePair<string,string>> GetKeyValue (string clientKey, string languageKey, string containerKey) 
-        {
-            return (from t in _context.Translation
-                    where t.ClientKey == clientKey && t.LanguageKey  == languageKey && t.ContainerKey == containerKey
-                    select t)
-                        .ToDictionary(o => o.Key, o => o.Text);            
+                    .ToArray();
         }
 
         //
@@ -84,33 +102,33 @@ namespace OrdBaseCore.Repositories
         }
 
 
-        public IActionResult Update(Translation item) 
+        public IActionResult Update(TranslationQuery query, Translation translation) 
         {   
-            // @note - Documentation suggest using FirstOrDefault here. I Do not fully understand what default means in this context - JSolsvik 23.06.17
-            var translation = _context.Translation.First(
-                t => t.ClientKey == item.ClientKey &&
-                     t.LanguageKey == item.LanguageKey &&
-                     t.Container == item.Container &&
-                     t.Key == item.Key);
+            var _translation = _context.Translation.First(
+                t => t.ClientKey    == query.ClientKey    &&
+                     t.LanguageKey  == query.LanguageKey  &&
+                     t.ContainerKey == query.ContainerKey &&
+                     t.Key          == query.TranslationKey);
 
-            if (translation == null) 
+            if (_translation == null) 
                 return new NotFoundResult {};
 
-            translation.Text = item.Text;
-            translation.IsComplete = item.IsComplete;
+            _translation.Key        = translation.Key;
+            _translation.Text       = translation.Text;
+            _translation.IsComplete = translation.IsComplete;
             
-            _context.Translation.Update(translation);
+            _context.Translation.Update(_translation);
             _context.SaveChanges();
             return new NoContentResult {};
         }
 
-        public IActionResult Delete(string clientKey,string containerKey, string translationKey, string languageKey) 
+        public IActionResult Delete(TranslationQuery query) 
         {   
             var translation = _context.Translation.First(
-                t => t.ClientKey    == clientKey &&
-                     t.LanguageKey  == languageKey &&
-                     t.ContainerKey == containerKey &&
-                     t.Key          == translationKey);    
+                t => t.ClientKey    == query.ClientKey    &&
+                     t.LanguageKey  == query.LanguageKey  &&
+                     t.ContainerKey == query.ContainerKey &&
+                     t.Key          == query.TranslationKey);    
             
             if (translation == null)
                 return new NotFoundResult {};
@@ -121,12 +139,12 @@ namespace OrdBaseCore.Repositories
         }
 
 
-        public IActionResult DeleteGroup(string clientKey, string containerKey, string translationKey) 
+        public IActionResult DeleteGroup(TranslationGroupQuery query) 
         {   
             var translationGroup = _context.Translation.Where(
-                t => t.ClientKey    == clientKey &&
-                     t.ContainerKey == containerKey &&
-                     t.Key          == translationKey);    
+                t => t.ClientKey    == query.ClientKey &&
+                     t.ContainerKey == query.ContainerKey &&
+                     t.Key          == query.TranslationKey);    
             
             if (translationGroup == null)
                 return new NotFoundResult {};

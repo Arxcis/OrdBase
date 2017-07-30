@@ -15,7 +15,7 @@ namespace OrdBaseCore.IData
         // CREATE UPDATE DELETE client
         //
         IActionResult Create(Client client);
-        IActionResult Update(Client client);
+        IActionResult Update(string clientKey, Client client);
         IActionResult Delete(string clientKey);
        
         //

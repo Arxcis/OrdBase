@@ -1,10 +1,10 @@
-
+using System.Collections.Generic;
 using OrdBaseCore.Models;
 
 namespace OrdBaseCore.IData
 {
     public interface IContainerData
     {
-        string[] Get(string containerKey);
+        IEnumerable<Container> Get(string containerKey);
     }	
 }

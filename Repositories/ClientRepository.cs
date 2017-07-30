@@ -27,7 +27,7 @@ namespace OrdBaseCore.Repositories
         	return (from c in _context.Client
         			where c.Key == clientKey
         			select c)
-        				.ToArray();
+        			.ToArray();
         } 
 
         public IEnumerable<string> GetContainers(string clientKey)
@@ -35,7 +35,7 @@ namespace OrdBaseCore.Repositories
             return (from cl in _context.ClientContainer
                     where cl.ClientKey == clientKey
                     select cl.ContainerKey)
-                        .ToArray();
+                    .ToArray();
         }     
 
         public IEnumerable<string> GetLanguages(string clientKey)
@@ -43,7 +43,7 @@ namespace OrdBaseCore.Repositories
             return (from cl in _context.ClientLanguage
                     where cl.ClientKey == clientKey
                     select cl.LanguageKey)
-                        .ToArray();
+                    .ToArray();
         }
 
         //
@@ -56,20 +56,20 @@ namespace OrdBaseCore.Repositories
             return new NoContentResult {};
         }
 
-        public IActionResult Update(Client item) 
+        public IActionResult Update(string clientKey, Client client) 
         {
             // @note Do some research into if there is any better cleaner way to update entry in the database. -JSolsvik 26.07.17
-            var client = _context.Client.First(c => c.Key == item.Key);
+            var _client = _context.Client.First(c => c.Key == clientKey);
 
-            if (client == null)
+            if (_client == null)
                 return new NotFoundResult {};
 
-            client.Key          = item.Key;
-            client.ApiKey       = item.ApiKey;
-            client.WebpageUrl   = item.WebpageUrl;
-            client.ThumbnailUrl = item.ThumbnailUrl;
+            _client.Key          = client.Key;
+            _client.ApiKey       = client.ApiKey;
+            _client.WebpageUrl   = client.WebpageUrl;
+            _client.ThumbnailUrl = client.ThumbnailUrl;
 
-            _context.Client.Update(client);
+            _context.Client.Update(_client);
             _context.SaveChanges();
             return new NoContentResult {};   
         }
@@ -77,6 +77,7 @@ namespace OrdBaseCore.Repositories
         public IActionResult Delete(string clientKey) 
         {
             var client = _context.Client.First(c => c.Key == clientKey);
+            
             if (client == null)
                 return new NotFoundResult {};
 
@@ -88,31 +89,36 @@ namespace OrdBaseCore.Repositories
         //
         // SET containers and langugaes on client
         //
-        public IActionResult SetContainers(string clientKey, IEnumerable<string> defaultContainers)
+        public IActionResult SetContainers(string clientKey, IEnumerable<string> containerArray)
         {
 
-            // @note This could be simplified using AddRange(select blabalbla)
+            var _clientContainers = _context.ClientContainer.Where(cc => cc.ClientKey == clientKey);
+            _context.RemoveRange(_clientContainers);
+            _context.SaveChanges();
 
-           foreach (var containerKey in defaultContainers) {
-                _context.ClientContainer.Add( new ClientContainer 
-                {
-                    ClientKey = clientKey,
-                    ContainerKey = containerKey,
-                });
-           };
+            var clientContainers = containerArray.Select(containerKey => new ClientContainer 
+            { 
+                ClientKey = clientKey, 
+                ContainerKey = containerKey,
+            });
+
+            _context.AddRange(clientContainers);
             _context.SaveChanges();
             return new NoContentResult {};
         }
-        public IActionResult SetLanguages(string clientKey, IEnumerable<string> defaultLanguages)
+        public IActionResult SetLanguages(string clientKey, IEnumerable<string> languageArray)
         {
-            foreach (var languageKey in defaultLanguages) {
+            var _clientLanguages = _context.ClientLanguage.Where(cl => cl.ClientKey == clientKey);
+            _context.RemoveRange(_clientLanguages);
+            _context.SaveChanges();
 
-                _context.ClientLanguage.Add( new ClientLanguage 
-                {
-                    ClientKey = clientKey,
-                    LanguageKey = languageKey,
-                });
-            };
+            var clientLanguages = languageArray.Select(languageKey => new ClientLanguage 
+            { 
+                ClientKey   = clientKey, 
+                LanguageKey = languageKey,
+            });
+
+            _context.AddRange(clientLanguages);
             _context.SaveChanges();
             return new NoContentResult {};            
         }

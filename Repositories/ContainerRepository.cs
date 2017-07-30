@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Collections.Generic;
 
 using OrdBaseCore.Models;
 using OrdBaseCore.IData;
@@ -16,9 +17,11 @@ namespace OrdBaseCore.Repositories
         public ContainerRepository (TranslationDb context) 
         { _context = context; }
         
-        public string[] Get(string containerKey)
+        public IEnumerable<Container> Get(string containerKey)
         {
-            return _context.Container.Select(c => c.Key).ToArray();
+            return from c in _context.Container
+                    where c.Key == containerKey || containerKey == null
+                    select c;
         }
     
         //

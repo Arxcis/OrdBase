@@ -57,7 +57,8 @@ namespace OrdBaseCore.Controllers
         {
             if (client == null || client.Key != clientKey) 
                 return BadRequest();
-            return _clientRepo.Update(client);
+
+            return _clientRepo.Update(clientKey, client);
         }        
 
         [HttpDelete("api/client")]
@@ -72,7 +73,7 @@ namespace OrdBaseCore.Controllers
         [HttpPost("api/client/containers")]
         public IActionResult  SetContainers([FromQuery] string clientKey, [FromBody] string[] containerArray)
         {
-            if (containerArray == null)
+            if (containerArray ==  null)
                 return  BadRequest();
 
             _clientRepo.SetContainers(clientKey, containerArray);

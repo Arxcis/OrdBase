@@ -14,7 +14,7 @@ namespace OrdBaseCore.IData
 		// GET translation
 		//
     	IEnumerable<Translation> Get(TranslationQuery query);
-		IEnumerable<TranslationKeyValue> GetKeyValue(TranslationQuery query); 
+		IEnumerable<KeyValuePair<string,string>> GetKeyValue(TranslationQuery query); 
 		IEnumerable<TranslationGroup> GetGroup(TranslationGroupQuery query);		
     	IEnumerable<TranslationGroupMeta> GetGroupMeta(TranslationGroupQuery query);
 		
