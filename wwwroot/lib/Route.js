@@ -169,7 +169,7 @@ export function translations_deleteGroup({ clientKey      = force('clientKey'),
 //
 export function containers_get() {
     return Fetch.GET({  
-        route: '${API}/container',
+        route: '${API}/containers',
     });
 }
 
@@ -178,13 +178,13 @@ export function containers_get() {
 //
 export function languages_get () {
     return Fetch.GET({  
-        route: '${API}/language',
+        route: '${API}/languages',
     });
 }
 
 export function languages_create ({ language = force('language') }) {
     return Fetch.POST({ 
-        route: '${API}/language/create', 
+        route: '${API}/languages/create', 
         data:  language 
     });
 }
