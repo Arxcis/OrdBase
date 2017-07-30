@@ -22,7 +22,7 @@ namespace OrdBaseCore.Repositories
         //
         // GET
         //
-        public IEnumerable<Language> GetGlobal()
+        public IEnumerable<Language> Get()
         {
             return _context.Language.ToArray();
         }

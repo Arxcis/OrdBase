@@ -19,30 +19,30 @@ namespace OrdBaseCore.Controllers
         }
 
         //
-        // GET api/clients/*
+        // GET api/client/*
         //
-    	[HttpGet("api/clients/{clientKey}")]
-    	public IEnumerable<Client> Get(string clientKey)
+    	[HttpGet("api/client")]
+    	public IEnumerable<Client> Get([FromQuery] string clientKey)
     	{
     		return _clientRepo.Get(clientKey);
     	}
 
-        [HttpGet("api/clients/{clientKey}/containers")]        
-        public IEnumerable<string> GetContainers(string clientKey) 
+        [HttpGet("api/client/containers")]        
+        public IEnumerable<string> GetContainers([FromQuery] string clientKey) 
         {
             return _clientRepo.GetContainers(clientKey);
         }
 
-        [HttpGet("api/clients/{clientKey}/languages")] 
-        public IEnumerable<string> GetLanguages(string clientKey) 
+        [HttpGet("api/client/languages")] 
+        public IEnumerable<string> GetLanguages([FromQuery] string clientKey) 
         {
             return _clientRepo.GetLanguages(clientKey);
         }
 
         //
-        // CREATE, UPDATE, DELETE api/clients/*
+        // CREATE, UPDATE, DELETE api/client/*
         //
-        [HttpPost("api/clients")]
+        [HttpPost("api/client")]
         public IActionResult Create([FromBody] Client client) 
         {   
             if (client == null)
@@ -52,26 +52,25 @@ namespace OrdBaseCore.Controllers
             return StatusCode(201);
         }
 
-
-        [HttpPut("api/clients/{clientKey}")]
-        public IActionResult Update(string clientKey, [FromBody] Client client)
+        [HttpPut("api/client")]
+        public IActionResult Update([FromQuery] string clientKey, [FromBody] Client client)
         {
             if (client == null || client.Key != clientKey) 
                 return BadRequest();
             return _clientRepo.Update(client);
         }        
 
-        [HttpDelete("api/clients/{clientKey}")]
-        public IActionResult Delete(string clientKey) 
+        [HttpDelete("api/client")]
+        public IActionResult Delete([FromQuery] string clientKey) 
         {
             return _clientRepo.Delete(clientKey);
         }
 
         //
-        // SET clients/containers and languages 
+        // SET containers and languages connected to client
         //
-        [HttpPost("api/clients/{clientKey}/containers")]
-        public IActionResult  SetContainers(string clientKey, [FromBody] string[] containerArray)
+        [HttpPost("api/client/containers")]
+        public IActionResult  SetContainers([FromQuery] string clientKey, [FromBody] string[] containerArray)
         {
             if (containerArray == null)
                 return  BadRequest();
@@ -80,8 +79,8 @@ namespace OrdBaseCore.Controllers
             return StatusCode(201);
         }
 
-        [HttpPost("api/clients/{clientKey}/languages")]         
-        public IActionResult SetLanguages(string clientKey, [FromBody] string[] languageArray) 
+        [HttpPost("api/client/languages")]         
+        public IActionResult SetLanguages([FromQuery] string clientKey, [FromBody] string[] languageArray) 
         {
             if (languageArray == null)
                 return  BadRequest();

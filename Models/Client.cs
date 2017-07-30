@@ -23,12 +23,10 @@ namespace OrdBaseCore.Models
         [StringLength(255)]
 		public string ThumbnailUrl { get; set; }
 
-		public DateTime? LastAccess { get; set; }
-		public int? RequestCount { get; set; }
-
+		//
         // @brief Setting up a many to many relationship between the clients and 
 		//    		the containers + languages.
-		public virtual List<ClientContainer>   DefaultContainers { get; set; }
-		public virtual List<ClientLanguage>    DefaultLanguages  { get; set;}
+		public virtual List<ClientContainer>   Containers { get; set; }
+		public virtual List<ClientLanguage>    Languages  { get; set;}
 	}
 }

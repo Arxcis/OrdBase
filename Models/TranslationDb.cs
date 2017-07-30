@@ -58,7 +58,7 @@ namespace OrdBaseCore.Models
             modelBuilder
                 .Entity<ClientContainer>()
                 .HasOne(cc => cc.Client)
-                .WithMany(c => c.DefaultContainers)
+                .WithMany(c => c.Containers)
                 .HasForeignKey(cc => cc.ClientKey);
 
             modelBuilder
@@ -81,7 +81,7 @@ namespace OrdBaseCore.Models
             modelBuilder
                 .Entity<ClientLanguage>()
                 .HasOne(cl => cl.Client)
-                .WithMany(c => c.DefaultLanguages)
+                .WithMany(c => c.Languages)
                 .HasForeignKey(cl => cl.ClientKey);
 
             modelBuilder

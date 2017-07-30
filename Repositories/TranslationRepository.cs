@@ -19,13 +19,13 @@ namespace OrdBaseCore.Repositories
         //
         // GET translation
         //
-        public IEnumerable<Translation> Get(string clientKey, string languageKey, string containerKey, string translationKey)
+        public IEnumerable<Translation> Get(TranslationQuery query)
         {
             return (from t in _context.Translation
-                    where t.ClientKey    == clientKey &&
-                          t.LanguageKey  == languageKey &&
-                          t.ContainerKey == containerKey &&
-                          t.Key          == translationKey
+                    where t.ClientKey    ==  query.ClientKey &&
+                          t.LanguageKey  ==  query.LanguageKey &&
+                          t.ContainerKey ==  query.ContainerKey &&
+                          t.Key          ==  query.TranslationKey
                     select t)
                     .ToArray();        
         }

@@ -16,16 +16,9 @@ namespace OrdBaseCore.Controllers
         }
 
 		[Route("api/container")]
-		[Route("api/container/all")]
-		public string[] GetGlobal() 
+		public string[] Get([FromQuery] string containerKey) 
 		{
-			return _containerRepo.GetGlobal();
+			return _containerRepo.Get(containerKey);
 		}
-
-    	[Route("api/{clientKey}/container/all")]		
-    	public string[] GetAll(string clientKey) 
-    	{
-    		return _containerRepo.GetAll(clientKey); 
-    	}
     }
 }
