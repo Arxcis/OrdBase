@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 
 using OrdBaseCore.Models;
 using OrdBaseCore.IData;
@@ -16,7 +17,7 @@ namespace OrdBaseCore.Controllers
         }
 
 		[Route("api/container")]
-		public string[] Get([FromQuery] string containerKey) 
+		public IEnumerable<Container> Get([FromQuery] string containerKey) 
 		{
 			return _containerRepo.Get(containerKey);
 		}

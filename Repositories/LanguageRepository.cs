@@ -24,9 +24,10 @@ namespace OrdBaseCore.Repositories
         //
         public IEnumerable<Language> Get(string languageKey)
         {
-            return from l in _context.Language
+            return (from l in _context.Language
                     where l.Key == languageKey || languageKey == null
-                    select l;
+                    select l)
+                    .ToArray();
         }
 
         //

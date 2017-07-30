@@ -24,10 +24,6 @@ namespace OrdBaseCore.Migrations
                     b.Property<string>("ApiKey")
                         .HasMaxLength(127);
 
-                    b.Property<DateTime?>("LastAccess");
-
-                    b.Property<int?>("RequestCount");
-
                     b.Property<string>("ThumbnailUrl")
                         .HasMaxLength(255);
 
@@ -124,7 +120,7 @@ namespace OrdBaseCore.Migrations
             modelBuilder.Entity("OrdBaseCore.Models.ClientContainer", b =>
                 {
                     b.HasOne("OrdBaseCore.Models.Client", "Client")
-                        .WithMany("DefaultContainers")
+                        .WithMany("Containers")
                         .HasForeignKey("ClientKey")
                         .OnDelete(DeleteBehavior.Cascade);
 
@@ -137,7 +133,7 @@ namespace OrdBaseCore.Migrations
             modelBuilder.Entity("OrdBaseCore.Models.ClientLanguage", b =>
                 {
                     b.HasOne("OrdBaseCore.Models.Client", "Client")
-                        .WithMany("DefaultLanguages")
+                        .WithMany("Languages")
                         .HasForeignKey("ClientKey")
                         .OnDelete(DeleteBehavior.Cascade);
 

@@ -19,9 +19,10 @@ namespace OrdBaseCore.Repositories
         
         public IEnumerable<Container> Get(string containerKey)
         {
-            return from c in _context.Container
+            return (from c in _context.Container
                     where c.Key == containerKey || containerKey == null
-                    select c;
+                    select c)
+                    .ToArray();
         }
     
         //
