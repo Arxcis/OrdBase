@@ -16,10 +16,10 @@ namespace OrdBaseCore.Models
 
     public class TranslationGroupMeta 
     {
-        public struct Item 
+        public class Item 
         {
-            public string LanguageKey { get; set; }
-            public bool   IsComplete { get; set; }
+            public string LanguageKey  { get; set; }
+            public bool   IsComplete  { get; set; }
         }
         public string Key { get; set; }
         public string ClientKey   { get; set; }

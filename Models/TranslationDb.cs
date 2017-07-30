@@ -105,10 +105,10 @@ namespace OrdBaseCore.Models
 
         public static void Seed(TranslationDb context) 
         {
-        //    ContainerRepository.AddTestData(context);
-            //LanguageRepository.AddTestData(context);
-            // ClientRepository.AddTestData(context);
-            // TranslationRepository.AddTestData(context);
+            ContainerRepository.AddTestData(context);
+            LanguageRepository.AddTestData(context);
+            ClientRepository.AddTestData(context);
+            TranslationRepository.AddTestData(context);
 
             context.SaveChanges();
             context.Dispose();

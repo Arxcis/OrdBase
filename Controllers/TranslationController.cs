@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+
 using System.Collections.Generic;
 using System.Linq;
 
@@ -21,7 +23,10 @@ namespace OrdBaseCore.Controllers
         //
         [HttpGet("api/translation")]
     	public IEnumerable<Translation> Get([FromQuery] TranslationQuery query)
-        {
+        {   
+            if (!ModelState.IsValid)
+                return null;
+
             return _translationRepo.Get(query); 
         }
 
@@ -31,13 +36,14 @@ namespace OrdBaseCore.Controllers
             return  _translationRepo.GetGroup(query);
         }   
 
+        [HttpGet("api/translation/meta")]        
         [HttpGet("api/translation/group/meta")]
         public IEnumerable<TranslationGroupMeta> GetGroupMeta([FromQuery] TranslationGroupQuery query)
         {
             return _translationRepo.GetGroupMeta(query);
         } 
 
-        [HttpGet("api/translation/container")]
+        [HttpGet("api/translation/keyvalue")]
         public IEnumerable<KeyValuePair<string,string>> GetKeyValue([FromQuery] TranslationQuery query)
         {
             return _translationRepo.GetKeyValue(query); 

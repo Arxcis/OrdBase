@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging.Debug;
 
 // EntityFramework
 using Microsoft.EntityFrameworkCore;
@@ -62,7 +63,7 @@ namespace OrdBaseCore {
 
             services.AddDbContext<TranslationDb>(options => 
                // options.UseInMemoryDatabase()
-                options.UseSqlServer(
+                options.UseMySql(
                     sqlConnectionString,
                     b => b.MigrationsAssembly("OrdBaseCore") )
                 
@@ -86,13 +87,14 @@ namespace OrdBaseCore {
                               ILoggerFactory loggerFactory,
                               TranslationDb context)
         {
-            loggerFactory.AddConsole();
+            loggerFactory.AddConsole()
+                         .AddDebug();
 
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
             }
 
-            TranslationDb.Seed(context);
+            // TranslationDb.Seed(context);
 
             app.UseFileServer();
             app.UseMvc();            
@@ -112,7 +114,7 @@ namespace OrdBaseCore {
         public TranslationDb Create(DbContextFactoryOptions options)
         {
             var optionsBuilder = new DbContextOptionsBuilder<TranslationDb>();
-            optionsBuilder.UseSqlServer(Startup.Configuration.GetConnectionString(Startup.SqlProvider));
+            optionsBuilder.UseMySql(Startup.Configuration.GetConnectionString(Startup.SqlProvider));
 
             return new TranslationDb(optionsBuilder.Options);
         }

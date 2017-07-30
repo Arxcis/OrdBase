@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Collections.Generic;
+using System;
+
+using System.Diagnostics;
 
 using OrdBaseCore.Models;
 using OrdBaseCore.IData;
@@ -22,23 +25,21 @@ namespace OrdBaseCore.Repositories
         public IEnumerable<Translation> Get(TranslationQuery query)
         {
             return (from t in _context.Translation
-                    where t.ClientKey    == query.ClientKey      || query.ClientKey      == null &&
-                          t.LanguageKey  == query.LanguageKey    || query.LanguageKey    == null &&
-                          t.ContainerKey == query.ContainerKey   || query.ContainerKey   == null &&
-                          t.Key          == query.TranslationKey || query.TranslationKey == null
-                    select t)
-                    .ToArray();        
+                    where  t.ClientKey    == query.ClientKey        || query.ClientKey      == null           
+                    where  t.LanguageKey  == query.LanguageKey      || query.LanguageKey    == null       
+                    where  t.ContainerKey == query.ContainerKey     || query.ContainerKey   == null     
+                    where  t.Key          == query.TranslationKey   || query.TranslationKey == null 
+                    select t).ToArray();        
         }
 
         public IEnumerable<KeyValuePair<string,string>> GetKeyValue (TranslationQuery query) 
         {
             return (from t in _context.Translation
-                    where t.ClientKey    == query.ClientKey      || query.ClientKey      == null &&
-                          t.LanguageKey  == query.LanguageKey    || query.LanguageKey    == null &&
-                          t.ContainerKey == query.ContainerKey   || query.ContainerKey   == null &&
-                          t.Key          == query.TranslationKey || query.TranslationKey == null
-                    select new KeyValuePair<string,string>(t.Key, t.Text))
-                    .ToArray();            
+                    where t.ClientKey    == query.ClientKey      || query.ClientKey      == null 
+                    where t.LanguageKey  == query.LanguageKey    || query.LanguageKey    == null
+                    where t.ContainerKey == query.ContainerKey   || query.ContainerKey   == null
+                    where t.Key          == query.TranslationKey || query.TranslationKey == null
+                    select new KeyValuePair<string,string>(t.Key, t.Text)).ToArray();            
         }
 
         //
@@ -47,9 +48,9 @@ namespace OrdBaseCore.Repositories
         public IEnumerable<TranslationGroup> GetGroup(TranslationGroupQuery query)
         {
             return (from t in _context.Translation
-                    where t.ClientKey    == query.ClientKey      || query.ClientKey      == null &&
-                          t.ContainerKey == query.ContainerKey   || query.ContainerKey   == null &&
-                          t.Key          == query.TranslationKey || query.TranslationKey == null
+                    where t.ClientKey    == query.ClientKey      || query.ClientKey       == null
+                    where t.ContainerKey == query.ContainerKey   || query.ContainerKey    == null
+                    where t.Key          == query.TranslationKey || query.TranslationKey  == null
                     group t by t.Key
                     into grp
                     select new TranslationGroup
@@ -58,16 +59,15 @@ namespace OrdBaseCore.Repositories
                         ClientKey    = query.ClientKey,
                         ContainerKey = query.ContainerKey,
                         Items        = grp.ToArray()
-                    }) 
-                    .ToArray();
+                    }).ToArray();
         }
 
         public IEnumerable<TranslationGroupMeta> GetGroupMeta(TranslationGroupQuery query)
         {
             return (from t in _context.Translation
-                    where t.ClientKey    == query.ClientKey      || query.ClientKey      == null &&
-                          t.ContainerKey == query.ContainerKey   || query.ContainerKey   == null &&
-                          t.Key          == query.TranslationKey || query.TranslationKey == null
+                    where t.ClientKey    == query.ClientKey      || query.ClientKey      == null
+                    where t.ContainerKey == query.ContainerKey   || query.ContainerKey   == null
+                    where t.Key          == query.TranslationKey || query.TranslationKey == null
                     group t by t.Key
                     into grp
                     select new TranslationGroupMeta
@@ -76,12 +76,11 @@ namespace OrdBaseCore.Repositories
                         ClientKey    = query.ClientKey,
                         ContainerKey = query.ContainerKey,
                         Items        = grp.Select(t => new TranslationGroupMeta.Item 
-                        { 
-                            LanguageKey = t.LanguageKey,
-                            IsComplete  = t.IsComplete ,
-                        })
-                    })
-                    .ToArray();
+                        {  
+                            LanguageKey= t.LanguageKey, 
+                            IsComplete = t.IsComplete
+                        }).ToArray()
+                    }).ToArray();
         }
 
         //
