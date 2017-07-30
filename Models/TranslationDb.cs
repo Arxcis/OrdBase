@@ -12,11 +12,13 @@ namespace OrdBaseCore.Models
             :base(options)
         {}
 
+        // Base tables
         public DbSet<Client> Client { get; set; }
         public DbSet<Language> Language { get; set; }
         public DbSet<Translation> Translation { get; set; }
         public DbSet<Container> Container { get; set; }
 
+        // Many to many linking tables
         public DbSet<ClientLanguage> ClientLanguage { get; set; }
         public DbSet<ClientContainer> ClientContainer { get; set; }
 
@@ -105,8 +107,8 @@ namespace OrdBaseCore.Models
         {
         //    ContainerRepository.AddTestData(context);
             //LanguageRepository.AddTestData(context);
-           // ClientRepository.AddTestData(context);
-        //  TranslationRepository.AddTestData(context);
+            // ClientRepository.AddTestData(context);
+            // TranslationRepository.AddTestData(context);
 
             context.SaveChanges();
             context.Dispose();
