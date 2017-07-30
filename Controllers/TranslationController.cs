@@ -19,16 +19,10 @@ namespace OrdBaseCore.Controllers
         //
         // GET translation
         //
-        [HttpGet("api/{clientKey}/translation/{containerKey}/{translationKey}/{languageKey}")]
+        [HttpGet("api/translations/{clientKey?}/{languageKey?}/{containerKey?}/{translationKey}")]
     	public IEnumerable<Translation> Get(string clientKey, string languageKey, string containerKey, string translationKey)
         {
             return _translationRepo.Get(clientKey, languageKey, containerKey, translationKey); 
-        }
-        
-        [HttpGet("api/{clientKey}/translation/all")]
-        public IEnumerable<Translation> GetAll(string clientKey)
-        {
-            return _translationRepo.GetAll(clientKey); 
         }
 
         //

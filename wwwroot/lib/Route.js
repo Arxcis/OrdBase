@@ -11,10 +11,18 @@ import * as Fetch from './Fetch.js';
 
 const API = 'api';
 
+function translations_makeQueryString(clientKey, languageKey, containerKey, translationKey) {
+    return `clientKey=${clientKey}&
+            languageKey=${languageKey}&
+            containerKey=${containerKey}&
+            translationKey=${translationKey}`;
+}
+
+
 //
 // GET api/clients/*
 //
-export function clients_get({ clientKey = 'null' }) {
+export function clients_get({ clientKey = '' }) {
 
     return Fetch.GET({  
         route: `${API}/clients/${clientKey}`, 
@@ -85,10 +93,10 @@ export function clients_setLanguages({ clientKey     = force('clientKey'),
 //
 // GET translation
 //
-export function translations_get({ clientKey      = 'null',  
-                                   languageKey    = 'null',  
-                                   containerKey   = 'null',  
-                                   translationKey = 'null', }) { 
+export function translations_get({ clientKey      = null,  
+                                   languageKey    = null,  
+                                   containerKey   = null,  
+                                   translationKey = null, }) { 
 
     return Fetch.GET({  
         route: `${API}/translations/${clientKey}/${languageKey}/${containerKey}/${translationKey}`,
@@ -96,21 +104,21 @@ export function translations_get({ clientKey      = 'null',
 }
 
 
-export function translations_getGroup({ clientKey      = 'null',  
-                                        containerKey   = 'null', 
-                                        translationKey = 'null', }) {
+export function translations_getGroup({ clientKey      = '',  
+                                        containerKey   = '', 
+                                        translationKey = '', }) {
 
     return Fetch.GET({
-        route: `${API}/translations/${clientKey}/null/${containerKey}/${translationKey}/group`,
+        route: `${API}/translations/${clientKey}//${containerKey}/${translationKey}/group`,
     })
 }
 
-export function translations_getGroupMeta({ clientKey      = 'null',  
-                                            containerKey   = 'null', 
-                                            translationKey = 'null', }) {
+export function translations_getGroupMeta({ clientKey      = '',  
+                                            containerKey   = '', 
+                                            translationKey = '', }) {
 
     return Fetch.GET({
-        route: `${API}/translations/${clientKey}/null/${containerKey}/${translationKey}/group/meta`,
+        route: `${API}/translations/${clientKey}//${containerKey}/${translationKey}/group/meta`,
     })
 }
 
@@ -136,8 +144,13 @@ export function translations_createArray({ translationArray = force('translation
 
 export function translations_update({ translation = force('translation') }) {  
 
+    const queryString = `clientKey=${translation.clientKey}&
+                         languageKey=${translation.languageKey}&
+                         containerKey=${translation.containerKey}&
+                         translationKey=${translation.key}`;
+
     return Fetch.PUT({
-        route: `${API}/translations/${translation.clientKey}/${translation.languageKey}/${translation.containerKey}/${translation.key}`,       
+        route: `${API}/translations?${queryString}`,       
         data:  translation 
     });
 }
@@ -147,8 +160,13 @@ export function translations_delete({ clientKey      = force('clientKey'),
                                       containerKey   = force('containerKey'),  
                                       translationKey = force('translationKey'), }) {
 
+    const queryString = `clientKey=${clientKey}&
+                         languageKey=${languageKey}&
+                         containerKey=${containerKey}&
+                         translationKey=${translationKey}`;
+
     return Fetch.DELETE({
-        route: `${API}/translations/${clientKey}/${languageKey}/${containerKey}/${translationKey}`, 
+        route: `${API}/translations?${queryString}`
     });
 }
 
@@ -156,8 +174,13 @@ export function translations_deleteGroup({ clientKey      = force('clientKey'),
                                            containerKey   = force('containerKey'),  
                                            translationKey = force('translationKey'), }) {
 
+    const languageKey = '';
+    const queryString = `clientKey=${clientKey}&
+                         containerKey=${containerKey}&
+                         translationKey=${translationKey}`;
+
     return Fetch.DELETE({
-        route: `${API}/translations/${clientKey}/null/${containerKey}/${translationKey}`, 
+        route: `${API}/translations?${queryString}`, 
     });
 }
 
