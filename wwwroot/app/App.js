@@ -23,7 +23,7 @@ export const ICON_TRASH      = 'fa-trash';
 
 export const COLOR_SUCCESS = 'var(--ordbase-color-success)';
 export const COLOR_SELECT  = 'var(--ordbase-color-select)';
-export const COLOR_DANGER  = 'var(--ordbase-color-success)';
+export const COLOR_DANGER  = 'var(--ordbase-color-danger)';
 
 
 const BACKSPACE = 8;

@@ -43,7 +43,7 @@ export class Component_ClientCard extends HTMLElement {
     
     setSelectable() {
         this.button.classList.remove('editable');
-        this.button.classList.remove('deletable');
+        this.button.classList.remove('deleteable');
         this.clickHandler = this.selectHandler;        
     }
  
