@@ -33,7 +33,7 @@ export class Component_TranslationCard extends HTMLElement {
         this.form.classList.toggle('active');
 
         if(this.form.classList.contains('active')) {
-            setTimeout(() => [].slice.apply(this.form.children).forEach(child => {child.style.display = 'block'; }), 200);
+            setTimeout(() => [].slice.apply(this.form.children).forEach(child => {child.style.display = 'block'; }), 130);
         }
         else {
             [].slice.apply(this.form.children).forEach(child => {child.style.display = 'none'; });
