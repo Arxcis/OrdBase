@@ -65,9 +65,9 @@ export function loadSelectTranslation (clientKey) {
         })
 
         if(cardArray[0].isDeleteable())
-            App.HEADER.textSmall = 'Delete Translation';
+            App.HEADER.setTextBig('Delete Translation');
         else {
-            App.HEADER.textSmall = 'Select Translation'; 
+            App.HEADER.setTextBig('Select Translation'); 
         }               
     }
     App.HEADER.getButtonRight2().onclick = e => loadSelectClient();
@@ -290,7 +290,7 @@ function __async__deleteTranslationCard({  card = force('card'),
         }
         else {
             App.HEADER.flashError(`${res.status}: Was not able to delete card...`);
-            console.log('Was not able to delete card...', res);
+            console.log('Was not able to delete translation...', res);
         }
         
         cardArray.forEach(card => card.toggleDeleteable() );

@@ -115,10 +115,11 @@ function __async__submitNewClient({
     Route.client_create({client: client})
     .then(response => {
         
-        Route.client_setContainers({clientKey: clientKey, containerArray: containerArray}).catch(error => console.error(error));
-        Route.client_setLanguages({clientKey:  clientKey,  languageArray: languageArray}).catch(error => console.error(error));    
+            Route.client_setContainers( {clientKey: client.key, containerArray: containerArray}).catch(error => console.error(error));
+            Route.client_setLanguages(  {clientKey: client.key,  languageArray: languageArray}).catch(error => console.error(error));    
+            
+            loadSelectClient();
 
-        loadSelectClient();
     })
     .catch(error => console.error(error)); // @TODO Display error in view
 } 

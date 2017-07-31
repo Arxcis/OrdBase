@@ -1,6 +1,8 @@
 'use strict';
 import html from './item-generator.html';
 
+const UP    = 38;
+const DOWN  = 40;
 const ESC   = 27;
 const ENTER = 13;
 const TAB   = 9;
@@ -13,6 +15,7 @@ export class Component_ItemGenerator extends HTMLElement {
         this.root = this.createShadowRoot();
         this.root.innerHTML = html;
 
+        this.generatedItems = this.root.getElementById('div-generated-items');
         this.input  = this.root.querySelector('input');
         this.button = this.root.getElementById('button-generate');
         this.faIcon = this.button.querySelector('i');
@@ -34,6 +37,27 @@ export class Component_ItemGenerator extends HTMLElement {
             else {
                 this.activateInput();                
             }
+        });
+
+
+        //
+        // Navigate up and down component-items with arrow keys
+        //
+        this.addEventListener('keydown', e => {
+            if (e.keyCode == UP) {
+                let activeElement = this.root.activeElement;
+                if (activeElement.parentElement == this.generatedItems && activeElement.previousElementSibling != null){
+                    activeElement.previousElementSibling.focus();
+                    
+                }
+            }
+            else if (e.keyCode == DOWN) {
+
+                let activeElement = this.root.activeElement;
+                if (activeElement.parentElement == this.generatedItems && activeElement.nextElementSibling != null){
+                    activeElement.nextElementSibling.focus();
+                }
+            } 
         });
     }
 

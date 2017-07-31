@@ -1,12 +1,17 @@
     <style>    
 @import url('./node_modules/font-awesome/css/font-awesome.min.css');
 
+
+
         :host {
             width:100%;
+            
+            --language-count: 0;
+            --input-height: 67px;
         }
 
         button {
-            background-color: transparent;
+            background-color: var(--ordbase-color-light);
 
             color: var(--ordbase-color-dark); 
 
@@ -62,11 +67,67 @@
             color: var(--ordbase-color-danger);
         }
 
+        button.selected.deleteable,
         .deleteable {
             border: 10px solid var(--ordbase-color-danger);
             border-width: 0px 0px 0px 10px;
             margin: 2px 0px 2px 0px;
         }
+
+        /* FORM */
+
+        form {
+            height: 0px;
+            background-color: var(--ordbase-color-light);
+            box-shadow: inset 2px 0 10px -2px var(--ordbase-color-dark);
+        }
+
+        form.active {
+            height: calc(100px + var(--language-count) * var(--input-height));
+            padding: 20px;
+        }
+
+        label {
+            color: var(--ordbase-color-dark);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+
+        input {
+            font-size: var(--ordbase-input-font-size);
+            margin: 0px 20px 10px 4px;
+            width: 400px;
+        }
+
+        fieldset {
+            display: none;
+            border: none;
+        }
+
+
+        /* From ANIMATION */
+
+
+        @keyframes pushForm {
+            from {  height: 0px   }
+             to   { height: calc(100px + var(--language-count) * var(--input-height)); }   
+        }
+        @keyframes popForm  {
+             from { height: calc(100px + var(--language-count) * var(--input-height));  }
+             to   { height: 0px;    } 
+        }
+
+        form.animated {
+            animation-name: popForm;
+            animation-duration: .2s;
+        }
+
+        form.active.animated {
+            animation-name: pushForm;
+            animation-duration: .2s;
+        }
+
 </style>
 
     <button class="btn-load-translation-editor">
@@ -85,3 +146,19 @@
 
         </div>
     </button>  
+
+
+    <form>
+        <fieldset>
+            <label for="form-translation-key">Key</label><br>
+            <input id="form-translation-key" type="text" data-min-size="20" value="">
+        </fieldset>
+
+        <template id = "template-fieldset">
+            <fieldset>
+                <label for="form-translation-{{ languageCode }}">Key</label><br>
+                <input id="form-translation-{{ languageCode  }}" type="text" data-min-size="20" value="">
+            </fieldset>
+        </template>
+                
+    </form>

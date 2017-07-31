@@ -3,6 +3,9 @@
 import  html  from './item-flipper.html';
 import { force } from '../lib/Util.js';
 
+const UP = 38;
+const DOWN = 40;
+
 export class Component_ItemFlipper extends HTMLElement { 
   
     constructor() {
@@ -12,6 +15,24 @@ export class Component_ItemFlipper extends HTMLElement {
 
         this.div_flipUp   = this.root.getElementById('flip-up');
         this.div_flipDown = this.root.getElementById('flip-down');
+
+
+        this.addEventListener('keydown', e => {
+            if (e.keyCode == UP) {
+                let activeElement = this.root.activeElement;
+                if (activeElement.previousElementSibling != null){
+                    activeElement.previousElementSibling.focus();
+                    
+                }
+            }
+            else if (e.keyCode == DOWN) {
+
+                let activeElement = this.root.activeElement;
+                if (activeElement.nextElementSibling != null){
+                    activeElement.nextElementSibling.focus();
+                }
+            } 
+        }); 
     }
 
     addItem(item, options = force()) {

@@ -16,6 +16,16 @@ export class Component_ClientCard extends HTMLElement {
         this.deleteHandler = () => console.log('default.....');
 
         this.button.onclick = this.selectHandler;
+
+        this.button.addEventListener('focus', () => {
+            if(!this.button.classList.contains('animated'))
+                this.button.classList.add('animated');
+        })
+        
+        this.button.addEventListener('mouseover', () => {
+            if(!this.button.classList.contains('animated'))           
+                this.button.classList.add('animated');
+        })  
     }
 
     setHeading (name){
@@ -60,5 +70,6 @@ export class Component_ClientCard extends HTMLElement {
 
     isEditable()   { return this.button.classList.contains('editable'); }
     isDeleteable() { return this.button.classList.contains('deleteable'); }
+
 }
 customElements.define('component-card-client', Component_ClientCard);

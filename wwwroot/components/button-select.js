@@ -13,10 +13,7 @@ export class Component_SelectButton extends HTMLElement {
 
     OnClick(handler){
         this.button.addEventListener('click',  e => {
-            console.log('dfdfs')
             handler.apply(this, e)
-
-            this.button.blur();
         });
     }
 
