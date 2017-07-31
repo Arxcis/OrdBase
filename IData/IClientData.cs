@@ -7,21 +7,21 @@ namespace OrdBaseCore.IData
     public interface IClientData
     {
         // GET Client stuff
-        IEnumerable<Client> Get(string clientKey);
-        IEnumerable<string> GetLanguages(string clientKey);
-        IEnumerable<string> GetContainers(string clientKey); 
+        IEnumerable<Client> Get(ClientQuery query);
+        IEnumerable<string> GetLanguages(ClientQuery query);
+        IEnumerable<string> GetContainers(ClientQuery query); 
 
         //
         // CREATE UPDATE DELETE client
         //
         IActionResult Create(Client client);
-        IActionResult Update(string clientKey, Client client);
-        IActionResult Delete(string clientKey);
+        IActionResult Update(ClientQuery query, Client client);
+        IActionResult Delete(ClientQuery query);
        
         //
         // SET Containers and languages connected to client
         //
-        IActionResult SetContainers(string clientKey, IEnumerable<string> containerArray);
-        IActionResult SetLanguages(string clientKey, IEnumerable<string> languageArray);
+        IActionResult SetContainers(ClientQuery query, IEnumerable<string> containerArray);
+        IActionResult SetLanguages(ClientQuery query, IEnumerable<string> languageArray);
     }	
 }

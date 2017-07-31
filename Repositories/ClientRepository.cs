@@ -22,26 +22,26 @@ namespace OrdBaseCore.Repositories
         //
         // GET
         // 
-        public IEnumerable<Client> Get(string clientKey) 
+        public IEnumerable<Client> Get(ClientQuery query) 
         {
         	return (from c in _context.Client
-        			where c.Key == clientKey
+        			where c.Key == query.ClientKey
         			select c)
         			.ToArray();
         } 
 
-        public IEnumerable<string> GetContainers(string clientKey)
+        public IEnumerable<string> GetContainers(ClientQuery query)
         {
             return (from cl in _context.ClientContainer
-                    where cl.ClientKey == clientKey
+                    where cl.ClientKey == query.ClientKey
                     select cl.ContainerKey)
                     .ToArray();
         }     
 
-        public IEnumerable<string> GetLanguages(string clientKey)
+        public IEnumerable<string> GetLanguages(ClientQuery query)
         {
             return (from cl in _context.ClientLanguage
-                    where cl.ClientKey == clientKey
+                    where cl.ClientKey == query.ClientKey
                     select cl.LanguageKey)
                     .ToArray();
         }
@@ -56,10 +56,10 @@ namespace OrdBaseCore.Repositories
             return new NoContentResult {};
         }
 
-        public IActionResult Update(string clientKey, Client client) 
+        public IActionResult Update(ClientQuery query, Client client) 
         {
             // @note Do some research into if there is any better cleaner way to update entry in the database. -JSolsvik 26.07.17
-            var _client = _context.Client.First(c => c.Key == clientKey);
+            var _client = _context.Client.First(c => c.Key == query.ClientKey);
 
             if (_client == null)
                 return new NotFoundResult {};
@@ -74,9 +74,9 @@ namespace OrdBaseCore.Repositories
             return new NoContentResult {};   
         }
 
-        public IActionResult Delete(string clientKey) 
+        public IActionResult Delete(ClientQuery query) 
         {
-            var client = _context.Client.First(c => c.Key == clientKey);
+            var client = _context.Client.First(c => c.Key == query.ClientKey);
             
             if (client == null)
                 return new NotFoundResult {};
@@ -89,10 +89,10 @@ namespace OrdBaseCore.Repositories
         //
         // SET containers and langugaes on client
         //
-        public IActionResult SetContainers(string clientKey, IEnumerable<string> containerArray)
+        public IActionResult SetContainers(ClientQuery query, IEnumerable<string> containerArray)
         {
 
-            var _clientContainers = _context.ClientContainer.Where(cc => cc.ClientKey == clientKey);
+            var _clientContainers = _context.ClientContainer.Where(cc => cc.ClientKey == query.ClientKey);
             _context.RemoveRange(_clientContainers);
             _context.SaveChanges();
 
@@ -106,15 +106,15 @@ namespace OrdBaseCore.Repositories
             _context.SaveChanges();
             return new NoContentResult {};
         }
-        public IActionResult SetLanguages(string clientKey, IEnumerable<string> languageArray)
+        public IActionResult SetLanguages(ClientQuery query, IEnumerable<string> languageArray)
         {
-            var _clientLanguages = _context.ClientLanguage.Where(cl => cl.ClientKey == clientKey);
+            var _clientLanguages = _context.ClientLanguage.Where(cl => cl.ClientKey == query.ClientKey);
             _context.RemoveRange(_clientLanguages);
             _context.SaveChanges();
 
             var clientLanguages = languageArray.Select(languageKey => new ClientLanguage 
             { 
-                ClientKey   = clientKey, 
+                ClientKey   = query.ClientKey, 
                 LanguageKey = languageKey,
             });
 

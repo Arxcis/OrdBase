@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+using Microsoft.AspNetCore.Mvc;
+
 // @doc configure many to many http://www.entityframeworktutorial.net/code-first/configure-many-to-many-relationship-in-code-first.aspx
 
 namespace OrdBaseCore.Models 
@@ -29,4 +31,10 @@ namespace OrdBaseCore.Models
 		public virtual List<ClientContainer>   Containers { get; set; }
 		public virtual List<ClientLanguage>    Languages  { get; set;}
 	}
+
+	public class ClientQuery 
+    {
+        [FromQuery(Name="clientKey")]
+        public string ClientKey  { get; set; }
+    }
 }

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
 namespace OrdBaseCore.Models 
@@ -25,5 +26,17 @@ namespace OrdBaseCore.Models
         public string ClientKey   { get; set; }
         public string ContainerKey { get; set; }
         public IEnumerable<Item> Items { get; set; }
+    }
+
+    public class TranslationGroupQuery
+    {  
+        [FromQuery(Name="clientKey")]
+        public string ClientKey      { get; set; }
+
+        [FromQuery(Name="containerKey")]
+        public string ContainerKey   { get; set; } 
+        
+        [FromQuery(Name="translationKey")]
+        public string TranslationKey { get; set; }
     }
 }
