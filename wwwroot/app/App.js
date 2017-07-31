@@ -20,6 +20,12 @@ export const ICON_CHECK      = 'fa-check';
 export const ICON_PENCIL     = 'fa-pencil';
 export const ICON_TRASH      = 'fa-trash';
 
+
+export const COLOR_SUCCESS = 'var(--ordbase-color-success)';
+export const COLOR_SELECT  = 'var(--ordbase-color-select)';
+export const COLOR_DANGER  = 'var(--ordbase-color-success)';
+
+
 const BACKSPACE = 8;
 const HOME = 36;
 

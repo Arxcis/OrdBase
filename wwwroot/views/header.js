@@ -43,45 +43,45 @@ export class View_Header extends HTMLElement {
                  .innerHTML = text;    
     }
 
-    setButtonIconLeft(icon) { 
+    button0_setIcon(icon) { 
         this.root.querySelector('#btn-header-left i.fa')
                  .setAttribute('class', `fa ${icon}`) 
     }
 
-    setButtonIconRight0(icon) { 
+    button1_setIcon(icon) { 
         this.root.querySelector('#btn-header-right0 i.fa')
                  .setAttribute('class', `fa ${icon}`);
     }
 
-    setButtonIconRight1(icon) { 
+    button2_setIcon(icon) { 
         this.root.querySelector('#btn-header-right1 i.fa')
                  .setAttribute('class', `fa ${icon}`);
     }
 
-    setButtonIconRight2(icon) { 
+    button3_setIcon(icon) { 
         this.root.querySelector('#btn-header-right2 i.fa')
                  .setAttribute('class', `fa ${icon}`);
     }
 
-    setButtonColorLeft(color) {
-        console.log('asdfsdf', `var(${color})`)
-        this.root.querySelector('#btn-header-left i').style.color = `var(${color})`;
+    setColor(color) {
+        console.log('asdfsdf', color)
+        this.root.querySelector('#btn-header-left i').style.color = color;
     } 
 
-    getButtonLeft() { 
-        return this.root.getElementById('btn-header-left');
+    button0_OnClick(handler) { 
+        this.root.getElementById('btn-header-left').onclick = event => handler.apply(this, event);
     }
 
-    getButtonRight0() {
-        return this.root.getElementById('btn-header-right0');
+    button1_OnClick(handler) {
+        this.root.getElementById('btn-header-right0').onclick = event => handler.apply(this, event);
     }
 
-    getButtonRight1() { 
-        return this.root.getElementById('btn-header-right1'); 
+    button2_OnClick(handler) { 
+        this.root.getElementById('btn-header-right1').onclick = event => handler.apply(this, event); 
     }
 
-    getButtonRight2() { 
-        return this.root.getElementById('btn-header-right2'); 
+    button3_OnClick(handler) { 
+        this.root.getElementById('btn-header-right2').onclick = event => handler.apply(this, event); 
     } 
 
 }
