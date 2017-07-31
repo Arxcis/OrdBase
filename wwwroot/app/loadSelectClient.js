@@ -88,12 +88,12 @@ function __async__generateCards({
             cardArray = force('cardArray'), 
     }) {
 
-    Route.client_getAll().then(clients => {
+    Route.client_get().then(clients => {
 
         clients.forEach((client, i) => {
 
             let card = new Component_ClientCard;
-            
+            console.log(client)
             card.setId(`card${i}`);
             card.setHeading(client.key);
             card.setText(client.webpageUrl);
@@ -118,7 +118,7 @@ function __async__deleteCard({
             card      = force('card'),
     }) {
 
-    Route.client_delete(clientKey)
+    Route.client_delete({clientKey: clientKey})
     .then(res => {
         view.root.removeChild(card);
         loadSelectClient();

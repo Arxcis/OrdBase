@@ -25,7 +25,7 @@ namespace OrdBaseCore.Repositories
         public IEnumerable<Client> Get(ClientQuery query) 
         {
         	return (from c in _context.Client
-        			where c.Key == query.ClientKey
+        			where c.Key == query.ClientKey || query.ClientKey == null
         			select c)
         			.ToArray();
         } 
@@ -33,15 +33,15 @@ namespace OrdBaseCore.Repositories
         public IEnumerable<string> GetContainers(ClientQuery query)
         {
             return (from cl in _context.ClientContainer
-                    where cl.ClientKey == query.ClientKey
+                    where cl.ClientKey == query.ClientKey || query.ClientKey == null
                     select cl.ContainerKey)
                     .ToArray();
         }     
 
-        public IEnumerable<string> GetLanguages(ClientQuery query)
+        public IEnumerable<string> GetLanguages(ClientQuery query) 
         {
             return (from cl in _context.ClientLanguage
-                    where cl.ClientKey == query.ClientKey
+                    where cl.ClientKey == query.ClientKey || query.ClientKey == null
                     select cl.LanguageKey)
                     .ToArray();
         }
@@ -98,7 +98,7 @@ namespace OrdBaseCore.Repositories
 
             var clientContainers = containerArray.Select(containerKey => new ClientContainer 
             { 
-                ClientKey = clientKey, 
+                ClientKey = query.ClientKey, 
                 ContainerKey = containerKey,
             });
 

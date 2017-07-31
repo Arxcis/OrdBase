@@ -4,7 +4,12 @@ using System.Collections.Generic;
 namespace OrdBaseCore.Models 
 {
     //
-    // @note These is datastructures which only exists in memory, and are never stored in DB. 
+    // @note Instances of these classes only exists in memory, and are never stored in DB. 
+    //       This is mainly because a TranslationGroup is more structured data, which is not 
+    //       a good fit for a relational database. Also there is no new data to be stored here, 
+    //       as these classes represent the combination and structuring of existing 'flat' data
+    //       from the Translation table. 'Flat' here meaning the opposite of structured data. 
+    //         - JSolsvik 31.07.2017
     //
     public class TranslationGroup 
     {

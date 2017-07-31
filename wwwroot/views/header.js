@@ -16,6 +16,23 @@ export class View_Header extends HTMLElement {
         })
     }
 
+    flashError(message) {
+
+        let errorBanner = this.root.getElementById('error-banner');
+
+        if(!errorBanner.classList.contains('animated'))
+            errorBanner.classList.add('animated');
+
+        errorBanner.classList.add('active');
+        errorBanner.innerHTML = message;
+
+        setTimeout(() => {
+            errorBanner.classList.remove('active');
+            errorBanner.innerHTML = '';
+                        
+        }, 2000);
+    }
+
     setTextBig(text) { 
         this.root.getElementById('btn-header-mid-big')
                  .innerHTML = text;    

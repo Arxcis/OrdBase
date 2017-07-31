@@ -14,6 +14,7 @@ import { loadSelectClient }    from './loadSelectClient.js';
 
 //
 // @function loadSelectTranslation
+//  @note @todo
 //
 export function loadSelectTranslation (clientKey) {
     
@@ -32,14 +33,24 @@ export function loadSelectTranslation (clientKey) {
     // 1. Async calls
     //
     __async__getDefaultLanguages({ languageArray: languageArray, clientKey: clientKey });
-    __async__generateSelectButtons({view: view, generator: generator, buttonArray: buttonArray, cardArray: cardArray, clientKey: clientKey});
-    __async__generateTranslationCards({view: view, generator: generator, cardArray: cardArray, clientKey: clientKey, containerKey: 'all'});
+    
+    __async__generateSelectButtons({ view: view, 
+                                     generator: generator, 
+                                     buttonArray: buttonArray, 
+                                     cardArray: cardArray, 
+                                     clientKey: clientKey });
+    
+    __async__generateTranslationCards({ view: view, 
+                                        generator: generator, 
+                                        cardArray: cardArray, 
+                                        clientKey: clientKey, 
+                                        containerKey: '' });
 
     //
     // 2. Setup header
     //
-    App.HEADER.setTextSmall         ( 'Ordbase');
-    App.HEADER.setTextBig       ( `Select Translation`);
+    App.HEADER.setTextSmall( 'Ordbase');
+    App.HEADER.setTextBig( `Select Translation`);
     App.HEADER.setButtonIconLeft  ( App.ICON_BARS);
     App.HEADER.setButtonIconRight0( App.ICON_NONE);
     App.HEADER.setButtonIconRight1( App.ICON_TRASH);
@@ -64,7 +75,7 @@ export function loadSelectTranslation (clientKey) {
     //
     // 3. Component_SelectButton
     //
-    button.setId('all');
+    button.setId('');
     button.setText('All containers');
     button.setSelected(true);
 
@@ -77,7 +88,11 @@ export function loadSelectTranslation (clientKey) {
         generator.clearItems();
         generator.deactivate();
         cardArray.length = 0;
-        __async__generateTranslationCards({view: view, generator: generator, cardArray: cardArray, clientKey: clientKey, containerKey: button.getId()});
+        __async__generateTranslationCards({ view: view, 
+                                            generator: generator, 
+                                            cardArray: cardArray, 
+                                            clientKey: clientKey, 
+                                            containerKey: button.getId() });
     });
 
     //
@@ -100,7 +115,10 @@ export function loadSelectTranslation (clientKey) {
             });
         });
 
-        __async__submitNewTranslationGroup({view: view, generator: generator, cardArray: cardArray, clientKey: clientKey, translationKey: translationKey, translationArray: translationArray});
+        __async__submitNewTranslationGroup({ view: view, 
+                                             generator: generator, 
+                                             cardArray: cardArray, 
+                                             translationArray: translationArray});
     });
     generator.setButtonHeight(60);
     generator.deactivate();
@@ -114,16 +132,19 @@ export function loadSelectTranslation (clientKey) {
     App.switchView(view);
 }
 
-function makeTranslationCard({
-             groupMeta = force('groupMeta'),
-             view = force('view') 
-    }) {
+//
+// @function makeTranslationCard
+//  @note @todo
+//
+function makeTranslationCard({ groupMeta = force('groupMeta'), 
+                               cardArray = force('cardArray'),
+                               view      = force('view')  } = {}) { 
 
     let card = new Component_TranslationCard;
     card.setTranslationKey(groupMeta.key);
 
-    groupMeta.isComplete.forEach(keyComplete => {
-        card.makeLanguagekeyComplete(keyComplete.key, keyComplete.value);
+    groupMeta.items.forEach(item => {
+        card.addLanguagekeyComplete(item.languageKey, item.isComplete);
     })
 
     card.selectHandler = () => { 
@@ -138,8 +159,11 @@ function makeTranslationCard({
     }
 
     card.deleteHandler = () => { 
-        __async__deleteTranslationGroup({clientKey: groupMeta.clientKey, containerKey: groupMeta.containerKey, translationKey: groupMeta.key});
-        card.parentElement.removeChild(card);
+        __async__deleteTranslationCard({card: card, cardArray: cardArray,
+                                        clientKey: groupMeta.clientKey, 
+                                        containerKey: groupMeta.containerKey, 
+                                        translationKey: groupMeta.key});
+
     }            
     card.button.onclick = card.selectHandler;
 
@@ -148,32 +172,31 @@ function makeTranslationCard({
 
 
 //
-// ASYNC GET CALLS
+// @function __async__getDefaultLanguages
+//  @note @todo
 //
-function __async__getDefaultLanguages({
-            clientKey     = force('clientKey'), 
-            languageArray = force('languageArray'),
-    }){
+function __async__getDefaultLanguages({ clientKey     = force('clientKey'), 
+                                        languageArray = force('languageArray'), }){
         
-        Route.client_getDefaultLanguages(clientKey).then(resLanguageArray => {
+        Route.client_getLanguages({clientKey: clientKey}).then(resLanguageArray => {
             resLanguageArray.forEach(language => {
                 languageArray.push(language);
-                console.log(language);
             })
         })
         .catch(err => console.error('Error:', err));      
     }
 
-function __async__generateSelectButtons({
-            view        = force('view'), 
-            generator   = force('generator'),  
-            buttonArray = force('buttonArray'), 
-            cardArray   = force('cardArray'), 
-            clientKey   = force('clientKey')
-    }) {
+//
+// @function __async__generateSelectButtons
+//  @note @todo
+//
+function __async__generateSelectButtons({ view        = force('view'), 
+                                          generator   = force('generator'),  
+                                          buttonArray = force('buttonArray'), 
+                                          cardArray   = force('cardArray'), 
+                                          clientKey   = force('clientKey') }) {
 
-
-    Route.client_getDefaultContainers(clientKey).then(containerArray => {        
+    Route.client_getContainers({clientKey: clientKey}).then(containerArray => {        
         
         containerArray.forEach((container, i) => {
 
@@ -192,7 +215,11 @@ function __async__generateSelectButtons({
                 generator.activate();
 
                 cardArray.length = 0;
-                __async__generateTranslationCards({view: view, generator: generator, cardArray: cardArray, clientKey: clientKey, containerKey: button.getId()});
+                __async__generateTranslationCards({view: view, 
+                                                   generator: generator, 
+                                                   cardArray: cardArray, 
+                                                   clientKey: clientKey, 
+                                                   containerKey: button.getId()});
             });
             
             buttonArray.push(button)
@@ -201,19 +228,21 @@ function __async__generateSelectButtons({
     })
 }
 
+//
+// @function __async__generateTranslationCards
+//  @note @todo
+//
+function __async__generateTranslationCards({ generator    = force('generator'), 
+                                             cardArray    = force('cardArray'),
+                                             view         = force('view'),              
+                                             clientKey    = force('clientKey'), 
+                                             containerKey = force('containerKey') }) {
 
-function __async__generateTranslationCards({
-            generator    = force('generator'), 
-            cardArray    = force('cardArray'),
-            view         = force('view'),              
-            clientKey    = force('clientKey'), 
-            containerKey = force('containerKey')
-    }) {
-
-    Route.translation_getGroupMetaOnContainer(clientKey, containerKey).then(groupMetaArray => {
+    Route.translation_getGroupMeta({clientKey:    clientKey, 
+                                    containerKey: containerKey}).then(groupMetaArray => {
 
         groupMetaArray.forEach((groupMeta, i) => {
-            let card = makeTranslationCard({groupMeta: groupMeta, view: view});
+            let card = makeTranslationCard({groupMeta: groupMeta, view: view, cardArray: cardArray});
             cardArray.push(card);
             generator.addItem(card);
         });    
@@ -222,34 +251,48 @@ function __async__generateTranslationCards({
 }
 
 //
-// ASYNC CREATE DELETE
+// @function __async__submitNewTranslationGroup
+//  @note @todo
 //
-function __async__submitNewTranslationGroup({
-            generator        = force('generator'),
-            cardArray        = force('cardArray'), 
-            view             = force('view'),             
-            clientKey        = force('clientKey'), 
-            translationKey   = force('translationKey'),
-            translationArray = force('translationArray'),            
-    }) {
+function __async__submitNewTranslationGroup({ generator        = force('generator'),
+                                              cardArray        = force('cardArray'), 
+                                              view             = force('view'),             
+                                              translationArray = force('translationArray'), }) {
 
-    Route.translation_createMany(translationArray).then(res => {
+    Route.translation_createArray({ translationArray: translationArray }).then(res => {
 
         generator.setInputValue('');
-        return Route.translation_getGroupMeta(clientKey, translationKey);
+        return Route.translation_getGroupMeta({ clientKey: translationArray[0].clientKey, 
+                                                containerKey: translationArray[0].containerKey, 
+                                                translationKey: translationArray[0].key });
     })
     .then(groupMeta => {
-        let card = makeTranslationCard({groupMeta: groupMeta, view: view});
+        let card = makeTranslationCard({ groupMeta: groupMeta[0],  view: view, cardArray: cardArray});
         cardArray.push(card);
         generator.addItem(card);
     })
     .catch(err => console.error(err));
 }
-    
-function __async__deleteTranslationGroup({
-            clientKey      = force('clientKey'), 
-            containerKey   = force('containerKey'), 
-            translationKey = force('translationKey'),
-    }) {
-    Route.translation_deleteGroup(clientKey, containerKey, translationKey).catch(err => console.error('Error:', err));
+
+//
+// @function __async__deleteTranslationCard
+//  @note @todo
+//
+function __async__deleteTranslationCard({  card = force('card'),
+                                           cardArray = force('cardArray'),
+                                           clientKey      = force('clientKey'), 
+                                           containerKey   = force('containerKey'), 
+                                           translationKey = force('translationKey'), }) {
+
+    Route.translation_deleteGroup(arguments[0]).then(res => {
+        if (res.status == 204) {
+            card.parentElement.removeChild(card);
+        }
+        else {
+            App.HEADER.flashError(`${res.status}: Was not able to delete card...`);
+            console.log('Was not able to delete card...', res);
+        }
+        
+        cardArray.forEach(card => card.toggleDeleteable() );
+    }).catch(err => console.error('Error:', err));
 }

@@ -53,7 +53,7 @@ namespace OrdBaseCore.Controllers
         // POST, PUT, DELETE translation
         //  @doc https://docs.microsoft.com/en-us/aspnet/core/tutorials/web-api-vsc#implement-the-other-crud-operations|
         //
-        [HttpPost("api/translation/create")]
+        [HttpPost("api/translation")]
         public IActionResult Create([FromBody] Translation translation) 
         {   
             if (translation == null)
@@ -63,7 +63,7 @@ namespace OrdBaseCore.Controllers
         } 
 
 
-        [HttpPost("api/translation/create/array")]
+        [HttpPost("api/translation/array")]
         public IActionResult CreateArray([FromBody] IEnumerable<Translation> translationArray) 
         {   
             if (translationArray == null)
@@ -72,7 +72,7 @@ namespace OrdBaseCore.Controllers
             return _translationRepo.CreateArray(translationArray);
         }
 
-        [HttpPut("api/translation/update")]
+        [HttpPut("api/translation")]
         public IActionResult Update([FromQuery] TranslationQuery query, [FromBody] Translation translation)
         {   
             if (query == null || translation == null || query.ClientKey      != translation.ClientKey    ||
@@ -84,7 +84,7 @@ namespace OrdBaseCore.Controllers
             return _translationRepo.Update(query, translation);
         }
 
-        [HttpDelete("api/translation/delete")]
+        [HttpDelete("api/translation")]
         public IActionResult Delete([FromQuery] TranslationQuery query)
         {
             if (query == null || query.ClientKey      == null
@@ -96,7 +96,7 @@ namespace OrdBaseCore.Controllers
             return _translationRepo.Delete(query);
         }
 
-        [HttpDelete("api/translation/delete/group")]
+        [HttpDelete("api/translation/group")]
         public IActionResult DeleteGroup([FromQuery] TranslationGroupQuery query)
         {
             if (query == null || query.ClientKey      == null

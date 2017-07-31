@@ -96,7 +96,7 @@ function __async__populateGenerator({
             clientKey = force('clientKey'),
     }) {
 
-    Route.client_getDefaultContainers(clientKey)
+    Route.client_getContainers({clientKey: clientKey})
     .then( containers => {
         console.log('containers ', containers);
 
@@ -126,7 +126,7 @@ function __async__populateFlipper({
     }) {
     let buttonArray = new Array();
 
-    Route.language_getGlobal()
+    Route.language_get()
     .then(languages => {
         console.log('global ', languages);
 
@@ -144,7 +144,7 @@ function __async__populateFlipper({
             buttonArray.push(button);
             flipper.addItem(button, { selected : false });
         });
-        return Route.client_getDefaultLanguages(clientKey);
+        return Route.client_getLanguages({clientKey: clientKey});
     })
     .then(languages => {
         console.log('selected ', languages);
@@ -174,7 +174,7 @@ function __async__populateForm({
             clientKey = force('clientKey'),
     }) {
 
-    Route.client_get(clientKey)
+    Route.client_get({clientKey: clientKey})
     .then(client => {
         form.setClient(client[0]);
     })
@@ -195,10 +195,10 @@ function __async__updateClient({
     let containerArray = generator.getItemArray().map(button => { return button.getId(); });
     let languageArray  = flipper.getSelectedItemArray().map(button => { return button.getId(); });
 
-    Route.client_update(clientObject).then(response => {
+    Route.client_update({clientKey: clientKey, client: clientObject}).then(response => {
 
-        Route.client_updateDefaultContainers(clientKey, containerArray).catch(error => console.error(error));
-        Route.client_updateDefaultLanguages(clientKey,  languageArray).catch(error => console.error(error));
+        Route.client_setContainers({clientKey: clientKey, containerArray: containerArray}).catch(error => console.error(error));
+        Route.client_setLanguages({clientKey:  clientKey,  languageArray: languageArray}).catch(error => console.error(error));
 
         loadSelectClient();
     })

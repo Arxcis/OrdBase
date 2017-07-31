@@ -84,7 +84,7 @@ function __async__populateFlipper({ flipper = force('flipper') }) {
     //
     // 6. Promise fill in available languages
     //
-    Route.language_getGlobal().then(languages => {
+    Route.language_get().then(languages => {
 
         languages.forEach(lang => {
             let button = new Component_SelectButton;
@@ -112,11 +112,11 @@ function __async__submitNewClient({
     let containerArray = generator.getItemArray().map(button =>       { return button.getId(); });
     let languageArray  = flipper.getSelectedItemArray().map(button => { return button.getId(); });
 
-    Route.client_create(client)
+    Route.client_create({client: client})
     .then(response => {
         
-        Route.client_createDefaultContainers(client.key, containerArray).catch(error => console.error(error));        
-        Route.client_createDefaultLanguages(client.key, languageArray).catch(error => console.error(error));           
+        Route.client_setContainers({clientKey: clientKey, containerArray: containerArray}).catch(error => console.error(error));
+        Route.client_setLanguages({clientKey:  clientKey,  languageArray: languageArray}).catch(error => console.error(error));    
 
         loadSelectClient();
     })

@@ -11,8 +11,14 @@ export class Component_TranslationCard extends HTMLElement {
         this.button   = this.root.querySelector('button');
         this.template = this.root.getElementById('template-languagekey-complete');
 
+        this.clickHandler  = () => console.log('default...');
         this.deleteHandler = () => console.log('default.....');
         this.selectHandler = () => console.log('default.....');
+
+        this.button.addEventListener('click', () => {  
+            this.clickHandler(); 
+            this.button.blur(); 
+        });
     }
 
     setSelected(selected) { 
@@ -29,10 +35,10 @@ export class Component_TranslationCard extends HTMLElement {
     }
     
     OnClick(handler) { 
-        this.root.querySelector('button').onclick = handler; 
+        this.clickHandler = handler; 
     }
 
-    makeLanguagekeyComplete(languageKey, isComplete) { 
+    addLanguagekeyComplete(languageKey, isComplete) { 
 
         let fragment = this.template.content.cloneNode(true);
 
@@ -49,10 +55,10 @@ export class Component_TranslationCard extends HTMLElement {
         this.button.classList.toggle('deleteable');
         
         if (this.isDeleteable()) {
-            this.button.onclick = this.deleteHandler;
+            this.clickHandler = this.deleteHandler;
         }
         else {
-            this.button.onclick = this.selectHandler;
+            this.clickHandler = this.selectHandler;
         }
     }
 
