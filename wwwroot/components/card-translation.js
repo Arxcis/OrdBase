@@ -15,45 +15,61 @@ export class Component_TranslationCard extends HTMLElement {
 
         this.languageArray = new Array;
 
-        this.clickHandler  = () => console.log('default...');
-        this.deleteHandler = () => console.log('default.....');
-        this.selectHandler = () => console.log('default.....');
+        this.submitHandler = () => console.log('default submit...');
+        this.deleteHandler = () => console.log('default delete.....');
+        this.openHandler = () => console.log('default select.....');
 
         this.button.addEventListener('click', () => {  
-            this.clickHandler(); 
 
-            if (!this.form.classList.contains('animated') && this.languageArray.length > 0) {
-                this.OnFirstClick();
+            // If first time, add animation
+            if (!this.form.classList.contains('animated')) {
+                this.form.classList.add('animated');                
             }
-            this.OnEveryClick();
+
+            // Toggle between active and not active. Wait to enable active until displayForm() is fired
+            if(!this.form.classList.contains('active')) {
+                this.openHandler();
+            }
+            else {
+                this.form.classList.remove('active');
+                this.form.innerHTML = '';
+            }
         });
     }
 
-    OnEveryClick () {
-        this.form.classList.toggle('active');
+    OnOpen(handler) {
+        this.openHandler = handler;
+    };
 
-        if(this.form.classList.contains('active')) {
-            setTimeout(() => [].slice.apply(this.form.children).forEach(child => {child.style.display = 'block'; }), 130);
-        }
-        else {
-            [].slice.apply(this.form.children).forEach(child => {child.style.display = 'none'; });
-        }
+    OnDelete(handler) {
+        this.deleteHandler = handler;
+    };
+
+    OnSubmit(handler) {
+        this.submitHanlder = handler;
     }
+
+    addFieldset(languageKey, isComplete) {
+
+        this.languageArray.push(languageKey);
+
+        let fragment = this.__template__fieldset.content.cloneNode(true);
+        
+        fragment.querySelector('label').setAttribute('for', `form-translation-${languageKey}`);  
+        fragment.querySelector('label').innerHTML = languageKey;                                  
+        fragment.querySelector('input').setAttribute('id',  `form-translation-${languageKey}`);
+        
+        this.form.appendChild(fragment);
+    }
+
+    displayForm() {
+        this.style.setProperty('--language-count', this.languageArray.length);  // Give data to the animation
+        this.form.classList.add('active');                                      // Start the animation 
+        setTimeout(() => [].slice.apply(this.form.children).forEach(child => { child.style.display = 'block'; }), 150); // Let the animation finish before displaying children       
+    }
+
 
     OnFirstClick () {
-        this.form.classList.add('animated');
-        console.log( this.style);
-        this.style.setProperty('--language-count', this.languageArray.length);
-
-        this.languageArray.forEach(languageKey => {
-
-            let fragment = this.__template__fieldset.content.cloneNode(true);
-
-            fragment.querySelector('label').setAttribute('for', `form-translation-${languageKey}`);  
-            fragment.querySelector('label').innerHTML = languageKey;                                  
-            fragment.querySelector('input').setAttribute('id',  `form-translation-${languageKey}`);
-            this.form.appendChild(fragment);
-        });
     }
 
     focus() { this.button.focus(); }
@@ -97,7 +113,7 @@ export class Component_TranslationCard extends HTMLElement {
             this.clickHandler = this.deleteHandler;
         }
         else {
-            this.clickHandler = this.selectHandler;
+            this.clickHandler = this.openHandler;
         }
     }
 

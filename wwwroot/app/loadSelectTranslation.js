@@ -28,6 +28,7 @@ export function loadSelectTranslation (clientKey) {
     const languageArray    = new Array();
     const buttonArray      = new Array();
     const cardArray        = new Array();
+    const activeCard       = {};
 
     //
     // 1. Async calls
@@ -42,7 +43,8 @@ export function loadSelectTranslation (clientKey) {
     
     __async__generateTranslationCards({ view: view, 
                                         generator: generator, 
-                                        cardArray: cardArray, 
+                                        cardArray: cardArray,
+                                        languageArray: languageArray, 
                                         clientKey: clientKey, 
                                         containerKey: '' });
 
@@ -90,6 +92,7 @@ export function loadSelectTranslation (clientKey) {
         cardArray.length = 0;
         __async__generateTranslationCards({ view: view, 
                                             generator: generator, 
+                                            languageArray: languageArray,
                                             cardArray: cardArray, 
                                             clientKey: clientKey, 
                                             containerKey: button.getId() });
@@ -115,10 +118,10 @@ export function loadSelectTranslation (clientKey) {
             });
         });
 
-        __async__submitNewTranslationGroup({ view: view, 
-                                             generator: generator, 
-                                             cardArray: cardArray, 
-                                             translationArray: translationArray});
+        __async__generateTranslationCard({ view: view, 
+                                           generator: generator, 
+                                           cardArray: cardArray, 
+                                           translationArray: translationArray});
     });
     generator.setButtonHeight(60);
     generator.deactivate();
@@ -137,8 +140,7 @@ export function loadSelectTranslation (clientKey) {
 //  @note @todo
 //
 function makeTranslationCard({ groupMeta = force('groupMeta'), 
-                               cardArray = force('cardArray'),
-                               view      = force('view')  } = {}) { 
+                               generator = force('generator') } = {}) { 
 
     let card = new Component_TranslationCard;
     card.setTranslationKey(groupMeta.key);
@@ -147,27 +149,58 @@ function makeTranslationCard({ groupMeta = force('groupMeta'),
         card.addLanguagekeyComplete(item.languageKey, item.isComplete);
     })
 
-    card.selectHandler = () => { 
-        let activeCard = view.getActiveTranslationCard();
+    card.OnOpen(() => { 
 
+        let activeCard = generator.getActiveItem();
         if (activeCard) {
             activeCard.setSelected(false);
         }
         
         card.setSelected(true);
-        view.setActiveTranslationCard(card); 
-    }
+        activeCard = 
 
-    card.deleteHandler = () => { 
-        __async__deleteTranslationCard({card: card, cardArray: cardArray,
+        __async_populateFieldsets({ card: card, 
+                                    clientKey: groupMeta.clientKey, 
+                                    containerKey: groupMeta.containerKey, 
+                                    translationKey: groupMeta.key })
+    });
+
+    card.OnDelete(() => { 
+        __async__deleteTranslationCard({card: card, 
+                                        cardArray: cardArray,
                                         clientKey: groupMeta.clientKey, 
                                         containerKey: groupMeta.containerKey, 
                                         translationKey: groupMeta.key});
 
-    }            
+    });            
     card.button.onclick = card.selectHandler;
 
     return card;
+}
+
+//
+// @function __async_populateFieldsets
+//  @note @todo
+//
+function __async__populateFieldsets({ card          = force('card'),
+                                      clientKey     = force('clientKey'),
+                                      containerKey  = force('containerKey'),
+                                      translationKey = force('translationKey'), }) {
+
+    Route.translation_getGroup({clientKey: clientKey, 
+                                containerKey: containerKey, 
+                                translationKey: translationKey}).then((groupArray) => {
+        
+        // We always get an array, even if we just want one group. 
+        let group = groupArray[0];
+
+        groupItems.forEach(item => {
+            card.addFieldset(item.languageKey, item.isComplete);
+        });
+
+        card.displayForm();
+
+    }).catch(err => console.error('Error: ', err));
 }
 
 
@@ -192,6 +225,7 @@ function __async__getDefaultLanguages({ clientKey     = force('clientKey'),
 //
 function __async__generateSelectButtons({ view        = force('view'), 
                                           generator   = force('generator'),  
+                                          languageArray = force('languageArray'),
                                           buttonArray = force('buttonArray'), 
                                           cardArray   = force('cardArray'), 
                                           clientKey   = force('clientKey') }) {
@@ -207,6 +241,7 @@ function __async__generateSelectButtons({ view        = force('view'),
             button.setSelected(false)
 
             button.OnClick(() => {
+
                 view.getActiveContainerButton().setSelected(false);
                 button.setSelected(true);
                 view.setActiveContainerButton(button);
@@ -217,6 +252,7 @@ function __async__generateSelectButtons({ view        = force('view'),
                 cardArray.length = 0;
                 __async__generateTranslationCards({view: view, 
                                                    generator: generator, 
+                                                   languageArray: languageArray,
                                                    cardArray: cardArray, 
                                                    clientKey: clientKey, 
                                                    containerKey: button.getId()});
@@ -232,9 +268,10 @@ function __async__generateSelectButtons({ view        = force('view'),
 // @function __async__generateTranslationCards
 //  @note @todo
 //
-function __async__generateTranslationCards({ generator    = force('generator'), 
+function __async__generateTranslationCards({ view         = force('view'),              
+                                             generator    = force('generator'), 
+                                             languageArray = force('languageArray'),                        
                                              cardArray    = force('cardArray'),
-                                             view         = force('view'),              
                                              clientKey    = force('clientKey'), 
                                              containerKey = force('containerKey') }) {
 
@@ -243,6 +280,11 @@ function __async__generateTranslationCards({ generator    = force('generator'),
 
         groupMetaArray.forEach((groupMeta, i) => {
             let card = makeTranslationCard({groupMeta: groupMeta, view: view, cardArray: cardArray});
+
+            card.OnSelect(() => {
+
+            });
+
             cardArray.push(card);
             generator.addItem(card);
         });    
@@ -250,11 +292,13 @@ function __async__generateTranslationCards({ generator    = force('generator'),
     .catch(err => console.error('Error:', err));  
 }
 
+
+
 //
-// @function __async__submitNewTranslationGroup
+// @function __async__generateTranslationCard
 //  @note @todo
 //
-function __async__submitNewTranslationGroup({ generator        = force('generator'),
+function __async__generateTranslationCard({ generator        = force('generator'),
                                               cardArray        = force('cardArray'), 
                                               view             = force('view'),             
                                               translationArray = force('translationArray'), }) {
