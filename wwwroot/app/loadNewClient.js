@@ -6,10 +6,9 @@ import { force } from '../lib/Util.js';
 
 import { View_EditClient }  from '../views/edit-client.js';
 
-import { Component_ItemGenerator } from '../components/item-generator.js';
-import { Component_ItemFlipper }   from '../components/item-flipper.js';
-import { Component_ClientForm }    from '../components/form-client.js';
-import { Component_SelectButton }  from '../components/button-select.js';
+import { Component_ContainerGenerator } from '../components/generator-container.js';
+import { Component_LanguageFlipper }   from '../components/flipper-language.js';
+import { Component_ClientForm }        from '../components/form-client.js';
 
 import { loadSelectClient } from './loadSelectClient.js';
 
@@ -18,9 +17,10 @@ export function loadNewClient(clientKey) {
     //
     // 0. Create component instances
     //
+    const header    = App.HEADER;
     const view      = new View_EditClient;     
-    const generator = new Component_ItemGenerator;
-    const flipper   = new Component_ItemFlipper;
+    const generator = new Component_ContainerGenerator;
+    const flipper   = new Component_LanguageFlipper;
     const form      = new Component_ClientForm;
     
     //
@@ -29,31 +29,22 @@ export function loadNewClient(clientKey) {
     __async__populateFlipper({flipper: flipper});
 
     //
-    // 2. Set up header
+    // 2. Set up header event handlers
     //
-    App.HEADER.setTextBig(   'Ordbase');    
-    App.HEADER.setTextSmall( 'New client');
-    App.HEADER.setButtonIconLeft  (App.ICON_BARS);
-    App.HEADER.setButtonIconRight0(App.ICON_NONE);    
-    App.HEADER.setButtonIconRight1(App.ICON_NONE);    
-    App.HEADER.setButtonIconRight2(App.ICON_TIMES);
-
-    App.HEADER.getButtonLeft().onclick   = App.defaultHandler;
-    App.HEADER.getButtonRight0().onclick = App.defaultHandler;    
-    App.HEADER.getButtonRight1().onclick = App.defaultHandler;
-    App.HEADER.getButtonRight2().onclick = event => loadSelectClient();
+    header.button0_OnClick(App.defaultHandler);
+    header.button1_OnClick(App.defaultHandler);    
+    header.button2_OnClick(App.defaultHandler);
+    header.button3_OnClick(event => loadSelectClient());
 
     //
-    // 3. Component generator
+    // 2. Bind data to header
     //
-    generator.OnGenerate(() => {
-        let button = new Component_SelectButton;
-        let value = generator.getValue();
-        button.setId(value);
-        button.setText(value);
-        button.setSelected(true);
-        return button;
-    });
+    header.setTextSmall('Ordbase');    
+    header.setTextBig('New client');
+    header.button0_setIcon(App.ICON_BARS);
+    header.button1_setIcon(App.ICON_NONE);    
+    header.button2_setIcon(App.ICON_NONE);    
+    header.button3_setIcon(App.ICON_TIMES);
 
     //
     // 4. Component flipper
@@ -67,7 +58,16 @@ export function loadNewClient(clientKey) {
     form.setSubmitText('Create client');
     form.addEventListener('submit', e => {
         e.preventDefault();
-        __async__submitNewClient({form: form, generator: generator, flipper: flipper});            
+        //
+        //  @doc https://stackoverflow.com/questions/31676135/javascript-map-is-not-a-function
+        //
+        let clientData     = form.getData();
+        let containerArray = generator.getContainerKeyArray(); 
+        let languageArray  = flipper.getLanguageKeyArray(); 
+        console.log(clientData, containerArray, languageArray);
+        __async__submitNewClient({ client: clientData, 
+                                   containerArray: containerArray, 
+                                   languageArray: languageArray });            
     });
 
     //
@@ -80,46 +80,41 @@ export function loadNewClient(clientKey) {
 
 }
 
+//
+// @function __async__populateFlipper
+//  @note @todo
+//
 function __async__populateFlipper({ flipper = force('flipper') }) {
-    //
-    // 6. Promise fill in available languages
-    //
-    Route.language_get().then(languages => {
 
-        languages.forEach(lang => {
-            let button = new Component_SelectButton;
-
-            button.setId(lang.key);
-            button.setText( `${lang.name} - ${lang.key}`);
-            button.setSelected(false);
-
-            flipper.addItem(button, { selected : false });
+    Route.language_get().then(languageArray => {
+        console.log('get languageArray:', languageArray.status);        
+        
+        languageArray.forEach(lang => {
+            flipper.makeNewItem({ key: lang.key, 
+                                  text: `${lang.name} - ${lang.key}`,
+                                  selected: false });
         });
-    })
+    }) 
     .catch(error => console.log(error));
 }
 
+//
+// @function __async__submitNewClient
+//  @note @todo
+//
 function __async__submitNewClient({
-            form      = force('form'), 
-            generator = force('generator'), 
-            flipper   = force('flipper'),
+            client         = force('client'), 
+            containerArray = force('containerArray'), 
+            languageArray  = force('languageArray'),
     }) {
 
-    //
-    //  @doc https://stackoverflow.com/questions/31676135/javascript-map-is-not-a-function
-    //
-    let client         = form.getClient();
-    let containerArray = generator.getItemArray().map(button =>       { return button.getId(); });
-    let languageArray  = flipper.getSelectedItemArray().map(button => { return button.getId(); });
-
     Route.client_create({client: client})
-    .then(response => {
-        
-            Route.client_setContainers( {clientKey: client.key, containerArray: containerArray}).catch(error => console.error(error));
-            Route.client_setLanguages(  {clientKey: client.key,  languageArray: languageArray}).catch(error => console.error(error));    
+    .then(res => {
+        console.log('client create:', res.status);        
+            Route.client_setContainers({ clientKey: client.key, containerArray: containerArray}).catch(error => console.error(error));
+            Route.client_setLanguages({  clientKey: client.key, languageArray: languageArray}).catch(error => console.error(error));    
             
             loadSelectClient();
-
     })
     .catch(error => console.error(error)); // @TODO Display error in view
 } 

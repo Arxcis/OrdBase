@@ -8,7 +8,7 @@ import { View_SelectClient }      from '../views/select-client.js';
 import { Component_ClientCard   } from '../components/card-client.js';
 
 //import { loadEditClient }        from './loadEditClient.js';
-//import { loadNewClient }         from './loadNewClient.js'; 
+import { loadNewClient }         from './loadNewClient.js'; 
 //import { loadSelectTranslation } from './loadSelectTranslation.js';
 
 //
@@ -40,7 +40,13 @@ export function loadSelectClient() {
     //
     // 3. Set up header event handlers
     //   
-    header.button0_OnClick(App.defaultHandler);     
+    header.button0_OnClick(event => { 
+        let cardArray = view.getCardArray();  
+        header.setTextBig('Select Client');
+        header.setColor(App.COLOR_SUCCESS);       
+        cardArray.forEach(card => card.setDeleteable()); 
+    });     
+
     header.button1_OnClick(event => { 
 
         let cardArray = view.getCardArray();
@@ -60,7 +66,7 @@ export function loadSelectClient() {
     header.button2_OnClick(event => { 
 
         let cardArray = view.getCardArray();
-        console.log(cardArray);
+
         if (!cardArray[0].isEditable()) {
             header.setTextBig('Edit Client');
             header.setColor(App.COLOR_SELECT); 
@@ -73,14 +79,13 @@ export function loadSelectClient() {
         }     
     });
 
-    header.button3_OnClick(event => {});//loadNewClient());
+    header.button3_OnClick(event => loadNewClient());
 
     //
-    // 3. Bind data to header
+    // 4. Bind data to header
     //   
     header.setTextSmall( 'Ordbase');
     header.setTextBig( 'Select Client');
-
     header.setColor(App.COLOR_SUCCESS);
     header.button0_setIcon(App.ICON_SQUARE);
     header.button1_setIcon(App.ICON_TRASH);
@@ -89,7 +94,7 @@ export function loadSelectClient() {
 
 
     //
-    // 4. Insert new view into DOM
+    // 5. Insert new view into DOM
     //
     App.switchView(view);
 }
@@ -132,7 +137,7 @@ function __async__deleteCard({
 
     Route.client_delete({clientKey: card.getKey()})
     .then(res => {
-        if (res.status == 205) {
+        if (res.status == 204) {
             view.root.removeChild(card);
         }
         else {
