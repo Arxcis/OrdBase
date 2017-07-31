@@ -1,5 +1,5 @@
 'use strict';
-import html from './item-generator.html';
+import html from './generator-menu-item.html';
 
 const UP    = 38;
 const DOWN  = 40;
@@ -8,7 +8,7 @@ const ENTER = 13;
 const TAB   = 9;
 const BACKSPACE = 8;
 
-export class Component_ItemGenerator extends HTMLElement {
+export class Component_GeneratorMenuItem extends HTMLElement {
 
     constructor() {
         super();
@@ -142,4 +142,4 @@ export class Component_ItemGenerator extends HTMLElement {
     deactivate() { this.button.style.display  = 'none'; }
 }
 
-customElements.define('component-item-generator', Component_ItemGenerator);
+customElements.define('component-generator-menu-item', Component_GeneratorMenuItem);

@@ -1,5 +1,5 @@
 'use strict';
-import html from './translation-card-generator.html';
+import html from './generator-translation-card.html';
 
 const UP    = 38;
 const DOWN  = 40;
@@ -8,7 +8,7 @@ const ENTER = 13;
 const TAB   = 9;
 const BACKSPACE = 8;
 
-export class Component_TranslationCardGenerator extends HTMLElement {
+export class Component_GeneratorTranslationCard extends HTMLElement {
 
     constructor() {
         super();
@@ -142,4 +142,4 @@ export class Component_TranslationCardGenerator extends HTMLElement {
     deactivate() { this.button.style.display  = 'none'; }
 }
 
-customElements.define('component-translation-card-generator', Component_TranslationCardGenerator);
+customElements.define('component-generator-translation-card', Component_GeneratorTranslationCard);

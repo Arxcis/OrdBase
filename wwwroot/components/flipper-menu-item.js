@@ -6,7 +6,7 @@ import { force } from '../lib/Util.js';
 const UP = 38;
 const DOWN = 40;
 
-export class Component_ItemFlipper extends HTMLElement { 
+export class Component_FlipperMenuItem extends HTMLElement { 
   
     constructor() {
         super();
@@ -74,4 +74,4 @@ export class Component_ItemFlipper extends HTMLElement {
         return [].slice.call(this.div_flipUp.children);
     }
 }
-customElements.define('component-item-flipper', Component_ItemFlipper);
+customElements.define('component-flipper-menu-item', Component_FlipperMenuItem);
