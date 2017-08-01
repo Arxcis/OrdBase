@@ -26,7 +26,13 @@ export function loadNewClient(clientKey) {
     //
     // 1. Fire async call
     //
-    __async__populateFlipper({flipper: flipper});
+    __async__client_getLanguageKeyArray({
+        success: languageKeyArray => {
+            languageKeyArray.forEach(lang => {
+                flipper.makeItem({ key: lang.key,  text: `${lang.name} - ${lang.key}`, selected: false });
+            });
+        }
+    });
 
     //
     // 2. Set up header event handlers
@@ -59,10 +65,12 @@ export function loadNewClient(clientKey) {
     form.addEventListener('submit', e => {
         e.preventDefault();
 
-        __async__submitNewClient({ client: form.getClient(), 
-                                   containerArray: generator.getContainerKeyArray(), 
-                                   languageArray: flipper.getLanguageKeyArray(), 
-                                   header: header });            
+        __async__client_create({ 
+            client: form.getClient(), 
+            containerArray: generator.getContainerKeyArray(), 
+            languageArray: flipper.getLanguageKeyArray(), 
+            success: () => loadSelectClient(),
+        });            
     });
 
     //
@@ -76,33 +84,31 @@ export function loadNewClient(clientKey) {
 }
 
 //
-// @function __async__populateFlipper
+// @function __async__client_getLanguageKeyArray
 //  @note @todo
 //
-function __async__populateFlipper({ flipper = force('flipper') }) {
+function __async__client_getLanguageKeyArray({ success = force('success')}) {
 
-    Route.language_get().then(languageArray => {
-        console.log('get languageArray:', languageArray.status);        
-        
-        languageArray.forEach(lang => {
-            flipper.makeItem({ key: lang.key, 
-                                  text: `${lang.name} - ${lang.key}`,
-                                  selected: false });
-        });
+    Route.language_get().then(languageKeyArray => {
+
+        if (languageKeyArray.length > 0) {
+            success(languageKeyArray);
+        }
+        else {
+            App.HEADER.flashError('There are no supported languages in the database....');
+        }
     }) 
     .catch(error => console.log(error));
 }
 
 //
-// @function __async__submitNewClient
+// @function __async__client_create
 //  @note @todo
 //
-function __async__submitNewClient({
-            header         = force('header'),
-            client         = force('client'), 
-            containerArray = force('containerArray'), 
-            languageArray  = force('languageArray'),
-    }) {
+function __async__client_create({ success        = force('success'),
+                                 client         = force('client'), 
+                                 containerArray = force('containerArray'), 
+                                 languageArray  = force('languageArray'), }) {
 
     Route.client_create({client: client})
     .then(res => {
@@ -112,7 +118,7 @@ function __async__submitNewClient({
 
             Route.client_setContainers({clientKey: client.key, containerArray: containerArray}).then(res => {
                 if (res.status != App.HTTP_CREATED) { 
-                    header.flashError(`code ${res.status}: clientContainers could not be created`);
+                    App.HEADER.flashError(`code ${res.status}: clientContainers could not be created`);
                 }
                 console.log('client_setContainers(): ', res.status)
                 
@@ -120,17 +126,17 @@ function __async__submitNewClient({
 
             Route.client_setLanguages({clientKey:  client.key, languageArray: languageArray}).then(res => {
                 if (res.status != App.HTTP_CREATED) { 
-                    header.flashError(`code ${res.status}: clientLanguages could not be created`);
+                    App.HEADER.flashError(`code ${res.status}: clientLanguages could not be created`);
                 }
                 console.log('client_setLanguages(): ', res.status)
-            }).catch(error => console.error(error));
+            }).catch(error => console.error(error));    
             
-            loadSelectClient();
+            success();        
         }
         else {
-            header.flashError(`code ${res.status}: Client could not be created. Client may already exist`);
+            App.HEADER.flashError(`code ${res.status}: Client could not be created. Client may already exist`);
         }
     })
-    .catch(error => header.flash(error)); // @TODO Display error in view
+    .catch(error => App.HEADER.flash(error)); // @TODO Display error in view
 } 
 

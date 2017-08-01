@@ -54,8 +54,7 @@ export function loadSelectClient() {
     cardPrototype.OnEdit(   (card, e) => loadEditClient(card.getKey()));
     
     cardPrototype.OnDelete((card, e) => {
-        __async__client_delete({ 
-            clientKey: card.getKey(), 
+        __async__client_delete({ clientKey: card.getKey(), 
             success: () => {
                 view.root.removeChild(card);
             }
