@@ -10,63 +10,63 @@ export class Component_ClientCard extends HTMLElement {
     //
     constructor() {
         super();
-        this.root = this.createShadowRoot();
-        this.root.innerHTML = html;
-        this.button = this.root.querySelector('button');
+        this._root = this.createShadowRoot();
+        this._root.innerHTML = html;
+        this._button = this._root.querySelector('button');
 
-        this.clickHandler  = () => console.log('default.....');
-        this.selectHandler = () => console.log('default.....');
-        this.editHandler   = () => console.log('default.....');
-        this.deleteHandler = () => console.log('default.....');
+        this._clickHandler  = () => console.log('default.....');
+        this._selectHandler = () => console.log('default.....');
+        this._editHandler   = () => console.log('default.....');
+        this._deleteHandler = () => console.log('default.....');
 
-        this.button.addEventListener('click', () => {
-            this.clickHandler();
+        this._button.addEventListener('click', () => {
+            this._clickHandler();
         });
 
-        this.button.addEventListener('focus', () => {
-            if(!this.button.classList.contains('animated'))
-                this.button.classList.add('animated');
+        this._button.addEventListener('focus', () => {
+            if(!this._button.classList.contains('animated'))
+                this._button.classList.add('animated');
         })
         
-        this.button.addEventListener('mouseover', () => {
-            if(!this.button.classList.contains('animated'))           
-                this.button.classList.add('animated');
+        this._button.addEventListener('mouseover', () => {
+            if(!this._button.classList.contains('animated'))           
+                this._button.classList.add('animated');
         })  
     }
 
     //
     // Handle card state machine
     //
-    OnSelect(handler)  { this.selectHandler = handler; }
-    OnEdit(handler)    { this.editHandler   = handler; }
-    OnDelete(handler)  { this.deleteHandler = handler; }
+    OnSelect(handler)  { this._selectHandler = handler; }
+    OnEdit(handler)    { this._editHandler   = handler; }
+    OnDelete(handler)  { this._deleteHandler = handler; }
     
     setSelectable() {
-        this.button.classList.remove('editable');
-        this.button.classList.remove('deleteable');
-        this.clickHandler = this.selectHandler;        
+        this._button.classList.remove('editable');
+        this._button.classList.remove('deleteable');
+        this._clickHandler = this._selectHandler;        
     }
  
     setEditable() {
-        this.button.classList.add('editable');
-        this.button.classList.remove('deleteable');
-        this.clickHandler = this.editHandler;
+        this._button.classList.add('editable');
+        this._button.classList.remove('deleteable');
+        this._clickHandler = this._editHandler;
     }
 
     setDeleteable() {
-        this.button.classList.add('deleteable');
-        this.button.classList.remove('editable');
-        this.clickHandler = this.deleteHandler;
+        this._button.classList.add('deleteable');
+        this._button.classList.remove('editable');
+        this._clickHandler = this._deleteHandler;
     }
 
-    isEditable()   { return this.button.classList.contains('editable'); }
-    isDeleteable() { return this.button.classList.contains('deleteable'); }
+    isEditable()   { return this._button.classList.contains('editable'); }
+    isDeleteable() { return this._button.classList.contains('deleteable'); }
 
     //
     // Set internal data
     //
     setHeading (name){
-        this.root.getElementById('card-h2').innerHTML = name || '{{ null heading }}';
+        this._root.getElementById('card-h2').innerHTML = name;
         this._name = name;
     }    
     setId(id) {
@@ -74,11 +74,11 @@ export class Component_ClientCard extends HTMLElement {
     }
 
     setText(text) {
-        this.root.getElementById('card-p').innerHTML = text || '{{ null text }}';
+        this._root.getElementById('card-p').innerHTML = text;
     }
                 
     setThumbnail (url) { 
-        this.root.getElementById('card-img').src = url;
+        this._root.getElementById('card-img').src = url;
     }
 }
 customElements.define('component-card-client', Component_ClientCard);
