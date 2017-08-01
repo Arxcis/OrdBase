@@ -35,11 +35,6 @@ namespace OrdBaseCore.Models
                 .HasIndex(c => c.ApiKey)
                 .IsUnique();
 
-            modelBuilder
-                .Entity<Client>()
-                .HasIndex(c => c.WebpageUrl)
-                .IsUnique();
-
             //
             // @note Client has a many to many relationship with both Languages and Containers
             // @doc Configure many to many tables https://docs.microsoft.com/en-us/ef/core/modeling/relationships#many-to-many

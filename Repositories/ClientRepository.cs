@@ -91,7 +91,6 @@ namespace OrdBaseCore.Repositories
         //
         public IActionResult SetContainers(ClientQuery query, IEnumerable<string> containerArray)
         {
-
             var _clientContainers = _context.ClientContainer.Where(cc => cc.ClientKey == query.ClientKey);
             _context.RemoveRange(_clientContainers);
             _context.SaveChanges();
@@ -101,6 +100,20 @@ namespace OrdBaseCore.Repositories
                 ClientKey = query.ClientKey, 
                 ContainerKey = containerKey,
             });
+
+            //
+            // @note Here we make sure that a container has to exist in the Container table, before it can be used as a 
+            //      foreign key in the ClientContainer table. The SetLanguage method should probably also check this,
+            //      but I am currently relying upon the front-end to make sure that only valid languages
+            //      are set as new languages. This will throw an 500 error if  a 
+            //      lanaguage or container does not already exists. - JSolsvik 01.08.17
+            //
+            foreach(var cc in clientContainers) {
+
+                if (_context.Container.Where(c => c.Key == cc.ContainerKey).Count() == 0){
+                    _context.Container.Add(new Container { Key = cc.ContainerKey});
+                }
+            }
 
             _context.AddRange(clientContainers);
             _context.SaveChanges();
