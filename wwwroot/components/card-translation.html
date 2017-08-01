@@ -131,7 +131,7 @@
 </style>
 
     <button class="btn-load-translation-editor">
-        <span class="translation-key">{{ translationKey }}</span>
+        <span id="card-translation-key" class="translation-key">{{ translationKey }}</span>
         
         <div  id="array-languagekey-complete">
             
@@ -155,7 +155,7 @@
         </fieldset>
 
         <template id = "template-fieldset">
-            <fieldset>
+            <fieldset class="generated">
                 <label for="form-translation-{{ languageCode }}">Key</label><br>
                 <input id="form-translation-{{ languageCode  }}" type="text" data-min-size="20" value="">
             </fieldset>

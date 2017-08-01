@@ -57,10 +57,10 @@ export function loadSelectTranslation (clientKey) {
         clientKey: clientKey, 
         success: containerKeyArray => {
 
-            const defaultItemId = 'All Containers';
+            const defaultItemKey = 'All Containers';
 
             // Add a default item which when clicked on will show ALL translation cards
-            containerKeyArray.push(defaultItemId); 
+            containerKeyArray.unshift(defaultItemKey); 
             containerKeyArray.forEach(containerKey => {
 
                 picker.makeItem({
@@ -68,15 +68,16 @@ export function loadSelectTranslation (clientKey) {
                     text: containerKey,
 
                     // On picker-item click, reload all translation cards
-                    onclick: () => {
-                        __async__client_getGroupMetaArray({
+                    onclick: e => {
+
+                        __async__translation_getGroupMetaArray({
                             clientKey: clientKey, 
-                            containerKey: item.getKey(),
+                            containerKey: picker.getContainerKey(),
                             success: groupMetaArray => {
 
                                 generator.clearItems();
                                 
-                                if(item.getKey() != defaultItemId) 
+                                if(picker.getContainerKey() != defaultItemKey) 
                                     generator.activate();
                                 else                    
                                     generator.deactivate();
@@ -91,7 +92,7 @@ export function loadSelectTranslation (clientKey) {
                     },
                 });
             });
-            picker.setDefaultItem(defaultItemId);
+            picker.setDefaultItem();
         }
     });
     
@@ -108,7 +109,7 @@ export function loadSelectTranslation (clientKey) {
             translationKey: card.getTranslationKey(),
             success: group => {
                 group.items.forEach(item => {
-                    card.addFieldset(item.languageKey, )
+                    card.makeFieldset(item.languageKey, item.isComplete)
                 });
             } 
         })
@@ -127,6 +128,8 @@ export function loadSelectTranslation (clientKey) {
             }
         });
     });  
+
+    cardPrototype.OnSubmit((card, e) => { console.log('defaultsubmit....'); });
 
     //
     // 2. Setup header events
@@ -169,11 +172,11 @@ export function loadSelectTranslation (clientKey) {
     //
     // 4.Component_TranslationGenerator
     //
-    generator.OnGenerate(() => {
+    generator.OnGenerate( e => {
        
         let translationArray = new Array();
 
-        languageArray.forEach(languageKey => {
+        languageKeyArray.forEach(languageKey => {
         
             translationArray.push({
                 clientKey : clientKey,
@@ -216,11 +219,10 @@ function makeTranslationCard({ cardPrototype = force('cardPrototype'),
     card.setTranslationKey(groupMeta.key);
     
     groupMeta.items.forEach(item => {
-        card.addLanguagekeyComplete(item.languageKey, item.isComplete);
+        card.makeLanguagekeyComplete(item.languageKey, item.isComplete);
     });
 
     card.OnOpen(cardPrototype._openHandler);
-    card.OnClose(cardPrototype._closeHandler);
     card.OnSubmit(cardPrototype._submitHandler);
     card.OnDelete(cardPrototype._deleteHandler);
 

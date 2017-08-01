@@ -12,7 +12,7 @@ export class Component_TranslationCard extends HTMLElement {
         this.__template__languageKeyComplete = this._root.getElementById('template-languagekey-complete');
         this.__template__fieldset            = this._root.getElementById('template-fieldset');
 
-        this._languageArray = new Array;
+        this._isClosed = true;
         
         this._clickHandler  = () => console.log('default click....')
         this._submitHandler = () => console.log('default submit....');
@@ -33,31 +33,87 @@ export class Component_TranslationCard extends HTMLElement {
         })  
 
         this._button.addEventListener('click', e => {  
-            this._clickHandler(this, e);
+            
+            if  (this._isClosed) {
+                this._clickHandler(this, e);
+            }
+            else {
+                this._close();
+            }
         });
     }
 
-    OnOpen(handler)    { this._openHandler   = handler };
-    OnClose(handler)   { this._closeHandler  = handler; }
-    OnDelete(handler)  { this._deleteHandler = handler; };
-    OnSubmit(handler)  { this._submitHanlder = handler; }
 
-
+    //
+    // PUBLIC
+    //
+    
     open()  {
-        this.style.setProperty('--language-count', this.languageArray.length);  // Give data to the animation
+        let fieldsetArray = [].slice.apply(this._root.querySelectorAll('fieldset'));
+
+        this._root.getElementById('form-translation-key').value = this.getTranslationKey();
+
+        this._button.classList.add('selected');
+        this.style.setProperty('--fieldset-count', fieldsetArray.length);  // Give data to the animation
         this._form.classList.add('active');                                      // Start the CSS animation 
-        setTimeout(() => [].slice.apply(this._form.children).forEach(child => { child.style.display = 'block'; }), 150); // 
+        setTimeout(() => fieldsetArray.forEach(fieldset => { fieldset.style.display = 'block'; }), 150); // 
+
+        this._isClosed = false;
     }
 
     close() { 
-        this._clickHandler = this._openHandler; 
+        this._form.classList.remove('active');
+        
+        this._button.classList.remove('selected');
+        
+        [].slice.apply(this._root.querySelectorAll('.generated')).forEach(fieldset => {
+            fieldset.parentElement.removeChild(fieldset);
+        });
+
+        this._isClosed = true;
     }
 
-    setDeleteable(){ this._clickHandler = this._deleteHandler; }
+    focus() { this.button.focus(); }
 
-    addFieldset(languageKey, isComplete) {
+    toggleDeleteable() {
+        this.button.classList.toggle('deleteable');
+        
+        if (this.isDeleteable()) {
+            this._clickHandler = this._deleteHandler;
+        }
+        else {
+            this._clickHandler = this._openHandler;
+        }
+    }
 
-        this._languageArray.push(languageKey);
+    isDeleteable() {
+        return this.button.classList.contains('deleteable');
+    }
+
+
+    //
+    // Getters and setters
+    //
+    setOpenable()  {  this._clickHandler = this._openHandler;    }
+    setDeleteable(){  this._clickHandler = this._deleteHandler;  }
+    setCloseable() {  this._clickHandler = this._close;        }
+
+    setTranslationKey(key){ 
+        this._root.getElementById('card-translation-key').innerHTML = key;  
+    }
+
+    getTranslationKey() {
+        return this._root.getElementById('card-translation-key').innerHTML;
+    }
+
+    OnOpen(handler)    { this._openHandler   = handler; }
+    OnDelete(handler)  { this._deleteHandler = handler; }
+    OnSubmit(handler)  { this._submitHanlder = handler; }
+
+    //
+    // Make functions
+    //
+    makeFieldset(languageKey, isComplete) {
 
         let fragment = this.__template__fieldset.content.cloneNode(true);
         
@@ -68,52 +124,17 @@ export class Component_TranslationCard extends HTMLElement {
         this._form.appendChild(fragment);
     }
 
-
-
-    focus() { this.button.focus(); }
-
-    setSelected(selected) { 
-        if (selected) {
-            this.button.classList.add('selected');
-        }
-        else {
-            this.button.classList.remove('selected');  
-        }         
-    }
     
-    setTranslationKey(key){ 
-        this.root.querySelector('span').innerHTML = key;  
-    }
-    
-
-    addLanguagekeyComplete(languageKey, isComplete) { 
+    makeLanguagekeyComplete(languageKey, isComplete) { 
 
         let fragment = this.__template__languageKeyComplete.content.cloneNode(true);
-
-        this.languageArray.push(languageKey);
 
         fragment.querySelector('span').innerHTML = languageKey;
         if (isComplete === true) {
             fragment.querySelector('i').classList.remove('fa-times');
             fragment.querySelector('i').classList.add('fa-check');
         }
-        this.root.getElementById('array-languagekey-complete').appendChild(fragment);
-    }
-
-
-    toggleDeleteable() {
-        this.button.classList.toggle('deleteable');
-        
-        if (this.isDeleteable()) {
-            this.clickHandler = this.deleteHandler;
-        }
-        else {
-            this.clickHandler = this.openHandler;
-        }
-    }
-
-    isDeleteable() {
-        return this.button.classList.contains('deleteable');
+        this._root.getElementById('array-languagekey-complete').appendChild(fragment);
     }
 }
 customElements.define('component-card-translation', Component_TranslationCard);

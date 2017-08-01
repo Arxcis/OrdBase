@@ -90,14 +90,14 @@ namespace OrdBaseCore.Repositories
         {   
             _context.Translation.Add(translation);
             _context.SaveChanges();
-            return new NoContentResult {};
+            return new StatusCodeResult(201);
         }
 
         public IActionResult CreateArray(IEnumerable<Translation> translationArray) 
         {   
             _context.Translation.AddRange(translationArray);            
             _context.SaveChanges();
-            return new NoContentResult {};
+            return new StatusCodeResult (201);
         }
 
 
@@ -118,7 +118,7 @@ namespace OrdBaseCore.Repositories
             
             _context.Translation.Update(_translation);
             _context.SaveChanges();
-            return new NoContentResult {};
+            return new StatusCodeResult(204); 
         }
 
         public IActionResult Delete(TranslationQuery query) 
@@ -134,7 +134,7 @@ namespace OrdBaseCore.Repositories
 
             _context.Translation.Remove(translation);
             _context.SaveChanges();
-            return new NoContentResult {};
+            return new StatusCodeResult(200); // OK
         }
 
 
@@ -146,11 +146,11 @@ namespace OrdBaseCore.Repositories
                      t.Key          == query.TranslationKey);    
             
             if (translationGroup == null)
-                return new NotFoundResult {};
+                return new StatusCodeResult(404); // Notfoundresult
 
             _context.Translation.RemoveRange(translationGroup);
             _context.SaveChanges();
-            return new NoContentResult {};
+            return new StatusCodeResult(204);
         }
 
         //

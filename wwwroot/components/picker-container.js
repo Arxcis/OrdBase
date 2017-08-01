@@ -9,24 +9,24 @@ export class Component_ContainerPicker extends HTMLElement {
   
     constructor() {
         super();
-        this.root = this.createShadowRoot();
-        this.root.innerHTML = html;
+        this._root = this.createShadowRoot();
+        this._root.innerHTML = html;
 
-        this.div_flipUp   = this.root.getElementById('flip-up');
-        this.div_flipDown = this.root.getElementById('flip-down');
+        this._lastSelectedItem = null;
+        this.__template__containerButton = this._root.getElementById('template-button');
 
 
+        // Navigation with keyboard
         this.addEventListener('keydown', e => {
             if (e.keyCode == UP) {
-                let activeElement = this.root.activeElement;
+                let activeElement = this._root.activeElement;
                 if (activeElement.previousElementSibling != null){
                     activeElement.previousElementSibling.focus();
-                    
                 }
             }
             else if (e.keyCode == DOWN) {
 
-                let activeElement = this.root.activeElement;
+                let activeElement = this._root.activeElement;
                 if (activeElement.nextElementSibling != null){
                     activeElement.nextElementSibling.focus();
                 }
@@ -35,40 +35,37 @@ export class Component_ContainerPicker extends HTMLElement {
     }
 
     makeItem({key, text, onclick})  {
-        
-        item.addEventListener('click', e => {
 
-            this.flipItem(e.target)
+        let fragment = this.__template__containerButton.content.cloneNode(true);
+        let button   = fragment.querySelector('button');
+
+        button.setAttribute('id', key);
+        button.innerHTML = text;
+
+        button.addEventListener('click', e => {
+
+            button.classList.add('selected');
+            this._lastSelectedItem.classList.remove('selected');
+            this._lastSelectedItem = button;
+            
+            onclick(e);
         });
+
+        this._root.getElementById('div-container-buttons').appendChild(button);
     }
 
-    flipItem(item) {
-        const classList = item.classList;
-
-        if (item.parentElement.id === 'flip-down') {
-
-            this.div_flipDown.removeChild(item);
-            this.div_flipUp.appendChild(item);
-        } 
-        else if (item.parentElement.id === 'flip-up') {
-
-            this.div_flipUp.removeChild(item);
-            this.div_flipDown.appendChild(item);
-        }
-
-        item.focus();
+    getContainerKey() {
+        return this._lastSelectedItem.getAttribute('id');
     }
 
-    setHeaderUp(text)   { 
-        this.root.getElementById('header-flip-up').innerHTML = text;
-    }
-    
-    setHeaderDown(text) { 
-        this.root.getElementById('header-flip-down').innerHTML = text;
+    setDefaultItem() {
+        let defaultItem = this._root.getElementById('div-container-buttons').firstChild;
+        defaultItem.classList.add('selected');
+        this._lastSelectedItem = defaultItem;
     }
 
-    getSelectedItemArray() {
-        return [].slice.call(this.div_flipUp.children);
+    setHeaderText(text)   { 
+        this._root.getElementById('div-container-header').innerHTML = text;
     }
 }
 customElements.define('component-picker-container', Component_ContainerPicker);

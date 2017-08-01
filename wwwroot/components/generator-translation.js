@@ -12,27 +12,26 @@ export class Component_TranslationGenerator extends HTMLElement {
 
     constructor() {
         super();
-        this.root = this.createShadowRoot();
-        this.root.innerHTML = html;
+        this._root = this.createShadowRoot();
+        this._root.innerHTML = html;
 
-        this.activeItem = {};
-        this.generatedItems = this.root.getElementById('div-generated-items');
-        this.input  = this.root.querySelector('input');
-        this.button = this.root.getElementById('button-generate');
-        this.faIcon = this.button.querySelector('i');
+        this._generatedItems = this._root.getElementById('div-generated-items');
+        this._input  = this._root.querySelector('input');
+        this._button = this._root.getElementById('button-generate');
+        this._faIcon = this._button.querySelector('i');
 
-        this.generateHandler  = (item) => { console.log('Default OnGenerate...') }
+        this._generateHandler  = (item) => { console.log('Default OnGenerate...') }
 
         //
         // Event click
         //
-        this.button.addEventListener('click',  e => { 
+        this._button.addEventListener('click',  e => { 
 
-            if (this.input.style.display === 'block') {
+            if (this._input.style.display === 'block') {
                 this.deactivateInput();
 
-                if(this.input.value != ''){
-                    this.input.value = '';
+                if(this._input.value != ''){
+                    this._input.value = '';
                 }
             }
             else {
@@ -46,7 +45,7 @@ export class Component_TranslationGenerator extends HTMLElement {
         //
         this.addEventListener('keydown', e => {
             if (e.keyCode == UP) {
-                let activeElement = this.root.activeElement;
+                let activeElement = this._root.activeElement;
                 if (activeElement.parentElement == this.generatedItems && activeElement.previousElementSibling != null){
                     activeElement.previousElementSibling.focus();
                     
@@ -54,7 +53,7 @@ export class Component_TranslationGenerator extends HTMLElement {
             }
             else if (e.keyCode == DOWN) {
 
-                let activeElement = this.root.activeElement;
+                let activeElement = this._root.activeElement;
                 if (activeElement.parentElement == this.generatedItems && activeElement.nextElementSibling != null){
                     activeElement.nextElementSibling.focus();
                 }
@@ -63,33 +62,30 @@ export class Component_TranslationGenerator extends HTMLElement {
     }
 
     deactivateInput() {
-        this.input.style.display = 'none';
-        this.button.classList.remove('cancel');
-        this.faIcon.classList.remove('fa-times');                 
-        this.faIcon.classList.add('fa-plus');
-
-        this.button.focus();
+        this._input.style.display = 'none';
+        this._button.classList.remove('cancel');
+        this._faIcon.classList.remove('fa-times');                 
+        this._faIcon.classList.add('fa-plus');
+        this._button.focus();
     }
 
     activateInput() {
-        this.input.style.display = 'block';
-        
-        this.faIcon.classList.remove('fa-plus');
-        this.faIcon.classList.add('fa-times'); 
-        this.button.classList.add('cancel');   
-        
-        this.input.focus();
+        this._input.style.display = 'block';
+        this._faIcon.classList.remove('fa-plus');
+        this._faIcon.classList.add('fa-times'); 
+        this._button.classList.add('cancel');   
+        this._input.focus();
     }
 
     OnGenerate(handler) {
-        this.generateHandler = handler;
+        this._generateHandler = handler;
 
-        this.input.addEventListener('keydown', e => {
+        this._input.addEventListener('keydown', e => {
             if (e.keyCode === ENTER) {
 
-                if(this.input.value != '') {
-                    this.generateHandler.apply(this, e);
-                    this.input.value = '';
+                if(this._input.value != '') {
+                    this._generateHandler.apply(this, e);
+                    this._input.value = '';
                 }
             }
             else if (e.keyCode === ESC) {
@@ -97,49 +93,27 @@ export class Component_TranslationGenerator extends HTMLElement {
             }
         });
     }
-        
-    setInputValue(_value) {
-        this.input.value = _value;
-    }
 
-    getValue() {
-        return this.input.value;
+    getInputValue() {
+        return this._input.value;
     }
-    getItemArray() {
-            return [].slice.apply(this.root.getElementById('div-generated-items').children);
-    }
-
-    getActiveItem() {
-        return this.activeItem;
-    }
-
-    setActiveItem(item) {
-        this.activeItem = item; 
-    }
-
+    
     setButtonHeight(height) {
-        this.button.style.height = `${height}px`;
-        this.input.style.height  = `${height-10}px`
+        this._button.style.height = `${height}px`;
+        this._input.style.height  = `${height-10}px`
     }
 
-
-
-    addItem(item) {
-        item.classList.add('generated')
-        this.root.getElementById('div-generated-items').appendChild(item);
-    }
-
-    removeItem(item) {
-        this.root.getElementById('div-generated-items').removeChild(item);
-        this.deactivateInput();
+    addCard(card) {
+        card.classList.add('generated')
+        this._root.getElementById('div-generated-items').appendChild(card);
     }
 
     clearItems() {
-        this.root.getElementById('div-generated-items').innerHTML = '';
+        this._root.getElementById('div-generated-items').innerHTML = '';
     }
 
-    activate()   { this.button.style.display = 'block'; }
-    deactivate() { this.button.style.display  = 'none'; }
+    activate()   { this._button.style.display = 'block'; }
+    deactivate() { this._button.style.display  = 'none'; }
 }
 
 customElements.define('component-generator-translation', Component_TranslationGenerator);
