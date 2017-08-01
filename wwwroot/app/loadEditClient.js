@@ -39,9 +39,7 @@ export function loadEditClient(clientKey) {
         success: (languageArray, languageKeyArray) => {
 
             languageArray.forEach(lang => {
-                flipper.makeItem({ key: lang.key, 
-                                text: `${lang.name} - ${lang.key}`, 
-                                selected: false });
+                flipper.makeItem({ key: lang.key,  text: `${lang.name} - ${lang.key}`,  selected: false });
             });
 
             languageKeyArray.forEach(key => {

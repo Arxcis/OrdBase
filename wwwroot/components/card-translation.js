@@ -14,7 +14,7 @@ export class Component_TranslationCard extends HTMLElement {
 
         this._isClosed = true;
         
-        this._clickHandler  = () => console.log('default click....')
+        this._clickHandler  = () => console.log('default click....');
         this._submitHandler = () => console.log('default submit....');
         this._deleteHandler = () => console.log('default delete.....');
         this._openHandler   = () => console.log('default select.....');
@@ -38,7 +38,7 @@ export class Component_TranslationCard extends HTMLElement {
                 this._clickHandler(this, e);
             }
             else {
-                this._close();
+                this.close();
             }
         });
     }
@@ -66,9 +66,14 @@ export class Component_TranslationCard extends HTMLElement {
         
         this._button.classList.remove('selected');
         
-        [].slice.apply(this._root.querySelectorAll('.generated')).forEach(fieldset => {
-            fieldset.parentElement.removeChild(fieldset);
+        [].slice.apply(this._root.querySelectorAll('fieldset')).forEach(fieldset => {
+            if(fieldset.classList.contains('generated'))
+                fieldset.parentElement.removeChild(fieldset);
+            else
+                fieldset.style.display = 'none';
         });
+
+        
 
         this._isClosed = true;
     }

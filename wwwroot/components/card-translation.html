@@ -6,8 +6,8 @@
         :host {
             width:100%;
             
-            --language-count: 0;
-            --input-height: 67px;
+            --fieldset-count: 0;
+            --input-height: 55px;
         }
 
         button {
@@ -83,7 +83,7 @@
         }
 
         form.active {
-            height: calc(100px + var(--language-count) * var(--input-height));
+            height: calc(100px + var(--fieldset-count) * var(--input-height));
             padding: 20px;
         }
 
@@ -108,13 +108,12 @@
 
         /* From ANIMATION */
 
-
         @keyframes pushForm {
             from {  height: 0px   }
-             to   { height: calc(100px + var(--language-count) * var(--input-height)); }   
+             to   { height: calc(100px + var(--fieldset-count) * var(--input-height)); }   
         }
         @keyframes popForm  {
-             from { height: calc(100px + var(--language-count) * var(--input-height));  }
+             from { height: calc(100px + var(--fieldset-count) * var(--input-height));  }
              to   { height: 0px;    } 
         }
 

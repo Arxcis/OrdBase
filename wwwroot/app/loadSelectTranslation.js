@@ -111,6 +111,8 @@ export function loadSelectTranslation (clientKey) {
                 group.items.forEach(item => {
                     card.makeFieldset(item.languageKey, item.isComplete)
                 });
+
+                card.open();
             } 
         })
     });
@@ -226,6 +228,8 @@ function makeTranslationCard({ cardPrototype = force('cardPrototype'),
     card.OnSubmit(cardPrototype._submitHandler);
     card.OnDelete(cardPrototype._deleteHandler);
 
+    card._clickHandler = cardPrototype._openHandler;
+
     return card;
 }
 
@@ -250,8 +254,10 @@ function __async__translation_getGroup({ success       = force('success'),
                                          containerKey  = force('containerKey'),
                                          translationKey = force('translationKey'), }) {
 
-    Route.translation_getGroup(arguments[0]).then((groupArray) => {
-        
+    Route.translation_getGroup({clientKey: clientKey,
+                                containerKey: containerKey,
+                                translationKey: translationKey}).then((groupArray) => {
+        console.log('getgroup: ', groupArray);
         let group = groupArray[0];
         success(group);
 
