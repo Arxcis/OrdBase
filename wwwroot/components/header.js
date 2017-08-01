@@ -64,7 +64,6 @@ export class Component_Header extends HTMLElement {
     }
 
     setColor(color) {
-        console.log('asdfsdf', color)
         this.root.querySelector('#btn-header-left i').style.color = color;
     } 
 

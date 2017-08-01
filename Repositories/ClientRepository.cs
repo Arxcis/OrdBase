@@ -60,7 +60,7 @@ namespace OrdBaseCore.Repositories
             //
             _context.Client.Add(client);
             _context.SaveChanges();
-            return new NoContentResult {};
+            return new StatusCodeResult(201);
         }
 
         public IActionResult Update(ClientQuery query, Client client) 
@@ -69,7 +69,7 @@ namespace OrdBaseCore.Repositories
             var _client = _context.Client.First(c => c.Key == query.ClientKey);
 
             if (_client == null)
-                return new NotFoundResult {};
+                return new StatusCodeResult(404);
 
             _client.Key          = client.Key;
             _client.ApiKey       = client.ApiKey;
@@ -78,7 +78,7 @@ namespace OrdBaseCore.Repositories
 
             _context.Client.Update(_client);
             _context.SaveChanges();
-            return new NoContentResult {};   
+            return new StatusCodeResult(204);
         }
 
         public IActionResult Delete(ClientQuery query) 
@@ -86,11 +86,11 @@ namespace OrdBaseCore.Repositories
             var client = _context.Client.First(c => c.Key == query.ClientKey);
             
             if (client == null)
-                return new NotFoundResult {};
+                return new StatusCodeResult(404);
 
             _context.Client.Remove(client);
             _context.SaveChanges();
-            return new NoContentResult {};
+            return new StatusCodeResult(200);
         }
 
         //
@@ -124,7 +124,8 @@ namespace OrdBaseCore.Repositories
 
             _context.AddRange(clientContainers);
             _context.SaveChanges();
-            return new NoContentResult {};
+
+            return new StatusCodeResult(201);
         }
         public IActionResult SetLanguages(ClientQuery query, IEnumerable<string> languageArray)
         {
@@ -140,7 +141,8 @@ namespace OrdBaseCore.Repositories
 
             _context.AddRange(clientLanguages);
             _context.SaveChanges();
-            return new NoContentResult {};            
+
+            return new StatusCodeResult(201);            
         }
 
         //

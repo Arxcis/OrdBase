@@ -14,7 +14,7 @@ export class Component_ClientForm extends HTMLElement {
     }
 
 
-    getData() {
+    getClient() {
         return {
             key :          this.root.getElementById('form-client-name').value,
             webpageUrl:    this.root.getElementById('form-client-webpage').value,
@@ -23,7 +23,7 @@ export class Component_ClientForm extends HTMLElement {
         }
     }
 
-    setData(client) {
+    setClient(client) {
         this.root.getElementById('form-client-name').value = client.key;
         this.root.getElementById('form-client-webpage').value = client.webpageUrl;
         this.root.getElementById('form-client-thumbnail').value = client.thumbnailUrl;

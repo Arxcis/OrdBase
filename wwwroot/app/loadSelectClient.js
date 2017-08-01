@@ -7,7 +7,7 @@ import { force } from  '../lib/Util.js';
 import { View_SelectClient }      from '../views/select-client.js';
 import { Component_ClientCard   } from '../components/card-client.js';
 
-//import { loadEditClient }        from './loadEditClient.js';
+import { loadEditClient }        from './loadEditClient.js';
 import { loadNewClient }         from './loadNewClient.js'; 
 //import { loadSelectTranslation } from './loadSelectTranslation.js';
 
@@ -32,7 +32,7 @@ export function loadSelectClient() {
     // 2. Set up card prototype event handlers
     //
     cardPrototype.OnSelect( (that, e) => {});//loadSelectTranslation(that.getKey()) );
-    cardPrototype.OnEdit(   (that, e) => {});//loadEditClient(that.getKey()));
+    cardPrototype.OnEdit(   (that, e) => loadEditClient(that.getKey()));
     cardPrototype.OnDelete( (that, e) => __async__deleteCard({ clientKey: that.getKey(), 
                                                                header: header, 
                                                                view: view, 
@@ -141,7 +141,7 @@ function __async__deleteCard({
     Route.client_delete({clientKey: card.getKey()})
     .then(res => {
 
-        if (res.status == 204) {
+        if (res.status == App.HTTP_OK) {
             view.root.removeChild(card);
         }
         else {

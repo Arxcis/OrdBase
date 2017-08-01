@@ -48,8 +48,7 @@ namespace OrdBaseCore.Controllers
             if (client == null)
                 return  BadRequest();
 
-            _clientRepo.Create(client);
-            return StatusCode(201);
+            return _clientRepo.Create(client);
         }
 
         [HttpPut("api/client")]
@@ -76,8 +75,7 @@ namespace OrdBaseCore.Controllers
             if (containerArray ==  null)
                 return  BadRequest();
 
-            _clientRepo.SetContainers(query, containerArray);
-            return StatusCode(201);
+            return _clientRepo.SetContainers(query, containerArray);
         }
 
         [HttpPost("api/client/languages")]         
@@ -86,8 +84,7 @@ namespace OrdBaseCore.Controllers
             if (languageArray == null)
                 return  BadRequest();
 
-            _clientRepo.SetLanguages(query, languageArray);
-            return StatusCode(201);
+            return _clientRepo.SetLanguages(query, languageArray);
         }
     }
 }

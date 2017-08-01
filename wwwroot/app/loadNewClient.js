@@ -58,16 +58,10 @@ export function loadNewClient(clientKey) {
     form.setSubmitText('Create client');
     form.addEventListener('submit', e => {
         e.preventDefault();
-        //
-        //  @doc https://stackoverflow.com/questions/31676135/javascript-map-is-not-a-function
-        //
-        let clientData     = form.getData();
-        let containerArray = generator.getContainerKeyArray(); 
-        let languageArray  = flipper.getLanguageKeyArray(); 
-        console.log(clientData, containerArray, languageArray);
-        __async__submitNewClient({ client: clientData, 
-                                   containerArray: containerArray, 
-                                   languageArray: languageArray, 
+
+        __async__submitNewClient({ client: form.getClient(), 
+                                   containerArray: generator.getContainerKeyArray(), 
+                                   languageArray: flipper.getLanguageKeyArray(), 
                                    header: header });            
     });
 
@@ -81,7 +75,6 @@ export function loadNewClient(clientKey) {
 
 }
 
-const HTTP_CREATED = 201;
 //
 // @function __async__populateFlipper
 //  @note @todo
@@ -92,7 +85,7 @@ function __async__populateFlipper({ flipper = force('flipper') }) {
         console.log('get languageArray:', languageArray.status);        
         
         languageArray.forEach(lang => {
-            flipper.makeNewItem({ key: lang.key, 
+            flipper.makeItem({ key: lang.key, 
                                   text: `${lang.name} - ${lang.key}`,
                                   selected: false });
         });
@@ -113,20 +106,23 @@ function __async__submitNewClient({
 
     Route.client_create({client: client})
     .then(res => {
+        console.log('client_create(): ', res.status)
 
-        if (res.status == HTTP_CREATED) {
+        if (res.status == App.HTTP_CREATED) {
 
             Route.client_setContainers({clientKey: client.key, containerArray: containerArray}).then(res => {
-                if (res.status != HTTP_CREATED) { 
+                if (res.status != App.HTTP_CREATED) { 
                     header.flashError(`code ${res.status}: clientContainers could not be created`);
                 }
+                console.log('client_setContainers(): ', res.status)
+                
             }).catch(error => console.error(error));
 
             Route.client_setLanguages({clientKey:  client.key, languageArray: languageArray}).then(res => {
-                if (res.status != HTTP_CREATED) { 
+                if (res.status != App.HTTP_CREATED) { 
                     header.flashError(`code ${res.status}: clientLanguages could not be created`);
                 }
-                console.log('client_setLanguages: ', res.status)
+                console.log('client_setLanguages(): ', res.status)
             }).catch(error => console.error(error));
             
             loadSelectClient();

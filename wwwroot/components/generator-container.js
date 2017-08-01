@@ -18,6 +18,23 @@ export class Component_ContainerGenerator extends HTMLElement {
                 return item.innerHTML;
             });
     }
+
+    makeItem({key = '', selected = true}) {
+        let fragment = this._buttonTemplate.content.cloneNode(true);
+        let button = fragment.querySelector('button');
+        
+        button.setAttribute('id', key);
+        button.innerHTML = key;    
+        if (selected)
+            button.classList.add('selected');
+        
+        button.addEventListener('click', e => {
+            this._deactivateInput();            
+            this._divGeneratedItems.removeChild(button);
+        });
+
+        this._divGeneratedItems.appendChild(fragment);
+    }
     
     //
     // PRIVATE 
@@ -92,7 +109,6 @@ export class Component_ContainerGenerator extends HTMLElement {
         this._button.classList.remove('cancel');
         this._faIcon.classList.remove('fa-times');                 
         this._faIcon.classList.add('fa-plus');
-        this._button.focus();
     }
 
     _activateInput() {
@@ -108,13 +124,13 @@ export class Component_ContainerGenerator extends HTMLElement {
     _generateItem() {
         let fragment = this._buttonTemplate.content.cloneNode(true);
         let button = fragment.querySelector('button');
-        button.innerHTML = this._input.value;
+        
+        button.setAttribute('id', this._input.value);
+        button.innerHTML = this._input.value;    
         button.classList.add('selected');
-        button.addEventListener('click', e => {
 
-            if(this._input.style.display == 'block')
-                this._deactivateInput();
-            
+        button.addEventListener('click', e => {
+            this._deactivateInput();
             this._divGeneratedItems.removeChild(button);
         });
 

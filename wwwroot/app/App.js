@@ -26,6 +26,12 @@ export const COLOR_SELECT  = 'var(--ordbase-color-select)';
 export const COLOR_DANGER  = 'var(--ordbase-color-danger)';
 
 
+export const HTTP_OK = 200;
+export const HTTP_CREATED = 201;
+export const HTTP_UPDATED = 204;
+export const HTTP_NOTFOUND = 404;
+
+
 const BACKSPACE = 8;
 const HOME = 36;
 

@@ -6,9 +6,8 @@ import { force } from '../lib/Util.js';
 
 import { View_EditClient }        from '../views/edit-client.js';
 
-import { Component_SelectButton  } from '../components/button-select.js';
-import { Component_ItemGenerator } from '../components/item-generator.js';
-import { Component_ItemFlipper   } from '../components/item-flipper.js';
+import { Component_ContainerGenerator } from '../components/generator-container.js';
+import { Component_LanguageFlipper   } from '../components/flipper-language.js';
 import { Component_ClientForm    } from '../components/form-client.js';
 
 import { loadSelectClient } from './loadSelectClient.js';
@@ -18,14 +17,14 @@ export function loadEditClient(clientKey) {
     //
     // 0. Create component instances
     //
-    const header    = App.header;
+    const header    = App.HEADER;
     const view      = new View_EditClient;     
-    const generator = new Component_ItemGenerator;
-    const flipper   = new Component_ItemFlipper;
+    const generator = new Component_ContainerGenerator;
+    const flipper   = new Component_LanguageFlipper;
     const form      = new Component_ClientForm;
 
     //
-    // 1. Async calls 
+    // 1. Async calls filling in data in components
     //
     __async__populateGenerator({generator: generator, clientKey: clientKey});
     __async__populateFlipper({flipper: flipper, clientKey: clientKey});
@@ -62,11 +61,10 @@ export function loadEditClient(clientKey) {
     form.addEventListener('submit', e => {
         e.preventDefault();
 
-        let clientObject   = form.getClient();
-        let containerArray = generator.getItemArray().map(button => { return button.getId(); });
-        let languageArray  = flipper.getSelectedItemArray().map(button => { return button.getId(); });
-
-        __async__updateClient({ clientKey: clientKey, form: form, generator: generator, flipper: flipper});            
+        __async__updateClient({ header: header, 
+                                client:         form.getClient(), 
+                                containerArray: generator.getContainerKeyArray(), 
+                                languageArray:  flipper.getLanguageKeyArray(), });
     });
 
     //
@@ -79,7 +77,8 @@ export function loadEditClient(clientKey) {
 }
 
 //
-// 8. Fill container buttons into generator
+// @function __async__populateGenerator
+//  @note @todo
 //
 function __async__populateGenerator({
             generator = force('generator'), 
@@ -88,76 +87,45 @@ function __async__populateGenerator({
 
     Route.client_getContainers({clientKey: clientKey})
     .then( containers => {
-        console.log('containers ', containers);
 
         containers.forEach( container => {
-
-            const button = new Component_SelectButton;
-
-            button.setId(container);
-            button.setText(container);
-            button.setSelected(true);
-
-            button.OnClick(() => {
-                generator.removeItem(button);
-            });
-            generator.addItem(button);
+            generator.makeItem({key: container, selected: true}); 
         });
     })
     .catch(reason => console.error('Error:', reason));
 }
 
 //
-// 9. Fill languages into flipper
+// @function __async__populateFlipper
+//  @note @todo
 //
 function __async__populateFlipper({
             flipper = force('flipper'), 
             clientKey = force('clientKey'),
     }) {
-    let buttonArray = new Array();
 
     Route.language_get()
-    .then(languages => {
-        console.log('global ', languages);
+    .then(languageArray => {
 
-        languages.forEach(lang => {
-            let button = new Component_SelectButton;
+        languageArray.forEach(lang => {
 
-            button.setId(lang.key);
-            button.setText( `${lang.name} - ${lang.key}`);
-            button.setSelected(false);
-
-            button.OnClick(() => {
-                button.toggleSelected();
-            });
-
-            buttonArray.push(button);
-            flipper.addItem(button, { selected : false });
+            flipper.makeItem({ key: lang.key, 
+                               text: `${lang.name} - ${lang.key}`, 
+                               selected: false });
         });
         return Route.client_getLanguages({clientKey: clientKey});
     })
-    .then(languages => {
-        console.log('selected ', languages);
-        languages.forEach(lang => {
-
-            let isDefaultButton = false;
-            
-            for (let i = 0; i < buttonArray.length; i++) {
-                
-                let button = buttonArray[i];
-                if (button.getId() === lang) {
-                    button.setSelected(true);     
-                    flipper.flipItem(button);
-                    break;
-                }
-            }
+    .then(languageKeyArray => {
+        languageKeyArray.forEach(key => {
+            flipper.selectItem(key);
         })
     })
-    .catch(error => console.log(error));
+    .catch(error => console.error(error));
 }
 
 //
-// 10. Fill client data into form
+// @function __async__populateForm
+//  @note @todo
 //
 function __async__populateForm({
             form = force('form'), 
@@ -168,13 +136,13 @@ function __async__populateForm({
     .then(client => {
         form.setClient(client[0]);
     })
-    .catch(error => console.log(error));        
+    .catch(error => console.error(error));        
 }
 
-const HTTP_CREATED = 201;
 
 //
-// 11. Submit data from form, generator and flipper
+// @function __async__updateClient
+//  @note @todo
 //
 function __async__updateClient({
             header         = force('header'),
@@ -184,20 +152,22 @@ function __async__updateClient({
     }) {
 
     Route.client_update({clientKey: client.key, client: client}).then(res => {
-
-        if (res.status == HTTP_CREATED) {
+        console.log('client_update():', res.status);
+        if (res.status == App.HTTP_UPDATED) {
 
             Route.client_setContainers({clientKey: client.key, containerArray: containerArray}).then(res => {
-                if (res.status != HTTP_CREATED) { 
+                if (res.status != App.HTTP_CREATED) { 
                     header.flashError(`code ${res.status}: clientContainers could not be updated`);
                 }
+                console.log('client_setContainers(): ', res.status)
+
             }).catch(error => console.error(error));
 
             Route.client_setLanguages({clientKey:  client.key, languageArray: languageArray}).then(res => {
-                if (res.status != HTTP_CREATED) { 
+                if (res.status != App.HTTP_CREATED) { 
                     header.flashError(`code ${res.status}: clientLanguages could not be updated`);
                 }
-                console.log('client_setLanguages: ', res.status)
+                console.log('client_setLanguages(): ', res.status)
             }).catch(error => console.error(error));
             
             loadSelectClient();

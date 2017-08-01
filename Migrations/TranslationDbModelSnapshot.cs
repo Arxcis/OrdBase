@@ -35,9 +35,6 @@ namespace OrdBaseCore.Migrations
                     b.HasIndex("ApiKey")
                         .IsUnique();
 
-                    b.HasIndex("WebpageUrl")
-                        .IsUnique();
-
                     b.ToTable("Client");
                 });
 

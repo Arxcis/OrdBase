@@ -5,8 +5,9 @@ import html from './card-client.html';
 
 export class Component_ClientCard extends HTMLElement {
 
+    
     //
-    // Constructor
+    // PRIVATE
     //
     constructor() {
         super();
@@ -35,7 +36,7 @@ export class Component_ClientCard extends HTMLElement {
     }
 
     //
-    // Handle card state machine
+    // PUBLIC 
     //
     OnSelect(handler)  { this._selectHandler = handler; }
     OnEdit(handler)    { this._editHandler   = handler; }
@@ -45,7 +46,6 @@ export class Component_ClientCard extends HTMLElement {
         this._button.classList.remove('editable');
         this._button.classList.remove('deleteable');
         this._clickHandler = this._selectHandler;        
-        console.log(this._button.classList, this._clickHandler);
 
     }
  
@@ -53,7 +53,6 @@ export class Component_ClientCard extends HTMLElement {
         this._button.classList.add('editable');
         this._button.classList.remove('deleteable');
         this._clickHandler = this._editHandler;
-        console.log(this._button.classList, this._clickHandler);
         
     }
 
@@ -62,7 +61,6 @@ export class Component_ClientCard extends HTMLElement {
         this._button.classList.remove('editable');
 
         this._clickHandler = this._deleteHandler;
-        console.log(this._button.classList, this._clickHandler);
         
     }
 
