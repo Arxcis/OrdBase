@@ -3,7 +3,7 @@
 // COMPILE WITH BABEL - https://css-tricks.com/transpiling-es6/
 // TRanspile with webpack - https://webpack.github.io/docs/tutorials/getting-started/
 
-import { View_Header }      from '../views/header.js'; 
+import { Component_Header } from '../components/header.js'; 
 import { loadSelectClient } from './loadSelectClient.js';
 
 //
@@ -33,9 +33,9 @@ const HOME = 36;
 
 // @note hack-below I am not proud of the way I am filling in the Header view here.
 //        Open for suggestions - JSolsvik 24.07.17
-document.getElementById('ordbase-header').appendChild(new View_Header);
+document.getElementById('ordbase-header').appendChild(new Component_Header);
 
-export const HEADER         = document.getElementById('ordbase-header').querySelector('view-header');
+export const HEADER = document.getElementById('ordbase-header').querySelector('component-header');
 export const defaultHandler = (event) => console.log('Default handler... nothing happened');
 
 export function switchView(view) {

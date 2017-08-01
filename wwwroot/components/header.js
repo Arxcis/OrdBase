@@ -2,7 +2,7 @@
 import html from './header.html';
 
 
-export class View_Header extends HTMLElement {
+export class Component_Header extends HTMLElement {
 
     constructor() {
         super();
@@ -85,4 +85,4 @@ export class View_Header extends HTMLElement {
     } 
 
 }
-customElements.define('view-header', View_Header);
+customElements.define('component-header', Component_Header);

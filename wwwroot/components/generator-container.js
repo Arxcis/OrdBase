@@ -7,14 +7,27 @@ const ESC   = 27;
 const ENTER = 13;
 
 export class Component_ContainerGenerator extends HTMLElement {
-
+    
+    //
+    // PUBLIC
+    //
+    getContainerKeyArray() {
+        console.log(this._divGeneratedItems);
+            return [].slice.apply(this._divGeneratedItems.children)
+            .map(item => {
+                return item.innerHTML;
+            });
+    }
+    
+    //
+    // PRIVATE 
+    //
     constructor() {
         super();
         this._root = this.createShadowRoot();
         this._root.innerHTML  = html;
         this._buttonTemplate = this._root.getElementById('template-item');
 
-        this._lastActive = null;
         this._divGeneratedItems = this._root.getElementById('div-generated-items')
         this._input  = this._root.getElementById('generator-input');
         this._button = this._root.getElementById('button-activate');
@@ -74,8 +87,6 @@ export class Component_ContainerGenerator extends HTMLElement {
         });
     }
 
-
-
     _deactivateInput() {
         this._input.style.display = 'none';
         this._button.classList.remove('cancel');
@@ -85,8 +96,8 @@ export class Component_ContainerGenerator extends HTMLElement {
     }
 
     _activateInput() {
+
         this._input.style.display = 'block';
-        
         this._faIcon.classList.remove('fa-plus');
         this._faIcon.classList.add('fa-times'); 
         this._button.classList.add('cancel');   
@@ -98,25 +109,16 @@ export class Component_ContainerGenerator extends HTMLElement {
         let fragment = this._buttonTemplate.content.cloneNode(true);
         let button = fragment.querySelector('button');
         button.innerHTML = this._input.value;
-
+        button.classList.add('selected');
         button.addEventListener('click', e => {
 
-            if (this._lastActive != null)
-                this._lastActive.classList.remove('selected');
-
-            this._lastActive = button;
-            button.classList.add('selected');
+            if(this._input.style.display == 'block')
+                this._deactivateInput();
+            
+            this._divGeneratedItems.removeChild(button);
         });
 
         this._divGeneratedItems.appendChild(fragment);
-    }
-
-    getContainerKeyArray() {
-        console.log(this._divGeneratedItems);
-            return [].slice.apply(this._divGeneratedItems.children)
-            .map(item => {
-                return item.innerHTML;
-            });
     }
 }
 
