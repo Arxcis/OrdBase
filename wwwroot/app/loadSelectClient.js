@@ -9,7 +9,7 @@ import { Component_ClientCard   } from '../components/card-client.js';
 
 import { loadEditClient }        from './loadEditClient.js';
 import { loadNewClient }         from './loadNewClient.js'; 
-//import { loadSelectTranslation } from './loadSelectTranslation.js';
+import { loadSelectTranslation } from './loadSelectTranslation.js';
 
 //
 // @function OnloadViewClientSelector
@@ -118,10 +118,12 @@ function __async__generateCards({
             card.setHeading(client.key);
             card.setText(client.webpageUrl);
             card.setThumbnail(client.thumbnailUrl);
+            
             card.OnSelect(cardPrototype._selectHandler);
             card.OnEdit(cardPrototype._editHandler);
             card.OnDelete(cardPrototype._deleteHandler);
 
+            card.setSelectable();
             view.addCard(card)
         });                            
     })

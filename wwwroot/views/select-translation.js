@@ -35,23 +35,12 @@ export class View_SelectTranslation extends HTMLElement {
         }); 
     }
 
-    setActiveContainerButton(button) { this.activeContainerButton = button; }
-    setActiveTranslationCard(card) { this.activeTranslationCard = card; }
-
-    getActiveContainerButton() { return this.activeContainerButton; }
-    getActiveTranslationCard() { return this.activeTranslationCard; }
-
-    addContainerButton (button) {       
-        this.root.querySelector('#list-containers-on-client').appendChild(button);    
+    setContainerPicker(picker) {
+        this.root.getElementById('select-translation-menu').appendChild(picker);        
     }
 
     setTranslationGenerator(generator) {
-        this.root.getElementById('section-translations-on-client').appendChild(generator);
+        this.root.getElementById('select-translation-table').appendChild(generator);
     }
-
-    getTranslationGenerator() {
-        return this.root.querySelector('component-item-generator');
-    }
-
 }
 customElements.define('view-select-translation', View_SelectTranslation);

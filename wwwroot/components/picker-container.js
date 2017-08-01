@@ -34,12 +34,10 @@ export class Component_ContainerPicker extends HTMLElement {
         }); 
     }
 
-    addItem(item, options)  {
+    makeItem({key, text, onclick})  {
         
-        (arguments[1].selected) ? this.div_flipUp.appendChild(item):
-                                  this.div_flipDown.appendChild(item);
-
         item.addEventListener('click', e => {
+
             this.flipItem(e.target)
         });
     }

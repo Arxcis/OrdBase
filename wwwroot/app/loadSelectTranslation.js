@@ -20,16 +20,14 @@ import { loadSelectClient }    from './loadSelectClient.js';
 export function loadSelectTranslation (clientKey) {
     
     //
-    // 0. Create data
+    // 0. Init components
     //
-    const header    = App.HEADER;
-    const view      = new View_SelectTranslation;
-    
+    const header           = App.HEADER;
+    const view             = new View_SelectTranslation;
     const languageKeyArray = new Array();
-    const generator = new Component_TranslationGenerator;
-    const picker    = new Component_ContainerPicker;
-
-    const cardPrototype = new Component_TranslationCard;
+    const generator        = new Component_TranslationGenerator;
+    const picker           = new Component_ContainerPicker;
+    const cardPrototype    = new Component_TranslationCard;
     
     //
     // 1. Async calls
@@ -38,7 +36,7 @@ export function loadSelectTranslation (clientKey) {
     __async__client_getLanguageKeyArray({ 
         clientKey: clientKey,
         success: _languageKeyArray => {
-            languageKeyArray = _languageKeyArray;
+            languageKeyArray.push.apply(languageKeyArray, _languageKeyArray);
         }  
     });
 
@@ -54,9 +52,7 @@ export function loadSelectTranslation (clientKey) {
         }
     });
 
-    //
     // Populate picker and set up default item
-    //
     __async__client_getContainerKeyArray({ 
         clientKey: clientKey, 
         success: containerKeyArray => {
@@ -174,8 +170,6 @@ export function loadSelectTranslation (clientKey) {
     // 4.Component_TranslationGenerator
     //
     generator.OnGenerate(() => {
-        let containerKey   = picker.getContainerKey();
-        let translationKey = generator.getInputValue();
        
         let translationArray = new Array();
 
@@ -184,8 +178,8 @@ export function loadSelectTranslation (clientKey) {
             translationArray.push({
                 clientKey : clientKey,
                 languageKey : languageKey,
-                containerKey : containerKey,
-                key : translationKey,
+                containerKey : picker.getContainerKey(),
+                key : generator.getInputValue(),
                 text : 'default',
                 isComplete : false,
             });
@@ -270,7 +264,7 @@ function __async__client_getContainerKeyArray ({  success  = force('success'),
                                                   clientKey   = force('clientKey') }) {
 
     Route.client_getContainers({clientKey: clientKey}).then(containerKeyArray => {        
-        successs(containerKeyArray);
+        success(containerKeyArray);
     })
     .catch(err => console.error('Error:', err));      
 }
@@ -313,7 +307,7 @@ function __async__translation_createArray({ success         = force('success'),
     Route.translation_createArray({ translationArray: translationArray }).then(res => {
 
         if(res.status != App.HTTP_CREATED) {
-            App.header.flashError(`${res.status}: Was not able to create new translations...`);
+            App.HEADER.flashError(`${res.status}: Was not able to create new translations...`);
             throw new Error('translation_createArray(): ', res.status);
         }
 
@@ -346,7 +340,7 @@ function __async__translation_delete({  success        = force('success'),
             success();
         }
         else {
-            App.header.flashError(`${res.status}: Was not able to delete card...`);
+            App.HEADER.flashError(`${res.status}: Was not able to delete card...`);
         }        
     }).catch(err => console.error('Error:', err));
 }
