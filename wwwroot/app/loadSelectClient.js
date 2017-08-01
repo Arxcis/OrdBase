@@ -26,17 +26,42 @@ export function loadSelectClient() {
     //
     // 1. Fire async call
     //
-    __async__generateCards({view: view, cardPrototype: cardPrototype});
+    __async__client_getArray({
+        success: clientArray => {
+            clientArray.forEach((client, i) => {
+
+                let card = cardPrototype.cloneNode(true);
+
+                card.setKey(client.key);
+                card.setHeading(client.key);
+                card.setText(client.webpageUrl);
+                card.setThumbnail(client.thumbnailUrl);
+                
+                card.OnSelect(cardPrototype._selectHandler);
+                card.OnEdit(cardPrototype._editHandler);
+                card.OnDelete(cardPrototype._deleteHandler);
+
+                card.setSelectable();
+                view.addCard(card)
+            });                 
+        }
+    });
 
     //
     // 2. Set up card prototype event handlers
     //
-    cardPrototype.OnSelect( (that, e) => loadSelectTranslation(that.getKey()) );
-    cardPrototype.OnEdit(   (that, e) => loadEditClient(that.getKey()));
-    cardPrototype.OnDelete( (that, e) => __async__deleteCard({ clientKey: that.getKey(), 
-                                                               header: header, 
-                                                               view: view, 
-                                                               card: that }));
+    cardPrototype.OnSelect( (card, e) => loadSelectTranslation(card.getKey()) );
+    cardPrototype.OnEdit(   (card, e) => loadEditClient(card.getKey()));
+    
+    cardPrototype.OnDelete((card, e) => {
+        __async__client_delete({ 
+            clientKey: card.getKey(), 
+            success: () => {
+                view.root.removeChild(card);
+            }
+        });
+    });
+                                                               
     //
     // 3. Set up header event handlers
     //   
@@ -103,29 +128,13 @@ export function loadSelectClient() {
 // @function __async__deleteCard
 //  @note todo
 //
-function __async__generateCards({ 
-            view          = force('view'), 
-            cardPrototype = force('cardPrototype'), 
-    }) {
+function __async__client_getArray({ success = force('success')}) {
 
-    Route.client_get().then(clients => {
-
-        clients.forEach((client, i) => {
-
-            let card = cardPrototype.cloneNode(true);
-
-            card.setKey(client.key);
-            card.setHeading(client.key);
-            card.setText(client.webpageUrl);
-            card.setThumbnail(client.thumbnailUrl);
-            
-            card.OnSelect(cardPrototype._selectHandler);
-            card.OnEdit(cardPrototype._editHandler);
-            card.OnDelete(cardPrototype._deleteHandler);
-
-            card.setSelectable();
-            view.addCard(card)
-        });                            
+    Route.client_get().then(clientArray => {
+        if(clientArray.length > 0)  
+            success(clientArray);
+        else
+            App.HEADER.flashError('There are no clients to show');
     })
     .catch(reason => console.error('Error:', reason));
 }
@@ -134,20 +143,17 @@ function __async__generateCards({
 // @function __async__deleteCard
 //  @note todo
 //
-function __async__deleteCard({
-            view      = force('view'), 
-            header    = force('header'),             
-            card      = force('card'),
-    }) {
+function __async__client_delete({ clientKey = force('clientKey'),
+                                success = force('success')  }) {
 
-    Route.client_delete({clientKey: card.getKey()})
+    Route.client_delete({clientKey: clientKey})
     .then(res => {
 
         if (res.status == App.HTTP_OK) {
-            view.root.removeChild(card);
+            success();
         }
         else {
-            header.flashError(`Code ${res.status}: Card not deleted`);
+            App.HEADER.flashError(`Code ${res.status}: Card not deleted`);
         }
         loadSelectClient();
     })
