@@ -13,27 +13,6 @@ import { Component_ContainerPicker }      from '../components/picker-container.j
 import { loadSelectClient }    from './loadSelectClient.js';
 
 
-function makeTranslationCard({ generator = force('generator'), 
-                                cardPrototype = force('cardPrototype'), 
-                                groupMeta = force('groupMeta')}) {
-                                    
-    let card = new Component_TranslationCard;
-
-    card.setTranslationKey(groupMeta.key);
-    
-    groupMeta.items.forEach(item => {
-        card.addLanguagekeyComplete(item.languageKey, item.isComplete);
-    });
-
-    card.OnOpen(cardPrototype._openHandler);
-    card.OnClose(cardPrototype._closeHandler);
-    card.OnSubmit(cardPrototype._submitHandler);
-    card.OnDelete(cardPrototype._deleteHandler);
-
-    generator.addCard(card);
-}
-
-
 //
 // @function loadSelectTranslation
 //  @note @todo
@@ -56,24 +35,21 @@ export function loadSelectTranslation (clientKey) {
     // 1. Async calls
     //
     // Populate languageArray
-    __async__getLanguageKeyArray({ 
+    __async__client_getLanguageKeyArray({ 
         clientKey: clientKey,
         success: _languageKeyArray => {
             languageKeyArray = _languageKeyArray;
         }  
     });
 
-    //
-    // Populate generator
-    //
-    __async__getGroupMetaArray({ 
+    // Populate generator with translation cards
+    __async__translation_getGroupMetaArray({ 
         clientKey: clientKey, 
         containerKey: '',
         success: groupMetaArray => {  
              groupMetaArray.forEach(groupMeta => {
-                makeTranslationCard({generator: genrator, 
-                                    cardPrototype:cardPrototype, 
-                                   groupMeta: groupMeta})
+                let card = makeTranslationCard({ cardPrototype: cardPrototype,  groupMeta: groupMeta})
+                generator.addCard(card);
             });
         }
     });
@@ -81,12 +57,13 @@ export function loadSelectTranslation (clientKey) {
     //
     // Populate picker and set up default item
     //
-    __async__getContainerKeyArray({ 
+    __async__client_getContainerKeyArray({ 
         clientKey: clientKey, 
         success: containerKeyArray => {
 
             const defaultItemId = 'All Containers';
 
+            // Add a default item which when clicked on will show ALL translation cards
             containerKeyArray.push(defaultItemId); 
             containerKeyArray.forEach(containerKey => {
 
@@ -94,11 +71,9 @@ export function loadSelectTranslation (clientKey) {
                     key: containerKey, 
                     text: containerKey,
 
-                    //
-                    // On picker item click
-                    //
-                    onClick: () => {
-                        __async__getGroupMetaArray({
+                    // On picker-item click, reload all translation cards
+                    onclick: () => {
+                        __async__client_getGroupMetaArray({
                             clientKey: clientKey, 
                             containerKey: item.getKey(),
                             success: groupMetaArray => {
@@ -112,9 +87,8 @@ export function loadSelectTranslation (clientKey) {
                         
                                 groupMetaArray.forEach(groupMeta => {
 
-                                    makeTranslationCard({generator: genrator, 
-                                                        cardPrototype:cardPrototype,
-                                                        groupMeta: groupMeta})      
+                                    let card = makeTranslationCard({ cardPrototype: cardPrototype, groupMeta: groupMeta});
+                                    generator.addCard(card);      
                                 }) 
                             },
                         });
@@ -131,21 +105,23 @@ export function loadSelectTranslation (clientKey) {
     //
     cardPrototype.OnOpen((card, e) => { 
 
-        //
         // Generate fieldsets
-        //
-        __async_getGroupArray({ 
-            clientKey: clientKey, 
+        __async__translation_getGroup({ 
+            clientKey:     clientKey, 
             containerKey:  picker.getContainerKey(), 
             translationKey: card.getTranslationKey(),
-            success: groupArray => {
-
+            success: group => {
+                group.items.forEach(item => {
+                    card.addFieldset(item.languageKey, )
+                });
             } 
         })
     });
 
     cardPrototype.OnDelete((card, e) => { 
-        __async__deleteTranslation({ 
+
+        // Delete translation
+        __async__translation_delete({ 
             clientKey:      clientKey, 
             containerKey:   picker.getContainerKey(), 
             translationKey: card.getTranslationKey(),
@@ -188,7 +164,7 @@ export function loadSelectTranslation (clientKey) {
     header.setTextSmall( 'Ordbase');
     header.setTextBig( `Select Translation`);
 
-    header.button0_setIcon  ( App.ICON_BARS);
+    header.button0_setIcon( App.ICON_BARS);
     header.button1_setIcon( App.ICON_NONE);
     header.button2_setIcon( App.ICON_TRASH);
     header.button3_setIcon( App.ICON_ARROW_LEFT);    
@@ -198,15 +174,16 @@ export function loadSelectTranslation (clientKey) {
     // 4.Component_TranslationGenerator
     //
     generator.OnGenerate(() => {
-        let containerKey   = view.getActiveContainerButton().getId();
-        let translationKey = generator.getValue();
+        let containerKey   = picker.getContainerKey();
+        let translationKey = generator.getInputValue();
        
         let translationArray = new Array();
-        languageArray.forEach(language => {
+
+        languageArray.forEach(languageKey => {
         
             translationArray.push({
                 clientKey : clientKey,
-                languageKey : language,
+                languageKey : languageKey,
                 containerKey : containerKey,
                 key : translationKey,
                 text : 'default',
@@ -214,29 +191,53 @@ export function loadSelectTranslation (clientKey) {
             });
         });
 
-        __async__generateTranslationCard({ view: view, 
-                                           generator: generator, 
-                                           cardArray: cardArray, 
-                                           translationArray: translationArray});
+        __async__translation_createArray({ 
+            translationArray: translationArray,
+            success: (groupMeta) => {
+                let card = makeTranslationCard({cardPrototype: cardPrototype, groupMeta: groupMeta}) 
+                generator.addCard(card);
+            } 
+        });
     });
-    generator.setButtonHeight(60);
+
     generator.deactivate();
 
     //
     // 5. Insert components into view, and add view to DOM
     //
     view.setTranslationGenerator(generator);
-    view.setActiveContainerButton(button);
-    view.addContainerButton(button);
+    view.setContainerPicker(picker);
     App.switchView(view);
+}
+
+
+//
+// @function makeTranslationCard
+//
+function makeTranslationCard({ cardPrototype = force('cardPrototype'), 
+                               groupMeta = force('groupMeta')}) {
+                                    
+    let card = new Component_TranslationCard;
+
+    card.setTranslationKey(groupMeta.key);
+    
+    groupMeta.items.forEach(item => {
+        card.addLanguagekeyComplete(item.languageKey, item.isComplete);
+    });
+
+    card.OnOpen(cardPrototype._openHandler);
+    card.OnClose(cardPrototype._closeHandler);
+    card.OnSubmit(cardPrototype._submitHandler);
+    card.OnDelete(cardPrototype._deleteHandler);
+
+    return card;
 }
 
 //
 // @function __async__getLanguageKeyArray
-//  @note @todo
 //
-function __async__getLanguageKeyArray({ clientKey = force('clientKey'), 
-                                          success   = force('success') }){
+function __async__client_getLanguageKeyArray({ clientKey = force('clientKey'), 
+                                               success   = force('success') }){
         
     Route.client_getLanguages({clientKey: clientKey}).then(languageKeyArray => {
         success(languageKeyArray);
@@ -246,13 +247,12 @@ function __async__getLanguageKeyArray({ clientKey = force('clientKey'),
 
 
 //
-// @function __async__getGroup
-//  @note @todo
+// @function __async__translation_getGroup
 //
-function __async__getGroup({ success       = force('success'),
-                             clientKey     = force('clientKey'),
-                             containerKey  = force('containerKey'),
-                             translationKey = force('translationKey'), }) {
+function __async__translation_getGroup({ success       = force('success'),
+                                         clientKey     = force('clientKey'),
+                                         containerKey  = force('containerKey'),
+                                         translationKey = force('translationKey'), }) {
 
     Route.translation_getGroup(arguments[0]).then((groupArray) => {
         
@@ -265,10 +265,9 @@ function __async__getGroup({ success       = force('success'),
 
 //
 // @function __async__getContainerKeyArray 
-//  @note @todo
 //
-function __async__getContainerKeyArray ({  success  = force('success'),
-                                          clientKey   = force('clientKey') }) {
+function __async__client_getContainerKeyArray ({  success  = force('success'),
+                                                  clientKey   = force('clientKey') }) {
 
     Route.client_getContainers({clientKey: clientKey}).then(containerKeyArray => {        
         successs(containerKeyArray);
@@ -277,12 +276,11 @@ function __async__getContainerKeyArray ({  success  = force('success'),
 }
 
 //
-// @function __async__getGroupMetaArray
-//  @note @todo
+// @function __async__translation_getGroupMetaArray
 //
-function __async__getGroupMetaArray({ success      = force('success'),
-                                      clientKey    = force('clientKey'), 
-                                      containerKey = force('containerKey') }) {
+function __async__translation_getGroupMetaArray({ success      = force('success'),
+                                                  clientKey    = force('clientKey'), 
+                                                  containerKey = force('containerKey') }) {
 
     Route.translation_getGroupMeta({clientKey:    clientKey, 
                                     containerKey: containerKey}).then(groupMetaArray => {
@@ -291,15 +289,33 @@ function __async__getGroupMetaArray({ success      = force('success'),
     .catch(err => console.error('Error:', err));  
 }
 
+//
+// @function __async__translation_getGroupMeta
+//
+function __async__translation_getGroupMeta({ success      = force('success'), 
+                                             clientKey   = force('clientKey'),
+                                             containerKey = force('containerKey'),
+                                             translationKey = force('translationKey')}) {
+
+    Route.translation_getGroupMeta(arguments[0]).then(groupMetaArray => {
+        let groupMeta = groupMetaArray[0];
+        success(groupMeta)
+    })
+    .catch(err => console.error('Error:', err));      
+}
 
 //
-// @function __async__createTranslation
-//  @note @todo
+// @function __async__translation_createArray
 //
-function __async__createTranslation({ success          = force('success'), 
+function __async__translation_createArray({ success         = force('success'), 
                                       translationArray = force('translationArray')}) {
 
     Route.translation_createArray({ translationArray: translationArray }).then(res => {
+
+        if(res.status != App.HTTP_CREATED) {
+            App.header.flashError(`${res.status}: Was not able to create new translations...`);
+            throw new Error('translation_createArray(): ', res.status);
+        }
 
         return Route.translation_getGroupMeta({ clientKey: translationArray[0].clientKey, 
                                                 containerKey: translationArray[0].containerKey, 
@@ -312,26 +328,25 @@ function __async__createTranslation({ success          = force('success'),
 }
 
 
-
 //
-// @function __async__deleteTranslation
-//  @note @todo
+// @function __async__translation_delete
 //
-function __async__deleteTranslation({  success        = force('success'),
-                                       clientKey      = force('clientKey'), 
-                                       containerKey   = force('containerKey'), 
-                                       translationKey = force('translationKey'), }) {
+function __async__translation_delete({  success        = force('success'),
+                                        clientKey      = force('clientKey'), 
+                                        containerKey   = force('containerKey'), 
+                                        translationKey = force('translationKey'), }) {
 
     Route.translation_deleteGroup({clientKey: clientKey, 
                                    containerKey: containerKey, 
                                    translationKey: translationKey}).then(res => {
+
         console.log('translation_deleteGroup():', res.status);
         
         if (res.status == App.HTTP_CREATED) {
             success();
         }
         else {
-            header.flashError(`${res.status}: Was not able to delete card...`);
+            App.header.flashError(`${res.status}: Was not able to delete card...`);
         }        
     }).catch(err => console.error('Error:', err));
 }
