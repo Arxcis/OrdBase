@@ -1,57 +1,63 @@
 'use strict';
 import html from './card-translation.html';
 
-
 export class Component_TranslationCard extends HTMLElement { 
     constructor() {
         super();
-        this.root = this.createShadowRoot();
-        this.root.innerHTML = html;
+        this._root = this.createShadowRoot();
+        this._root.innerHTML = html;
 
-        this.button   = this.root.querySelector('button');
-        this.form     = this.root.querySelector('form');
-        this.__template__languageKeyComplete = this.root.getElementById('template-languagekey-complete');
-        this.__template__fieldset            = this.root.getElementById('template-fieldset');
+        this._button   = this._root.querySelector('button');
+        this._form     = this._root.querySelector('form');
+        this.__template__languageKeyComplete = this._root.getElementById('template-languagekey-complete');
+        this.__template__fieldset            = this._root.getElementById('template-fieldset');
 
-        this.languageArray = new Array;
+        this._languageArray = new Array;
+        
+        this._clickHandler  = () => console.log('default click....')
+        this._submitHandler = () => console.log('default submit....');
+        this._deleteHandler = () => console.log('default delete.....');
+        this._openHandler   = () => console.log('default select.....');
 
-        this.submitHandler = () => console.log('default submit...');
-        this.deleteHandler = () => console.log('default delete.....');
-        this.openHandler = () => console.log('default select.....');
+        //
+        // Enable animation
+        //
+        this._button.addEventListener('focus', () => {
+            if(!this._button.classList.contains('animated'))
+                this._button.classList.add('animated');
+        })
+        
+        this._button.addEventListener('mouseover', () => {
+            if(!this._button.classList.contains('animated'))           
+                this._button.classList.add('animated');
+        })  
 
-        this.button.addEventListener('click', () => {  
-
-            // If first time, add animation
-            if (!this.form.classList.contains('animated')) {
-                this.form.classList.add('animated');                
-            }
-
-            // Toggle between active and not active. Wait to enable active until displayForm() is fired
-            if(!this.form.classList.contains('active')) {
-                this.openHandler();
-            }
-            else {
-                this.form.classList.remove('active');
-                this.form.innerHTML = '';
-            }
+        this._button.addEventListener('click', e => {  
+            this._clickHandler(this, e);
         });
     }
 
-    OnOpen(handler) {
-        this.openHandler = handler;
-    };
+    OnOpen(handler)    { this._openHandler   = handler };
+    OnClose(handler)   { this._closeHandler  = handler; }
+    OnDelete(handler)  { this._deleteHandler = handler; };
+    OnSubmit(handler)  { this._submitHanlder = handler; }
 
-    OnDelete(handler) {
-        this.deleteHandler = handler;
-    };
 
-    OnSubmit(handler) {
-        this.submitHanlder = handler;
+    open()  {
+        this.style.setProperty('--language-count', this.languageArray.length);  // Give data to the animation
+        this._form.classList.add('active');                                      // Start the CSS animation 
+        setTimeout(() => [].slice.apply(this._form.children).forEach(child => { child.style.display = 'block'; }), 150); // 
     }
+
+    close() { 
+        this._clickHandler = this._openHandler; 
+    }
+
+    setDeleteable(){ this._clickHandler = this._deleteHandler; }
 
     addFieldset(languageKey, isComplete) {
 
-        this.languageArray.push(languageKey);
+        this._languageArray.push(languageKey);
 
         let fragment = this.__template__fieldset.content.cloneNode(true);
         
@@ -59,18 +65,10 @@ export class Component_TranslationCard extends HTMLElement {
         fragment.querySelector('label').innerHTML = languageKey;                                  
         fragment.querySelector('input').setAttribute('id',  `form-translation-${languageKey}`);
         
-        this.form.appendChild(fragment);
-    }
-
-    displayForm() {
-        this.style.setProperty('--language-count', this.languageArray.length);  // Give data to the animation
-        this.form.classList.add('active');                                      // Start the animation 
-        setTimeout(() => [].slice.apply(this.form.children).forEach(child => { child.style.display = 'block'; }), 150); // Let the animation finish before displaying children       
+        this._form.appendChild(fragment);
     }
 
 
-    OnFirstClick () {
-    }
 
     focus() { this.button.focus(); }
 
@@ -102,9 +100,6 @@ export class Component_TranslationCard extends HTMLElement {
         this.root.getElementById('array-languagekey-complete').appendChild(fragment);
     }
 
-    OnClick(handler) { 
-        this.clickHandler = handler; 
-    }
 
     toggleDeleteable() {
         this.button.classList.toggle('deleteable');

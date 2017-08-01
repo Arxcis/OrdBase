@@ -31,7 +31,7 @@ export function loadSelectClient() {
     //
     // 2. Set up card prototype event handlers
     //
-    cardPrototype.OnSelect( (that, e) => {});//loadSelectTranslation(that.getKey()) );
+    cardPrototype.OnSelect( (that, e) => loadSelectTranslation(that.getKey()) );
     cardPrototype.OnEdit(   (that, e) => loadEditClient(that.getKey()));
     cardPrototype.OnDelete( (that, e) => __async__deleteCard({ clientKey: that.getKey(), 
                                                                header: header, 

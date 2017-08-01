@@ -1,11 +1,11 @@
 'use strict';
 
-import  html  from './item-flipper.html';
+import  html  from './picker-container.html';
 
 const UP = 38;
 const DOWN = 40;
 
-export class Component_SelectMenuItem extends HTMLElement { 
+export class Component_ContainerPicker extends HTMLElement { 
   
     constructor() {
         super();
@@ -73,4 +73,4 @@ export class Component_SelectMenuItem extends HTMLElement {
         return [].slice.call(this.div_flipUp.children);
     }
 }
-customElements.define('component-select-menu-item', Component_SelectMenuItem);
+customElements.define('component-picker-container', Component_ContainerPicker);

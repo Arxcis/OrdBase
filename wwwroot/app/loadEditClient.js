@@ -80,9 +80,8 @@ export function loadEditClient(clientKey) {
 // @function __async__populateGenerator
 //  @note @todo
 //
-function __async__populateGenerator({
-            generator = force('generator'), 
-            clientKey = force('clientKey'),
+function __async__populateGenerator({ generator = force('generator'), 
+                                      clientKey = force('clientKey'),
     }) {
 
     Route.client_getContainers({clientKey: clientKey})
@@ -99,9 +98,8 @@ function __async__populateGenerator({
 // @function __async__populateFlipper
 //  @note @todo
 //
-function __async__populateFlipper({
-            flipper = force('flipper'), 
-            clientKey = force('clientKey'),
+function __async__populateFlipper({ flipper = force('flipper'), 
+                                    clientKey = force('clientKey'),
     }) {
 
     Route.language_get()
@@ -127,9 +125,8 @@ function __async__populateFlipper({
 // @function __async__populateForm
 //  @note @todo
 //
-function __async__populateForm({
-            form = force('form'), 
-            clientKey = force('clientKey'),
+function __async__populateForm({ form = force('form'), 
+                                 clientKey = force('clientKey'),
     }) {
 
     Route.client_get({clientKey: clientKey})
@@ -144,11 +141,10 @@ function __async__populateForm({
 // @function __async__updateClient
 //  @note @todo
 //
-function __async__updateClient({
-            header         = force('header'),
-            client         = force('client'), 
-            containerArray = force('containerArray'), 
-            languageArray  = force('languageArray')
+function __async__updateClient({ header         = force('header'),
+                                 client         = force('client'), 
+                                 containerArray = force('containerArray'), 
+                                 languageArray  = force('languageArray')
     }) {
 
     Route.client_update({clientKey: client.key, client: client}).then(res => {
