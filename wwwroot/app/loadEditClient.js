@@ -26,9 +26,35 @@ export function loadEditClient(clientKey) {
     //
     // 1. Async calls filling in data in components
     //
-    __async__populateGenerator({generator: generator, clientKey: clientKey});
-    __async__populateFlipper({flipper: flipper, clientKey: clientKey});
-    __async__populateForm({form: form, clientKey: clientKey});
+    __async__client_getContainerKeyArray({ clientKey: clientKey,
+        success : containerKeyArray => {     
+            containerKeyArray.forEach( containerKey => {
+                generator.makeItem({key: containerKey, selected: true}); 
+            });
+        }
+    });
+
+
+    __async__language_getArray__client_getLanguageKeyArray( {clientKey: clientKey, 
+        success: (languageArray, languageKeyArray) => {
+
+            languageArray.forEach(lang => {
+                flipper.makeItem({ key: lang.key, 
+                                text: `${lang.name} - ${lang.key}`, 
+                                selected: false });
+            });
+
+            languageKeyArray.forEach(key => {
+                flipper.selectItem(key);
+            })            
+        }
+    });
+
+    __async__clientGet({ clientKey: clientKey, 
+        success: client => {
+            form.setClient(client);        
+        }
+    });
 
     //
     // 2. Set up header event handlers
@@ -61,10 +87,12 @@ export function loadEditClient(clientKey) {
     form.addEventListener('submit', e => {
         e.preventDefault();
 
-        __async__updateClient({ header: header, 
-                                client:         form.getClient(), 
-                                containerArray: generator.getContainerKeyArray(), 
-                                languageArray:  flipper.getLanguageKeyArray(), });
+        __async__client_update({ 
+            client:         form.getClient(), 
+            containerArray: generator.getContainerKeyArray(), 
+            languageArray:  flipper.getLanguageKeyArray(), 
+            success: () => loadSelectClient(),
+        });
     });
 
     //
@@ -77,74 +105,62 @@ export function loadEditClient(clientKey) {
 }
 
 //
-// @function __async__populateGenerator
+// @function __async__client_getContainerKeyArray
 //  @note @todo
 //
-function __async__populateGenerator({ generator = force('generator'), 
-                                      clientKey = force('clientKey'),
-    }) {
+function __async__client_getContainerKeyArray({ clientKey = force('clientKey'),
+                                                success   = force('success'),  }) {
 
     Route.client_getContainers({clientKey: clientKey})
-    .then( containers => {
-
-        containers.forEach( container => {
-            generator.makeItem({key: container, selected: true}); 
-        });
+    .then( containerKeyArray => {
+        success(containerKeyArray);
     })
     .catch(reason => console.error('Error:', reason));
 }
 
 //
-// @function __async__populateFlipper
+// @function _
 //  @note @todo
 //
-function __async__populateFlipper({ flipper = force('flipper'), 
-                                    clientKey = force('clientKey'),
-    }) {
+function __async__language_getArray__client_getLanguageKeyArray({  success = force('success'),
+                                                                   clientKey = force('clientKey'), }) {
 
+    let languageArray;
     Route.language_get()
-    .then(languageArray => {
-
-        languageArray.forEach(lang => {
-
-            flipper.makeItem({ key: lang.key, 
-                               text: `${lang.name} - ${lang.key}`, 
-                               selected: false });
-        });
+    .then(_languageArray => {
+        languageArray = _languageArray;
         return Route.client_getLanguages({clientKey: clientKey});
     })
     .then(languageKeyArray => {
-        languageKeyArray.forEach(key => {
-            flipper.selectItem(key);
-        })
+        success(languageArray, languageKeyArray);    
     })
     .catch(error => console.error(error));
 }
 
 //
-// @function __async__populateForm
+// @function __async__clientGet
 //  @note @todo
 //
-function __async__populateForm({ form = force('form'), 
-                                 clientKey = force('clientKey'),
-    }) {
+function __async__clientGet({ success = force('success'),
+                              clientKey = force('clientKey'), }) {
 
     Route.client_get({clientKey: clientKey})
-    .then(client => {
-        form.setClient(client[0]);
+    .then(clientArray => {
+        let client = clientArray[0];
+        success(client);
     })
     .catch(error => console.error(error));        
 }
 
 
 //
-// @function __async__updateClient
+// @function __async__client_update
 //  @note @todo
 //
-function __async__updateClient({ header         = force('header'),
-                                 client         = force('client'), 
-                                 containerArray = force('containerArray'), 
-                                 languageArray  = force('languageArray')
+function __async__client_update({ success = force('success'),
+                                  client         = force('client'), 
+                                  containerArray = force('containerArray'), 
+                                  languageArray  = force('languageArray')
     }) {
 
     Route.client_update({clientKey: client.key, client: client}).then(res => {
@@ -153,7 +169,7 @@ function __async__updateClient({ header         = force('header'),
 
             Route.client_setContainers({clientKey: client.key, containerArray: containerArray}).then(res => {
                 if (res.status != App.HTTP_CREATED) { 
-                    header.flashError(`code ${res.status}: clientContainers could not be updated`);
+                    App.HEADER.flashError(`code ${res.status}: clientContainers could not be updated`);
                 }
                 console.log('client_setContainers(): ', res.status)
 
@@ -161,16 +177,16 @@ function __async__updateClient({ header         = force('header'),
 
             Route.client_setLanguages({clientKey:  client.key, languageArray: languageArray}).then(res => {
                 if (res.status != App.HTTP_CREATED) { 
-                    header.flashError(`code ${res.status}: clientLanguages could not be updated`);
+                    App.HEADER.flashError(`code ${res.status}: clientLanguages could not be updated`);
                 }
                 console.log('client_setLanguages(): ', res.status)
             }).catch(error => console.error(error));
             
-            loadSelectClient();
+            success();
         }
         else {
-            header.flashError(`code ${res.status}: CRITICAL ERROR, Client could not be updated... `);
+            App.HEADER.flashError(`code ${res.status}: CRITICAL ERROR, Client could not be updated... `);
         }
     })
-    .catch(error => header.flash(error)); // @TODO Display error in view
+    .catch(error => App.HEADER.flash(error)); // @TODO Display error in view
 }
