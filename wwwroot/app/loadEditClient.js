@@ -18,6 +18,7 @@ export function loadEditClient(clientKey) {
     //
     // 0. Create component instances
     //
+    const header    = App.header;
     const view      = new View_EditClient;     
     const generator = new Component_ItemGenerator;
     const flipper   = new Component_ItemFlipper;
@@ -31,38 +32,22 @@ export function loadEditClient(clientKey) {
     __async__populateForm({form: form, clientKey: clientKey});
 
     //
-    // 3. Set up header
+    // 2. Set up header event handlers
     //
-    App.HEADER.setTextSmall('Ordbase');    
-    App.HEADER.setTextBig(`Edit ${clientKey}`);
-    
-    App.HEADER.setButtonIconLeft(App.ICON_BARS);
-    App.HEADER.setButtonIconRight0(App.ICON_NONE);        
-    App.HEADER.setButtonIconRight1(App.ICON_NONE);    
-    App.HEADER.setButtonIconRight2(App.ICON_TIMES);
-
-    App.HEADER.getButtonLeft().onclick   = App.defaultHandler;
-    App.HEADER.getButtonRight0().onclick = App.defaultHandler;    
-    App.HEADER.getButtonRight1().onclick = App.defaultHandler;
-    App.HEADER.getButtonRight2().onclick = event => loadSelectClient();
+    header.button0_OnClick(App.defaultHandler);
+    header.button1_OnClick(App.defaultHandler);    
+    header.button2_OnClick(App.defaultHandler);
+    header.button3_OnClick(event => loadSelectClient());
 
     //
-    // 4. Set up container generator
+    // 3. Bind data to header
     //
-    generator.OnGenerate(()=> {
-        let button = new Component_SelectButton;
-        let value = generator.getValue();
-
-        button.setId(value);
-        button.setText(value);
-        button.setSelected(true);
-        
-        button.OnClick(() => {
-            generator.removeItem(button);
-        });
-
-        generator.addItem(button);
-    });
+    header.setTextSmall('Ordbase');    
+    header.setTextBig('New client');
+    header.button0_setIcon(App.ICON_BARS);
+    header.button1_setIcon(App.ICON_NONE);    
+    header.button2_setIcon(App.ICON_NONE);    
+    header.button3_setIcon(App.ICON_TIMES);
 
     //
     // 5. Set up language flipper
@@ -76,6 +61,11 @@ export function loadEditClient(clientKey) {
     form.setSubmitText(`Update ${clientKey}`);
     form.addEventListener('submit', e => {
         e.preventDefault();
+
+        let clientObject   = form.getClient();
+        let containerArray = generator.getItemArray().map(button => { return button.getId(); });
+        let languageArray  = flipper.getSelectedItemArray().map(button => { return button.getId(); });
+
         __async__updateClient({ clientKey: clientKey, form: form, generator: generator, flipper: flipper});            
     });
 
@@ -181,27 +171,40 @@ function __async__populateForm({
     .catch(error => console.log(error));        
 }
 
+const HTTP_CREATED = 201;
+
 //
 // 11. Submit data from form, generator and flipper
 //
 function __async__updateClient({
-            clientKey = force('clientKey'), 
-            form      = force('form'), 
-            generator = force('generator'), 
-            flipper   = force('flipper')
+            header         = force('header'),
+            client         = force('client'), 
+            containerArray = force('containerArray'), 
+            languageArray  = force('languageArray')
     }) {
 
-    let clientObject   = form.getClient();
-    let containerArray = generator.getItemArray().map(button => { return button.getId(); });
-    let languageArray  = flipper.getSelectedItemArray().map(button => { return button.getId(); });
+    Route.client_update({clientKey: client.key, client: client}).then(res => {
 
-    Route.client_update({clientKey: clientKey, client: clientObject}).then(response => {
+        if (res.status == HTTP_CREATED) {
 
-        Route.client_setContainers({clientKey: clientKey, containerArray: containerArray}).catch(error => console.error(error));
-        Route.client_setLanguages({clientKey:  clientKey,  languageArray: languageArray}).catch(error => console.error(error));
+            Route.client_setContainers({clientKey: client.key, containerArray: containerArray}).then(res => {
+                if (res.status != HTTP_CREATED) { 
+                    header.flashError(`code ${res.status}: clientContainers could not be updated`);
+                }
+            }).catch(error => console.error(error));
 
-        loadSelectClient();
+            Route.client_setLanguages({clientKey:  client.key, languageArray: languageArray}).then(res => {
+                if (res.status != HTTP_CREATED) { 
+                    header.flashError(`code ${res.status}: clientLanguages could not be updated`);
+                }
+                console.log('client_setLanguages: ', res.status)
+            }).catch(error => console.error(error));
+            
+            loadSelectClient();
+        }
+        else {
+            header.flashError(`code ${res.status}: CRITICAL ERROR, Client could not be updated... `);
+        }
     })
-    .catch(error => console.error(error));  // @TODO Display error in view
-
+    .catch(error => header.flash(error)); // @TODO Display error in view
 }

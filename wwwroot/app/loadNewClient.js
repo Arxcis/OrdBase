@@ -37,7 +37,7 @@ export function loadNewClient(clientKey) {
     header.button3_OnClick(event => loadSelectClient());
 
     //
-    // 2. Bind data to header
+    // 3. Bind data to header
     //
     header.setTextSmall('Ordbase');    
     header.setTextBig('New client');
@@ -67,7 +67,8 @@ export function loadNewClient(clientKey) {
         console.log(clientData, containerArray, languageArray);
         __async__submitNewClient({ client: clientData, 
                                    containerArray: containerArray, 
-                                   languageArray: languageArray });            
+                                   languageArray: languageArray, 
+                                   header: header });            
     });
 
     //
@@ -80,6 +81,7 @@ export function loadNewClient(clientKey) {
 
 }
 
+const HTTP_CREATED = 201;
 //
 // @function __async__populateFlipper
 //  @note @todo
@@ -103,6 +105,7 @@ function __async__populateFlipper({ flipper = force('flipper') }) {
 //  @note @todo
 //
 function __async__submitNewClient({
+            header         = force('header'),
             client         = force('client'), 
             containerArray = force('containerArray'), 
             languageArray  = force('languageArray'),
@@ -110,12 +113,28 @@ function __async__submitNewClient({
 
     Route.client_create({client: client})
     .then(res => {
-        console.log('client create:', res.status);        
-            Route.client_setContainers({ clientKey: client.key, containerArray: containerArray}).catch(error => console.error(error));
-            Route.client_setLanguages({  clientKey: client.key, languageArray: languageArray}).catch(error => console.error(error));    
+
+        if (res.status == HTTP_CREATED) {
+
+            Route.client_setContainers({clientKey: client.key, containerArray: containerArray}).then(res => {
+                if (res.status != HTTP_CREATED) { 
+                    header.flashError(`code ${res.status}: clientContainers could not be created`);
+                }
+            }).catch(error => console.error(error));
+
+            Route.client_setLanguages({clientKey:  client.key, languageArray: languageArray}).then(res => {
+                if (res.status != HTTP_CREATED) { 
+                    header.flashError(`code ${res.status}: clientLanguages could not be created`);
+                }
+                console.log('client_setLanguages: ', res.status)
+            }).catch(error => console.error(error));
             
             loadSelectClient();
+        }
+        else {
+            header.flashError(`code ${res.status}: Client could not be created. Client may already exist`);
+        }
     })
-    .catch(error => console.error(error)); // @TODO Display error in view
+    .catch(error => header.flash(error)); // @TODO Display error in view
 } 
 

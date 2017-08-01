@@ -30,7 +30,7 @@ export class Component_Header extends HTMLElement {
             errorBanner.classList.remove('active');
             errorBanner.innerHTML = '';
                         
-        }, 2000);
+        }, 3000);
     }
 
     setTextBig(text) { 

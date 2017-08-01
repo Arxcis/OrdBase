@@ -49,8 +49,15 @@ namespace OrdBaseCore.Repositories
         //
         // CREATE, Update, delete
         //
+        
         public IActionResult Create(Client client)  
-        {
+        {   
+            //
+            // @todo Adding a client which already exists with the same key, apikey, will throw a 
+            //       server 500 error here. This could be handled by the front-end but, it would also be nice
+            //       if the back-end failed in a more gracefull manner, giving a better feedback on what 
+            //       went wrong - JSolsvik
+            //
             _context.Client.Add(client);
             _context.SaveChanges();
             return new NoContentResult {};
@@ -102,7 +109,7 @@ namespace OrdBaseCore.Repositories
             });
 
             //
-            // @note Here we make sure that a container has to exist in the Container table, before it can be used as a 
+            // @todo Here we make sure that a container has to exist in the Container table, before it can be used as a 
             //      foreign key in the ClientContainer table. The SetLanguage method should probably also check this,
             //      but I am currently relying upon the front-end to make sure that only valid languages
             //      are set as new languages. This will throw an 500 error if  a 
