@@ -14,13 +14,13 @@ export class Component_ClientCard extends HTMLElement {
         this._root.innerHTML = html;
         this._button = this._root.querySelector('button');
 
-        this._clickHandler  = () => console.log('default.....');
-        this._selectHandler = () => console.log('default.....');
-        this._editHandler   = () => console.log('default.....');
-        this._deleteHandler = () => console.log('default.....');
+        this._clickHandler  = () => console.log('default click.....');
+        this._selectHandler = () => console.log('default select.....');
+        this._editHandler   = () => console.log('default edit.....');
+        this._deleteHandler = () => console.log('default delete.....');
 
-        this._button.addEventListener('click', () => {
-            this._clickHandler();
+        this._root.addEventListener('click', e => {
+            this._clickHandler(this, e);
         });
 
         this._button.addEventListener('focus', () => {
@@ -45,32 +45,48 @@ export class Component_ClientCard extends HTMLElement {
         this._button.classList.remove('editable');
         this._button.classList.remove('deleteable');
         this._clickHandler = this._selectHandler;        
+        console.log(this._button.classList, this._clickHandler);
+
     }
  
     setEditable() {
         this._button.classList.add('editable');
         this._button.classList.remove('deleteable');
         this._clickHandler = this._editHandler;
+        console.log(this._button.classList, this._clickHandler);
+        
     }
 
     setDeleteable() {
         this._button.classList.add('deleteable');
         this._button.classList.remove('editable');
+
         this._clickHandler = this._deleteHandler;
+        console.log(this._button.classList, this._clickHandler);
+        
     }
 
     isEditable()   { return this._button.classList.contains('editable'); }
     isDeleteable() { return this._button.classList.contains('deleteable'); }
 
     //
-    // Set internal data
+    // get Set internal data
+    // @note I could have used getters and setters here, but they are not staticly checked in javascript, 
+    //       , which means that if someone mispells a getter or a setter name, no error is thrown, 
+    //       even if there are no getter or setter with that name. functions on the other hand throw
+    //       errors when not found, which is really great.  - JSolsvik 01.08.17
     //
+    getKey() {
+        return this.getAttribute('id');
+    }
+
     setHeading (name){
         this._root.getElementById('card-h2').innerHTML = name;
         this._name = name;
     }    
-    setId(id) {
-        this.setAttribute('id', id);
+
+    setKey(key) {
+        this.setAttribute('id', key);
     }
 
     setText(text) {

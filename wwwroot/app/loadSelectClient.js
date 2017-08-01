@@ -31,12 +31,12 @@ export function loadSelectClient() {
     //
     // 2. Set up card prototype event handlers
     //
-    cardPrototype.OnSelect( e => {});//loadSelectTranslation(e.target.getKey()) );
-    cardPrototype.OnEdit( e => {});//loadEditClient(e.target.getKey()));
-    cardPrototype.OnDelete( e => __async__deleteCard({ clientKey: e.target.getKey(), 
-                                                       header: header, 
-                                                       view: view, 
-                                                       card: e.target }));
+    cardPrototype.OnSelect( (that, e) => {});//loadSelectTranslation(that.getKey()) );
+    cardPrototype.OnEdit(   (that, e) => {});//loadEditClient(that.getKey()));
+    cardPrototype.OnDelete( (that, e) => __async__deleteCard({ clientKey: that.getKey(), 
+                                                               header: header, 
+                                                               view: view, 
+                                                               card: that }));
     //
     // 3. Set up header event handlers
     //   
@@ -50,8 +50,8 @@ export function loadSelectClient() {
     header.button1_OnClick(event => { 
 
         let cardArray = view.getCardArray();
-
         if (!cardArray[0].isDeleteable()) {
+            
             header.setTextBig('Delete Client');
             header.setColor(App.COLOR_DANGER);  
             cardArray.forEach(card => card.setDeleteable());          
@@ -114,10 +114,13 @@ function __async__generateCards({
 
             let card = cardPrototype.cloneNode(true);
 
-            card.setId(`card${i}`);
+            card.setKey(client.key);
             card.setHeading(client.key);
             card.setText(client.webpageUrl);
             card.setThumbnail(client.thumbnailUrl);
+            card.OnSelect(cardPrototype._selectHandler);
+            card.OnEdit(cardPrototype._editHandler);
+            card.OnDelete(cardPrototype._deleteHandler);
 
             view.addCard(card)
         });                            
@@ -137,11 +140,12 @@ function __async__deleteCard({
 
     Route.client_delete({clientKey: card.getKey()})
     .then(res => {
+
         if (res.status == 204) {
             view.root.removeChild(card);
         }
         else {
-            header.flashError('${res.status}: Card not deleted');
+            header.flashError(`Code ${res.status}: Card not deleted`);
         }
         loadSelectClient();
     })
