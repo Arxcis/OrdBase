@@ -66,7 +66,7 @@ export function translation_get({ clientKey      = '',
 }
 ```
 
-[**TranslationController.cs**](/controllers/TranslationController.cs)
+[**TranslationController.cs**](/Controllers/TranslationController.cs)
 ```cs
 [HttpGet("api/translation")]
 public IEnumerable<Translation> Get([FromQuery] TranslationQuery query)
@@ -75,7 +75,7 @@ public IEnumerable<Translation> Get([FromQuery] TranslationQuery query)
 }
 ```
 
-[**TranslationRepository.cs**](/repositories/TranslationRepository.cs)
+[**TranslationRepository.cs**](/Repositories/TranslationRepository.cs)
 ```cs
 public IEnumerable<Translation> Get(TranslationQuery query)
 {
