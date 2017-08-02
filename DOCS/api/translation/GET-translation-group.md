@@ -1,69 +1,67 @@
 # GET - api/translation
 
-<-- [__ /api/translation/keyvalue](GET-translation-keyvalue.md) | [__ /api ](../index.md)  | 
+| [__ /api ](../index.md)  | [__ /api/translation/keyvalue](GET-translation-keyvalue.md) -->
+
 
 ## Request example 
 
+**URI parameters** 
+```
+clientKey: string            length: <= 127     optional
+containerKey: string         length: <= 64      optional
+translationKey: string       length: <= 127     optional 
+``` 
+
 **GET request url**
 ```url
-http://localhost:5000/api/translation/?clientKey=Ordbase&languageKey=en&containerKey=error_messages
+http://localhost:5000/api/translation/group/?clientKey=Ordbase&languageKey=&containerKey=error_messages
 ``` 
 
 **JSON Response**
 ```json
 [
     {
-        "clientKey": "Ordbase",
-        "languageKey": "en",
-        "containerKey": "error_messages",
         "key": "error_create_client",
-        "text": "Failed to create client. Client may already exist",
-        "isComplete": false
-    },
-    {
         "clientKey": "Ordbase",
-        "languageKey": "no-nb",
         "containerKey": "error_messages",
-        "key": "error_create_client",
-        "text": "Fikk ikke til å lage ny klient. Klienten finnes kanskje fra før?",
-        "isComplete": true
+        "items": [
+            {
+                "key": "error_create_client",
+                "text": "Failed to create client. Client may already exist",
+                "isComplete": false
+            },
+            {
+                "key": "error_create_client",
+                "text": "Fikk ikke til å lage ny klient. Klienten finnes kanskje fra før?",
+                "isComplete": true
+            }
+        ]
     }
 ]
 ```
 
-**URI parameters** 
-
-```
-clientKey: string             length: <= 127     optional
-languageKey: string           length: <= 8       optional
-containerKey: string          length: <= 64      optional
-translationKey: string        length: <= 127     optional 
-``` 
-
 **Response type**
 ```cs
-    [] Translation
+    [] TranslationGroup
 ```
 
 <br>
 
-## Implementation draft
+## Implementation Draft
 
 [**Route.js**](/wwwroot/lib/Route.js)
 ```javascript
-export function translation_get({ clientKey      = '',  
-                                  languageKey    = '',  
-                                  containerKey   = '',  
-                                  translationKey = '', } = {}) { 
+export function translation_getGroup({ clientKey      = '',  
+                                       containerKey   = '', 
+                                       translationKey = '', } = {}) {
 
     const queryString = `clientKey=${clientKey}
-                         &languageKey=${languageKey}
                          &containerKey=${containerKey}
                          &translationKey=${translationKey}`;
-    
-    return Fetch.GET({  
-        route: `api/translation/?${queryString}`,
-    }); 
+
+    return Fetch.GET({
+        route: `api/translation/group/?${queryString}`,
+    })
 }
 ```
 

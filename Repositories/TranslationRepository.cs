@@ -58,7 +58,12 @@ namespace OrdBaseCore.Repositories
                         Key          = grp.Key,
                         ClientKey    = query.ClientKey,
                         ContainerKey = query.ContainerKey,
-                        Items        = grp.ToArray()
+                        Items        = grp.Select(o => new TranslationGroup.Item 
+                        {
+                            LanguageKey = o.LanguageKey,
+                            Text  = o.Text,
+                            IsComplete = o.IsComplete
+                        }).ToArray()
                     }).ToArray();
         }
 
