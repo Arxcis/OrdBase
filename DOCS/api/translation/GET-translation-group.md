@@ -1,4 +1,4 @@
-# GET - api/translation
+# GET - api/translation/group
 
 | [__ /api ](../index.md)  | [__ /api/translation/keyvalue](GET-translation-keyvalue.md) -->
 

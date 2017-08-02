@@ -1,4 +1,4 @@
-# GET - api/translation
+# GET - api/translation/meta
 
 <-- [__ /api/translation/keyvalue](GET-translation-keyvalue.md) | [/api](/DOCS/api/index.md)  | [api/translation](GET-translation.md) -->
 
