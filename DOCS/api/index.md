@@ -5,7 +5,7 @@ Last updated: 02.08.2017 by Jonas Solsvik
 
 ## api/translation
 
-[**GET - api/translation**](translation/get-translation.md) <br>
+[**GET - api/translation**](translation/GET-translation.md) <br>
 **GET - api/translation/group** <br>
 **GET - api/translation/group/meta** <br>
 **GET - api/translation/keyvalue** <br>
