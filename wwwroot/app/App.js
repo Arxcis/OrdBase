@@ -50,6 +50,10 @@ export function switchView(view) {
     return view;
 }
 
+export function flashError(text) {
+    App.HEADER.flashError(text);
+}
+
 const MAIN = document.getElementById('ordbase-main');    
 
 document.addEventListener('keydown', (e) => {

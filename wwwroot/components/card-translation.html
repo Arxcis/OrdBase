@@ -105,6 +105,25 @@
             border: none;
         }
 
+        #button-submit {
+            font-size: var(--ordbase-button-font-size);
+            width: 400px;
+            height: 30px; 
+
+            cursor: pointer;
+            
+            background-color: transparent;
+            color: var(--ordbase-color-dark); 
+            border: 2px solid var(--ordbase-color-success);
+            border-width: 0px 0px 2px 0px;
+        }
+
+        #button-submit:focus,
+        #button-submit.selected,
+        #button-submit:hover {
+            background-color: var(--ordbase-color-success);
+            color: var(--ordbase-color-white);
+        }
 
         /* From ANIMATION */
 
@@ -132,7 +151,7 @@
     <button class="btn-load-translation-editor">
         <span id="card-translation-key" class="translation-key">{{ translationKey }}</span>
         
-        <div  id="array-languagekey-complete">
+        <div id="array-languagekey-complete">
             
             <template id="template-languagekey-complete">
 
@@ -154,10 +173,15 @@
         </fieldset>
 
         <template id = "template-fieldset">
-            <fieldset class="generated">
-                <label for="form-translation-{{ languageCode }}">Key</label><br>
-                <input id="form-translation-{{ languageCode  }}" type="text" data-min-size="20" value="">
+            <fieldset class = "generated">
+                <label for  = "form-translation-{{ languageCode }}">Key</label><br>
+                <input id   = "form-translation-{{ languageCode  }}" type="text" data-min-size="20" value="">
+
+                <input type="checkbox"> Validated </input>
             </fieldset>
         </template>
-                
+        
+        <fieldset id="fieldset-button-submit">
+            <button id="button-submit" type="submit"> Update </button>
+        </fieldset>
     </form>

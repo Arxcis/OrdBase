@@ -121,6 +121,31 @@ namespace OrdBaseCore.Repositories
             return new StatusCodeResult(204); 
         }
 
+
+        public IActionResult UpdateArray(TranslationGroupQuery query, IEnumerable<Translation> translationArray) 
+        {   
+
+            foreach (var translation in translationArray) {
+
+                var found = _context.Translation.First(t => t.ClientKey    == translation.ClientKey    &&
+                                                            t.LanguageKey  == translation.LanguageKey  &&
+                                                            t.ContainerKey == translation.ContainerKey &&
+                                                            t.Key          == translation.Key);
+
+
+                if (found == null) 
+                    return new NotFoundResult {};
+
+                found.Key  = translation.Key;
+                found.Text = translation.Text;
+                found.IsComplete = translation.IsComplete;
+                _context.Translation.Update(found);
+    
+                _context.SaveChanges();            
+            }            
+            return new StatusCodeResult(204); 
+        }
+
         public IActionResult Delete(TranslationQuery query) 
         {   
             var translation = _context.Translation.First(

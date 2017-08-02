@@ -84,6 +84,20 @@ namespace OrdBaseCore.Controllers
             return _translationRepo.Update(query, translation);
         }
 
+        [HttpPut("api/translation/array")]
+        public IActionResult UpdateArray([FromQuery] TranslationGroupQuery query, [FromBody] IEnumerable<Translation> translationArray)
+        {   
+           if (query == null || translationArray == null || query.ClientKey      != translationArray.First().ClientKey    ||
+                                                            query.ContainerKey   != translationArray.First().ContainerKey ||
+                                                            query.TranslationKey != translationArray.First().Key) 
+               return BadRequest();
+           
+           return _translationRepo.UpdateArray(query, translationArray);
+       
+            //return translationArray;
+        }
+
+
         [HttpDelete("api/translation")]
         public IActionResult Delete([FromQuery] TranslationQuery query)
         {

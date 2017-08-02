@@ -24,6 +24,7 @@ namespace OrdBaseCore.IData
 		IActionResult Create(Translation translation);
 		IActionResult CreateArray(IEnumerable<Translation> translationArray);		
 		IActionResult Update(TranslationQuery query, Translation Translation);
+		IActionResult UpdateArray(TranslationGroupQuery query, IEnumerable<Translation> Translation);
 		IActionResult Delete(TranslationQuery query);
 		IActionResult DeleteGroup(TranslationGroupQuery query);		
     }	

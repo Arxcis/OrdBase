@@ -112,8 +112,9 @@ export class Component_TranslationGenerator extends HTMLElement {
         this._root.getElementById('div-generated-items').innerHTML = '';
     }
 
-    activate()   { this._button.style.display = 'block'; }
-    deactivate() { this._button.style.display  = 'none'; }
+    focus() {
+        this._generatedItems.firstElementChild._button.focus();
+    }
 }
 
 customElements.define('component-generator-translation', Component_TranslationGenerator);

@@ -41,13 +41,19 @@ export class Component_TranslationCard extends HTMLElement {
                 this.close();
             }
         });
+
+        this._form.addEventListener('submit', e => {
+            e.preventDefault();
+
+            this._submitHandler(this, e);
+
+        });
     }
 
 
     //
     // PUBLIC
     //
-    
     open()  {
         let fieldsetArray = [].slice.apply(this._root.querySelectorAll('fieldset'));
 
@@ -67,13 +73,11 @@ export class Component_TranslationCard extends HTMLElement {
         this._button.classList.remove('selected');
         
         [].slice.apply(this._root.querySelectorAll('fieldset')).forEach(fieldset => {
-            if(fieldset.classList.contains('generated'))
+            if (fieldset.classList.contains('generated'))
                 fieldset.parentElement.removeChild(fieldset);
             else
                 fieldset.style.display = 'none';
         });
-
-        
 
         this._isClosed = true;
     }
@@ -111,22 +115,49 @@ export class Component_TranslationCard extends HTMLElement {
         return this._root.getElementById('card-translation-key').innerHTML;
     }
 
-    OnOpen(handler)    { this._openHandler   = handler; }
-    OnDelete(handler)  { this._deleteHandler = handler; }
-    OnSubmit(handler)  { this._submitHanlder = handler; }
+    setEventHandlers({ onopen, ondelete, onsubmit}) {
+        this._openHandler   = onopen;
+        this._deleteHandler = ondelete,
+        this._submitHandler = onsubmit;
+        this._clickHandler  = this._openHandler;
+    }
+
+    getEventHandlers() {
+        return {
+            onopen: this._openHandler,
+            ondelete: this._deleteHandler,
+            onsubmit: this._submitHandler, 
+        }
+    }
+
+    getFormData() {
+        return {
+            translationKey: this._root.getElementById('form-translation-key').value,
+            fieldsetArray: [].slice.apply(this._root.querySelectorAll('.generated')).map(fieldset => {
+                return {
+                    languageKey: fieldset.querySelector('label').innerHTML,
+                    text:        fieldset.querySelector('input[type=text]').value,
+                    isComplete:  fieldset.querySelector('input[type=checkbox]').checked,
+                }
+            }),
+        }
+    }
 
     //
     // Make functions
     //
-    makeFieldset(languageKey, isComplete) {
+    makeFieldset({ languageKey, text, isComplete}) {
 
         let fragment = this.__template__fieldset.content.cloneNode(true);
         
         fragment.querySelector('label').setAttribute('for', `form-translation-${languageKey}`);  
         fragment.querySelector('label').innerHTML = languageKey;                                  
-        fragment.querySelector('input').setAttribute('id',  `form-translation-${languageKey}`);
-        
-        this._form.appendChild(fragment);
+        fragment.querySelector('input[type="text"]').setAttribute('id',  `form-translation-${languageKey}`);
+        fragment.querySelector('input[type="text"]').value = text;
+        fragment.querySelector('input[type="checkbox"]').checked = isComplete;
+        fragment.querySelector('fieldset').classList.add('generated');
+
+        this._form.insertBefore(fragment, this._root.getElementById('fieldset-button-submit'));
     }
 
     
@@ -140,6 +171,12 @@ export class Component_TranslationCard extends HTMLElement {
             fragment.querySelector('i').classList.add('fa-check');
         }
         this._root.getElementById('array-languagekey-complete').appendChild(fragment);
+    }
+
+    getTranslationGroup() {
+        return {
+
+        }
     }
 }
 customElements.define('component-card-translation', Component_TranslationCard);

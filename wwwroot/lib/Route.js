@@ -164,6 +164,19 @@ export function translation_update({ clientKey      = force('clientKey'),
     });
 }
 
+export function translation_updateArray({ clientKey        = force('clientKey'),  
+                                          containerKey     = force('containerKey'),  
+                                          translationKey   = force('translationKey'),
+                                          translationArray = force('translationGroup') } = {}) {  
+
+    const queryString = `clientKey=${clientKey}&containerKey=${containerKey}&translationKey=${translationKey}`;
+
+    return Fetch.PUT({
+        route: `api/translation/array/?${queryString}`,       
+        data:  translationArray
+    });
+}
+
 export function translation_delete({ clientKey      = force('clientKey'),  
                                      languageKey    = force('languageKey'),  
                                      containerKey   = force('containerKey'),  
