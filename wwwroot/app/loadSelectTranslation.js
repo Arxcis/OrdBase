@@ -181,7 +181,13 @@ export function loadSelectTranslation (clientKey) {
     //
     // 2. Setup header events
     //
-    header.button0_OnClick(App.defaultHandler);
+    header.button0_OnClick(() => {
+        let cardArray = generator.getCardArray();
+        header.setTextBig('Select Translation');
+        header.setColor(App.COLOR_SUCCESS);
+        cardArray.forEach(card => card.setOpenable());   
+    });
+    
     header.button1_OnClick( e => {
         
         let cardArray = generator.getCardArray();
