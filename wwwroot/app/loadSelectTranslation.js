@@ -66,7 +66,7 @@ export function loadSelectTranslation (clientKey) {
 
                     // On picker-item click, reload all translation cards
                     onclick: e => {
-
+                        
                         __async__translation_getGroupMetaArray({
                             clientKey: clientKey, 
                             containerKey: picker.getContainerKey(),
@@ -78,7 +78,11 @@ export function loadSelectTranslation (clientKey) {
                                 }) 
                             },
                         });
+
+                        header.setColor(App.COLOR_SUCCESS);
+                        header.setTextBig('Select translation');
                     },
+
                 });
             });
             picker.setDefaultItem();
@@ -99,15 +103,23 @@ export function loadSelectTranslation (clientKey) {
                 translationKey: card.getTranslationKey(),
                 success: group => {
                     group.items.forEach(item => {
-                        console.log('ITEM!!',item, item.languageKey);
                         card.makeFieldset({languageKey: item.languageKey, text:  item.text, isComplete: item.isComplete})
                     });
-
-                    card.open();                        
+                    card.display();
                 } 
             })
-            
+
+            // @TODO close other open cards
+            header.setColor(App.COLOR_SELECT);
+            header.setTextBig('Edit translation');
+            card.open({ languageCount: languageKeyArray.length });            
         },
+
+        onclose: () => {
+            header.setColor(App.COLOR_SUCCESS);
+            header.setTextBig('Select translation');
+        },
+
         ondelete:(card, e) => { 
             // Delete translation
             __async__translation_delete({ 
@@ -124,7 +136,7 @@ export function loadSelectTranslation (clientKey) {
 
             let translationArray = new Array();
             let formData = card.getFormData();
-            console.log(formData);
+
             formData.fieldsetArray.forEach(fieldset => {
             
                 translationArray.push({
@@ -198,7 +210,7 @@ export function loadSelectTranslation (clientKey) {
 
     header.button0_setIcon( App.ICON_BARS);
     header.button1_setIcon( App.ICON_NONE);
-    header.button2_setIcon( App.ICON_TRASH);
+    header.button2_setIcon( App.ICON_TRASH, App.COLOR_DANGER);
     header.button3_setIcon( App.ICON_ARROW_LEFT);    
 
 

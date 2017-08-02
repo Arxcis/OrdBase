@@ -53,7 +53,8 @@ export class Component_Header extends HTMLElement {
                  .setAttribute('class', `fa ${icon}`);
     }
 
-    button2_setIcon(icon) { 
+    button2_setIcon(icon, color) {
+        console.log('color', color); 
         this.root.querySelector('#btn-header-right1 i.fa')
                  .setAttribute('class', `fa ${icon}`);
     }

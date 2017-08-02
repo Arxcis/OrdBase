@@ -20,6 +20,8 @@ export class Component_TranslationGenerator extends HTMLElement {
         this._button = this._root.getElementById('button-generate');
         this._faIcon = this._button.querySelector('i');
 
+
+        this._lastOpenCard = null;
         this._generateHandler  = (item) => { console.log('Default OnGenerate...') }
 
         //
@@ -46,7 +48,7 @@ export class Component_TranslationGenerator extends HTMLElement {
         this.addEventListener('keydown', e => {
             if (e.keyCode == UP) {
                 let activeElement = this._root.activeElement;
-                if (activeElement.parentElement == this.generatedItems && activeElement.previousElementSibling != null){
+                if (activeElement.parentElement == this._generatedItems && activeElement.previousElementSibling != null){
                     activeElement.previousElementSibling.focus();
                     
                 }
@@ -54,7 +56,7 @@ export class Component_TranslationGenerator extends HTMLElement {
             else if (e.keyCode == DOWN) {
 
                 let activeElement = this._root.activeElement;
-                if (activeElement.parentElement == this.generatedItems && activeElement.nextElementSibling != null){
+                if (activeElement.parentElement == this._generatedItems && activeElement.nextElementSibling != null){
                     activeElement.nextElementSibling.focus();
                 }
             } 
@@ -106,6 +108,14 @@ export class Component_TranslationGenerator extends HTMLElement {
     addCard(card) {
         card.classList.add('generated')
         this._root.getElementById('div-generated-items').appendChild(card);
+
+
+        card.addEventListener('click', e => {
+            if (this._lastOpenCard != null && this._lastOpenCard != card) {
+                this._lastOpenCard._closeHandler(this._lastOpenCard, e);
+            }
+            this._lastOpenCard = card;
+        })
     }
 
     clearItems() {
@@ -113,7 +123,8 @@ export class Component_TranslationGenerator extends HTMLElement {
     }
 
     focus() {
-        this._generatedItems.firstElementChild._button.focus();
+        if(this._generatedItems.firstElementChild != null)
+            this._generatedItems.firstElementChild._button.focus();
     }
 }
 
