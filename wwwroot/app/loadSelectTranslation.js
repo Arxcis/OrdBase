@@ -96,6 +96,8 @@ export function loadSelectTranslation (clientKey) {
     cardPrototype.setEventHandlers({
         onopen: (card, e) => { 
 
+            
+
             // Generate fieldsets
             __async__translation_getGroup({ 
                 clientKey:     clientKey, 
@@ -180,14 +182,15 @@ export function loadSelectTranslation (clientKey) {
     // 2. Setup header events
     //
     header.button0_OnClick(App.defaultHandler);
-    header.button1_OnClick(App.defaultHandler);    
-    header.button2_OnClick( e => {
+    header.button1_OnClick( e => {
         
         let cardArray = generator.getCardArray();
 
+        console.log(cardArray);
         if(cardArray.length > 0) {
             if (!cardArray[0].isDeleteable()) {
                 header.setTextBig('Delete Translation');
+                header.setColor(App.COLOR_DANGER);
                 cardArray.forEach(card => { 
                     card.close(); 
                     card.setDeleteable();
@@ -195,10 +198,14 @@ export function loadSelectTranslation (clientKey) {
             }
             else {
                 header.setTextBig('Select Translation');
-                cardArray.forEach(card => card.setOpenable());            
+                header.setColor(App.COLOR_SUCCESS);
+                cardArray.forEach(card => card.setOpenable());   
+
             }
         }                
     });
+
+    header.button2_OnClick(App.defaultHandler);    
     header.button3_OnClick( e => loadSelectClient());
 
 
@@ -209,9 +216,9 @@ export function loadSelectTranslation (clientKey) {
     header.setTextBig( `Select Translation`);
 
     header.button0_setIcon( App.ICON_BARS);
-    header.button1_setIcon( App.ICON_NONE);
-    header.button2_setIcon( App.ICON_TRASH, App.COLOR_DANGER);
-    header.button3_setIcon( App.ICON_ARROW_LEFT);    
+    header.button1_setIcon(App.ICON_TRASH);
+    header.button2_setIcon(App.ICON_NONE);
+    header.button3_setIcon(App.ICON_ARROW_LEFT);    
 
 
     //
@@ -407,7 +414,7 @@ function __async__translation_delete({  success        = force('success'),
 
         console.log('translation_deleteGroup():', res.status);
         
-        if (res.status == App.HTTP_CREATED) {
+        if (res.status == App.HTTP_OK) {
             success();
         }
         else {

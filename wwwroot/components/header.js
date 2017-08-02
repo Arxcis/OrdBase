@@ -9,11 +9,6 @@ export class Component_Header extends HTMLElement {
         this.root = this.createShadowRoot();
         this.root.innerHTML = html;
 
-        [].slice.apply(this.root.querySelectorAll('.icon-button')).forEach(button => {
-            button.addEventListener('click', e => {
-                button.blur();
-            })
-        })
     }
 
     flashError(message) {
@@ -54,10 +49,10 @@ export class Component_Header extends HTMLElement {
     }
 
     button2_setIcon(icon, color) {
-        console.log('color', color); 
+        console.log(color); 
         this.root.querySelector('#btn-header-right1 i.fa')
-                 .setAttribute('class', `fa ${icon}`);
-    }
+                 .setAttribute('class', `fa ${icon}`)
+        }
 
     button3_setIcon(icon) { 
         this.root.querySelector('#btn-header-right2 i.fa')

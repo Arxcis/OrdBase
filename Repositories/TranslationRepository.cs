@@ -175,7 +175,7 @@ namespace OrdBaseCore.Repositories
 
             _context.Translation.RemoveRange(translationGroup);
             _context.SaveChanges();
-            return new StatusCodeResult(204);
+            return new StatusCodeResult(200);
         }
 
         //

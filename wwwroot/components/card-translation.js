@@ -102,6 +102,10 @@ export class Component_TranslationCard extends HTMLElement {
 
     focus() { this._button.focus(); }
 
+    delete() {
+        this.parentElement.removeChild(this);
+    }
+
     isDeleteable() {
         return this._button.classList.contains('deleteable');
     }

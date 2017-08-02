@@ -112,7 +112,8 @@ export class Component_TranslationGenerator extends HTMLElement {
 
         card.addEventListener('click', e => {
             if (this._lastOpenCard != null && this._lastOpenCard != card) {
-                this._lastOpenCard._closeHandler(this._lastOpenCard, e);
+                this._lastOpenCard.close();
+                this._lastOpenCard._clickHandler = this._lastOpenCard._openHandler;
             }
             this._lastOpenCard = card;
         })
@@ -125,6 +126,11 @@ export class Component_TranslationGenerator extends HTMLElement {
     focus() {
         if(this._generatedItems.firstElementChild != null)
             this._generatedItems.firstElementChild._button.focus();
+    }
+
+    getCardArray() {
+        console.log(this._root.getElementById('div-generated-items'))
+        return [].slice.apply(this._root.getElementById('div-generated-items').children);
     }
 }
 

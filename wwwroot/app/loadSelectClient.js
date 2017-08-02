@@ -61,7 +61,7 @@ export function loadSelectClient() {
         let cardArray = view.getCardArray();  
         header.setTextBig('Select Client');
         header.setColor(App.COLOR_SUCCESS);       
-        cardArray.forEach(card => card.setDeleteable()); 
+        cardArray.forEach(card => card.setSelectable()); 
     });     
 
     header.button1_OnClick(event => { 
