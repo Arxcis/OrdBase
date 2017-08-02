@@ -1,6 +1,6 @@
 # GET - api/translation
 
-<-- [__ /api/translation/keyvalue](GET-translation-keyvalue.md) | [__ /api ](../index.md)  | 
+<-- [__ /api/translation/meta](GET-translation-meta.md) | [__ /api ](../index.md)  | 
 
 ## Request example 
 
