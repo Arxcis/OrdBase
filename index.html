@@ -5,21 +5,24 @@
     <title>Documentation - Ordbase</title>
 
     <style>
-        html, body { width: 100%; min-height: 2000px; font-family: Arial, Helvetica, sans-serif; font-size: 62.5%;  }
+        html, body { width: 100%; min-height: 2000px; font-family: Arial, Helvetica, sans-serif; font-size: 62.5%;  color: #24292e; }
         body {background-color: #e1e4e8; margin: 0px;}
         ul, li, ol { list-style: none; }
 
-        header a { text-decoration: inherit; color: grey; margin: 0px 20px 0px 20px;  }
+        p, a { font-size: 1.6rem; }
+        h1   { font-size: 3.0rem; }
+        h2   { font-size: 2.6rem; }
+        h3   { font-size: 2.2rem; }
+
+        header a { text-decoration: inherit; color: grey; margin: 0px 20px 0px 20px; font-size: 2rem;  }
         header a:hover { color: white; }
         header a:visited { color: grey; }
         header a.selected { color: white; }
-        header { position: fixed; width: 100%; color: white; font-size: 2rem; height: 50px; background-color:  #24292e; box-shadow: 0px 0px 5px; z-index: 2; }
+        header { position: fixed; width: 100%; color: white; height: 50px; background-color:  #24292e; box-shadow: 0px 0px 5px; z-index: 2; }
         header nav { width: 100%;  height: 100%; display: flex;  align-items: center; }
 
         main { padding: 100px; width: 900px; height: 100%; background-color: white; margin: auto; box-shadow: 0px 0px 5px grey; z-index: 1; }
         section {padding-top: 100px;}
-        h1      { font-size: 3rem;}
-
     </style>
 
 </head>
@@ -27,36 +30,91 @@
     <header role="banner">
         <nav>
             <a class="selected"href="./index.html">Ordbase Docs</a>
-            <a href="#api-reference">Api reference</a>
+            <a href="#rest-api-index">RestAPI index</a>
             <a href="#system-diagram">System diagram</a>
             <a href="#model-diagram">Model diagram</a>
             <a href="#gallery">Gallery</a>
+            <a href="https://github.com/Arxcis/OrdBase">Github</a>
         </nav>
     </header>
 
     <main id="content" role="main">
 
-        <section id="api-reference"><h1>Api reference</h1></section>
-        <section id="system-diagram"><h1>System diagram</h1></section>
-        <section id="model-diagram"><h1>Model diagram</h1></section>
+        <section id="rest-api-index">
+            <h1>RestApi index</h1>
+            <p>Last updated: 02.08.2017 by Jonas Solsvik</p>
+
+            <br>
+
+            <h3><b>## api/translation</b></h3>
+
+            <a href="https://github.com/Arxcis/OrdBase/blob/master/docs/api/translation/GET-translation.md">GET - api/translation</a><br>
+            <a href="https://github.com/Arxcis/OrdBase/blob/master/docs/api/translation/GET-translation-group.md">GET - api/translation/group</a> <br>
+            <a href="https://github.com/Arxcis/OrdBase/blob/master/docs/api/translation/GET-translation-meta.md">GET - api/translation/group/meta</a> <br>
+            <a href="https://github.com/Arxcis/OrdBase/blob/master/docs/api/translation/GET-translation-keyvalue.md">GET - api/translation/keyvalue</a> <br>
+
+            **POST - api/translation** <br>
+            **POST - api/translation/array** <br>
+
+
+            **PUT  - api/translation** <br>
+            **PUT  - api/translation/array** <br>
+
+            **DELETE - api/translation** <br>
+            **DELETE - api/translation/group**<br>
+
+            <br>
+
+            <h3><b>## api/client</b></h3>
+
+            **GET - api/client** <br>
+            **GET - api/client/containers** <br>
+            **GET - api/client/languages** <br>
+
+            **POST - api/client** <br>
+            **PUT  - api/client** <br>
+            **DELETE - api/client** <br>
+
+            **POST - api/client/containers**<br>
+            **POST - api/client/languages** <br>
+
+            <br>
+
+            <h3><b>## api/language</b></h3>
+
+            **GET - api/language** <br>
+            **POST - api/language** <br>
+
+            <br>
+
+            <h3><b>## api/container</b></h3>
+
+            **GET - api/container**
+
+        </section>
+        
+        <section id="system-diagram">
+            <h1>System diagram</h1>
+        </section>
+        
+        <section id="model-diagram">
+            <h1>Model diagram</h1>
+        </section>
+
+
         <section id="gallery">
 
+            <h1>Gallery</h1>
 
+            <img width="900" src="DOCS/img/20170802_select_client.png">
+            <br><br><br><br>
+            <img width="900" src="DOCS/img/20170802_new_client.png">
+            <br><br><br><br>
+            <img width="900" src="DOCS/img/20170802_edit_translation.png">
+            <br><br><br><br>
+            <img width="900" src="DOCS/img/20170616_app.png">
 
-        <h1>Gallery</h1>
-
-        <img width="900" src="DOCS/img/20170802_select_client.png">
-        <br><br><br><br>
-        <img width="900" src="DOCS/img/20170802_new_client.png">
-        <br><br><br><br>
-        <img width="900" src="DOCS/img/20170802_edit_translation.png">
-        <br><br><br><br>
-        <img width="900" src="DOCS/img/20170616_app.png">
-
-
-
-
-</section>
+        </section>
 
     </main>
 
