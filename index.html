@@ -3,7 +3,6 @@
 <head>
     <meta charset="utf-8">
     <title>Documentation - Ordbase</title>
-
     <style>
         html, body { width: 100%; min-height: 2000px; font-family: Arial, Helvetica, sans-serif; font-size: 62.5%;  color: #24292e; }
         body {background-color: #e1e4e8; margin: 0px;}
@@ -16,6 +15,7 @@
         h3   { font-size: 2.2rem; }
         pre {  font-size: 1.5rem; }
 
+        /* header */
         header a { color: grey; margin: 0px 20px 0px 20px; font-size: 2rem;  }
         header a:hover { color: white; }
         header a:visited { color: grey; }
@@ -26,14 +26,19 @@
         main { padding: 100px; width: 900px; height: 100%; background-color: white; margin: auto; box-shadow: 0px 0px 5px grey; z-index: 1; }
         section {padding-top: 100px;}
 
-        /* RestApi index*/
-        #rest-api-index a { font-size: 2rem; }
+        /* api-reference*/
+        #api-reference a { font-size: 1.9rem; }
+        #api-reference a:hover { background-color: #e1e4e8;}
+        #api-reference a:visited {color: blue; } 
+        #api-reference code { padding: 20px 100px 20px 20px; font-size: 1.5rem; }
+        #api-reference pre { background-color:#e1e4e8; }
+        #api-reference article { margin-top: 40px;}
 
-        /* Diagrams */
-        pre { width: 100%; font-family: monospace;}
-        pre a { text-decoration: none; }
-        pre a:visited { color: blue; }
-        pre a:hover { background-color: ; }
+        /* system-diagram */
+        #system-diagram pre { width: 100%; font-family: monospace;}
+        #system-diagram pre a { text-decoration: none; }
+        #system-diagram pre a:visited { color: blue; }
+        #system-diagram pre a:hover { background-color: #e1e4e8; }
     </style>
 
 </head>
@@ -41,7 +46,7 @@
     <header role="banner">
         <nav>
             <a class="selected"href="./index.html">Ordbase Docs</a>
-            <a href="#rest-api-index">RestAPI index</a>
+            <a href="#api-reference">API Reference</a>
             <a href="#system-diagram">System diagram</a>
             <a href="#model-diagram">Model diagram</a>
             <a href="https://github.com/Arxcis/OrdBase">Github</a>
@@ -50,19 +55,130 @@
 
     <main id="content" role="main">
 
-        <section id="rest-api-index">
-            <h1>RestApi index</h1>
+        <section id="api-reference">
+            <h1>API reference</h1>
             <p>Last updated: 03.08.2017 by Jonas Solsvik</p>
+
 
             <br>
 
-            <h3><b>api/translation</b></h3>
+            <h2> Base url</h2>
+            <pre><code> 
+    http://localhost:5000/api
+            </code></pre>
 
-            <a href="https://github.com/Arxcis/OrdBase/blob/master/DOCS/api/translation/GET-translation.md">GET - api/translation</a><br>
-            <a href="https://github.com/Arxcis/OrdBase/blob/master/DOCS/api/translation/GET-translation-group.md">GET - api/translation/group</a> <br>
-            <a href="https://github.com/Arxcis/OrdBase/blob/master/DOCS/api/translation/GET-translation-meta.md">GET - api/translation/group/meta</a> <br>
-            <a href="https://github.com/Arxcis/OrdBase/blob/master/DOCS/api/translation/GET-translation-keyvalue.md">GET - api/translation/keyvalue</a> <br>
+            <br>
+                <a href="#h2-api-translation">api/translation</a><br>
+                <a href="#h2-api-client">api/client</a><br>
+                <a href="#h2-api-language">api/language</a><br>
+                <a href="#h2-api-container">api/container</a><br>
+            <br>
 
+            <h2 id="h2-api-translation"><b>api/translation</b></h3>
+            
+            
+            <article>
+                <a href="https://github.com/Arxcis/OrdBase/blob/master/DOCS/api/translation/GET-translation.md">GET - api/translation</a> 
+                <pre>
+                    <code class="javascript">
+    [
+        {
+            "clientKey": "Ordbase",
+            "languageKey": "en",
+            "containerKey": "error_messages",
+            "key": "error_create_client",
+            "text": "Failed to create client. Client may already exist",
+            "isComplete": false
+        },
+        {
+            "clientKey": "Ordbase",
+            "languageKey": "no-nb",
+            "containerKey": "error_messages",
+            "key": "error_create_client",
+            "text": "Fikk ikke til å lage ny klient. Klienten finnes kanskje fra før?",
+            "isComplete": true
+        }
+    ]
+                    </code>
+                </pre>
+            </article>
+
+            
+            <article>
+                <a href="https://github.com/Arxcis/OrdBase/blob/master/DOCS/api/translation/GET-translation-group.md">GET - api/translation/group</a> 
+                <pre>
+                    <code class="javascript">
+    [
+        {
+            "key": "error_create_client",
+            "clientKey": "Ordbase",
+            "containerKey": "error_messages",
+            "items": [
+                {
+                    "key": "error_create_client",
+                    "text": "Failed to create client. Client may already exist",
+                    "isComplete": false
+                },
+                {
+                    "key": "error_create_client",
+                    "text": "Fikk ikke til å lage ny klient. Klienten finnes kanskje fra før?",
+                    "isComplete": true
+                }
+            ]
+        }
+    ]
+                    </code>
+                </pre>
+            </article>
+
+
+            <article>
+            <a href="https://github.com/Arxcis/OrdBase/blob/master/DOCS/api/translation/GET-translation-meta.md">GET - api/translation/group/meta</a> 
+                <pre>
+                    <code class="javascript">
+    [
+        {
+            "key": "error_create_client",
+            "clientKey": "Ordbase",
+            "containerKey": "error_messages",
+            "items": [
+                {
+                    "languageKey": "en",
+                    "isComplete": false
+                },
+                {
+                    "languageKey": "no-nb",
+                    "isComplete": true
+                }
+            ]
+        }
+    ]
+                    </code>
+                </pre>
+            </article>
+
+
+            <article>
+            <a href="https://github.com/Arxcis/OrdBase/blob/master/DOCS/api/translation/GET-translation-keyvalue.md">GET - api/translation/keyvalue</a> 
+                <pre>
+                    <code class="javascript">
+    [
+        {
+            "key": "error_create_client",
+            "value": "Failed to create client. Client may already exist"
+        },
+        {
+            "key": "error_create_client",
+            "value": "Fikk ikke til å lage ny klient. Klienten finnes kanskje fra før?"
+        }
+    ]
+                    </code>
+                </pre>
+            </article>
+
+        
+    </code>
+    </pre>
             **POST - api/translation** <br>
             **POST - api/translation/array** <br>
 
@@ -75,7 +191,7 @@
 
             <br>
 
-            <h3><b>api/client</b></h3>
+            <h2 id="h2-api-client"><b>api/client</b></h3>
 
             **GET - api/client** <br>
             **GET - api/client/containers** <br>
@@ -90,14 +206,14 @@
 
             <br>
 
-            <h3><b>api/language</b></h3>
+            <h2 id="h2-api-language"><b>api/language</b></h3>
 
             **GET - api/language** <br>
             **POST - api/language** <br>
 
             <br>
 
-            <h3><b>api/container</b></h3>
+            <h2 id="h2-api-container"><b>api/container</b></h3>
 
             **GET - api/container**
 
@@ -232,6 +348,8 @@
         
         <section id="model-diagram">
             <h1>Model diagram</h1>
+            <p>Last updated: 03.08.2017 by Jonas Solsvik</p>
+            
             <pre>
                 
 
