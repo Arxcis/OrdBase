@@ -44,7 +44,6 @@
             <a href="#rest-api-index">RestAPI index</a>
             <a href="#system-diagram">System diagram</a>
             <a href="#model-diagram">Model diagram</a>
-            <a href="#gallery">Gallery</a>
             <a href="https://github.com/Arxcis/OrdBase">Github</a>
         </nav>
     </header>
@@ -110,46 +109,65 @@
 
             <pre>
 
-
-                                                                 _______________|_________________                               
-                                                                | App                              |  
-                                                                |----------------------------------|
-                                                                | <a href="">App.js</a>                         |
-                                                                | <a href="">loadSelectClient.js</a>        |
-                                                                | <a href="">loadNewClient.js</a>            |
-                                                                | <a href="">loadEditClient.js</a>           |
-                                                                | <a href="">loadSelectTranslation.js</a>  |
-                                                                |__________________________________|    
-                                                                                |             
-                                                                 _______________|_________________                               
-                                                                |                                  |
-                                                                | <a href="">Route.js</a>                       |
-                                                                |__________________________________|    
-                                                                                |
-                                                                 _______________|_________________                               
-                                                                |                                  |
-                                                                | <a href="">Fetch.js</a>                       |
-                                                                |__________________________________|
-                                                                                |
-                                                                                |
-                                                                                 ---------------  webpack babel es2016
-                                                                                |
-                                                                 _______________|_________________                               
-                                                                |                                  |
-                                                                | <a href="">Bundle.js</a>                     |
-                                                                |__________________________________|  
-                                                                                | 
-                                                                  ______________|__________________                               
-                                                                |                                  |
-                                                                | <a href="">index.html</a>                    |
-                                                                |__________________________________|  
-                                                                                |
-                                                                                |
-                                                                                 ----- Chrome 61 native (Chrome 60 with flags)
-                                                                                |
-  <i>Web client</i>                                                                    |
+ ____________________________________                               
+| Components                         |
+|------------------------------------|
+| <a href="">card-client.html</a>              |
+| <a href="">card-client.js</a>                 |
+|------------------------------------|
+| <a href="">card-translation.html</a>       |
+| <a href="">card-translation.js</a>          |
+|------------------------------------|
+| <a href="">flipper-language.html</a>       |
+| <a href="">flipper-language.js</a>          |
+|------------------------------------|
+| <a href="">form-client.html</a>              |
+| <a href="">form-client.js</a>                 |
+|------------------------------------|
+| <a href="">generator-container.html</a>   |                ___________________________________
+| <a href="">generator-container.js</a>      |               | ViewComponents                   |
+|------------------------------------|               |----------------------------------|
+| <a href="">generator-translation.html</a> |               | <a href="">edit-client.html</a>            |
+| <a href="">generator-translation.js</a>    |              | <a href="">edit-client.js</a>               |
+|------------------------------------|               |----------------------------------|
+| <a href="">header.html</a>                    |               | <a href="">select-client.html</a>          |             __________________________________ 
+| <a href="">header.js</a>                       |               | <a href="">select-client.js</a>            |             | Network                          |
+|------------------------------------|               |----------------------------------|             |----------------------------------|
+| <a href="">picker-container.html</a>       |               | <a href="">select-translation.html</a>   |             | <a href="">Route.js</a>                       |
+| <a href="">picker-container.js</a>          |               | <a href="">select-translation.js</a>     |              | <a href="">Fetch.js</a>                      |
+|____________________________________|               |__________________________________|             |__________________________________|  
+                  |                                                |                                                   |
+                  |                                                |                                                   |
+                  |                                                |                                                   |
+                  |                                                |                                                   |             
+                  |                                                |                                                   |          
+                  |                                 _______________|__________________                                 |      
+                  |                                | App                              |                                | 
+                  |________________________________|----------------------------------|________________________________|
+                                                   | <a href="">App.js</a>                         |
+                                                   | <a href="">loadSelectClient.js</a>        |
+                                                   | <a href="">loadNewClient.js</a>            |
+                                                   | <a href="">loadEditClient.js</a>           |
+                                                   | <a href="">loadSelectTranslation.js</a>  |
+                                                   |__________________________________|    
+                                                                   |             
+                                                                   |
+                                                                    ---------------  webpack babel es2016
+                                                                   |
+                                                    _______________|_________________                               
+                                                   |  Webpacked app                   |
+                                                   |----------------------------------|                             
+                                                   | <a href="">Bundle.js</a>                     |
+                                                   | <a href="">index.html</a>                    |
+                                                   | <a href="">index.css</a>                     |
+                                                   |__________________________________|  
+                                                                   |
+                                                                   |
+                                                                    ----- Chrome 61 native (Chrome 60 with flags)
+                                                                   |
+  <i>Web client</i>                                                       |
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - Intranet
-  <i>Web server</i>              |
+  <i>Web server</i>            |
                         |
                          ------------ http://ordbase.fylkesmannen.local
                         |
@@ -166,6 +184,7 @@
         | .net core Kestrel server         |  
         |----------------------------------|
         | <a href="">Program.cs</a>                    |
+        | <a href="">OrdBaseCore.csproj</a>                    |
         |__________________________________|    
                         |
          _______________|__________________                               
@@ -184,7 +203,7 @@
         |__________________________________|                      | <a href="">TranslationDb.cs</a>            |      
                         |                                         |__________________________________|                
          _______________|__________________                                       | 
-        | Repositories                     |                                      ------- <b>dotnet ef migrations add</b>
+        | Repositories                     |                                       ------- <b>dotnet ef migrations add</b>
         |----------------------------------|                                      |
         | <a href="">TranslationRepository.cs</a> |                       _______________|________________________                         
         | <a href="">ClientRepository.cs</a>        |                      | Migrations                             |                              
@@ -197,7 +216,7 @@
                         |                                                         |
   <i>Web server</i>            |                                                         |
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - SQL
-  <i>Sql database</i>                               |
+  <i>Sql database</i>                                      |
                                                     |
                                                      ------- http://ordbase.fylkesmannen.sql and <b>Connection string</b>
                                                     |
@@ -222,20 +241,6 @@
             </pre>
         </section>
 
-
-        <section id="gallery">
-
-            <h1>Gallery</h1>
-
-            <img width="900" src="DOCS/img/20170802_select_client.png">
-            <br><br><br><br>
-            <img width="900" src="DOCS/img/20170802_new_client.png">
-            <br><br><br><br>
-            <img width="900" src="DOCS/img/20170802_edit_translation.png">
-            <br><br><br><br>
-            <img width="900" src="DOCS/img/20170616_app.png">
-
-        </section>
 
     </main>
 
