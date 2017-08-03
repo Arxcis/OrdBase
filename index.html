@@ -8,13 +8,15 @@
         html, body { width: 100%; min-height: 2000px; font-family: Arial, Helvetica, sans-serif; font-size: 62.5%;  color: #24292e; }
         body {background-color: #e1e4e8; margin: 0px;}
         ul, li, ol { list-style: none; }
+        a { text-decoration: none; }
 
         p, a { font-size: 1.6rem; }
         h1   { font-size: 3.0rem; }
         h2   { font-size: 2.6rem; }
         h3   { font-size: 2.2rem; }
+        pre {  font-size: 1.5rem; }
 
-        header a { text-decoration: inherit; color: grey; margin: 0px 20px 0px 20px; font-size: 2rem;  }
+        header a { color: grey; margin: 0px 20px 0px 20px; font-size: 2rem;  }
         header a:hover { color: white; }
         header a:visited { color: grey; }
         header a.selected { color: white; }
@@ -23,6 +25,15 @@
 
         main { padding: 100px; width: 900px; height: 100%; background-color: white; margin: auto; box-shadow: 0px 0px 5px grey; z-index: 1; }
         section {padding-top: 100px;}
+
+        /* RestApi index*/
+        #rest-api-index a { font-size: 2rem; }
+
+        /* Diagrams */
+        pre { width: 100%; font-family: monospace;}
+        pre a { text-decoration: none; }
+        pre a:visited { color: blue; }
+        pre a:hover { background-color: ; }
     </style>
 
 </head>
@@ -42,11 +53,11 @@
 
         <section id="rest-api-index">
             <h1>RestApi index</h1>
-            <p>Last updated: 02.08.2017 by Jonas Solsvik</p>
+            <p>Last updated: 03.08.2017 by Jonas Solsvik</p>
 
             <br>
 
-            <h3><b>## api/translation</b></h3>
+            <h3><b>api/translation</b></h3>
 
             <a href="https://github.com/Arxcis/OrdBase/blob/master/DOCS/api/translation/GET-translation.md">GET - api/translation</a><br>
             <a href="https://github.com/Arxcis/OrdBase/blob/master/DOCS/api/translation/GET-translation-group.md">GET - api/translation/group</a> <br>
@@ -65,7 +76,7 @@
 
             <br>
 
-            <h3><b>## api/client</b></h3>
+            <h3><b>api/client</b></h3>
 
             **GET - api/client** <br>
             **GET - api/client/containers** <br>
@@ -80,14 +91,14 @@
 
             <br>
 
-            <h3><b>## api/language</b></h3>
+            <h3><b>api/language</b></h3>
 
             **GET - api/language** <br>
             **POST - api/language** <br>
 
             <br>
 
-            <h3><b>## api/container</b></h3>
+            <h3><b>api/container</b></h3>
 
             **GET - api/container**
 
@@ -95,10 +106,120 @@
         
         <section id="system-diagram">
             <h1>System diagram</h1>
+            <p>Last updated: 03.08.2017 by Jonas Solsvik</p>
+
+            <pre>
+
+
+                                                                 _______________|_________________                               
+                                                                | App                              |  
+                                                                |----------------------------------|
+                                                                | <a href="">App.js</a>                         |
+                                                                | <a href="">loadSelectClient.js</a>        |
+                                                                | <a href="">loadNewClient.js</a>            |
+                                                                | <a href="">loadEditClient.js</a>           |
+                                                                | <a href="">loadSelectTranslation.js</a>  |
+                                                                |__________________________________|    
+                                                                                |             
+                                                                 _______________|_________________                               
+                                                                |                                  |
+                                                                | <a href="">Route.js</a>                       |
+                                                                |__________________________________|    
+                                                                                |
+                                                                 _______________|_________________                               
+                                                                |                                  |
+                                                                | <a href="">Fetch.js</a>                       |
+                                                                |__________________________________|
+                                                                                |
+                                                                                |
+                                                                                 ---------------  webpack babel es2016
+                                                                                |
+                                                                 _______________|_________________                               
+                                                                |                                  |
+                                                                | <a href="">Bundle.js</a>                     |
+                                                                |__________________________________|  
+                                                                                | 
+                                                                  ______________|__________________                               
+                                                                |                                  |
+                                                                | <a href="">index.html</a>                    |
+                                                                |__________________________________|  
+                                                                                |
+                                                                                |
+                                                                                 ----- Chrome 61 native (Chrome 60 with flags)
+                                                                                |
+  <i>Web client</i>                                                                    |
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - Intranet
+  <i>Web server</i>              |
+                        |
+                         ------------ http://ordbase.fylkesmannen.local
+                        |
+         _______________|_________________                               
+        | IIS Proxy server                 |  
+        |----------------------------------|
+        | <a href="">web.config</a>                    |
+        |__________________________________|    
+                        |
+                        |
+                         --------------<b> dotnet run</b> or http://localhost:5000
+                        |               
+         _______________|__________________                               
+        | .net core Kestrel server         |  
+        |----------------------------------|
+        | <a href="">Program.cs</a>                    |
+        |__________________________________|    
+                        |
+         _______________|__________________                               
+        | ASP MVC middleware               |  
+        |----------------------------------|
+        | <a href="">Startup.cs</a>                    |
+        |__________________________________|    
+                        |
+         _______________|__________________                        __________________________________       
+        | ASP MVC Controllers              |                      | Model                            |           
+        |----------------------------------|                      |----------------------------------|      
+        | <a href="">TranslationController.cs</a> |                      | <a href="">Translation.cs</a>               |                           
+        | <a href="">ClientController.cs</a>        |                      | <a href="">Client.cs</a>                     |                             
+        | <a href="">ContainerController.cs</a>    |                      | <a href="">Container.cs</a>                 |  
+        | <a href="">LanguageController.cs</a>     |                      | <a href="">Container.cs</a>                 |      
+        |__________________________________|                      | <a href="">TranslationDb.cs</a>            |      
+                        |                                         |__________________________________|                
+         _______________|__________________                                       | 
+        | Repositories                     |                                      ------- <b>dotnet ef migrations add</b>
+        |----------------------------------|                                      |
+        | <a href="">TranslationRepository.cs</a> |                       _______________|________________________                         
+        | <a href="">ClientRepository.cs</a>        |                      | Migrations                             |                              
+        | <a href="">ContainerRepository.cs</a>    |                      |----------------------------------------|
+        | <a href="">LanguageRepository.cs</a>     |                      | <a href="">TranslationDbModelSnapshot.cs</a> |               
+        |__________________________________|                      |________________________________________|        
+                        |                                                         |
+                        |                                                         |
+                         ------ DBContext                                          -------- <b>dotnet ef database update</b>
+                        |                                                         |
+  <i>Web server</i>            |                                                         |
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - SQL
+  <i>Sql database</i>                               |
+                                                    |
+                                                     ------- http://ordbase.fylkesmannen.sql and <b>Connection string</b>
+                                                    |
+                                     ______________ |__________________                               
+                                    | Microsoft SQL Express            |  
+                                    |__________________________________|    
+
+
+
+
+            </pre>
         </section>
         
         <section id="model-diagram">
             <h1>Model diagram</h1>
+            <pre>
+                
+
+
+
+
+            </pre>
         </section>
 
 
