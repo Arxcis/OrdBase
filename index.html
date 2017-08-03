@@ -5,33 +5,79 @@
     <title>Documentation - Ordbase</title>
 
     <style>
-        html, body { width: 100%; height: 100%; font-family: Arial, Helvetica, sans-serif; font-size: 62.5%; }
-
+        html, body { width: 100%; min-height: 2000px; font-family: Arial, Helvetica, sans-serif; font-size: 62.5%;  }
+        body {background-color: #e1e4e8; margin: 0px;}
         ul, li, ol { list-style: none; }
-        a { text-decoration: inherit; color: inherit; }
-        a:visited { color: inherit; }
 
-        header { color: white; font-size: 4rem; height: 100px; background-color:  #24292e; }
-        nav { height: 100%; display: flex; justify-content: space-around; align-items: center; }
+        header a { text-decoration: inherit; color: grey; margin: 0px 20px 0px 20px;  }
+        header a:hover { color: white; }
+        header a:visited { color: grey; }
+        header a.selected { color: white; }
+        header { position: fixed; width: 100%; color: white; font-size: 2rem; height: 50px; background-color:  #24292e; box-shadow: 0px 0px 5px; z-index: 2; }
+        header nav { width: 100%;  height: 100%; display: flex;  align-items: center; }
 
+        main { padding: 100px; width: 900px; height: 100%; background-color: white; margin: auto; box-shadow: 0px 0px 5px grey; z-index: 1; }
+        section {padding-top: 100px;}
+        h1      { font-size: 3rem;}
 
     </style>
-
-    <script type="module" src="./index.js"></script>
 
 </head>
 <body>
     <header role="banner">
-        <nav> 
-            <a href="./">Api reference</a>
-            <a href="./">System diagram</a>
-            <a href="./">Model diagram</a>
-            <a href="./">Gallery</a>
+        <nav>
+            <a class="selected"href="./index.html">Ordbase Docs</a>
+            <a href="#api-reference">Api reference</a>
+            <a href="#system-diagram">System diagram</a>
+            <a href="#model-diagram">Model diagram</a>
+            <a href="#gallery">Gallery</a>
         </nav>
     </header>
 
-    <main id="content" role="main"></main>
+    <main id="content" role="main">
+
+        <section id="api-reference"><h1>Api reference</h1></section>
+        <section id="system-diagram"><h1>System diagram</h1></section>
+        <section id="model-diagram"><h1>Model diagram</h1></section>
+        <section id="gallery">
+
+
+
+        <h1>Gallery</h1>
+
+        <img width="900" src="DOCS/img/20170802_select_client.png">
+        <br><br><br><br>
+        <img width="900" src="DOCS/img/20170802_new_client.png">
+        <br><br><br><br>
+        <img width="900" src="DOCS/img/20170802_edit_translation.png">
+        <br><br><br><br>
+        <img width="900" src="DOCS/img/20170616_app.png">
+
+
+
+
+</section>
+
+    </main>
 
     <footer role="contentinfo"></footer>
 </body>
+
+<script>
+    'use strict';
+
+    window.addEventListener('DOMContentLoaded', function(e) {
+        let headerAnchors = document.querySelectorAll('header a');
+        let lastFocusedElement = document.querySelector('nav a');;
+
+        for (let i = 0; i < headerAnchors.length; i++) {
+            headerAnchors[i].addEventListener('focus', function(e){
+
+                lastFocusedElement.classList.remove('selected');
+                e.target.classList.add('selected');
+                lastFocusedElement = e.target;
+            });
+        }
+    });
+</script>
 </html>

@@ -4,13 +4,10 @@ I18n solution for FMSF
 
 <br>
 
-## [RestAPI Reference](DOCS/api/index.md)
+## [Documentation](https://arxcis.github.io/OrdBase/)
 
 <br>
 
-## Admin tool screenshots:
+## [RestAPI Reference](DOCS/api/index.md)
 
-![](DOCS/img/20170802_select_client.png)
-![](DOCS/img/20170802_new_client.png)
-![](DOCS/img/20170802_edit_translation.png)
-![](DOCS/img/20170616_app.png)
+<br>
