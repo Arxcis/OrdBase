@@ -112,29 +112,29 @@
  ____________________________________                               
 | Components                         |
 |------------------------------------|
-| <a href="">card-client.html</a>              |
-| <a href="">card-client.js</a>                 |
+| <a class="link01">card-client.html</a>              |
+| <a class="link01">card-client.js</a>                 |
 |------------------------------------|
-| <a href="">card-translation.html</a>       |
-| <a href="">card-translation.js</a>          |
+| <a class="link01">card-translation.html</a>       |
+| <a class="link01">card-translation.js</a>          |
 |------------------------------------|
-| <a href="">flipper-language.html</a>       |
-| <a href="">flipper-language.js</a>          |
+| <a class="link01">flipper-language.html</a>       |
+| <a class="link01">flipper-language.js</a>          |
 |------------------------------------|
-| <a href="">form-client.html</a>              |
-| <a href="">form-client.js</a>                 |
+| <a class="link01">form-client.html</a>              |
+| <a class="link01">form-client.js</a>                 |
 |------------------------------------|
-| <a href="">generator-container.html</a>   |                ___________________________________
-| <a href="">generator-container.js</a>      |               | ViewComponents                   |
+| <a class="link01">generator-container.html</a>   |                ___________________________________
+| <a class="link01">generator-container.js</a>      |               | ViewComponents                   |
 |------------------------------------|               |----------------------------------|
-| <a href="">generator-translation.html</a> |               | <a href="">edit-client.html</a>            |
-| <a href="">generator-translation.js</a>    |              | <a href="">edit-client.js</a>               |
+| <a class="link01">generator-translation.html</a> |               | <a class="link02">edit-client.html</a>            |
+| <a class="link01">generator-translation.js</a>    |              | <a class="link02">edit-client.js</a>               |
 |------------------------------------|               |----------------------------------|
-| <a href="">header.html</a>                    |               | <a href="">select-client.html</a>          |             __________________________________ 
-| <a href="">header.js</a>                       |               | <a href="">select-client.js</a>            |             | Network                          |
+| <a class="link01">header.html</a>                    |               | <a class="link02">select-client.html</a>          |             __________________________________ 
+| <a class="link01">header.js</a>                       |               | <a class="link02">select-client.js</a>            |             | Network                          |
 |------------------------------------|               |----------------------------------|             |----------------------------------|
-| <a href="">picker-container.html</a>       |               | <a href="">select-translation.html</a>   |             | <a href="">Route.js</a>                       |
-| <a href="">picker-container.js</a>          |               | <a href="">select-translation.js</a>     |              | <a href="">Fetch.js</a>                      |
+| <a class="link01">picker-container.html</a>       |               | <a class="link02">select-translation.html</a>   |             | <a class="link03">Route.js</a>                       |
+| <a class="link01">picker-container.js</a>          |               | <a class="link02">select-translation.js</a>     |              | <a class="link03">Fetch.js</a>                      |
 |____________________________________|               |__________________________________|             |__________________________________|  
                   |                                                |                                                   |
                   |                                                |                                                   |
@@ -144,86 +144,86 @@
                   |                                 _______________|__________________                                 |      
                   |                                | App                              |                                | 
                   |________________________________|----------------------------------|________________________________|
-                                                   | <a href="">App.js</a>                         |
-                                                   | <a href="">loadSelectClient.js</a>        |
-                                                   | <a href="">loadNewClient.js</a>            |
-                                                   | <a href="">loadEditClient.js</a>           |
-                                                   | <a href="">loadSelectTranslation.js</a>  |
+                                                   | <a class="link04">App.js</a>                         |
+                                                   | <a class="link04">loadSelectClient.js</a>        |
+                                                   | <a class="link04">loadNewClient.js</a>            |
+                                                   | <a class="link04">loadEditClient.js</a>           |
+                                                   | <a class="link04">loadSelectTranslation.js</a>  |
                                                    |__________________________________|    
                                                                    |             
                                                                    |
-                                                                    ---------------  webpack babel es2016
+                                                                    ---------------  <b>webpack babel es2016</b>
                                                                    |
                                                     _______________|_________________                               
                                                    |  Webpacked app                   |
                                                    |----------------------------------|                             
-                                                   | <a href="">Bundle.js</a>                     |
-                                                   | <a href="">index.html</a>                    |
-                                                   | <a href="">index.css</a>                     |
+                                                   | <a class="link05">Bundle.js</a>                     |
+                                                   | <a class="link05">index.html</a>                    |
+                                                   | <a class="link05">index.css</a>                     |
                                                    |__________________________________|  
                                                                    |
                                                                    |
-                                                                    ----- Chrome 61 native (Chrome 60 with flags)
+                                                                    ----- <b>Chrome 61 native (Chrome 60 with flags)</b>
                                                                    |
   <i>Web client</i>                                                       |
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - Intranet
   <i>Web server</i>            |
                         |
-                         ------------ http://ordbase.fylkesmannen.local
+                         ------------ <b>http://ordbase.fylkesmannen.local</b>
                         |
          _______________|_________________                               
         | IIS Proxy server                 |  
         |----------------------------------|
-        | <a href="">web.config</a>                    |
+        | <a class="link06">web.config</a>                    |
         |__________________________________|    
                         |
                         |
-                         --------------<b> dotnet run</b> or http://localhost:5000
+                         --------------<b> dotnet run</b> and <b>http://localhost:5000</b>
                         |               
          _______________|__________________                               
         | .net core Kestrel server         |  
         |----------------------------------|
-        | <a href="">Program.cs</a>                    |
-        | <a href="">OrdBaseCore.csproj</a>                    |
+        | <a class="link06">Program.cs</a>                    |
+        | <a class="link06">OrdBaseCore.csproj</a>                    |
         |__________________________________|    
                         |
          _______________|__________________                               
         | ASP MVC middleware               |  
         |----------------------------------|
-        | <a href="">Startup.cs</a>                    |
-        |__________________________________|    
-                        |
-         _______________|__________________                        __________________________________       
-        | ASP MVC Controllers              |                      | Model                            |           
-        |----------------------------------|                      |----------------------------------|      
-        | <a href="">TranslationController.cs</a> |                      | <a href="">Translation.cs</a>               |                           
-        | <a href="">ClientController.cs</a>        |                      | <a href="">Client.cs</a>                     |                             
-        | <a href="">ContainerController.cs</a>    |                      | <a href="">Container.cs</a>                 |  
-        | <a href="">LanguageController.cs</a>     |                      | <a href="">Container.cs</a>                 |      
-        |__________________________________|                      | <a href="">TranslationDb.cs</a>            |      
-                        |                                         |__________________________________|                
-         _______________|__________________                                       | 
-        | Repositories                     |                                       ------- <b>dotnet ef migrations add</b>
+        | <a class="link06">Startup.cs</a>                    |
+        |__________________________________|                       __________________________________
+                        |                                         | Models                           |
+         _______________|__________________                       |----------------------------------|      
+        | ASP MVC Controllers              |                      | <a class="link09">TranslationDb.cs</a>            |           
+        |----------------------------------|                      | <a class="link09">Translation.cs</a>               |      
+        | <a class="link07">TranslationController.cs</a> |                      | <a class="link09">TranslationGroup.cs</a>         |                           
+        | <a class="link07">ClientController.cs</a>        |                      | <a class="link09">Client.cs</a>                     |                             
+        | <a class="link07">ContainerController.cs</a>    |______________________| <a class="link09">Container.cs</a>                 |  
+        | <a class="link07">LanguageController.cs</a>     |                      | <a class="link09">Container.cs</a>                 |      
+        |__________________________________|                      |__________________________________|      
+                        |                                                |        |                
+         _______________|__________________                              |        | 
+        | Repositories                     |_____________________________|         ------- <b>dotnet ef migrations add</b>
         |----------------------------------|                                      |
-        | <a href="">TranslationRepository.cs</a> |                       _______________|________________________                         
-        | <a href="">ClientRepository.cs</a>        |                      | Migrations                             |                              
-        | <a href="">ContainerRepository.cs</a>    |                      |----------------------------------------|
-        | <a href="">LanguageRepository.cs</a>     |                      | <a href="">TranslationDbModelSnapshot.cs</a> |               
+        | <a class="link08">TranslationRepository.cs</a> |                       ________________|________________________                         
+        | <a class="link08">ClientRepository.cs</a>        |                      | Migrations                             |                              
+        | <a class="link08">ContainerRepository.cs</a>    |                      |----------------------------------------|
+        | <a class="link08">LanguageRepository.cs</a>     |                      | <a class="link10">TranslationDbModelSnapshot.cs</a> |               
         |__________________________________|                      |________________________________________|        
                         |                                                         |
                         |                                                         |
-                         ------ DBContext                                          -------- <b>dotnet ef database update</b>
+                         ------ <b>DBContext</b>                                          -------- <b>dotnet ef database update</b>
                         |                                                         |
   <i>Web server</i>            |                                                         |
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - SQL
   <i>Sql database</i>                                      |
                                                     |
-                                                     ------- http://ordbase.fylkesmannen.sql and <b>Connection string</b>
+                                                     ------- <b>http://ordbase.fylkesmannen.sql</b> and <b><a class="link06">config.js</a></b>
                                                     |
                                      ______________ |__________________                               
+                                    |                                  |  
                                     | Microsoft SQL Express            |  
                                     |__________________________________|    
-
 
 
 
@@ -261,7 +261,46 @@
                 e.target.classList.add('selected');
                 lastFocusedElement = e.target;
             });
+        
         }
+
+        const BASE_PATH = 'https://github.com/Arxcis/OrdBase/blob/master';
+
+        const DIRECTORY = [
+            { class: '.link01', path: 'wwwroot/components'},
+            { class: '.link02', path: 'wwwroot/views'},
+            { class: '.link03', path: 'wwwroot/lib'},
+            { class: '.link04', path: 'wwwroot/app'},
+            { class: '.link05', path: 'wwwroot'},
+            { class: '.link06', path: ''},
+            { class: '.link07', path: 'Controllers'},
+            { class: '.link08', path: 'Repositories'},
+            { class: '.link09', path: 'Models'},
+            { class: '.link10', path: 'Migrations'},
+        ];
+        
+        for(let i = 0; i < DIRECTORY.length; i++) {
+
+            let links = document.querySelectorAll(DIRECTORY[i].class);
+            console.log(DIRECTORY[i].class, links);
+
+            for(let j = 0; j < links.length; j++) {
+
+                let linkElement = links[j];
+                let file = linkElement.innerHTML;
+                let dir  = DIRECTORY[i].path;
+                
+                let fullPath = `${BASE_PATH}/${dir}/${file}`;
+                console.log(fullPath);
+
+                linkElement.setAttribute('href', fullPath);
+            }
+        }
+
     });
+
+
+
+
 </script>
 </html>
