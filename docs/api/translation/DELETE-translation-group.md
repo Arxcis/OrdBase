@@ -19,8 +19,9 @@ http://localhost:5000/api/translation/? clientKey=Ordbase
 
 **Status response**
 ```
-OK:        200
-NOT FOUND: 404
+OK 200
+BAD REQUEST 400
+NOT FOUND 404
 ```
 
 

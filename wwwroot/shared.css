@@ -31,7 +31,7 @@
 html, body {
     font-family: 'Muli', sans-serif;
     margin: auto;
-    font-size: 62.5%;
+    font-size: 62.5%;   
     color: var(--ordbase-color-dark);
 
     height: 100%;

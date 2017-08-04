@@ -115,7 +115,7 @@ namespace OrdBaseCore.Repositories
                      t.Key          == query.TranslationKey);
 
             if (_translation == null) 
-                return new NotFoundResult {};
+                return new StatusCodeResult(404);
 
             _translation.Key        = translation.Key;
             _translation.Text       = translation.Text;
@@ -139,7 +139,7 @@ namespace OrdBaseCore.Repositories
 
 
                 if (found == null) 
-                    return new NotFoundResult {};
+                    return new StatusCodeResult(404);
 
                 found.Key  = translation.Key;
                 found.Text = translation.Text;

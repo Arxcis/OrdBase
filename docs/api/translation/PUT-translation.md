@@ -62,23 +62,23 @@ public IActionResult Update([FromQuery] TranslationQuery query, [FromBody] Trans
 
 [**TranslationRepository.cs**](/repositories/TranslationRepository.cs)
 ```cs
-        public IActionResult Update(TranslationQuery query, Translation translation) 
-        {   
-            var _translation = _context.Translation.First(
-                t => t.ClientKey    == query.ClientKey    &&
-                     t.LanguageKey  == query.LanguageKey  &&
-                     t.ContainerKey == query.ContainerKey &&
-                     t.Key          == query.TranslationKey);
+public IActionResult Update(TranslationQuery query, Translation translation) 
+{   
+    var _translation = _context.Translation.First(
+        t => t.ClientKey    == query.ClientKey    &&
+                t.LanguageKey  == query.LanguageKey  &&
+                t.ContainerKey == query.ContainerKey &&
+                t.Key          == query.TranslationKey);
 
-            if (_translation == null) 
-                return new StatusCodeResult(404);
+    if (_translation == null) 
+        return new StatusCodeResult(404);
 
-            _translation.Key        = translation.Key;
-            _translation.Text       = translation.Text;
-            _translation.IsComplete = translation.IsComplete;
-            
-            _context.Translation.Update(_translation);
-            _context.SaveChanges();
-            return new StatusCodeResult(204); 
-        }
+    _translation.Key        = translation.Key;
+    _translation.Text       = translation.Text;
+    _translation.IsComplete = translation.IsComplete;
+    
+    _context.Translation.Update(_translation);
+    _context.SaveChanges();
+    return new StatusCodeResult(204); 
+}
 ```
