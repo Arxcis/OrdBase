@@ -160,7 +160,7 @@ namespace OrdBaseCore.Repositories
                      t.Key          == query.TranslationKey);    
             
             if (translation == null)
-                return new NotFoundResult {};
+                return new StatusCodeResult(404);
 
             _context.Translation.Remove(translation);
             _context.SaveChanges();
