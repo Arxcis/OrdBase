@@ -66,7 +66,7 @@ Notice how a translation instance has a composite primary key, consisting of 4 p
 
 The Ordbase data model has 4 basic entity types, which Entity Framework maps to 4 SQL tables.
 
-[Translation.cs]()
+[Translation.cs](./Models/Translation.cs)
 ```cs
 class Translation 
 {
@@ -80,7 +80,7 @@ class Translation
 
 ```
 
-[Client.cs]()
+[Client.cs](./Models/Client.cs)
 ```cs
 class Client 
 {   
@@ -93,7 +93,7 @@ class Client
 The clientKey and the apikey will both be unique across clients. @question Will a Client be able to have multiple ApiKeys? Will the translations be shared across ApiKeys?
 What will be shared?
 
-[Language.cs]()
+[Language.cs](./Models/Language.cs)
 ```cs
 class Language
 {
@@ -103,7 +103,7 @@ class Language
 ```
 It would be beneficial if all language keys are constained to follow the ISO 639-1 standard, which is used across the web. Ex: en, no, sv. For reference: [https://www.w3schools.com/tags/ref_language_codes.asp](https://www.w3schools.com/tags/ref_language_codes.asp)
 
-[Container.cs]()
+[Container.cs](./Models/Container.cs)
 ```cs
 class Container 
 {
@@ -118,7 +118,7 @@ The Container type has only one attribute. This might seem redundant, but it is 
 
 In addition there are 2 many-to-many relationship tables, which Entity framework also maps to SQL tables
 
-[ClientLanguage.cs]()
+[ClientLanguage.cs](./Models/ClientLanguage.cs)
 ```cs
 class ClientLanguage 
 {
@@ -126,7 +126,7 @@ class ClientLanguage
     string languageKey
 }
 ```
-[ClientContainer.cs]()
+[ClientContainer.cs](./Models/ClientContainer.cs)
 ```cs
 class ClientContainer
 {
@@ -137,6 +137,8 @@ class ClientContainer
 
 In Entity Framework .NET Framework 4.7 these tables are generated automatically, when a many-to-many relationship is detected.
 Since we are using the less mature Entity Framework .NET Core 1.1.2, we have to manually declare the many-to-many types, and then link them using the EF Fluent API in the DbContext class OnModelCreating()-method:
+
+[TranslationDb](./Models/TranslationDb.cs)
 ```cs
 public class TranslationDb : DbContext 
 {
@@ -177,7 +179,7 @@ public class TranslationDb : DbContext
 
 The Utiliity types are special types which are not stored in the database, but generated on-demand by the Ordbase service.
 
-[TranslationGroup.cs]()
+[TranslationGroup.cs](./Models/TranslationGroup.cs)
 ```cs
 class TranslationGroup 
 {
@@ -198,7 +200,7 @@ When editing translations in the editor, one is often interested in comparing on
 The TranslationGroup type, combines all instances of Translation which share the same Client, Container and Key, but have 
 different languages:
 
-[TranslationGroupMeta.cs]()
+[TranslationGroup.cs](./Models/TranslationGroup.cs)
 ```cs
 class TranslationGroupMeta 
 {
@@ -263,14 +265,14 @@ https://localhost:5000/api
 ### api/client
 | Method | Path                     | Parameter                   | Details                        |
 |--------| -------------------------|---------------------------- | ------------------------------ |
-| GET    | api/client               | ? clientKey                 | [link](docs/api/client/.md)    |
-| GET    | api/client/containers    | ? clientKey                 | [link](docs/api/client/.md)    | 
-| GET    | api/client/languages     | ? clientKey                 | [link](docs/api/client/.md)    |  
-| POST   | api/client               | json { Client   }           | [link](docs/api/client/.md)    |   
-| POST   | api/client/containers    | json { string[] }           | [link](docs/api/client/.md)    |    
-| POST   | api/client/languages     | json { string[] }           | [link](docs/api/client/.md)    |   
-| PUT    | api/client               | ? clientKey                 | [link](docs/api/client/.md)    |  
-| DELETE | api/client               | ? clientKey                 | [link](docs/api/client/.md)    | 
+| GET    | api/client               | ? clientKey                 | [link](docs/api/client/GET-client.md)    |
+| GET    | api/client/containers    | ? clientKey                 | [link](docs/api/client/GET-client-containers.md)    | 
+| GET    | api/client/languages     | ? clientKey                 | [link](docs/api/client/GET-client-languages.md)    |  
+| POST   | api/client               | json { Client   }           | [link](docs/api/client/POST-client.md)    |   
+| POST   | api/client/containers    | json { string[] }           | [link](docs/api/client/POST-client-containers.md)    |    
+| POST   | api/client/languages     | json { string[] }           | [link](docs/api/client/POST-client-languages.md)    |   
+| PUT    | api/client               | ? clientKey                 | [link](docs/api/client/PUT-client.md)    |  
+| DELETE | api/client               | ? clientKey                 | [link](docs/api/client/DELETE-client.md)    | 
 
 <br>
 
