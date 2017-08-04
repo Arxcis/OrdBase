@@ -247,16 +247,16 @@ https://localhost:5000/api
 
 | Method | Path                     | Parameter                                                   | Details                                     |
 |--------| -------------------------|-------------------------------------------------------------| ------------------------------------------- |
-| GET    | api/translation          | ? clientKey & languageKey & containerKey & translationKey | [link](./DOCS/api/translation/GET-translation.md) |
-| GET    | api/translation/keyvalue | ? clientKey & languageKey & containerKey & translationKey | [link](./DOCS/api/translation/GET-translation-keyvalue.md) |
-| GET    | api/translation/group    | ? clientKey & languageKey & containerKey                  | [link](./DOCS/api/translation/GET-translation-group.md)  |
-| GET    | api/translation/meta     | ? clientKey & languageKey & containerKey                  | [link](./DOCS/api/translation/GET-translation-meta.md)  |
+| GET    | api/translation          | query { clientKey, languageKey, containerKey, translationKey } | [link](./DOCS/api/translation/GET-translation.md) |
+| GET    | api/translation/keyvalue | query { clientKey, languageKey, containerKey, translationKey } | [link](./DOCS/api/translation/GET-translation-keyvalue.md) |
+| GET    | api/translation/group    | query { clientKey, languageKey, containerKey }                  | [link](./DOCS/api/translation/GET-translation-group.md)  |
+| GET    | api/translation/meta     | query { clientKey, languageKey, containerKey }                | [link](./DOCS/api/translation/GET-translation-meta.md)  |
 | POST   | api/translation          | json { Translation   }                                      | [link](./docs/api/translation/POST-translation.md) |
 | POST   | api/translation/array    | json { Translation[] }                                      | [link](./docs/api/translation/POST-translation-array.md) |
-| PUT    | api/translation          | ? clientKey & languageKey & translationKey & translationKey <br> json { Translation }   | [link](./docs/api/translation/PUT-translation.md)|
-| PUT    | api/translation/array    | ? clientKey & languageKey & translationKey <br> json { Translation[] }                  | [link](./docs/api/translation/PUT-translation-array.md)|
-| DELETE | api/translation          | ? clientKey & languageKey & translationKey & translationKey  |   [link](./docs/api/translation/DELETE-translation.md) |
-| DELETE | api/t  ranslation/group    | ? clientKey & languageKey & translationKey                   | [link](./docs/api/translation/DELETE-translation-group.md) |
+| PUT    | api/translation          | query { clientKey, languageKey, translationKey, translationKey }<br> json { Translation }   | [link](./docs/api/translation/PUT-translation.md)|
+| PUT    | api/translation/array    | query { clientKey, languageKey, translationKey <br> json { Translation[] }                  | [link](./docs/api/translation/PUT-translation-array.md)|
+| DELETE | api/translation          | query { clientKey, languageKey, translationKey, translationKey } |   [link](./docs/api/translation/DELETE-translation.md) |
+| DELETE | api/t  ranslation/group    | query { clientKey, languageKey, translationKey }                  | [link](./docs/api/translation/DELETE-translation-group.md) |
 
 <br>
 
@@ -265,14 +265,14 @@ https://localhost:5000/api
 ### api/client
 | Method | Path                     | Parameter                   | Details                        |
 |--------| -------------------------|---------------------------- | ------------------------------ |
-| GET    | api/client               | ? clientKey                 | [link](docs/api/client/GET-client.md)    |
-| GET    | api/client/containers    | ? clientKey                 | [link](docs/api/client/GET-client-containers.md)    | 
-| GET    | api/client/languages     | ? clientKey                 | [link](docs/api/client/GET-client-languages.md)    |  
+| GET    | api/client               | query { clientKey }                | [link](docs/api/client/GET-client.md)    |
+| GET    | api/client/containers    | query { clientKey }                | [link](docs/api/client/GET-client-containers.md)    | 
+| GET    | api/client/languages     | query { clientKey }                | [link](docs/api/client/GET-client-languages.md)    |  
 | POST   | api/client               | json { Client   }           | [link](docs/api/client/POST-client.md)    |   
 | POST   | api/client/containers    | json { string[] }           | [link](docs/api/client/POST-client-containers.md)    |    
 | POST   | api/client/languages     | json { string[] }           | [link](docs/api/client/POST-client-languages.md)    |   
-| PUT    | api/client               | ? clientKey                 | [link](docs/api/client/PUT-client.md)    |  
-| DELETE | api/client               | ? clientKey                 | [link](docs/api/client/DELETE-client.md)    | 
+| PUT    | api/client               | query { clientKey }               | [link](docs/api/client/PUT-client.md)    |  
+| DELETE | api/client               | query { clientKey }               | [link](docs/api/client/DELETE-client.md)    | 
 
 <br>
 
@@ -281,7 +281,7 @@ https://localhost:5000/api
 ### api/language
 | Method | Path               | Parameter                   | Details                                     |
 |--------| ------------------ | --------------------------- | ------------------------------------------- |
-| GET    | api/language       | ? languageKey               | [link](docs/api/language/.md)
+| GET    | api/language       | query { languageKey }              | [link](docs/api/language/.md)
 | POST   | api/language       | json { Language }           | [link](docs/api/language/.md)
 
 <br>
@@ -292,6 +292,6 @@ https://localhost:5000/api
 
 | Method | Path               | Parameter              | Details                         |
 |--------| ------------------ | ---------------------- | ------------------------------- |
-| GET    | api/container      | ? containerKey         | [link](docs/api/container.md)
+| GET    | api/container      | query { containerKey }         | [link](docs/api/container.md)
 
 <br>
