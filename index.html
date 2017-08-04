@@ -13,7 +13,7 @@
         h1   { font-size: 3.0rem; }
         h2   { font-size: 2.6rem; }
         h3   { font-size: 2.2rem; }
-        pre {  font-size: 1.5rem; }
+        pre  {  font-size: 1.5rem; }
 
         /* header */
         header a { color: grey; margin: 0px 20px 0px 20px; font-size: 2rem;  }
@@ -25,6 +25,12 @@
 
         main { padding: 100px; width: 900px; height: 100%; background-color: white; margin: auto; box-shadow: 0px 0px 5px grey; z-index: 1; }
         section {padding-top: 100px;}
+
+        /* system-diagram */
+        pre { width: 100%; font-family: monospace;}
+        pre a { text-decoration: none; }
+        pre a:visited { color: blue; }
+        pre a:hover { background-color: #e1e4e8; }
 
     </style>
 
@@ -105,7 +111,7 @@
                                                                     ----- <b>Chrome 61 native (Chrome 60 with flags)</b>
                                                                    |
   <i>Web client</i>                                                       |
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - Intranet
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - HTTP/Intranet
   <i>Web server</i>            |
                         |
                          ------------ <b>http://ordbase.fylkesmannen.local</b>
@@ -138,7 +144,7 @@
         | <a class="link07">TranslationController.cs</a> |                      | <a class="link09">TranslationGroup.cs</a>         |                           
         | <a class="link07">ClientController.cs</a>        |                      | <a class="link09">Client.cs</a>                     |                             
         | <a class="link07">ContainerController.cs</a>    |______________________| <a class="link09">Container.cs</a>                 |  
-        | <a class="link07">LanguageController.cs</a>     |                      | <a class="link09">Container.cs</a>                 |      
+        | <a class="link07">LanguageController.cs</a>     |                      | <a class="link09">Language.cs</a>                 |      
         |__________________________________|                      |__________________________________|      
                         |                                                |        |                
          _______________|__________________                              |        | 
@@ -154,10 +160,14 @@
                          ------ <b>DBContext</b>                                          -------- <b>dotnet ef database update</b>
                         |                                                         |
   <i>Web server</i>            |                                                         |
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - SQL
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - SQL/localhost
   <i>Sql database</i>                                      |
+                                     ______________ |__________________                               
+                                    | <a class="link06">config.demo.json</a>            |
+                                    |__________________________________|  
                                                     |
-                                                     ------- <b>http://ordbase.fylkesmannen.sql</b> and <b><a class="link06">config.js</a></b>
+                                                     ------- <b>http://ordbase.fylkesmannen.sql</b>
+                                                     ------- <b>Connection string</b>                                                    |
                                                     |
                                      ______________ |__________________                               
                                     |                                  |  
@@ -171,14 +181,51 @@
         
         <section id="model-diagram">
             <h1>Model diagram</h1>
-            <p>Last updated: 03.08.2017 by Jonas Solsvik</p>
+            <p>Last updated: 04.08.2017 by Jonas Solsvik</p>
             
             <pre>
+    
                 
 
 
 
+                                _________________________________      __________________________________
+                               | <a class="link09">ClientContainer.cs</a>        |    | <a class="link09">ClientLanguage.cs</a>            |                                          
+                               |---------------------------------|    |-----------------------------------|      
+                               | string clientKey    { PPK, FK } |    | string    clientKey   { PPK, FK } |      
+                               | string containerKey { PPK, FK } |    | ISO_639-1 languageKey { PPK, FK } |      
+                               |_________________________________|    |___________________________________|      
+                                       | 0..*        0..* |                   | 0..*         0..* |                                        
+                                       |                  |                   |                   |                                    
+                                       |                  |                   |                   |                                    
+                                       |                  |                   |                   |
+                                       |                  |                   |                   |
+                                       |                  |                   |                   |
+                                  1..1 |                  | 1..1         1..1 |                   | 1..1
+         ______________________________|___        _______|___________________|______       ______|___________________________                                                                                                                                       
+        | <a class="link09">Container.cs</a>                 |      | <a class="link09">Client.cs</a>                     |     | <a class="link09">Language.cs</a>                   |                                 
+        |----------------------------------|      |----------------------------------|     |----------------------------------| 
+        | string key       { PK }          |      | string key         { PK }        |     | ISO_639-1 key       { PK }       |                               
+        |__________________________________|      | string apiKey      { AK }        |     | string    name                   |                               
+                          | 1..1                  | url    websiteUrl                |     |__________________________________|                               
+                          |                       |__________________________________|                       | 1..1
+                          |                                         | 1..1                                   |
+                          |                                         |                                        |
+                          |                                         |                                        |
+                          |                                         | 0..*                                   |
+                          |                 0..*   _________________|________________  0..*                  |        
+                          |_______________________| <a class="link09">Translation.cs</a>               |______________________|  
+                                                  |----------------------------------|
+                                                  | string clientKey     { PPK, FK } |
+                                                  | string languageKey   { PPK, FK } |
+                                                  | string containerKey  { PPK, FK } |
+                                                  | string key           { PPK }     |
+                                                  | string text                      |
+                                                  | bool   isComplete                |
+                                                  |__________________________________| 
 
+
+                
             </pre>
         </section>
 

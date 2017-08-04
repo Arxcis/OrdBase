@@ -14,6 +14,7 @@ I18n solution for FMSF
 <div id="data-model"></div>
 
 ## 1. Data model
+Last updated: 04.08.17 by Jonas Solsvik
 ### [Model diagram](https://arxcis.github.io/OrdBase#model-diagram)
 
 The single most important type in Ordbase, is the Translation type.
@@ -80,11 +81,13 @@ class Translation
 class Client 
 {   
     string key 
-    string apiKey 
-    string webpageUrl	
-    string thumbnailUrl 
+    string apiKey   
+    string webpageUrl?	
+    string thumbnailUrl? 
 }
 ```
+The clientKey and the apikey will both be unique to each client. @question Will a Client be able to have multiple ApiKeys? Will the translations be shared across ApiKeys?
+What will be shared?
 
 **Language.cs**
 ```cs
@@ -107,7 +110,7 @@ class Container
 
 In addition there are 2 many-to-many relationship tables, which Entity framework also maps to SQL tables
 
-ClientLanguage.cs
+**ClientLanguage.cs**
 ```cs
 class ClientLanguage 
 {
@@ -115,7 +118,7 @@ class ClientLanguage
     string languageKey
 }
 ```
-ClientContainer.cs
+**ClientContainer.cs**
 ```cs
 class ClientContainer
 {
@@ -131,7 +134,7 @@ When editing translations in the editor, one is often interested in comparing on
 The TranslationGroup type, combines all instances of Translation which share the same Client, Container and Key, but have 
 different languages:
 
-TranslationGroup.cs
+**TranslationGroup.cs**
 ```cs
 class TranslationGroup 
 {
@@ -148,7 +151,7 @@ class TranslationGroup
     IEnumerable<Item> Items
 }
 ```
-A variation of the TranslationGrop type exists called the TranslationGroupMeta. It is indentical, except for leaving out the TranslationGroup.Item.Text attribute, to only pass on meta-information about the group.
+A variation of the TranslationGroup type exists called the TranslationGroupMeta. It is indentical, except for leaving out the TranslationGroup.Item.Text attribute, to only pass on meta-information about the group.
 
 
 <br>
@@ -156,6 +159,8 @@ A variation of the TranslationGrop type exists called the TranslationGroupMeta. 
 <div id="system-overview"></div>
 
 ## 2. System overview
+Last updated: 04.08.17 by Jonas Solsvik
+
 ### [System  diagram](https://arxcis.github.io/OrdBase#system-diagram)
 
 
@@ -163,6 +168,8 @@ A variation of the TranslationGrop type exists called the TranslationGroupMeta. 
 <div id="api-reference"></div>
 
 ## 3. API Reference
+Last updated: 04.08.17 by Jonas Solsvik
+
 
 ### Base url
 ```url
