@@ -251,12 +251,12 @@ https://localhost:5000/api
 | GET    | api/translation/keyvalue | ? clientKey & languageKey & containerKey & translationKey | [link](./DOCS/api/translation/GET-translation-keyvalue.md) |
 | GET    | api/translation/group    | ? clientKey & languageKey & containerKey                  | [link](./DOCS/api/translation/GET-translation-group.md)  |
 | GET    | api/translation/meta     | ? clientKey & languageKey & containerKey                  | [link](./DOCS/api/translation/GET-translation-meta.md)  |
-| POST   | api/translation          | json { Translation   }                                      | [link](./DOCS/api/translation/POST-translation.md) |
-| POST   | api/translation/array    | json { Translation[] }                                      | [link](./DOCS/api/translation/POST-translation-array.md) |
-| PUT    | api/translation          | ? clientKey & languageKey & translationKey & translationKey <br> json { Translation }   | [link](./DOCS/api/translation/PUT-translation.md)|
-| PUT    | api/translation/array    | ? clientKey & languageKey & translationKey <br> json { Translation[] }                  | [link](./DOCS/api/translation/PUT-translation-array.md)|
-| DELETE | api/translation          | ? clientKey & languageKey & translationKey & translationKey  |   [link](./DOCS/api/translation/DELETE-translation.md) |
-| DELETE | api/t  ranslation/group    | ? clientKey & languageKey & translationKey                   | [link](./DOCS/api/translation/DELETE-translation-group.md) |
+| POST   | api/translation          | json { Translation   }                                      | [link](./docs/api/translation/POST-translation.md) |
+| POST   | api/translation/array    | json { Translation[] }                                      | [link](./docs/api/translation/POST-translation-array.md) |
+| PUT    | api/translation          | ? clientKey & languageKey & translationKey & translationKey <br> json { Translation }   | [link](./docs/api/translation/PUT-translation.md)|
+| PUT    | api/translation/array    | ? clientKey & languageKey & translationKey <br> json { Translation[] }                  | [link](./docs/api/translation/PUT-translation-array.md)|
+| DELETE | api/translation          | ? clientKey & languageKey & translationKey & translationKey  |   [link](./docs/api/translation/DELETE-translation.md) |
+| DELETE | api/t  ranslation/group    | ? clientKey & languageKey & translationKey                   | [link](./docs/api/translation/DELETE-translation-group.md) |
 
 <br>
 
