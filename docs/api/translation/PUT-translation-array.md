@@ -1,4 +1,4 @@
-# GET - api/translation
+# PUT - api/translation/array
 
 ## Request example 
 

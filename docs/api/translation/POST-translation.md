@@ -1,4 +1,4 @@
-# GET - api/translation
+# POST - api/translation
 
 ## Request example 
 

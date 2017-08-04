@@ -1,7 +1,5 @@
 # GET - api/translation/keyvalue
 
-<-- [__ /api/translation/group](GET-translation-group.md) | [__ /api ](../index.md)  | [__ /api/translation/meta](GET-meta.md) -->
-
 
 ## Request example 
 **URI parameters**

@@ -1,4 +1,4 @@
-# GET - api/translation
+# DELETE - api/translation/group
 
 ## Request example 
 

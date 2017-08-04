@@ -1,4 +1,6 @@
-# GET - api/translation
+# DELETE - api/translation
+
+<-- [__ /api/translation/meta](GET-translation-meta.md) | [__ /api ](../index.md)  | 
 
 ## Request example 
 
