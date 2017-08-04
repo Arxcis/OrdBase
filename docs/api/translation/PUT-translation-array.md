@@ -1,13 +1,23 @@
 # PUT - api/translation/array
 
+Last updated: 04.08.17 by Jonas Solsvik
+@note this should probably be changed to api/translation/group, because of the way it is implemented, see below.
+
 ## Request example 
 
-**GET request url**
+**HTTP Method**
+```
+PUT
+```
+
+**URL**
 ```url
-http://localhost:5000/api/translation/?clientKey=Ordbase&languageKey=en&containerKey=error_messages
+http://localhost:5000/api/translation/? clientKey=Ordbase
+                                      & containerKey=error_messages
+                                      & translationKey=error_create_client
 ``` 
 
-**JSON Response**
+**JSON body**
 ```json
 [
     {
@@ -15,74 +25,82 @@ http://localhost:5000/api/translation/?clientKey=Ordbase&languageKey=en&containe
         "languageKey": "en",
         "containerKey": "error_messages",
         "key": "error_create_client",
-        "text": "Failed to create client. Client may already exist",
+        "text": "default",
         "isComplete": false
     },
     {
         "clientKey": "Ordbase",
-        "languageKey": "no-nb",
+        "languageKey": "no",
         "containerKey": "error_messages",
         "key": "error_create_client",
-        "text": "Fikk ikke til å lage ny klient. Klienten finnes kanskje fra før?",
-        "isComplete": true
-    }
+        "text": "default",
+        "isComplete": false
+    },
+    {
+        "clientKey": "Ordbase",
+        "languageKey": "sv",
+        "containerKey": "error_messages",
+        "key": "error_create_client",
+        "text": "default",
+        "isComplete": false
+    },
 ]
 ```
-
-**URI parameters** 
-
+**JSON body type**
 ```
-clientKey: string             length: <= 127     optional
-languageKey: string           length: <= 8       optional
-containerKey: string          length: <= 64      optional
-translationKey: string        length: <= 127     optional 
-``` 
+Translation[]
+```
 
-**Response type**
+
+**Status response codes**
 ```cs
-    [] Translation
+NO CONTENT 204
+BAD REQUEST 400
+NOT FOUND 404
 ```
 
 <br>
 
-## Implementation draft
-
-[**Route.js**](/wwwroot/lib/Route.js)
-```javascript
-export function translation_get({ clientKey      = '',  
-                                  languageKey    = '',  
-                                  containerKey   = '',  
-                                  translationKey = '', } = {}) { 
-
-    const queryString = `clientKey=${clientKey}
-                         &languageKey=${languageKey}
-                         &containerKey=${containerKey}
-                         &translationKey=${translationKey}`;
-    
-    return Fetch.GET({  
-        route: `api/translation/?${queryString}`,
-    }); 
-}
-```
+## Implementation draft - asp.net core mvc 1.1.2
 
 [**TranslationController.cs**](/controllers/TranslationController.cs)
 ```cs
-[HttpGet("api/translation")]
-public IEnumerable<Translation> Get([FromQuery] TranslationQuery query)
+[HttpPut("api/translation/array")]
+public IActionResult UpdateArray([FromQuery] TranslationGroupQuery query, [FromBody] IEnumerable<Translation> translationArray)
 {   
-    return _translationRepo.Get(query); 
+    if (query == null || translationArray == null || query.ClientKey     != translationArray.First().ClientKey    ||
+                                                    query.ContainerKey   != translationArray.First().ContainerKey ||
+                                                    query.TranslationKey != translationArray.First().Key) 
+        return BadRequest();
+    
+    return _translationRepo.UpdateArray(query, translationArray);
 }
+
 ```
 
 [**TranslationRepository.cs**](/repositories/TranslationRepository.cs)
 ```cs
-public IEnumerable<Translation> Get(TranslationQuery query)
-{
-    return (from t in _context.Translation
-            where  t.ClientKey    == query.ClientKey      || query.ClientKey      == null           
-            where  t.LanguageKey  == query.LanguageKey    || query.LanguageKey    == null       
-            where  t.ContainerKey == query.ContainerKey   || query.ContainerKey   == null     
-            where  t.Key          == query.TranslationKey || query.TranslationKey == null 
-            select t).ToArray();        
+public IActionResult UpdateArray(TranslationGroupQuery query, IEnumerable<Translation> translationArray) 
+{   
+
+    foreach (var translation in translationArray) {
+
+        var found = _context.Translation.First(t => t.ClientKey    == translation.ClientKey    &&
+                                                    t.LanguageKey  == translation.LanguageKey  &&
+                                                    t.ContainerKey == translation.ContainerKey &&
+                                                    t.Key          == translation.Key);
+
+
+        if (found == null) 
+            return new StatusCodeResult(404);
+
+        found.Key  = translation.Key;
+        found.Text = translation.Text;
+        found.IsComplete = translation.IsComplete;
+        _context.Translation.Update(found);
+
+        _context.SaveChanges();            
+    }            
+    return new StatusCodeResult(204); 
 }
 ```

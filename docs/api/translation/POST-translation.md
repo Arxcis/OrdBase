@@ -1,88 +1,65 @@
-# POST - api/translation
+# POST - api/translation/array
+
+Last updated: 04.08.17 by Jonas Solsvik
 
 ## Request example 
 
-**GET request url**
+**HTTP Method**
+```
+POST
+```
+
+**URL**
 ```url
-http://localhost:5000/api/translation/?clientKey=Ordbase&languageKey=en&containerKey=error_messages
+http://localhost:5000/api/translation
 ``` 
 
-**JSON Response**
+**JSON body**
 ```json
-[
-    {
-        "clientKey": "Ordbase",
-        "languageKey": "en",
-        "containerKey": "error_messages",
-        "key": "error_create_client",
-        "text": "Failed to create client. Client may already exist",
-        "isComplete": false
-    },
-    {
-        "clientKey": "Ordbase",
-        "languageKey": "no-nb",
-        "containerKey": "error_messages",
-        "key": "error_create_client",
-        "text": "Fikk ikke til å lage ny klient. Klienten finnes kanskje fra før?",
-        "isComplete": true
-    }
-]
+{
+    "clientKey": "Ordbase",
+    "languageKey": "en",
+    "containerKey": "error_messages",
+    "key": "error_create_client",
+    "text": "default",
+    "isComplete": false
+}
+```
+**JSON body type**
+```
+Translation
 ```
 
-**URI parameters** 
 
-```
-clientKey: string             length: <= 127     optional
-languageKey: string           length: <= 8       optional
-containerKey: string          length: <= 64      optional
-translationKey: string        length: <= 127     optional 
-``` 
-
-**Response type**
+**Status response codes**
 ```cs
-    [] Translation
+CREATED 201
+BAD REQUEST 400
 ```
 
 <br>
 
-## Implementation draft
-
-[**Route.js**](/wwwroot/lib/Route.js)
-```javascript
-export function translation_get({ clientKey      = '',  
-                                  languageKey    = '',  
-                                  containerKey   = '',  
-                                  translationKey = '', } = {}) { 
-
-    const queryString = `clientKey=${clientKey}
-                         &languageKey=${languageKey}
-                         &containerKey=${containerKey}
-                         &translationKey=${translationKey}`;
-    
-    return Fetch.GET({  
-        route: `api/translation/?${queryString}`,
-    }); 
-}
-```
+## Implementation draft - asp.net core mvc 1.1.2
 
 [**TranslationController.cs**](/controllers/TranslationController.cs)
 ```cs
-[HttpGet("api/translation")]
-public IEnumerable<Translation> Get([FromQuery] TranslationQuery query)
+[HttpPost("api/translation")]
+public IActionResult Create([FromBody] Translation translation) 
 {   
-    return _translationRepo.Get(query); 
-}
+    if (translation == null)
+        return  BadRequest();
+
+    return _translationRepo.Create(translation);
+} 
+
 ```
 
 [**TranslationRepository.cs**](/repositories/TranslationRepository.cs)
 ```cs
-public IEnumerable<Translation> Get(TranslationQuery query)
-{
-    return (from t in _context.Translation
-            where  t.ClientKey    == query.ClientKey      || query.ClientKey      == null           
-            where  t.LanguageKey  == query.LanguageKey    || query.LanguageKey    == null       
-            where  t.ContainerKey == query.ContainerKey   || query.ContainerKey   == null     
-            where  t.Key          == query.TranslationKey || query.TranslationKey == null 
-            select t).ToArray();        
+public IActionResult Create(Translation translation) 
+{   
+    _context.Translation.Add(translation);
+    _context.SaveChanges();
+    return new StatusCodeResult(201);
 }
 ```
