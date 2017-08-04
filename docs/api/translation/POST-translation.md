@@ -41,7 +41,7 @@ BAD REQUEST 400
 
 ## Implementation draft - asp.net core mvc 1.1.2
 
-[**TranslationController.cs**](/controllers/TranslationController.cs)
+[**TranslationController.cs**](/Controllers/TranslationController.cs)
 ```cs
 [HttpPost("api/translation")]
 public IActionResult Create([FromBody] Translation translation) 
@@ -54,7 +54,7 @@ public IActionResult Create([FromBody] Translation translation)
 
 ```
 
-[**TranslationRepository.cs**](/repositories/TranslationRepository.cs)
+[**TranslationRepository.cs**](/Repositories/TranslationRepository.cs)
 ```cs
 public IActionResult Create(Translation translation) 
 {   

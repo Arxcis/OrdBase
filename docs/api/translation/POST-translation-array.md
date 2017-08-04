@@ -58,7 +58,7 @@ BAD REQUEST 400
 
 ## Implementation draft - asp.net core mvc 1.1.2
 
-[**TranslationController.cs**](/controllers/TranslationController.cs)
+[**TranslationController.cs**](/Controllers/TranslationController.cs)
 ```cs
 [HttpPost("api/translation/array")]
 public IActionResult CreateArray([FromBody] IEnumerable<Translation> translationArray) 
@@ -71,7 +71,7 @@ public IActionResult CreateArray([FromBody] IEnumerable<Translation> translation
 
 ```
 
-[**TranslationRepository.cs**](/repositories/TranslationRepository.cs)
+[**TranslationRepository.cs**](/Repositories/TranslationRepository.cs)
 ```cs
 public IActionResult CreateArray(IEnumerable<Translation> translationArray) 
 {   

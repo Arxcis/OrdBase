@@ -49,7 +49,7 @@ http://localhost:5000/api/translation/meta/? clientKey=Ordbase
 ## Implementation draft - asp.net core mvc 1.1.2
 
 
-[**TranslationController.cs**](/controllers/TranslationController.cs)
+[**TranslationController.cs**](/Controllers/TranslationController.cs)
 ```cs
 [HttpGet("api/translation/meta")]        
 [HttpGet("api/translation/group/meta")]
@@ -59,7 +59,7 @@ public IEnumerable<TranslationGroupMeta> GetGroupMeta([FromQuery] TranslationGro
 } 
 ```
 
-[**TranslationRepository.cs**](/repositories/TranslationRepository.cs)
+[**TranslationRepository.cs**](/Repositories/TranslationRepository.cs)
 ```cs
 public IEnumerable<TranslationGroupMeta> GetGroupMeta(TranslationGroupQuery query)
 {

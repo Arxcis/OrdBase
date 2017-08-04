@@ -30,7 +30,7 @@ NOT FOUND 404
 ## Implementation draft - asp.net core mvc 1.1.2
 
 
-[**TranslationController.cs**](/controllers/TranslationController.cs)
+[**TranslationController.cs**](/Controllers/TranslationController.cs)
 ```cs
 [HttpDelete("api/translation/group")]
 public IActionResult DeleteGroup([FromQuery] TranslationGroupQuery query)
@@ -44,7 +44,7 @@ public IActionResult DeleteGroup([FromQuery] TranslationGroupQuery query)
 }
 ```
 
-[**TranslationRepository.cs**](/repositories/TranslationRepository.cs)
+[**TranslationRepository.cs**](/Repositories/TranslationRepository.cs)
 ```cs
 public IActionResult DeleteGroup(TranslationGroupQuery query) 
 {   

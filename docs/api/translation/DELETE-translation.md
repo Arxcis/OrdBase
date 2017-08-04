@@ -31,7 +31,7 @@ NOT FOUND:   404
 ## Implementation draft - asp.net core mvc 1.1.2
 
 
-[**TranslationController.cs**](/controllers/TranslationController.cs)
+[**TranslationController.cs**](/Controllers/TranslationController.cs)
 ```cs
 [HttpDelete("api/translation")]
 public IActionResult Delete([FromQuery] TranslationQuery query)
@@ -46,7 +46,7 @@ public IActionResult Delete([FromQuery] TranslationQuery query)
 }
 ```
 
-[**TranslationRepository.cs**](/repositories/TranslationRepository.cs)
+[**TranslationRepository.cs**](/Repositories/TranslationRepository.cs)
 ```cs
 public IActionResult Delete(TranslationQuery query) 
 {   
