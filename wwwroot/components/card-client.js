@@ -55,6 +55,10 @@ export class Component_ClientCard extends HTMLElement {
 
     isEditable()   { return this._button.classList.contains('editable'); }
 
+    focus(){
+        this._button.focus();
+    }
+
     //
     // get Set internal data
     // @note I could have used getters and setters here, but they are not staticly checked in javascript, 

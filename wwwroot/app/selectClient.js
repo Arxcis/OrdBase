@@ -10,7 +10,7 @@ import { Component_Header   }     from '../components/header.js';
 
 import { load_editClient }        from './editClient.js';
 import { load_newClient }         from './newClient.js'; 
-//import { load_selectTranslation } from './selectTranslation.js';
+import { load_selectTranslation } from './selectTranslation.js';
 
 //
 // @function load_selectClient
@@ -39,20 +39,21 @@ export function load_selectClient() {
                 card.setThumbnail(client.thumbnailUrl);
                 
                 card.setEventHandlers({
-                    onselect: (card, e) => {},//loadSelectTranslation(card.getKey()),
+                    onselect: (card, e) => { load_selectTranslation(card.getKey()) },
                     onedit:   (card, e) => { load_editClient(card.getKey())},
                 });
 
                 card.setSelectable();
                 view.addCard(card)
             });                 
+
+            view.focus();
         }
     });
 
     //
     // 3. Set up header
     //
-    
     header.setTheme({ textSmall: 'Ordbase', textBig: 'Select Client', selectable: true })
     header.setIcons({ button1: App.ICON_PENCIL, button2: App.ICON_PLUS, });   
     header.setEventHandlers({
@@ -60,15 +61,23 @@ export function load_selectClient() {
         button1_onclick: event => { 
 
             let cardArray = view.getCardArray();
-
+            
             if (!cardArray[0].isEditable()) {
                 cardArray.forEach(card => card.setEditable());           
                 header.setTheme({textBig: 'Edit Client', editable: true});
+                header.setIcons({ button1: '', button2: App.ICON_TIMES, });
+                header.setEventHandlers({
+
+                    button2_onclick: e => { 
+                        cardArray.forEach(card => card.setSelectable());            
+                        header.setTheme({textBig: 'Select Client', selectable: true});
+                        header.setIcons({ button1: App.ICON_PENCIL, button2: App.ICON_PLUS, });       
+                        header.setEventHandlers({ button2_onclick: e => { load_newClient() }});        
+                        view.focus();            
+                    }
+                });       
+                view.focus();                    
             }
-            else {
-                cardArray.forEach(card => card.setSelectable());            
-                header.setTheme({textBig: 'Select Client', selectable: true});
-            }     
         },
 
         button2_onclick: e => { load_newClient() },

@@ -28,34 +28,49 @@ export class Component_Header extends HTMLElement {
         }, 3000);
     }
 
-    setIcons({ button0 = '',
-               button1 = '',
-               button2 = '' } = {}) {
+    setIcons({ button1 = null,
+               button2 = null } = {}) {
 
-        this._root.querySelector('#btn-header-right1 i.fa').setAttribute('class', `fa ${button1}`);
-        this._root.querySelector('#btn-header-right2 i.fa').setAttribute('class', `fa ${button2}`);
+        if (button1 !== null) this._root.querySelector('#btn-header-right1 i.fa').setAttribute('class', `fa ${button1}`);
+        if (button2 !== null) this._root.querySelector('#btn-header-right2 i.fa').setAttribute('class', `fa ${button2}`);
     }
 
     
-    setEventHandlers({ button1_onclick = e => console.log('default button1..'),
-                       button2_onclick = e => console.log('default button2..'), } = {}){
+    setEventHandlers({ button1_onclick = null,
+                       button2_onclick = null } = {}){
 
-        this._root.getElementById('btn-header-right1').addEventListener('click', button1_onclick); 
-        this._root.getElementById('btn-header-right2').addEventListener('click', button2_onclick); 
+        if (button1_onclick !== null) this._root.getElementById('btn-header-right1').onclick =  button1_onclick; 
+        if (button2_onclick !== null) this._root.getElementById('btn-header-right2').onclick =  button2_onclick; 
     } 
 
-    setTheme({textBig = 'nO THeme', textSmall='Ordbase', editable = false, selectable = false}){
+    setTheme({ textBig    = 'nO THeme', 
+               textSmall  = 'Ordbase', 
+               editable   = false, 
+               selectable = false, 
+               deleteable = false,
+               newable    = false, } = {}){
         
         this._root.getElementById('btn-header-mid-small').innerHTML = textSmall;    
         this._root.getElementById('btn-header-mid-big').innerHTML   = textBig;    
-    
+                
+        let leftButton = this._root.getElementById('btn-header-left');
+
+        leftButton.classList.remove('selectable', 'editable', 'deleteable', 'newable');
+        leftButton.classList.remove('editable');
+        leftButton.classList.remove('deleteable'); 
+        leftButton.classList.remove('newable'); 
+
         if (selectable) {
-            this.classList.remove('editable');
-            this.classList.add('selectable');
+            leftButton.classList.add('selectable');
         
         } else if (editable) {
-            this.classList.remove('selectable');
-            this.classList.add('editable');
+            leftButton.classList.add('editable');
+        }
+        else if (deleteable) {
+            leftButton.classList.add('deleteable');
+        }
+        else if (newable) {
+            leftButton.classList.add('newable');
         }
     }
 }

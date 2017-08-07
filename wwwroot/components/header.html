@@ -1,7 +1,25 @@
     <style>
         @import url('/node_modules/font-awesome/css/font-awesome.min.css');
 
+        #btn-header-left.selectable i { color: var(--ordbase-color-success); }
+        #btn-header-left.editable   i { color: var(--ordbase-color-select); }
+        #btn-header-left.deleteable i { color: var(--ordbase-color-danger); }
+        #btn-header-left.newable    i { color: var(--ordbase-color-fresh); }
+
+        .icon-button:hover .fa-trash, 
+        .icon-button:focus .fa-trash, 
+        .icon-button:hover .fa-times,
+        .icon-button:focus .fa-times { color: var(--ordbase-color-danger); }
         
+        .icon-button:hover .fa-arrow-left,
+        .icon-button:focus .fa-arrow-left { color: var(--ordbase-color-success); }
+
+        .icon-button:hover .fa-pencil ,
+        .icon-button:focus .fa-pencil { color: var(--ordbase-color-select); }
+        .icon-button:hover .fa-plus, 
+        .icon-button:focus .fa-plus   { color: var(--ordbase-color-fresh); }
+ 
+
         /* --- HEADER --- */
         #button-row {           
             display: flex;
@@ -55,19 +73,6 @@
             font-size: var(--ordbase-h2-font-size);
         }
         /* --------------- */
-
-
-        #btn-header-right1:focus i,
-        #btn-header-right1:hover i
-         {
-             color:var(--ordbase-color-select);
-         }
-
-        #btn-header-right2:focus i,
-        #btn-header-right2:hover i
-         {
-             color: var(--ordbase-color-success);    
-         }
 
 
          #error-banner 

@@ -12,8 +12,8 @@ export class Component_ContainerGenerator extends HTMLElement {
     // PUBLIC
     //
     getContainerKeyArray() {
-        console.log(this._divGeneratedItems);
-            return [].slice.apply(this._divGeneratedItems.children)
+        console.log(this._generatedItems);
+            return [].slice.apply(this._generatedItems.children)
             .map(item => {
                 return item.innerHTML;
             });
@@ -30,10 +30,10 @@ export class Component_ContainerGenerator extends HTMLElement {
         
         button.addEventListener('click', e => {
             this._deactivateInput();            
-            this._divGeneratedItems.removeChild(button);
+            this._generatedItems.removeChild(button);
         });
 
-        this._divGeneratedItems.appendChild(fragment);
+        this._generatedItems.appendChild(fragment);
     }
     
     //
@@ -45,7 +45,7 @@ export class Component_ContainerGenerator extends HTMLElement {
         this._root.innerHTML  = html;
         this._buttonTemplate = this._root.getElementById('template-item');
 
-        this._divGeneratedItems = this._root.getElementById('div-generated-items')
+        this._generatedItems = this._root.getElementById('div-generated-items')
         this._input  = this._root.getElementById('generator-input');
         this._button = this._root.getElementById('button-activate');
         this._faIcon = this._button.querySelector('i');
@@ -90,14 +90,14 @@ export class Component_ContainerGenerator extends HTMLElement {
         this.addEventListener('keydown', e => {
             if (e.keyCode == UP) {
                 let activeElement = this._root.activeElement;
-                if (activeElement.parentElement == this._divGeneratedItems && activeElement.previousElementSibling != null){
+                if (activeElement.parentElement == this._generatedItems && activeElement.previousElementSibling != null){
                     activeElement.previousElementSibling.focus();
                 }
             }
             else if (e.keyCode == DOWN) {
 
                 let activeElement = this._root.activeElement;
-                if (activeElement.parentElement == this._divGeneratedItems && activeElement.nextElementSibling != null){
+                if (activeElement.parentElement == this._generatedItems && activeElement.nextElementSibling != null){
                     activeElement.nextElementSibling.focus();
                 }
             } 
@@ -131,11 +131,18 @@ export class Component_ContainerGenerator extends HTMLElement {
 
         button.addEventListener('click', e => {
             this._deactivateInput();
-            this._divGeneratedItems.removeChild(button);
+            this._generatedItems.removeChild(button);
         });
 
-        this._divGeneratedItems.appendChild(fragment);
+        this._generatedItems.appendChild(fragment);
     }
+
+    focus() {
+        if(this._generatedItems.firstElementChild != null)
+            this._generatedItems.firstElementChild.focus();
+        else 
+            this._button.focus();
+}
 }
 
 customElements.define('component-generator-container', Component_ContainerGenerator);

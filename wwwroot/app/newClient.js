@@ -38,14 +38,14 @@ export function load_newClient(clientKey) {
     //
     // 2. Set up header 
     //
-    header.setTheme({ textBig:   'New Client', textSmall: 'Ordbase', selectable: true, });
+    header.setTheme({ textBig:   'New Client', textSmall: 'Ordbase', newable: true, });
     header.setIcons({ button2: App.ICON_TIMES, });
     header.setEventHandlers({
         button2_onclick: event => load_selectClient()
     });
 
     //
-    // 4. Component flipper
+    // 4. Component flipper and generator
     //
     flipper.setTextUp('Selected')    
     flipper.setTextDown('Available');
@@ -74,7 +74,7 @@ export function load_newClient(clientKey) {
     view.setClientForm(form);
     App.setHeader(header);
     App.switchView(view);
-
+    form.focus();
 }
 
 //

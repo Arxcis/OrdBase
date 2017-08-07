@@ -33,6 +33,8 @@ export function load_editClient(clientKey) {
             containerKeyArray.forEach( containerKey => {
                 generator.makeItem({key: containerKey, selected: true}); 
             });
+
+            generator.focus();    
         }
     });
 
@@ -61,7 +63,7 @@ export function load_editClient(clientKey) {
     //
     // 2. Set up header
     ///
-    header.setTheme({ textBig: 'Edit Client', setTextSmall: 'Ordbase', selectable: true, });    
+    header.setTheme({ textBig: 'Edit Client', setTextSmall: 'Ordbase', editable: true, });    
     header.setIcons({ button2: App.ICON_TIMES, });
     header.setEventHandlers({
         button2_onclick: event => load_selectClient()
@@ -96,6 +98,7 @@ export function load_editClient(clientKey) {
     view.setClientForm(form);
     App.setHeader(header);
     App.switchView(view);
+
 }
 
 //
@@ -109,7 +112,7 @@ function async_client_getContainerKeyArray({ clientKey = force('clientKey'),
     .then( containerKeyArray => {
         success(containerKeyArray);
     })
-    .catch(reason => App.flashError('Error:', reason));
+    .catch(err => App.flashError(err));
 }
 
 //

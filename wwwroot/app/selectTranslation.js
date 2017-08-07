@@ -11,14 +11,14 @@ import { Component_TranslationCard }      from '../components/card-translation.j
 import { Component_TranslationGenerator } from '../components/generator-translation.js';
 import { Component_ContainerPicker }      from '../components/picker-container.js';
 
-import { load_selectClient }    from './load_selectClient.js';
+import { load_selectClient }    from './selectClient.js';
 
 
 //
-// @function loadSelectTranslation
+// @function load_selectTranslation
 //  @note @todo
 //
-export function loadSelectTranslation (clientKey) {
+export function load_selectTranslation (clientKey) {
     
     //
     // 0. Init components
@@ -55,7 +55,6 @@ export function loadSelectTranslation (clientKey) {
                         let card = makeTranslationCard({ cardPrototype: cardPrototype,  groupMeta: groupMeta})
                         generator.addCard(card);
                     });
-                    generator.focus();    
                 }
             });
 
@@ -76,14 +75,13 @@ export function loadSelectTranslation (clientKey) {
                                 groupMetaArray.forEach(groupMeta => {
                                     let card = makeTranslationCard({ cardPrototype: cardPrototype, groupMeta: groupMeta});
                                     generator.addCard(card);      
-                                }) 
+                                })
+                                generator.focus(); 
                             },
                         });
 
-                        header.setColor(App.COLOR_SUCCESS);
-                        header.setTextBig('Select translation');
+                        header.setTheme({ textBig: 'Select translation', selectable: true })
                     },
-
                 });
             });
             picker.setDefaultItem();
@@ -97,7 +95,6 @@ export function loadSelectTranslation (clientKey) {
     cardPrototype.setEventHandlers({
         onopen: (card, e) => { 
 
-            
 
             // Generate fieldsets
             async_translation_getGroup({ 
@@ -113,14 +110,12 @@ export function loadSelectTranslation (clientKey) {
             })
 
             // @TODO close other open cards
-            header.setColor(App.COLOR_SELECT);
-            header.setTextBig('Edit translation');
+            header.setTheme({textBig: 'Edit translation', editable: true});
             card.open({ languageCount: languageKeyArray.length });            
         },
 
         onclose: () => {
-            header.setColor(App.COLOR_SUCCESS);
-            header.setTextBig('Select translation');
+            header.setTheme({textBig: 'Select translation', selectable: true});
         },
 
         ondelete:(card, e) => { 
@@ -191,22 +186,28 @@ export function loadSelectTranslation (clientKey) {
         
             let cardArray = generator.getCardArray();
 
-            console.log(cardArray);
-            if(cardArray.length > 0) {
+            if (cardArray.length > 0) {
                 if (!cardArray[0].isDeleteable()) {
-                    header.setTextBig('Delete Translation');
-                    header.setColor(App.COLOR_DANGER);
                     cardArray.forEach(card => { 
                         card.close(); 
                         card.setDeleteable();
                     });
-                }
-                else {
-                    header.setTextBig('Select Translation');
-                    header.setColor(App.COLOR_SUCCESS);
-                    cardArray.forEach(card => card.setOpenable());   
 
+                    header.setTheme({deleteable: true, textBig: 'Delete Translation'});
+                    header.setIcons({ button1: '',  button2: App.ICON_TIMES, });
+                    header.setEventHandlers({
+                        button2_onclick: e => { 
+                            cardArray.forEach(card => card.setOpenable());            
+                            header.setTheme({textBig: 'Select Translation', selectable: true});
+                            header.setIcons({ button1: App.ICON_TRASH, button2: App.ICON_ARROW_LEFT, });       
+                            header.setEventHandlers({ button2_onclick: e => { load_selectClient() }});        
+                            generator.focus();            
+                        }
+                    });       
                 }
+            } else {
+                App.flashError('There is nothing to delete in this container...');
+                picker.focus();
             }                
         },
         // 2.2 Back to select client view
@@ -279,7 +280,7 @@ function async_client_getLanguageKeyArray({ clientKey = force('clientKey'),
     Route.client_getLanguages({clientKey: clientKey}).then(languageKeyArray => {
         success(languageKeyArray);
     })
-    .catch(err => console.error('Error:', err));      
+    .catch(err => console.error(err));      
 }
 
 
@@ -298,10 +299,10 @@ function async_translation_getGroup({ success       = force('success'),
             let group = groupArray[0];
             success(group);
       } else {
-          App.HEADER.flashError('Pick a container to enable editing!');
+          App.flashError('Pick a container to enable editing!');
       }
 
-    }).catch(err => console.error('Error: ', err));
+    }).catch(err => console.error(err));
 }
 
 
@@ -309,12 +310,16 @@ function async_translation_getGroup({ success       = force('success'),
 // @function __async__getContainerKeyArray 
 //
 function async_client_getContainerKeyArray ({  success  = force('success'),
-                                                  clientKey   = force('clientKey') }) {
+                                               clientKey   = force('clientKey') }) {
 
     Route.client_getContainers({clientKey: clientKey}).then(containerKeyArray => {        
-        success(containerKeyArray);
+        if(containerKeyArray.length > 0) 
+            success(containerKeyArray);
+        else {
+            App.flashError('There are no containers in this client...');
+        }
     })
-    .catch(err => console.error('Error:', err));      
+    .catch(err => console.error(err));      
 }
 
 //
@@ -328,7 +333,7 @@ function async_translation_getGroupMetaArray({ success      = force('success'),
                                     containerKey: containerKey}).then(groupMetaArray => {
         success(groupMetaArray);
     })
-    .catch(err => console.error('Error:', err));  
+    .catch(err => console.error(err));  
 }
 
 //
@@ -343,7 +348,7 @@ function async_translation_getGroupMeta({ success      = force('success'),
         let groupMeta = groupMetaArray[0];
         success(groupMeta)
     })
-    .catch(err => console.error('Error:', err));      
+    .catch(err => console.error(err));      
 }
 
 //
@@ -355,7 +360,7 @@ function async_translation_createArray({ success         = force('success'),
     Route.translation_createArray({ translationArray: translationArray }).then(res => {
 
         if(res.status != App.HTTP_CREATED) {
-            App.HEADER.flashError(`${res.status}: Was not able to create new translations...`);
+            App.flashError(`${res.status}: Was not able to create new translations...`);
             throw new Error('translation_createArray(): ', res.status);
         }
 
@@ -386,10 +391,10 @@ function    async_translation_updateArray({ success= force('success'), translati
         if (App.HTTP_UPDATED) {
             success();
         } else {
-            App.HEADER.flashError('Code ${res.status}: Something went wrong while updating the translations..');
+            App.flashError('Code ${res.status}: Something went wrong while updating the translations..');
         }
     })
-    .catch(err => console.error('Error:', err));                                
+    .catch(err => console.error(err));                                
 }
 
 
@@ -412,7 +417,7 @@ function async_translation_delete({  success        = force('success'),
             success();
         }
         else {
-            App.HEADER.flashError(`${res.status}: Was not able to delete card...`);
+            App.flashError(`${res.status}: Was not able to delete card...`);
         }        
-    }).catch(err => console.error('Error:', err));
+    }).catch(err => console.error(err));
 }
