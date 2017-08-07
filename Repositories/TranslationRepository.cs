@@ -132,19 +132,22 @@ namespace OrdBaseCore.Repositories
 
             foreach (var translation in translationArray) {
 
-                var found = _context.Translation.First(t => t.ClientKey    == translation.ClientKey    &&
-                                                            t.LanguageKey  == translation.LanguageKey  &&
-                                                            t.ContainerKey == translation.ContainerKey &&
-                                                            t.Key          == translation.Key);
+                var found = _context.Translation.FirstOrDefault(t => t.ClientKey    == translation.ClientKey    &&
+                                                                     t.LanguageKey  == translation.LanguageKey  &&
+                                                                     t.ContainerKey == translation.ContainerKey &&
+                                                                     t.Key          == translation.Key);
 
 
-                if (found == null) 
-                    return new StatusCodeResult(404);
-
-                found.Key  = translation.Key;
-                found.Text = translation.Text;
-                found.IsComplete = translation.IsComplete;
-                _context.Translation.Update(found);
+                // @note if not found, we create a new translation.
+                if (found == null) {
+                    _context.Translation.Add(translation);
+                }
+                else {
+                    found.Key  = translation.Key;
+                    found.Text = translation.Text;
+                    found.IsComplete = translation.IsComplete;
+                    _context.Translation.Update(found);
+                }
     
                 _context.SaveChanges();            
             }            

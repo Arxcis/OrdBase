@@ -52,7 +52,7 @@ export function load_selectTranslation (clientKey) {
                 containerKey: containerKeyArray[0],
                 success: groupMetaArray => {  
                     groupMetaArray.forEach(groupMeta => {
-                        let card = makeTranslationCard({ cardPrototype: cardPrototype,  groupMeta: groupMeta})
+                        let card = makeTranslationCard({ cardPrototype: cardPrototype,  groupMeta: groupMeta, languageKeyArray: languageKeyArray })
                         generator.addCard(card);
                     });
                 }
@@ -73,7 +73,7 @@ export function load_selectTranslation (clientKey) {
                             success: groupMetaArray => {
                                 generator.clearItems();
                                 groupMetaArray.forEach(groupMeta => {
-                                    let card = makeTranslationCard({ cardPrototype: cardPrototype, groupMeta: groupMeta});
+                                    let card = makeTranslationCard({ cardPrototype: cardPrototype, groupMeta: groupMeta, languageKeyArray: languageKeyArray });
                                     generator.addCard(card);      
                                 })
                                 generator.focus(); 
@@ -84,7 +84,9 @@ export function load_selectTranslation (clientKey) {
                     },
                 });
             });
+
             picker.setDefaultItem();
+            picker.focus();
         }
     });
     
@@ -102,9 +104,19 @@ export function load_selectTranslation (clientKey) {
                 containerKey:  picker.getContainerKey(), 
                 translationKey: card.getTranslationKey(),
                 success: group => {
-                    group.items.forEach(item => {
-                        card.makeFieldset({languageKey: item.languageKey, text:  item.text, isComplete: item.isComplete})
+
+                    languageKeyArray.forEach(languageKey => {
+
+                        let item = group.items.find(item => {
+                            return item.languageKey === languageKey;
+                        })
+
+                        if (item !== undefined)
+                            card.makeFieldset({languageKey: item.languageKey, text:  item.text, isComplete: item.isComplete})
+                        else 
+                            card.makeFieldset({languageKey: languageKey, text:  'default*', isComplete: false })
                     });
+
                     card.display();
                 } 
             })
@@ -136,7 +148,10 @@ export function load_selectTranslation (clientKey) {
             let formData = card.getFormData();
 
             formData.fieldsetArray.forEach(fieldset => {
-            
+                
+                if (fieldset.text === 'default*')
+                    fieldset.text = 'default';
+
                 translationArray.push({
                     clientKey    : clientKey,
                     languageKey  : fieldset.languageKey,
@@ -162,7 +177,7 @@ export function load_selectTranslation (clientKey) {
                         containerKey: picker.getContainerKey(),
                         success: groupMetaArray => {  
                             groupMetaArray.forEach(groupMeta => {
-                                let card = makeTranslationCard({ cardPrototype: cardPrototype,  groupMeta: groupMeta})
+                                let card = makeTranslationCard({ cardPrototype: cardPrototype,  groupMeta: groupMeta, languageKeyArray: languageKeyArray })
                                 generator.addCard(card);
                             });
                             generator.focus();
@@ -237,7 +252,7 @@ export function load_selectTranslation (clientKey) {
         async_translation_createArray({ 
             translationArray: translationArray,
             success: (groupMeta) => {
-                let card = makeTranslationCard({cardPrototype: cardPrototype, groupMeta: groupMeta}) 
+                let card = makeTranslationCard({cardPrototype: cardPrototype, groupMeta: groupMeta, languageKeyArray: languageKeyArray}) 
                 generator.addCard(card);
             } 
         });
@@ -257,15 +272,29 @@ export function load_selectTranslation (clientKey) {
 // @function makeTranslationCard
 //
 function makeTranslationCard({ cardPrototype = force('cardPrototype'), 
-                               groupMeta = force('groupMeta')}) {
+                               groupMeta = force('groupMeta'),
+                               languageKeyArray = force('languageKeyArray'), }) {
                                     
+    if (languageKeyArray.length === 0) {
+        App.flashError('No languages registered yet....');
+        throw Error('panic: no languages registered yet...');
+    }
+
     let card = new Component_TranslationCard;
 
     card.setTranslationKey(groupMeta.key);
-    
-    groupMeta.items.forEach(item => {
-        card.makeLanguagekeyComplete(item.languageKey, item.isComplete);
+
+    languageKeyArray.forEach(languageKey => {
+        let item = groupMeta.items.find(item => item.languageKey == languageKey);
+
+        if (item !== undefined) {
+            card.makeLanguagekeyComplete(item.languageKey, item.isComplete);
+        }
+        else {
+            card.makeLanguagekeyComplete(languageKey, false);
+        } 
     });
+
 
     card.setEventHandlers(cardPrototype.getEventHandlers());
     return card;
@@ -326,8 +355,8 @@ function async_client_getContainerKeyArray ({  success  = force('success'),
 // @function async_translation_getGroupMetaArray
 //
 function async_translation_getGroupMetaArray({ success      = force('success'),
-                                                  clientKey    = force('clientKey'), 
-                                                  containerKey = force('containerKey') }) {
+                                               clientKey    = force('clientKey'), 
+                                               containerKey = force('containerKey') }) {
 
     Route.translation_getGroupMeta({clientKey:    clientKey, 
                                     containerKey: containerKey}).then(groupMetaArray => {

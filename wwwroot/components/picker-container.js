@@ -61,7 +61,6 @@ export class Component_ContainerPicker extends HTMLElement {
     setDefaultItem() {
         let defaultItem = this._root.getElementById('div-container-buttons').firstElementChild;
         defaultItem.classList.add('selected');
-        defaultItem.focus();
         this._lastSelectedItem = defaultItem;
     }
 
