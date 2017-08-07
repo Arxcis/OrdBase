@@ -24,11 +24,11 @@ export function load_selectTranslation (clientKey) {
     // 0. Init components
     //
     const view             = new View_SelectTranslation;
-    const languageKeyArray = new Array();
     const header           = new Component_Header;
     const generator        = new Component_TranslationGenerator;
     const picker           = new Component_ContainerPicker;
     const cardPrototype    = new Component_TranslationCard;
+    const languageKeyArray = new Array();
     
     //
     // 1. Async calls
@@ -264,7 +264,7 @@ export function load_selectTranslation (clientKey) {
     view.setTranslationGenerator(generator);
     view.setContainerPicker(picker);
     App.setHeader(header);
-    App.switchView(view);
+    App.setView(view);
 }
 
 

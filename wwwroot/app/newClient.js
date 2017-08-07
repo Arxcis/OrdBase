@@ -73,7 +73,7 @@ export function load_newClient(clientKey) {
     view.setLanguageFlipper(flipper);
     view.setClientForm(form);
     App.setHeader(header);
-    App.switchView(view);
+    App.setView(view);
     form.focus();
 }
 

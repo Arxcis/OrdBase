@@ -87,7 +87,7 @@ export function load_selectClient() {
     // 5. Insert new view into DOM
     //
     App.setHeader(header);
-    App.switchView(view);
+    App.setView(view);
 }
 
 //

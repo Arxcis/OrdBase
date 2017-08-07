@@ -40,7 +40,7 @@ export function setHeader(header){
     HEADER.appendChild(header);
 }
 
-export function switchView(view) {
+export function setView(view) {
     MAIN.innerHTML = '';
     MAIN.appendChild(view);
     return view;
