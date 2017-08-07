@@ -6,14 +6,14 @@ export class Component_Header extends HTMLElement {
 
     constructor() {
         super();
-        this.root = this.createShadowRoot();
-        this.root.innerHTML = html;
+        this._root = this.createShadowRoot();
+        this._root.innerHTML = html;
 
     }
 
-    flashError(message) {
+    flashMessage(message) {
 
-        let errorBanner = this.root.getElementById('error-banner');
+        let errorBanner = this._root.getElementById('error-banner');
 
         if(!errorBanner.classList.contains('animated'))
             errorBanner.classList.add('animated');
@@ -28,56 +28,42 @@ export class Component_Header extends HTMLElement {
         }, 3000);
     }
 
-    setTextBig(text) { 
-        this.root.getElementById('btn-header-mid-big')
-                 .innerHTML = text;    
+    setIcons({ button0_icon = '',
+               button1_icon = '',
+               button2_icon = '',
+               button3_icon = '',} = {}) {
+
+        this._root.querySelector('#btn-header-left i.fa').setAttribute('class', `fa ${button0_icon}`); 
+        this._root.querySelector('#btn-header-right0 i.fa').setAttribute('class', `fa ${button1_icon}`);
+        this._root.querySelector('#btn-header-right1 i.fa').setAttribute('class', `fa ${button2_icon}`);
+        this._root.querySelector('#btn-header-right2 i.fa').setAttribute('class', `fa ${button3_icon}`);
     }
 
-    setTextSmall(text) { 
-        this.root.getElementById('btn-header-mid-small')
-                 .innerHTML = text;    
-    }
+    
+    setEventHandlers({ button0_onclick = e => console.log('default button0..'), 
+                       button1_onclick = e => console.log('default button1..'),
+                       button2_onclick = e => console.log('default button2..'),
+                       button3_onclick = e => console.log('default button3..') } = {}){
+        
+        this._root.getElementById('btn-header-left').addEventListener('click',   button0_onclick);
+        this._root.getElementById('btn-header-right0').addEventListener('click', button1_onclick);
+        this._root.getElementById('btn-header-right1').addEventListener('click', button2_onclick); 
+        this._root.getElementById('btn-header-right2').addEventListener('click', button3_onclick); 
+    } 
 
-    button0_setIcon(icon) { 
-        this.root.querySelector('#btn-header-left i.fa')
-                 .setAttribute('class', `fa ${icon}`) 
-    }
-
-    button1_setIcon(icon) { 
-        this.root.querySelector('#btn-header-right0 i.fa')
-                 .setAttribute('class', `fa ${icon}`);
-    }
-
-    button2_setIcon(icon, color) {
-        console.log(color); 
-        this.root.querySelector('#btn-header-right1 i.fa')
-                 .setAttribute('class', `fa ${icon}`)
+    setTheme({textBig = 'nO THeme', textSmall='Ordbase', editable = false, selectable = false}){
+        
+        this._root.getElementById('btn-header-mid-small').innerHTML = textSmall;    
+        this._root.getElementById('btn-header-mid-big').innerHTML   = textBig;    
+    
+        if (selectable) {
+            this.classList.remove('editable');
+            this.classList.add('selectable');
+        
+        } else if (editable) {
+            this.classList.remove('selectable');
+            this.classList.add('editable');
         }
-
-    button3_setIcon(icon) { 
-        this.root.querySelector('#btn-header-right2 i.fa')
-                 .setAttribute('class', `fa ${icon}`);
     }
-
-    setColor(color) {
-        this.root.querySelector('#btn-header-left i').style.color = color;
-    } 
-
-    button0_OnClick(handler) { 
-        this.root.getElementById('btn-header-left').onclick = event => handler.apply(this, event);
-    }
-
-    button1_OnClick(handler) {
-        this.root.getElementById('btn-header-right0').onclick = event => handler.apply(this, event);
-    }
-
-    button2_OnClick(handler) { 
-        this.root.getElementById('btn-header-right1').onclick = event => handler.apply(this, event); 
-    }
-
-    button3_OnClick(handler) { 
-        this.root.getElementById('btn-header-right2').onclick = event => handler.apply(this, event); 
-    } 
-
 }
 customElements.define('component-header', Component_Header);
