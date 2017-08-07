@@ -28,27 +28,20 @@ export class Component_Header extends HTMLElement {
         }, 3000);
     }
 
-    setIcons({ button0_icon = '',
-               button1_icon = '',
-               button2_icon = '',
-               button3_icon = '',} = {}) {
+    setIcons({ button0 = '',
+               button1 = '',
+               button2 = '' } = {}) {
 
-        this._root.querySelector('#btn-header-left i.fa').setAttribute('class', `fa ${button0_icon}`); 
-        this._root.querySelector('#btn-header-right0 i.fa').setAttribute('class', `fa ${button1_icon}`);
-        this._root.querySelector('#btn-header-right1 i.fa').setAttribute('class', `fa ${button2_icon}`);
-        this._root.querySelector('#btn-header-right2 i.fa').setAttribute('class', `fa ${button3_icon}`);
+        this._root.querySelector('#btn-header-right1 i.fa').setAttribute('class', `fa ${button1}`);
+        this._root.querySelector('#btn-header-right2 i.fa').setAttribute('class', `fa ${button2}`);
     }
 
     
-    setEventHandlers({ button0_onclick = e => console.log('default button0..'), 
-                       button1_onclick = e => console.log('default button1..'),
-                       button2_onclick = e => console.log('default button2..'),
-                       button3_onclick = e => console.log('default button3..') } = {}){
-        
-        this._root.getElementById('btn-header-left').addEventListener('click',   button0_onclick);
-        this._root.getElementById('btn-header-right0').addEventListener('click', button1_onclick);
-        this._root.getElementById('btn-header-right1').addEventListener('click', button2_onclick); 
-        this._root.getElementById('btn-header-right2').addEventListener('click', button3_onclick); 
+    setEventHandlers({ button1_onclick = e => console.log('default button1..'),
+                       button2_onclick = e => console.log('default button2..'), } = {}){
+
+        this._root.getElementById('btn-header-right1').addEventListener('click', button1_onclick); 
+        this._root.getElementById('btn-header-right2').addEventListener('click', button2_onclick); 
     } 
 
     setTheme({textBig = 'nO THeme', textSmall='Ordbase', editable = false, selectable = false}){

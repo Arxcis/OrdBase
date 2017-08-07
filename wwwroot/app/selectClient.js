@@ -29,7 +29,7 @@ export function load_selectClient() {
     async_client_getArray({
         header: header,
         success: clientArray => {
-            clientArray.forEach((client, i) => {
+                clientArray.forEach((client, i) => {
 
                 let card = new Component_ClientCard;
 
@@ -50,16 +50,14 @@ export function load_selectClient() {
     });
 
     //
-    // 3. Set up header event handlers
-    //   
+    // 3. Set up header
+    //
+    
+    header.setTheme({ textSmall: 'Ordbase', textBig: 'Select Client', selectable: true })
+    header.setIcons({ button1: App.ICON_PENCIL, button2: App.ICON_PLUS, });   
     header.setEventHandlers({
-        button0_onclick: e => {                         
-            let cardArray = view.getCardArray();  
-            cardArray.forEach(card => card.setSelectable()); 
-            header.setTheme({ textBig: 'Select Client', selectable: true});
-        },
 
-        button2_onclick: event => { 
+        button1_onclick: event => { 
 
             let cardArray = view.getCardArray();
 
@@ -73,17 +71,7 @@ export function load_selectClient() {
             }     
         },
 
-        button3_onclick: e => { load_newClient() },
-    });
-
-    //
-    // 4. Bind data to header
-    //   
-    header.setTheme({ textSmall: 'Ordbase', textBig: 'Select Client', selectable: true })
-    header.setIcons({
-        button0_icon: App.ICON_SQUARE,
-        button2_icon: App.ICON_PENCIL,    
-        button3_icon: App.ICON_PLUS,
+        button2_onclick: e => { load_newClient() },
     });
 
     //

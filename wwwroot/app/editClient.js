@@ -59,33 +59,22 @@ export function load_editClient(clientKey) {
     });
 
     //
-    // 2. Set up header event handlers
-    //
+    // 2. Set up header
+    ///
+    header.setTheme({ textBig: 'Edit Client', setTextSmall: 'Ordbase', selectable: true, });    
+    header.setIcons({ button2: App.ICON_TIMES, });
     header.setEventHandlers({
-        button3_onclick: event => load_selectClient()
-    });
-    //
-    // 3. Bind data to header
-    //
-    header.setTheme({
-        textBig: 'Edit Client',
-        setTextSmall: 'Ordbase',
-        selectable: true,
-    });    
-    
-    header.setIcons({
-        button0_icon: App.ICON_BARS,
-        button3_icon: App.ICON_TIMES,
+        button2_onclick: event => load_selectClient()
     });
 
     //
-    // 5. Set up language flipper
+    // 3. Set up language flipper
     //
     flipper.setTextUp('Selected')    
     flipper.setTextDown('Available');
 
     //
-    // 6. Set up form
+    // 4. Set up form
     //
     form.setSubmitText(`Update ${clientKey}`);
     form.addEventListener('submit', e => {
@@ -100,7 +89,7 @@ export function load_editClient(clientKey) {
     });
 
     //
-    // 7. Create view, inject components and append view to DOM.
+    // 5. Create view, inject components and append view to DOM.
     //
     view.setContainerGenerator(generator);
     view.setLanguageFlipper(flipper);

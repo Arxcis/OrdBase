@@ -36,23 +36,12 @@ export function load_newClient(clientKey) {
     });
 
     //
-    // 2. Set up header event handlers
+    // 2. Set up header 
     //
+    header.setTheme({ textBig:   'New Client', textSmall: 'Ordbase', selectable: true, });
+    header.setIcons({ button2: App.ICON_TIMES, });
     header.setEventHandlers({
-        button3_onclick: event => load_selectClient()
-    });
-
-    //
-    // 3. Bind data to header
-    //
-    header.setTheme({
-        textBig:   'New Client',
-        textSmall: 'Ordbase',
-        selectable: true,
-    });
-    header.setIcons({
-        button0_icon: App.ICON_BARS,
-        button3_icon: App.ICON_TIMES,
+        button2_onclick: event => load_selectClient()
     });
 
     //
