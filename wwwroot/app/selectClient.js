@@ -8,8 +8,8 @@ import { View_SelectClient }      from '../views/select-client.js';
 import { Component_ClientCard   } from '../components/card-client.js';
 import { Component_Header   }     from '../components/header.js';
 
-//import { load_editClient }        from './editClient.js';
-//import { load_newClient }         from './newClient.js'; 
+import { load_editClient }        from './editClient.js';
+import { load_newClient }         from './newClient.js'; 
 //import { load_selectTranslation } from './selectTranslation.js';
 
 //
@@ -40,7 +40,7 @@ export function load_selectClient() {
                 
                 card.setEventHandlers({
                     onselect: (card, e) => {},//loadSelectTranslation(card.getKey()),
-                    onedit:   (card, e) => {},//loadEditClient(card.getKey()),
+                    onedit:   (card, e) => { load_editClient(card.getKey())},
                 });
 
                 card.setSelectable();
@@ -103,7 +103,7 @@ function async_client_getArray({ success = force('success'), header = force('hea
         if (clientArray.length > 0)  
             success(clientArray);
         else
-            header.flashMessage('There are no clients to show');
+            App.flashError('There are no clients to show');
     })
-    .catch(reason => console.error('Error:', reason));
+    .catch(err => App.flashError(err));
 }

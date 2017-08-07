@@ -37,7 +37,8 @@ export class Component_ClientCard extends HTMLElement {
     //
     // PUBLIC 
     //
-    setEventHandlers({ onselect, onedit }) {
+    setEventHandlers({ onselect = (that, e) => { console.log('default onselect..')}, 
+                        onedit  = (that, e) => { console.log('default onselect..')}} = {}) {
         this._selectHandler = onselect;
         this._editHandler   = onedit;
     }

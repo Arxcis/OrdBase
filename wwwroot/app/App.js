@@ -46,6 +46,10 @@ export function switchView(view) {
     return view;
 }
 
+export function flashError(error) {
+    HEADER.firstChild.flashMessage(error);
+}
+
 document.addEventListener('keydown', (e) => {
     if (e.keyCode === KEY_HOME)    
         load_selectClient();
