@@ -12,11 +12,9 @@ export class Component_ContainerGenerator extends HTMLElement {
     // PUBLIC
     //
     getContainerKeyArray() {
-        console.log(this._generatedItems);
-            return [].slice.apply(this._generatedItems.children)
-            .map(item => {
-                return item.innerHTML;
-            });
+        return [].slice.apply(this._generatedItems.children)
+                        .filter(item => { return item.classList.contains('selected'); })
+                        .map( item => { return item.innerHTML; });
     }
 
     makeItem({key = '', selected = true}) {
@@ -30,7 +28,7 @@ export class Component_ContainerGenerator extends HTMLElement {
         
         button.addEventListener('click', e => {
             this._deactivateInput();            
-            this._generatedItems.removeChild(button);
+            button.classList.toggle('selected');
         });
 
         this._generatedItems.appendChild(fragment);
@@ -131,7 +129,7 @@ export class Component_ContainerGenerator extends HTMLElement {
 
         button.addEventListener('click', e => {
             this._deactivateInput();
-            this._generatedItems.removeChild(button);
+            button.classList.toggle('selected');
         });
 
         this._generatedItems.appendChild(fragment);

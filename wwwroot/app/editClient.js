@@ -27,11 +27,17 @@ export function load_editClient(clientKey) {
     //
     // 1. Async calls filling in data in components
     //
-    async_client_getContainerKeyArray({ 
+    async_client_getContainerKeyArray_container_getNoEmptyArray({ 
         clientKey: clientKey,
-        success : containerKeyArray => {     
+        success : (containerKeyArray, containerNoEmptyArray) => {     
             containerKeyArray.forEach( containerKey => {
                 generator.makeItem({key: containerKey, selected: true}); 
+            });
+
+            containerNoEmptyArray.forEach(container => {
+                let found = containerKeyArray.find(containerKey => { return containerKey == container.key; })
+                if (found === undefined)
+                    generator.makeItem({ key: container.key, selected: false })
             });
 
             generator.focus();    
@@ -102,16 +108,22 @@ export function load_editClient(clientKey) {
 }
 
 //
-// @function async_client_getContainerKeyArray
+// @function async_client_getContainerKeyArray_container_getNoEmptyArray
 //  @note @todo
 //
-function async_client_getContainerKeyArray({ clientKey = force('clientKey'),
-                                                success   = force('success'),  }) {
+function async_client_getContainerKeyArray_container_getNoEmptyArray({ clientKey = force('clientKey'),
+                                                                       success   = force('success'),  }) {
+
+    let containerKeyArray = null;
 
     Route.client_getContainers({clientKey: clientKey})
-    .then( containerKeyArray => {
-        success(containerKeyArray);
+    .then(_containerKeyArray => {
+        containerKeyArray = _containerKeyArray;
+        return Route.container_getNoEmpty({ clientKey: clientKey });
     })
+    .then(containerNoEmptyArray => {
+        success(containerKeyArray, containerNoEmptyArray);
+    }) 
     .catch(err => App.flashError(err));
 }
 
@@ -122,7 +134,7 @@ function async_client_getContainerKeyArray({ clientKey = force('clientKey'),
 function async_language_getArray_client_getLanguageKeyArray({  success = force('success'),
                                                                clientKey = force('clientKey'), }) {
 
-    let languageArray;
+    let languageArray = null;
     Route.language_get()
     .then(_languageArray => {
         languageArray = _languageArray;
