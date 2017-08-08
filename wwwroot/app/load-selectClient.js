@@ -8,9 +8,9 @@ import { View_SelectClient }      from '../views/select-client.js';
 import { Component_ClientCard   } from '../components/card-client.js';
 import { Component_Header   }     from '../components/header.js';
 
-import { load_editClient }        from './editClient.js';
-import { load_newClient }         from './newClient.js'; 
-import { load_selectTranslation } from './selectTranslation.js';
+import { load_editClient }        from './load-editClient.js';
+import { load_newClient }         from './load-newClient.js'; 
+import { load_selectTranslation } from './load-selectTranslation.js';
 
 //
 // @function load_selectClient

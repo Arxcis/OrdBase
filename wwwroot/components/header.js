@@ -8,7 +8,6 @@ export class Component_Header extends HTMLElement {
         super();
         this._root = this.createShadowRoot();
         this._root.innerHTML = html;
-
     }
 
     flashMessage(message) {

@@ -11,7 +11,7 @@ import { Component_TranslationCard }      from '../components/card-translation.j
 import { Component_TranslationGenerator } from '../components/generator-translation.js';
 import { Component_ContainerPicker }      from '../components/picker-container.js';
 
-import { load_selectClient }    from './selectClient.js';
+import { load_selectClient }    from './load-selectClient.js';
 
 
 //
