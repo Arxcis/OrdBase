@@ -4,7 +4,7 @@
 The application layer is limited to functions which introduce side-effects. Application code is sometimes called glue-code, because it is the code which glues together different smaller components into a bigger whole.
 
 The application layer is the heart of the Admin-tool application for Ordbase.
-Here we have 1 file for each **view** that has to load. There is also 1 startup file, *App.js*.
+Here we have 1 file for each **view** that has to load. There is also 1 entry point file, *App.js*.
 
 Loading a view is a batch operation - a long list of procedural events has to happen before the view is considered **loaded**.
 
