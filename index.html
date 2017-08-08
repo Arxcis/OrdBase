@@ -137,9 +137,9 @@
         |----------------------------------|
         | <a class="dir06">Startup.cs</a>                    |
         |__________________________________|                       __________________________________
-                        |                                         | Models                           |
+                        |                                         | <a class="dir06">Models/</a>                           |
          _______________|__________________                       |----------------------------------|      
-        | ASP MVC Controllers              |                      | <a class="dir09">TranslationDb.cs</a>            |           
+        | <a class="dir06">Controllers/</a>              |                      | <a class="dir09">TranslationDb.cs</a>            |           
         |----------------------------------|                      | <a class="dir09">Translation.cs</a>               |      
         | <a class="dir07">TranslationController.cs</a> |                      | <a class="dir09">TranslationGroup.cs</a>         |                           
         | <a class="dir07">ClientController.cs</a>        |                      | <a class="dir09">Client.cs</a>                     |                             
@@ -148,10 +148,10 @@
         |__________________________________|                      |__________________________________|      
                         |                                                |        |                
          _______________|__________________                              |        | 
-        | Repositories                     |_____________________________|         ------- <b>dotnet ef migrations add</b>
+        | <a class="dir06">Repositories/</a>                     |_____________________________|         ------- <b>dotnet ef migrations add</b>
         |----------------------------------|                                      |
         | <a class="dir08">TranslationRepository.cs</a> |                       ________________|________________________                         
-        | <a class="dir08">ClientRepository.cs</a>        |                      | Migrations                             |                              
+        | <a class="dir08">ClientRepository.cs</a>        |                      | <a class="dir06">Migrations/</a>                             |                              
         | <a class="dir08">ContainerRepository.cs</a>    |                      |----------------------------------------|
         | <a class="dir08">LanguageRepository.cs</a>     |                      | <a class="dir10">TranslationDbModelSnapshot.cs</a> |               
         |__________________________________|                      |________________________________________|        

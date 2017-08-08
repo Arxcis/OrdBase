@@ -10,6 +10,8 @@ I18n solution for FMSF
 [1. System overview](#system-overview) <br>
 [2. Data model](#data-model) <br>
 [3. API Reference](#api-reference) <br>
+[4. Development dependencies](#development-environment) <br>
+[5. Operational requirements](#operational-requirements) <br>
 
 <br>
 
@@ -296,4 +298,83 @@ https://localhost:5000/api
 |--------| ------------------ | ---------------------- | ------------------------------- |
 | GET    | api/container      | query { containerKey }         | [link](docs/api/container.md)
 
+
 <br>
+<div id="development-environment"></div>
+
+## 4. Development environment
+Last updated: 08.08.17 by Jonas Solsvik
+
+<br>
+
+### Back-end
+#### .NET Command Line Tools
+Dependencies for the back-end are generally manged through the .NET Command line Tool:
+```
+$ dotnet --version
+1.0.4
+```
+
+#### ASP.NET Core 1.1 - WebAPI Framework
+To create an empty project based on this framework:
+```
+$ dotnet new webapi --framework netcoreapp1.1
+```
+
+#### .NET Core Nuget packages
+The Nuget packages are documented in  [OrdBaseCore.csproj](./OrdBaseCore.csproj).
+
+To pull in all missing packages to a project based on the .csproj-file run:
+```bash
+$ dotnet restore 
+```
+
+#### .NET Core Kestrel Web Server
+While beiing in the same directory as [Program.cs](./Program.cs) run:
+```
+$ dotnet run
+```
+<br>
+
+### Front-end
+#### Command Line Tools
+For the front-end 2 CLT's are used:
+```
+$ npm --version
+5.0.3
+```
+```
+$ webpack --version
+3.1.0
+```
+
+#### *npm* packages
+To pull in missing *npm* package dependencies documented in [package.json](./wwwroot/package.json) file run:
+```
+$ npm install
+```
+
+#### *webpack* bundle
+Webpack bundles all *.js* and *.html* into a single [bundle.js](./wwwroot/bundle.demo.js) using es2016 import statements:
+```javascript
+import { html } from './header.html
+```
+
+Webpack is configured in the [webpack.config.js](./wwwroot/webpack.config.js). To bundle just run:
+```
+$ webpack
+```
+
+### Misc
+#### Git Version control
+```
+$ git --version
+git version 2.10.2.windows.1
+```
+
+#### Editor
+The development environment is editor-agnostic, but Visual Studio Code is highly recommended.
+To open a project in Visual Code run:
+```
+$ code .
+``` 
