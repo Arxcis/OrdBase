@@ -10,8 +10,7 @@ I18n solution for FMSF
 [1. System overview](#system-overview) <br>
 [2. Data model](#data-model) <br>
 [3. API Reference](#api-reference) <br>
-[4. Development dependencies](#development-environment) <br>
-[5. Operational requirements](#operational-requirements) <br>
+[4. Development environment](#development-environment) <br>
 
 <br>
 
@@ -357,7 +356,7 @@ $ npm install
 #### *webpack* bundle
 Webpack bundles all *.js* and *.html* into a single [bundle.js](./wwwroot/bundle.demo.js) using es2016 import statements:
 ```javascript
-import { html } from './header.html
+import { html } from './header.html'
 ```
 
 Webpack is configured in the [webpack.config.js](./wwwroot/webpack.config.js). To bundle just run:
