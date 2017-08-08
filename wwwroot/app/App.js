@@ -3,7 +3,7 @@
 // COMPILE WITH BABEL - https://css-tricks.com/transpiling-es6/
 // TRanspile with webpack - https://webpack.github.io/docs/tutorials/getting-started/
 
-import { load_selectClient } from './selectClient.js';
+import { load_selectClient } from './load-selectClient.js';
 
 //
 // @file main.js
@@ -39,7 +39,7 @@ export function setHeader(header){
     HEADER.innerHTML = ''; // Clear existing header
     HEADER.appendChild(header);
 }
-
+    
 export function setView(view) {
     MAIN.innerHTML = '';
     MAIN.appendChild(view);

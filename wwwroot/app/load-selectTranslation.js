@@ -139,6 +139,7 @@ export function load_selectTranslation (clientKey) {
                 success: () => {
                     card.delete();
                     generator.getCardArray().forEach(_card => _card.close()); 
+                    generator.focus();
                 }
             });
         },
@@ -218,7 +219,8 @@ export function load_selectTranslation (clientKey) {
                             header.setEventHandlers({ button2_onclick: e => { load_selectClient() }});        
                             generator.focus();            
                         }
-                    });       
+                    });  
+                    generator.focus();     
                 }
             } else {
                 App.flashError('There is nothing to delete in this container...');

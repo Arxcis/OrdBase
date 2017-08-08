@@ -7,7 +7,7 @@
             width:100%;
             
             --fieldset-count: 0;
-            --input-height: 55px;
+            --input-height: 65px;
         }
 
         button {
@@ -29,9 +29,6 @@
             border-width: 0px 0px 0px 10px;
         }
 
-        button span {
-            flex: 0 0 100px;
-        }
 
         button:focus,
         button:hover {
@@ -40,10 +37,13 @@
             cursor: pointer;
         }
 
-
         button.selected:focus,
         button.selected {
             border-color: var(--ordbase-color-select);
+        }
+
+        #card-translation-key {
+            flex: 0 0 100px;
         }
 
         #array-languagekey-complete {
@@ -55,9 +55,12 @@
 
         .languagekey-complete {
             display: flex;
-            flex: 0 0 100px;
-            margin: 0px 20px 0px 20px;
+            flex: 0 0 75px;
+            margin: 0px 8px 0px 5px;
+            justify-content: center;
+            font-size: 1.9rem;
         }
+        .languagekey-complete span { margin-right: 5px;}
 
         .fa-check {
             color: var(--ordbase-color-success);

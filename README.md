@@ -265,7 +265,7 @@ api/{resource}/{optional modifier}/?{query parameters}
 
 
 
-### api/translation
+### Translation
 
 | Method | Path                     | Parameter                                                   | Details                                     |
 |--------| -------------------------|-------------------------------------------------------------| ------------------------------------------- |
@@ -276,26 +276,26 @@ api/{resource}/{optional modifier}/?{query parameters}
 | POST   | api/translation          | json { Translation   }                                      | [link](./docs/api/translation/POST-translation.md) |
 | POST   | api/translation/array    | json { Translation[] }                                      | [link](./docs/api/translation/POST-translation-array.md) |
 | PUT    | api/translation          | query { clientKey, languageKey, translationKey, translationKey }<br> json { Translation }   | [link](./docs/api/translation/PUT-translation.md)|
-| PUT    | api/translation/array    | query { clientKey, languageKey, translationKey <br> json { Translation[] }                  | [link](./docs/api/translation/PUT-translation-array.md)|
+| PUT    | api/translation/group    | query { clientKey, languageKey, translationKey <br> json { Translation[] }                  | [link](./docs/api/translation/PUT-translation-array.md)|
 | DELETE | api/translation          | query { clientKey, languageKey, translationKey, translationKey } |   [link](./docs/api/translation/DELETE-translation.md) |
-| DELETE | api/t  ranslation/group    | query { clientKey, languageKey, translationKey }                  | [link](./docs/api/translation/DELETE-translation-group.md) |
+| DELETE | api/t  ranslation/group  | query { clientKey, languageKey, translationKey }                  | [link](./docs/api/translation/DELETE-translation-group.md) |
 
 <br>
 
 
 
-### api/client
+### Client
 | Method | Path                     | Parameter                   | Details                        |
 |--------| -------------------------|---------------------------- | ------------------------------ |
 | GET    | api/client               | query { clientKey }         | [link](docs/api/client/GET-client.md)    |
 | POST   | api/client               | json { Client   }           | [link](docs/api/client/POST-client.md)    |   
-| PUT    | api/client               | query { clientKey } <br> json { Client   }         | [link](docs/api/client/PUT-client.md)    |  
+| PUT    | api/client               | query { clientKey } <br> json { Client   }     | [link](docs/api/client/PUT-client.md)    |  
 | DELETE | api/client               | query { clientKey }         | [link](docs/api/client/DELETE-client.md)    | 
 
 <br>
 
 
-### api/language
+### Language
 | Method | Path                 | Parameter                   | Details                                     |
 |--------| ------------------   | --------------------------- | ------------------------------------------- |
 | GET    | api/language         | query { languageKey }       | [link](docs/api/language/GET-language.md)
@@ -305,14 +305,14 @@ api/{resource}/{optional modifier}/?{query parameters}
 
 <br>
 
-### api/container
+### Container
 
 | Method | Path                   | Parameter              | Details                         |
 |--------| ---------------------- | ---------------------- | ------------------------------- |
 | GET    | api/container          | query { containerKey } | [link](docs/api/container/GET-container.md)
 | GET    | api/container/nonempty | query { clientKey }    | [link](docs/api/container/GET-container-nonempty.md)
 | GET    | api/container/active   | query { clientKey }    | [link](docs/api/container/GET-container-active.md)
-| POST   | api/container/active   | query { clientKey   } <br> query { Container[] }  | [link](docs/api/container/POST-container-active.md)
+| POST   | api/container/active   | query { clientKey   } <br> json { Container[] }  | [link](docs/api/container/POST-container-active.md)
 
 <br>
 <div id="development-environment"></div>
