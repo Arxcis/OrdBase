@@ -7,13 +7,24 @@ I18n solution for FMSF
 # Documentation
 
 **Table of contents** <br>
-[1. Data model](#data-model) <br>
-[2. System overview](#system-overview) <br>
+[1. System overview](#system-overview) <br>
+[2. Data model](#data-model) <br>
 [3. API Reference](#api-reference) <br>
+
+<br>
+
+<div id="system-overview"></div>
+
+## 1. System overview
+Last updated: 04.08.17 by Jonas Solsvik
+
+### [System  diagram](https://arxcis.github.io/OrdBase#system-diagram)
+
+<br>
 
 <div id="data-model"></div>
 
-## 1. Data model
+## 2. Data model
 Last updated: 04.08.17 by Jonas Solsvik
 ### [Data model diagram](https://arxcis.github.io/OrdBase#model-diagram)
 
@@ -218,15 +229,6 @@ class TranslationGroupMeta
 ```
 A variation of the TranslationGroup type exists called the TranslationGroupMeta. It is indentical to TranslationGroup, except for leaving out the Text attribute. This is handy if you ONLY want the meta information about a translation group.
 
-
-<br>
-
-<div id="system-overview"></div>
-
-## 2. System overview
-Last updated: 04.08.17 by Jonas Solsvik
-
-### [System  diagram](https://arxcis.github.io/OrdBase#system-diagram)
 
 
 <br>

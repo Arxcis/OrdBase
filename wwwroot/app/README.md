@@ -1,4 +1,5 @@
 # App layer
+*Last updated: 07.08.17 by J. Solsvik*
 
 The application layer is limited to functions which introduce side-effects. Application code is sometimes called glue-code, because it is the code which glues together different smaller components into a bigger whole.
 
