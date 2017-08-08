@@ -19,6 +19,8 @@ I18n solution for FMSF
 ## 1. System overview
 Last updated: 04.08.17 by Jonas Solsvik
 
+### [Requirements](./docs/requirements.docx)
+
 ### [System  diagram](https://arxcis.github.io/OrdBase#system-diagram)
 
 <br>
@@ -267,14 +269,14 @@ https://localhost:5000/api
 ### api/client
 | Method | Path                     | Parameter                   | Details                        |
 |--------| -------------------------|---------------------------- | ------------------------------ |
-| GET    | api/client               | query { clientKey }                | [link](docs/api/client/GET-client.md)    |
-| GET    | api/client/containers    | query { clientKey }                | [link](docs/api/client/GET-client-containers.md)    | 
-| GET    | api/client/languages     | query { clientKey }                | [link](docs/api/client/GET-client-languages.md)    |  
+| GET    | api/client               | query { clientKey }         | [link](docs/api/client/GET-client.md)    |
+| GET    | api/client/containers    | query { clientKey }         | [link](docs/api/client/GET-client-containers.md)    | 
+| GET    | api/client/languages     | query { clientKey }         | [link](docs/api/client/GET-client-languages.md)    |  
 | POST   | api/client               | json { Client   }           | [link](docs/api/client/POST-client.md)    |   
 | POST   | api/client/containers    | json { string[] }           | [link](docs/api/client/POST-client-containers.md)    |    
 | POST   | api/client/languages     | json { string[] }           | [link](docs/api/client/POST-client-languages.md)    |   
-| PUT    | api/client               | query { clientKey }               | [link](docs/api/client/PUT-client.md)    |  
-| DELETE | api/client               | query { clientKey }               | [link](docs/api/client/DELETE-client.md)    | 
+| PUT    | api/client               | query { clientKey }         | [link](docs/api/client/PUT-client.md)    |  
+| DELETE | api/client               | query { clientKey }         | [link](docs/api/client/DELETE-client.md)    | 
 
 <br>
 
@@ -283,19 +285,18 @@ https://localhost:5000/api
 ### api/language
 | Method | Path               | Parameter                   | Details                                     |
 |--------| ------------------ | --------------------------- | ------------------------------------------- |
-| GET    | api/language       | query { languageKey }              | [link](docs/api/language/.md)
+| GET    | api/language       | query { languageKey }       | [link](docs/api/language/.md)
 | POST   | api/language       | json { Language }           | [link](docs/api/language/.md)
 
 <br>
-
 
 
 ### api/container
 
 | Method | Path               | Parameter              | Details                         |
 |--------| ------------------ | ---------------------- | ------------------------------- |
-| GET    | api/container      | query { containerKey }         | [link](docs/api/container.md)
-
+| GET    | api/container      | query { containerKey } | [link](docs/api/container/GET-container.md)
+| GET    | api/container      | query { clientKey }    | [link](docs/api/container/GET-container-noempty.md)
 
 <br>
 <div id="development-environment"></div>
@@ -333,17 +334,22 @@ While beiing in the same directory as [Program.cs](./Program.cs) run:
 $ dotnet run
 ```
 
-#### Entity Framework 1.1 migrations
+#### Entity Framework - migrations
 Based on the configuration of [TranslationDb.cs](./Models/TranslationDb.cs) you can migrate the current data model using:
 ```
 $ dotnet ef migrations add my_migration
 ```
 EF outputs the migration files in [Migrations/](./Migrations/)
 
-#### Entity Framework 1.1 database
+
+#### Entity Framework - database
 To update your database based on the newly created migrations run:
 ```
 $ dotnet ef database update
+```
+Sometimes it is necesarry to drop the existing database:
+```
+$ dotnet ef database drop
 ```
 Make sure your [appsettings.json](./appsettings.demo.json) has the correct connection string:
 ```json
