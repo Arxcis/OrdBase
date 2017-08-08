@@ -212,7 +212,6 @@ When editing translations in the editor, one is often interested in comparing on
 The TranslationGroup type, combines all instances of Translation which share the same Client, Container and Key, but have 
 different languages:
 
-[TranslationGroup.cs](./Models/TranslationGroup.cs)
 ```cs
 class TranslationGroupMeta 
 {
@@ -328,11 +327,31 @@ To pull in all missing packages to a project based on the .csproj-file run:
 $ dotnet restore 
 ```
 
-#### .NET Core Kestrel Web Server
+#### Kestrel Web Server
 While beiing in the same directory as [Program.cs](./Program.cs) run:
 ```
 $ dotnet run
 ```
+
+#### Entity Framework 1.1 migrations
+Based on the configuration of [TranslationDb.cs](./Models/TranslationDb.cs) you can migrate the current data model using:
+```
+$ dotnet ef migrations add my_migration
+```
+EF outputs the migration files in [Migrations/](./Migrations/)
+
+#### Entity Framework 1.1 database
+To update your database based on the newly created migrations run:
+```
+$ dotnet ef database update
+```
+Make sure your [appsettings.json](./appsettings.demo.json) has the correct connection string:
+```json
+"ConnectionStrings": {
+    "MicrosoftSQLProvider": "Data Source=.\\SQLEXPRESS;Initial Catalog=OrdBase.Models.TranslationDb;Integrated Security=True; MultipleActiveResultSets=true;"
+}
+```
+
 <br>
 
 ### Front-end
@@ -366,14 +385,15 @@ $ webpack
 
 ### Misc
 #### Git Version control
+Configure which files should be ignored in the [.gitignore](.gitignore)
 ```
 $ git --version
 git version 2.10.2.windows.1
 ```
 
 #### Editor
-The development environment is editor-agnostic, but Visual Studio Code is highly recommended.
-To open a project in Visual Code run:
+The development environment is editor-agnostic, but VS Code is highly recommended.
+To open a project in VS Code run:
 ```
 $ code .
 ``` 
