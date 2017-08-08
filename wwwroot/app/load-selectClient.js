@@ -29,7 +29,7 @@ export function load_selectClient() {
     async_client_getArray({
         header: header,
         success: clientArray => {
-                clientArray.forEach((client, i) => {
+            clientArray.forEach(client => {
 
                 let card = new Component_ClientCard;
 

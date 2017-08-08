@@ -19,7 +19,7 @@ I18n solution for FMSF
 ## 1. System overview
 Last updated: 04.08.17 by Jonas Solsvik
 
-### [Requirements](./docs/requirements.docx)
+### [Requirements](./docs/OrdBase_Bestillingsdokument.pdf)
 
 ### [System  diagram](https://arxcis.github.io/OrdBase#system-diagram)
 
