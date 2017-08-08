@@ -70,13 +70,13 @@
 | <a class="dir01">form-client.js</a>                 |
 |------------------------------------|
 | <a class="dir01">generator-container.html</a>   |                ___________________________________
-| <a class="dir01">generator-container.js</a>      |               | ViewComponents                   |
+| <a class="dir01">generator-container.js</a>      |               | <a class="dir05">views/</a>                   |
 |------------------------------------|               |----------------------------------|
 | <a class="dir01">generator-translation.html</a> |               | <a class="dir02">edit-client.html</a>            |
 | <a class="dir01">generator-translation.js</a>    |              | <a class="dir02">edit-client.js</a>               |
 |------------------------------------|               |----------------------------------|
 | <a class="dir01">header.html</a>                    |               | <a class="dir02">select-client.html</a>          |             __________________________________ 
-| <a class="dir01">header.js</a>                       |               | <a class="dir02">select-client.js</a>            |             | Network                          |
+| <a class="dir01">header.js</a>                       |               | <a class="dir02">select-client.js</a>            |             | <a class="dir05">lib/</a>                          |
 |------------------------------------|               |----------------------------------|             |----------------------------------|
 | <a class="dir01">picker-container.html</a>       |               | <a class="dir02">select-translation.html</a>   |             | <a class="dir03">Route.js</a>                       |
 | <a class="dir01">picker-container.js</a>          |               | <a class="dir02">select-translation.js</a>     |              | <a class="dir03">Fetch.js</a>                      |
@@ -87,20 +87,20 @@
                   |                                                |                                                   |             
                   |                                                |                                                   |          
                   |                                 _______________|__________________                                 |      
-                  |                                | App                              |                                | 
+                  |                                | <a class="dir05">app/</a>                              |                                | 
                   |________________________________|----------------------------------|________________________________|
                                                    | <a class="dir04">App.js</a>                         |
-                                                   | <a class="dir04">loadSelectClient.js</a>        |
-                                                   | <a class="dir04">loadNewClient.js</a>            |
-                                                   | <a class="dir04">loadEditClient.js</a>           |
-                                                   | <a class="dir04">loadSelectTranslation.js</a>  |
+                                                   | <a class="dir04">load-selectClient.js</a>        |
+                                                   | <a class="dir04">load-newClient.js</a>            |
+                                                   | <a class="dir04">load-editClient.js</a>           |
+                                                   | <a class="dir04">load-selectTranslation.js</a>  |
                                                    |__________________________________|    
                                                                    |             
                                                                    |
                                                                     ---------------  <b>webpack babel es2016</b>
                                                                    |
                                                     _______________|_________________                               
-                                                   |  Webpacked app                   |
+                                                   |  <a class="dir06">wwwroot/</a>                  |
                                                    |----------------------------------|                             
                                                    | <a class="dir05">bundle.demo.js</a>               |
                                                    | <a class="dir05">index.html</a>                    |
