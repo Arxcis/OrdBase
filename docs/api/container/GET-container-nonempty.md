@@ -1,4 +1,4 @@
-# GET - api/container
+# GET - api/container/nonempty
 
 Last updated: 08.08.17 by Jonas Solsvik
 

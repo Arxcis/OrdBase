@@ -19,7 +19,7 @@ I18n solution for FMSF
 ## 1. System overview
 Last updated: 04.08.17 by Jonas Solsvik
 
-### [Requirements](./docs/OrdBase_Bestillingsdokument.pdf)
+### [Requirements.pdf](./docs/OrdBase_Bestillingsdokument.pdf)
 
 ### [System  diagram](https://arxcis.github.io/OrdBase#system-diagram)
 
@@ -193,7 +193,13 @@ public class TranslationDb : DbContext
 
 The Utiliity types are special types which are not stored in the database, but generated on-demand by the Ordbase service.
 
+
+When editing translations in the editor, one is often interested in comparing one translation between languages.
+The TranslationGroup type, combines all instances of Translation which share the same Client, Container and Key, but have 
+different languages:
+
 [TranslationGroup.cs](./Models/TranslationGroup.cs)
+
 ```cs
 class TranslationGroup 
 {
@@ -210,9 +216,8 @@ class TranslationGroup
     IEnumerable<Item> Items
 }
 ```
-When editing translations in the editor, one is often interested in comparing one translation between languages.
-The TranslationGroup type, combines all instances of Translation which share the same Client, Container and Key, but have 
-different languages:
+
+A variation of the TranslationGroup type exists called the TranslationGroupMeta. It is indentical to TranslationGroup, except for leaving out the Text attribute. This is handy if you ONLY want the meta information about a translation group.
 
 ```cs
 class TranslationGroupMeta 
@@ -229,8 +234,6 @@ class TranslationGroupMeta
     IEnumerable<Item> Items
 }
 ```
-A variation of the TranslationGroup type exists called the TranslationGroupMeta. It is indentical to TranslationGroup, except for leaving out the Text attribute. This is handy if you ONLY want the meta information about a translation group.
-
 
 
 <br>
@@ -239,10 +242,25 @@ A variation of the TranslationGroup type exists called the TranslationGroupMeta.
 ## 3. API Reference
 Last updated: 04.08.17 by Jonas Solsvik
 
+This is a pretty naive implementation of a Restful API.
+
+| Method | Description |
+|-------|--------------|
+|GET    | read entry   |
+|POST   | create entry |
+|PUT    | update entry |
+|DELETE | delete entry |
+
+@note I have learned that POST should only be used when creating new entries which have server generated URL for access. When the client decides where the new entry will be accessed, PUT should have been used. Also PATCH should be used, when only parts of a database entry is updated. When I figured this out, it was to late to change it, so this is left for future implementors. - JSolsvik 08.08.17 
 
 ### Base url
 ```url
 https://localhost:5000/api
+```
+
+The URL convention for accessing an entry is like this:
+```
+api/{resource}/{optional modifier}/?{query parameters}
 ```
 
 
@@ -270,33 +288,31 @@ https://localhost:5000/api
 | Method | Path                     | Parameter                   | Details                        |
 |--------| -------------------------|---------------------------- | ------------------------------ |
 | GET    | api/client               | query { clientKey }         | [link](docs/api/client/GET-client.md)    |
-| GET    | api/client/containers    | query { clientKey }         | [link](docs/api/client/GET-client-containers.md)    | 
-| GET    | api/client/languages     | query { clientKey }         | [link](docs/api/client/GET-client-languages.md)    |  
 | POST   | api/client               | json { Client   }           | [link](docs/api/client/POST-client.md)    |   
-| POST   | api/client/containers    | json { string[] }           | [link](docs/api/client/POST-client-containers.md)    |    
-| POST   | api/client/languages     | json { string[] }           | [link](docs/api/client/POST-client-languages.md)    |   
-| PUT    | api/client               | query { clientKey }         | [link](docs/api/client/PUT-client.md)    |  
+| PUT    | api/client               | query { clientKey } <br> json { Client   }         | [link](docs/api/client/PUT-client.md)    |  
 | DELETE | api/client               | query { clientKey }         | [link](docs/api/client/DELETE-client.md)    | 
 
 <br>
 
 
-
 ### api/language
-| Method | Path               | Parameter                   | Details                                     |
-|--------| ------------------ | --------------------------- | ------------------------------------------- |
-| GET    | api/language       | query { languageKey }       | [link](docs/api/language/.md)
-| POST   | api/language       | json { Language }           | [link](docs/api/language/.md)
+| Method | Path                 | Parameter                   | Details                                     |
+|--------| ------------------   | --------------------------- | ------------------------------------------- |
+| GET    | api/language         | query { languageKey }       | [link](docs/api/language/GET-language.md)
+| GET    | api/language/active  | query { clientKey   }       | [link](docs/api/language/GET-language-active.md)
+| POST   | api/language         | json  { Language    }       | [link](docs/api/language/POST-language.md)
+| POST   | api/language/active  | query { clientKey   } <br> json  { Language[]  }       | [link](docs/api/language/POST-language-active.md)
 
 <br>
 
-
 ### api/container
 
-| Method | Path               | Parameter              | Details                         |
-|--------| ------------------ | ---------------------- | ------------------------------- |
-| GET    | api/container      | query { containerKey } | [link](docs/api/container/GET-container.md)
-| GET    | api/container      | query { clientKey }    | [link](docs/api/container/GET-container-noempty.md)
+| Method | Path                   | Parameter              | Details                         |
+|--------| ---------------------- | ---------------------- | ------------------------------- |
+| GET    | api/container          | query { containerKey } | [link](docs/api/container/GET-container.md)
+| GET    | api/container/nonempty | query { clientKey }    | [link](docs/api/container/GET-container-nonempty.md)
+| GET    | api/container/active   | query { clientKey }    | [link](docs/api/container/GET-container-active.md)
+| POST   | api/container/active   | query { clientKey   } <br> query { Container[] }  | [link](docs/api/container/POST-container-active.md)
 
 <br>
 <div id="development-environment"></div>
