@@ -45,7 +45,7 @@ module.exports = {
         ],
 
     },
-    watch: true,
+    watch: false,
 
 
     resolve: {

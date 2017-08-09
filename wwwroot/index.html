@@ -2,30 +2,26 @@
 <html lang="en">
     <head>   
 
-        <script type="module"    src="./dist/bundle.min.js"></script>        
+        <script type="module" src="./dist/bundle.min.js"></script>        
         <script>
             /* Preloading client data for the first view to load faster - JSolsvik 09.08.17 */
-            var preload_clientArrayPromise = fetch('api/client', {method: 'GET'} ).then(res => { return res.json(); });
-            // var preload_clientArrayPromise = null;
+            var preload_clientArrayPromise = fetch('api/client', { method: 'GET'} ).then(res => { return res.json(); });
         </script>
-     
-        <link   rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli">
-        <link   rel="stylesheet" href="./static/font-awesome.min.trimmed.css">
 
-        <meta charset="utf-8">
-        <title>Editor - OrdBase</title>
-        
         <style>
-            /*!
+            /*
             *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
-            *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
+            *  Google Fonts Mulit - @doc https://fonts.google.com/specimen/Muli?selection.family=Muli
             */
-            /* FONT PATH
-            * -------------------------- */
             @font-face {
                 font-family: 'FontAwesome';
                 src: url('./static/fontawesome-webfonttrimmed.woff2?v=4.7.0') format('woff2'); /*Super modern browsers*/ 
-                
+                font-weight: normal;
+                font-style: normal;
+            }
+            @font-face {
+                font-family: 'Muli';
+                src: url('./static/Muli-Regular.woff2') format('woff2');
                 font-weight: normal;
                 font-style: normal;
             }
@@ -63,8 +59,11 @@
             main {
                 height: 100%;
             }
+
         </style>
 
+        <meta charset="utf-8">
+        <title>Editor - OrdBase</title>
     </head>
     <body>      
         <header id="ordbase-header"> </header>
