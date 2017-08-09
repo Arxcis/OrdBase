@@ -7,9 +7,9 @@ export class Component_ClientCard extends HTMLElement {
         super();
         let root = this.createShadowRoot();
         root.innerHTML = html;
-        this.get = root.getElementById.bind(root);
+        this._getElementById = root.getElementById.bind(root);
 
-        this._button = this.get('card-button');
+        this._button = this._getElementById('card-button');
 
         this._clickHandler  = () => console.log('default click.....');
         this._selectHandler = () => console.log('default select.....');
@@ -67,7 +67,7 @@ export class Component_ClientCard extends HTMLElement {
     }
 
     setHeading (name){
-        this.get('card-h2').innerHTML = name;
+        this._getElementById('card-h2').innerHTML = name;
         this._name = name;
     }    
 
@@ -76,11 +76,11 @@ export class Component_ClientCard extends HTMLElement {
     }
 
     setText(text) {
-        this.get('card-p').innerHTML = text;
+        this._getElementById('card-p').innerHTML = text;
     }
                 
     setThumbnail (url) { 
-        this.get('card-img').src = url;
+        this._getElementById('card-img').src = url;
     }
 }
 customElements.define('component-card-client', Component_ClientCard);

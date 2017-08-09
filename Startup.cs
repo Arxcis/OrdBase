@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.ResponseCompression;
 
 // Extensions
 using Microsoft.Extensions.DependencyInjection;
@@ -71,7 +72,13 @@ namespace OrdBaseCore {
 
             services.AddDirectoryBrowser();
             services.AddMvc();
+            
+            // @note GZIP compression service
+            // @doc https://www.softfluent.com/blog/dev/Enabling-gzip-compression-with-ASP-NET-Core
+            services.Configure<GzipCompressionProviderOptions>(options => options.Level = System.IO.Compression.CompressionLevel.Optimal);
+            services.AddResponseCompression();
 
+            // @note add Repositories as services
             services.AddTransient<IClientData,      ClientRepository>();
             services.AddTransient<IContainerData,   ContainerRepository>();
             services.AddTransient<ILanguageData,    LanguageRepository>();
@@ -87,6 +94,7 @@ namespace OrdBaseCore {
                               ILoggerFactory loggerFactory,
                               TranslationDb context)
         {
+            // @note Failed to make logging to console work - JSolsvik 09.08.17
             loggerFactory.AddConsole()
                          .AddDebug();
 
@@ -95,7 +103,7 @@ namespace OrdBaseCore {
             }
 
             // TranslationDb.Seed(context);
-
+            app.UseResponseCompression();
             app.UseFileServer();
             app.UseMvc();            
        }
