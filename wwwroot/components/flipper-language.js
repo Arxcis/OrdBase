@@ -5,8 +5,40 @@ import  html  from './flipper-language.html';
 const UP = 38;
 const DOWN = 40;
 
+let _getElementById = null;
+
 export class Component_LanguageFlipper extends HTMLElement { 
 
+        constructor() {
+            super();
+            this._root = this.createShadowRoot();        
+            this._root.innerHTML = html;
+            _getElementById = this._root.getElementById; // alias 
+            
+            this._buttonTemplate = _getElementById('template-button');
+            this._divUp          = _getElementById('div-up');
+            this._divDown        = _getElementById('div-down');
+
+            //
+            // Naviagte
+            //
+            this.addEventListener('keydown', e => {
+                if (e.keyCode == UP) {
+                    let activeElement = this._root.activeElement;
+                    if (activeElement.previousElementSibling != null){
+                        activeElement.previousElementSibling.focus();
+                        
+                    }
+                }
+                else if (e.keyCode == DOWN) {
+
+                    let activeElement = this._root.activeElement;
+                    if (activeElement.nextElementSibling != null){
+                        activeElement.nextElementSibling.focus();
+                    }
+                } 
+            }); 
+        }
     //
     // PUBLIC
     //
@@ -39,15 +71,15 @@ export class Component_LanguageFlipper extends HTMLElement {
     }
 
     selectItem(key) {
-        this._flipUp(this._root.getElementById(key));
+        this._flipUp(_getElementById(key));
     }
 
     setTextUp(text)   { 
-        this._root.getElementById('div-up-header').innerHTML = text;
+        _getElementById('div-up-header').innerHTML = text;
     }
     
     setTextDown(text) { 
-        this._root.getElementById('div-down-header').innerHTML = text;
+        _getElementById('div-down-header').innerHTML = text;
     }
 
     getLanguageKeyArray() {
@@ -59,35 +91,7 @@ export class Component_LanguageFlipper extends HTMLElement {
     //
     // PRIVATE
     //
-    constructor() {
-        super();
-        this._root = this.createShadowRoot();
-        this._root.innerHTML = html;
-        this._buttonTemplate = this._root.getElementById('template-button');
 
-        this._divUp   = this._root.getElementById('div-up');
-        this._divDown = this._root.getElementById('div-down');
-
-        //
-        // Naviagte
-        //
-        this.addEventListener('keydown', e => {
-            if (e.keyCode == UP) {
-                let activeElement = this._root.activeElement;
-                if (activeElement.previousElementSibling != null){
-                    activeElement.previousElementSibling.focus();
-                    
-                }
-            }
-            else if (e.keyCode == DOWN) {
-
-                let activeElement = this._root.activeElement;
-                if (activeElement.nextElementSibling != null){
-                    activeElement.nextElementSibling.focus();
-                }
-            } 
-        }); 
-    }
 
     _flipUp(item) {
         item.classList.add('selected');        

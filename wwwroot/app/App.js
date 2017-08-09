@@ -26,7 +26,7 @@ export const HTTP_CREATED  = 201;
 export const HTTP_UPDATED  = 204;
 export const HTTP_NOTFOUND = 404;
 
-// keycodes
+// keycodes 
 const KEY_BACKSPACE = 8;
 const KEY_HOME = 36;
 
@@ -55,6 +55,6 @@ document.addEventListener('keydown', (e) => {
         load_selectClient();
 })
 
-window.addEventListener('load', () => {
+window.addEventListener('DOMContentLoaded', () => {
     load_selectClient();
 });

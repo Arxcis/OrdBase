@@ -12,6 +12,8 @@ import { load_editClient }        from './load-editClient.js';
 import { load_newClient }         from './load-newClient.js'; 
 import { load_selectTranslation } from './load-selectTranslation.js';
 
+
+
 //
 // @function load_selectClient
 //
@@ -27,7 +29,6 @@ export function load_selectClient() {
     // 1. Fire async call
     //
     async_client_getArray({
-        header: header,
         success: clientArray => {
             clientArray.forEach(client => {
 
@@ -94,13 +95,27 @@ export function load_selectClient() {
 // @function async_deleteCard
 //  @note todo
 //
-function async_client_getArray({ success = force('success'), header = force('header')}) {
+function async_client_getArray({ success = force('success') }) {
 
-    Route.client_get().then(clientArray => {
-        if (clientArray.length > 0)  
-            success(clientArray);
-        else
-            App.flashError('There are no clients to show');
-    })
-    .catch(err => App.flashError(err));
+    // @note preload_clientArrayPromise is declared in index.html to make initial loading faster - JSolsvik 09.08.17
+    if (!preload_clientArrayPromise) {
+        Route.client_get().then(clientArray => {
+            if (clientArray.length > 0)  
+                success(clientArray);
+            else
+                App.flashError('There are no clients to show');
+        })
+        .catch(err => App.flashError(err));
+    }
+    else {
+        preload_clientArrayPromise.then(clientArray => {
+            if (clientArray.length > 0)  {
+                success(clientArray);
+            }
+            else { 
+                App.flashError('There are no clients to show');
+            }   
+        });
+        preload_clientArrayPromise = null;
+    }
 }
