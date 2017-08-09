@@ -1,6 +1,7 @@
 # OrdBase ASP.NET Core 1.1.2
 I18n solution for FMSF
 
+Questions about the software: jonasjso@stud.ntnu.no
 
 <br>
 
