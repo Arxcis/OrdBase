@@ -81,6 +81,8 @@ export function load_selectTranslation (clientKey) {
                         });
 
                         header.setTheme({ textBig: 'Select translation', selectable: true })
+                        header.setIcons({ button1: App.ICON_TRASH, button2: App.ICON_ARROW_LEFT, });       
+                        header.setEventHandlers({ button2_onclick: e => { load_selectClient() }});
                     },
                 });
             });
@@ -138,8 +140,11 @@ export function load_selectTranslation (clientKey) {
                 translationKey: card.getTranslationKey(),
                 success: () => {
                     card.delete();
-                    generator.getCardArray().forEach(_card => _card.close()); 
-                    generator.focus();
+                    generator.getCardArray().forEach(_card => _card.setOpenable()); 
+                    
+                    header.setTheme({textBig: 'Select Translation', selectable: true});
+                    header.setIcons({ button1: App.ICON_TRASH, button2: App.ICON_ARROW_LEFT, });       
+                    header.setEventHandlers({ button2_onclick: e => { load_selectClient() }});  
                 }
             });
         },
