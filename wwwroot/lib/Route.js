@@ -189,7 +189,7 @@ export function container_getClientContainerArray({ clientKey = force('clientKey
 export function container_setClientContainerArray({ clientKey      = force('clientKey'),  
                                                     clientContainerArray = force('clientContainerArray') } = {}) {
 
-    return Fetch.POST({ 
+    return Fetch.PUT({ 
         route: `api/container/active/?clientKey=${clientKey}`, 
         data:  clientContainerArray,
     });
@@ -222,7 +222,7 @@ export function client_getClientLanguageArray({ clientKey = force('clientKey') }
 
 export function language_setClientLanguageArray({ clientKey           = force('clientKey'),  
                                                   clientLanguageArray = force('clientLanguageArray') } = {}) {
-    return Fetch.POST({ 
+    return Fetch.PUT({ 
         route: `api/language/active/?clientKey=${clientKey}`, 
         data:  clientLanguageArray,
     });

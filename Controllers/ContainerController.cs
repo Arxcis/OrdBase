@@ -34,7 +34,7 @@ namespace OrdBaseCore.Controllers
             return _containerRepo.GetClientContainerArray(query);
         }
 
-        [HttpPost("api/container/active")]
+        [HttpPut("api/container/active")]
         public IActionResult  SetClientContainerArray([FromQuery] ClientQuery query, [FromBody] IEnumerable<ClientContainer> clientContainerArray)
         {
             if (clientContainerArray ==  null)

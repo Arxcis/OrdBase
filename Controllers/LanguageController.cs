@@ -36,7 +36,7 @@ namespace OrdBaseCore.Controllers
             return _languageRepo.GetClientLanguageArray(query);
         }
 
-        [HttpPost("api/language/active")]
+        [HttpPut("api/language/active")]
         public IActionResult SetClientLanguageArray([FromQuery] ClientQuery query, [FromBody] IEnumerable<ClientLanguage> clientLanguageArray) 
         {
             if (clientLanguageArray == null)
