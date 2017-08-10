@@ -47,7 +47,7 @@ namespace OrdBaseCore.Repositories
             return new NoContentResult{};
         }
 
-        public IActionResult SetLanguages(ClientQuery query, IEnumerable<ClientLanguage> clientLanguageArray)
+        public IActionResult SetClientLanguages(ClientQuery query, IEnumerable<ClientLanguage> clientLanguageArray)
         {
             var _clientLanguages = _context.ClientLanguage.Where(cl => cl.ClientKey == query.ClientKey);
             _context.RemoveRange(_clientLanguages);

@@ -27,20 +27,13 @@ namespace OrdBaseCore.Repositories
         }
     
 
-        public IEnumerable<ClientContainer> GetNonEmpty(ClientQuery query) 
+        public IEnumerable<Container> GetNonEmpty(ClientQuery query) 
         {
-
             return (from t in _context.Translation
                     where t.ClientKey == query.ClientKey
                     select t.ContainerKey)
                     .Distinct()
-                    .Select(key => new ClientContainer 
-                    { 
-                        ClientKey = query.ClientKey, 
-                        ContainerKey = key,
-                        TranslationCount = _context.Translation.Where(t => t.ClientKey == query.ClientKey &&
-                                                                           t.ContainerKey == key).Count() 
-                    });
+                    .Select(key => new Container  { Key = key });
         }
 
 
@@ -48,7 +41,12 @@ namespace OrdBaseCore.Repositories
         {
             return (from cc in _context.ClientContainer
                     where cc.ClientKey == query.ClientKey || query.ClientKey == null
-                    select cc)
+                    select new ClientContainer {
+                        ClientKey = cc.ClientKey,
+                        ContainerKey = cc.ContainerKey,
+                        TranslationCount = _context.Translation.Where(t => t.ClientKey    == cc.ClientKey && 
+                                                                           t.ContainerKey == cc.ContainerKey).Count()
+                    })
                     .ToArray();
         }     
 
