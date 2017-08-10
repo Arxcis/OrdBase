@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="no-nb">
     <head>   
 
-        <script type="module" src="./dist/bundle.min.js"></script>        
+        <script type="module" src="./dist/bundle.js"></script>        
         <script>
             /* Preloading client data for the first view to load faster - JSolsvik 09.08.17 */
             var preload_clientArrayPromise = fetch('api/client', { method: 'GET'} ).then(res => { return res.json(); });

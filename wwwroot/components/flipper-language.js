@@ -5,26 +5,25 @@ import  html  from './flipper-language.html';
 const UP = 38;
 const DOWN = 40;
 
-let _getElementById = null;
 
 export class Component_LanguageFlipper extends HTMLElement { 
 
         constructor() {
             super();
-            this._root = this.createShadowRoot();        
-            this._root.innerHTML = html;
-            _getElementById = this._root.getElementById; // alias 
+            let root = this.createShadowRoot();        
+            root.innerHTML = html;
+            this._getElementById = root.getElementById.bind(root); // alias 
             
-            this._buttonTemplate = _getElementById('template-button');
-            this._divUp          = _getElementById('div-up');
-            this._divDown        = _getElementById('div-down');
+            this._buttonTemplate = this._getElementById('template-button');
+            this._divUp          = this._getElementById('div-up');
+            this._divDown        = this._getElementById('div-down');
 
             //
             // Naviagte
             //
             this.addEventListener('keydown', e => {
                 if (e.keyCode == UP) {
-                    let activeElement = this._root.activeElement;
+                    let activeElement = root.activeElement;
                     if (activeElement.previousElementSibling != null){
                         activeElement.previousElementSibling.focus();
                         
@@ -32,7 +31,7 @@ export class Component_LanguageFlipper extends HTMLElement {
                 }
                 else if (e.keyCode == DOWN) {
 
-                    let activeElement = this._root.activeElement;
+                    let activeElement = root.activeElement;
                     if (activeElement.nextElementSibling != null){
                         activeElement.nextElementSibling.focus();
                     }
@@ -71,15 +70,15 @@ export class Component_LanguageFlipper extends HTMLElement {
     }
 
     selectItem(key) {
-        this._flipUp(_getElementById(key));
+        this._flipUp(this._getElementById(key));
     }
 
     setTextUp(text)   { 
-        _getElementById('div-up-header').innerHTML = text;
+        this._getElementById('div-up-header').innerHTML = text;
     }
     
     setTextDown(text) { 
-        _getElementById('div-down-header').innerHTML = text;
+        this._getElementById('div-down-header').innerHTML = text;
     }
 
     getLanguageKeyArray() {

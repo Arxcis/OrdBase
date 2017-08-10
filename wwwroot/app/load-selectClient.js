@@ -3,6 +3,7 @@
 import * as App from './App.js';
 import * as Route from '../lib/Route.js';
 import { force } from  '../lib/Util.js'; 
+import * as Ordbase from '../lib/Ordbase.js';
 
 import { View_SelectClient }      from '../views/select-client.js';
 import { Component_ClientCard   } from '../components/card-client.js';
@@ -28,6 +29,8 @@ export function load_selectClient() {
     //
     // 1. Fire async call
     //
+    Ordbase.async_loadContainer('Ordbase', 'select_client_page');
+
     async_client_getArray({
         success: clientArray => {
             clientArray.forEach(client => {
@@ -55,8 +58,11 @@ export function load_selectClient() {
     //
     // 3. Set up header
     //
-    header.setTheme({ textSmall: 'Ordbase', textBig: 'Select Client', selectable: true })
-    header.setIcons({ button1: App.ICON_PENCIL, button2: App.ICON_PLUS, });   
+    Ordbase.translate2('header_ordbase', 'header_select_client', (text1, text2) => {   
+        header.setTheme({ textSmall: text1, textBig: text2, selectable: true })
+    });
+
+    header.setIcons({ button1: App.ICON_PENCIL, button2: App.ICON_PLUS });   
     header.setEventHandlers({
 
         button1_onclick: event => { 
@@ -65,13 +71,13 @@ export function load_selectClient() {
             
             if (!cardArray[0].isEditable()) {
                 cardArray.forEach(card => card.setEditable());           
-                header.setTheme({textBig: 'Edit Client', editable: true});
+                Ordbase.translate('header_edit_client', text => header.setTheme({ textBig: text, editable: true }));
                 header.setIcons({ button1: '', button2: App.ICON_TIMES, });
                 header.setEventHandlers({
 
                     button2_onclick: e => { 
                         cardArray.forEach(card => card.setSelectable());            
-                        header.setTheme({textBig: 'Select Client', selectable: true});
+                        Ordbase.translate('header_select_client', text => header.setTheme({textBig: text, selectable: true}));
                         header.setIcons({ button1: App.ICON_PENCIL, button2: App.ICON_PLUS, });       
                         header.setEventHandlers({ button2_onclick: e => { load_newClient() }});        
                         view.focus();            
@@ -103,7 +109,7 @@ function async_client_getArray({ success = force('success') }) {
             if (clientArray.length > 0)  
                 success(clientArray);
             else
-                App.flashError('There are no clients to show');
+                App.flashError(Ordbase.translate('error_no_clients'));
         })
         .catch(err => App.flashError(err));
     }
@@ -113,7 +119,7 @@ function async_client_getArray({ success = force('success') }) {
                 success(clientArray);
             }
             else { 
-                App.flashError('There are no clients to show');
+                App.flashError(Ordbase.translate('error_no_clients'));
             }   
         });
         preload_clientArrayPromise = null;
