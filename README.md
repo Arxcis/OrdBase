@@ -421,9 +421,12 @@ To open a project in VS Code run:
 $ code .
 ``` 
 
+<br>
+<div id="performance"></div>
 
-## 4. Performance
-Last updated: 08.08.17 by Jonas Solsvik
+
+## 5. Performance
+Last updated: 10.08.17 by Jonas Solsvik
 
 <br>
 
