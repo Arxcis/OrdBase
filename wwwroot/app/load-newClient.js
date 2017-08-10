@@ -27,10 +27,10 @@ export function load_newClient(clientKey) {
     //
     // 1. Fire async call
     //
-    async_client_getLanguageKeyArray({
-        success: languageKeyArray => {
-            languageKeyArray.forEach(lang => {
-                flipper.makeItem({ key: lang.key,  text: `${lang.name} - ${lang.key}`, selected: false });
+    async_language_getArray({
+        success: languageArray => {
+            languageArray.forEach(language => {
+                flipper.makeItem({ key: language.key,  text: `${language.name} - ${language.key}`, selected: false });
             });
         }
     });
@@ -78,21 +78,21 @@ export function load_newClient(clientKey) {
 }
 
 //
-// @function async_client_getLanguageKeyArray
+// @function async_language_getArray
 //  @note @todo
 //
-function async_client_getLanguageKeyArray({ success = force('success')}) {
+function async_language_getArray({ success = force('success')}) {
 
-    Route.language_get().then(languageKeyArray => {
+    Route.language_get().then(languageArray => {
 
-        if (languageKeyArray.length > 0) {
-            success(languageKeyArray);
+        if (languageArray.length > 0) {
+            success(languageArray);
         }
         else {
             App.flashError('There are no supported languages in the database....');
         }
     }) 
-    .catch(error => App.flashError(error));
+    .catch(error => console.error(error));
 }
 
 //
@@ -101,8 +101,8 @@ function async_client_getLanguageKeyArray({ success = force('success')}) {
 //
 function async_client_create({ success        = force('success'),
                                client         = force('client'), 
-                               containerArray = force('containerArray'), 
-                               languageArray  = force('languageArray'), }) {
+                               containerKeyArray = force('containerKeyArray'), 
+                               languageKeyArray  = force('languageKeyArray'), }) {
 
     Route.client_create({client: client})
     .then(res => {
@@ -110,7 +110,10 @@ function async_client_create({ success        = force('success'),
 
         if (res.status == App.HTTP_CREATED) {
 
-            Route.client_setContainers({clientKey: client.key, containerArray: containerArray}).then(res => {
+            Route.container_setClientContainerArray({
+                clientKey: client.key, 
+                clientContainerArray: containerArray.map(containerKey => { return {containerKey: containerKey, clientKey: client.key }})
+            }).then(res => {
                 if (res.status != App.HTTP_CREATED) { 
                     App.flashError(`code ${res.status}: clientContainers could not be created`);
                 } else {
@@ -120,7 +123,10 @@ function async_client_create({ success        = force('success'),
                 
             }).catch(error => console.error(error));
 
-            Route.client_setLanguages({clientKey:  client.key, languageArray: languageArray}).then(res => {
+            Route.language_setClientLanguageArray({
+                clientKey:  client.key, 
+                clientLanguageArray: languageKeyArray.map(languageKey => { return { languageKey: languageKey, clientKey: client.key }}) 
+            }).then(res => {
                 if (res.status != App.HTTP_CREATED) { 
                     App.flashError(`code ${res.status}: clientLanguages could not be created`);
                 }
