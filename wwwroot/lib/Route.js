@@ -186,7 +186,7 @@ export function container_getClientContainerArray({ clientKey = force('clientKey
     });
 };
 
-export function container_setClientContainerArray({ clientKey      = force('clientKey'),  
+export function container_setClientContainerArray({ clientKey            = force('clientKey'),  
                                                     clientContainerArray = force('clientContainerArray') } = {}) {
 
     return Fetch.PUT({ 

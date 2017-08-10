@@ -21,7 +21,8 @@ namespace OrdBaseCore.Controllers
         //
         // GET api/client/*
         //
-    	[HttpGet("api/client")]
+        [ResponseCache(CacheProfileName="api_cache")]  
+        [HttpGet("api/client")]
     	public IEnumerable<Client> Get([FromQuery] ClientQuery query)
     	{
     		return _clientRepo.Get(query);

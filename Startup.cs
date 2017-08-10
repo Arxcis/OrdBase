@@ -9,7 +9,10 @@ using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Net.Http.Headers;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.AspNetCore.ResponseCaching;
 
 // Extensions
 using Microsoft.Extensions.DependencyInjection;
@@ -70,9 +73,16 @@ namespace OrdBaseCore {
                 
             );
 
+            // @doc response caching middleware - https://docs.microsoft.com/en-us/aspnet/core/performance/caching/middleware
             services.AddDirectoryBrowser();
-            services.AddMvc();
-            
+            services.AddMvc((options) => {
+                options.CacheProfiles.Add("api_cache", new CacheProfile() {  
+                    Duration = 60 * 60 * 24,  
+                        Location = ResponseCacheLocation.Any  
+                });
+            });
+            services.AddResponseCaching();
+
             // @note GZIP compression service
             // @doc https://www.softfluent.com/blog/dev/Enabling-gzip-compression-with-ASP-NET-Core
             services.Configure<GzipCompressionProviderOptions>(options => options.Level = System.IO.Compression.CompressionLevel.Optimal);
@@ -104,11 +114,21 @@ namespace OrdBaseCore {
 
             // TranslationDb.Seed(context);
             app.UseResponseCompression();
-            app.UseFileServer();
-            app.UseMvc();            
+
+            // @doc caching static files - https://andrewlock.net/adding-cache-control-headers-to-static-files-in-asp-net-core/
+            app.UseDefaultFiles();
+            app.UseStaticFiles(new StaticFileOptions  
+            {
+                OnPrepareResponse = ctx =>
+                {
+                    const int durationInSeconds = 60 * 60 * 24;
+                    ctx.Context.Response.Headers[HeaderNames.CacheControl] = "public,max-age=" + durationInSeconds;
+                }
+            });
+            app.UseMvc();
+            app.UseResponseCaching();   
        }
     }
-
     //
     // @note This is needed for Entity Framework to be able to do migrations.
     //       The class makes it possible for EF to get the DbContext, but this should

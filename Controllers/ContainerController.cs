@@ -16,7 +16,8 @@ namespace OrdBaseCore.Controllers
             _containerRepo = containerRepo;
         }
 
-		[Route("api/container")]
+	    [ResponseCache(CacheProfileName="api_cache")]  
+        [Route("api/container")]
 		public IEnumerable<Container> Get([FromQuery] string containerKey) 
 		{
             return _containerRepo.Get(containerKey);
@@ -28,6 +29,7 @@ namespace OrdBaseCore.Controllers
             return _containerRepo.GetNonEmpty(query);
         }
 
+        [ResponseCache(CacheProfileName="api_cache")]  
         [HttpGet("api/container/active")]
         public IEnumerable<ClientContainer> GetClientContainerArray([FromQuery] ClientQuery query) 
         {
