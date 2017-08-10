@@ -23,9 +23,11 @@
             width:100%;
             min-height: 75px;
             font-size: var(--ordbase-button-font-size);
-
+            
             border: 10px solid transparent;
             border-width: 0px 0px 0px 10px;
+
+            border-bottom: 1px solid black;
         }
 
 
@@ -101,7 +103,7 @@
             width: 400px;
         }
 
-        input.check-iscomplete {
+        input.checkbox-complete {
             cursor: pointer;
             width:30px;
             height:30px;
@@ -190,7 +192,7 @@
                 <label for  = "form-translation-{{ languageCode }}">Key</label><br>
                 <input class="text-translation" id= "form-translation-{{ languageCode  }}" type="text" data-min-size="20" value="">
  
-                <input class="check-iscomplete" type="checkbox"> <span class="checkbox-text">Complete </span></input>
+                <input class="checkbox-complete" type="checkbox"> <span class="checkbox-text">Complete </span></input>
             </fieldset>
         </template>
         

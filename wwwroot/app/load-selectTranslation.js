@@ -91,7 +91,7 @@ export function load_selectTranslation (clientKey) {
                         //
                         // @cleanup Repetitive 3 lines - JSolsvik 10.08.17
                         //
-                        Ordbase.translate('header_select_translation', text => header.setTheme({ textBig: text, selectable: true }));
+                        Ordbase.translate('select_translation', text => header.setTheme({ textBig: text, selectable: true }));
                         header.setIcons({ button1: App.ICON_TRASH, button2: App.ICON_ARROW_LEFT, });       
                         header.setEventHandlers({ button2_onclick: e => { load_selectClient() }});
                     },
@@ -134,12 +134,12 @@ export function load_selectTranslation (clientKey) {
                 } 
             })
 
-            Ordbase.translate('header_edit_translation', text => header.setTheme({ textBig: text, editable: true }));
+            Ordbase.translate('edit_translation', text => header.setTheme({ textBig: text, editable: true }));
             card.open({ languageCount: languageKeyArray.length });            
         },
 
         onclose: () => {
-            Ordbase.translate('header_select_translation', text => header.setTheme({ textBig: text, selectable: true }));
+            Ordbase.translate('select_translation', text => header.setTheme({ textBig: text, selectable: true }));
         },
 
         ondelete:(card, e) => { 
@@ -155,7 +155,7 @@ export function load_selectTranslation (clientKey) {
                     //
                     // @cleanup Repetitive 3 lines - JSolsvik 10.08.17
                     //
-                    Ordbase.translate('header_select_translation', text => header.setTheme({ textBig: text, selectable: true }));                    
+                    Ordbase.translate('select_translation', text => header.setTheme({ textBig: text, selectable: true }));                    
                     header.setIcons({ button1: App.ICON_TRASH, button2: App.ICON_ARROW_LEFT, });       
                     header.setEventHandlers({ button2_onclick: e => { load_selectClient() }});  
                 }
@@ -209,7 +209,7 @@ export function load_selectTranslation (clientKey) {
             //
             // @cleanup Repetitive 3 lines - JSolsvik 10.08.17
             //
-            Ordbase.translate('header_select_translation', text => header.setTheme({ textBig: text, selectable: true }));
+            Ordbase.translate('select_translation', text => header.setTheme({ textBig: text, selectable: true }));
             header.setIcons({ button1: App.ICON_TRASH, button2: App.ICON_ARROW_LEFT, });       
             header.setEventHandlers({ button2_onclick: e => { load_selectClient() }});
         },
@@ -219,7 +219,7 @@ export function load_selectTranslation (clientKey) {
     // 2. Setup header
     //
 
-    Ordbase.translate('header_select_translation', text => header.setTheme({textSmall: 'Ordbase', textBig: text, selectable: true }));                        
+    Ordbase.translate('select_translation', text => header.setTheme({textSmall: 'Ordbase', textBig: text, selectable: true }));                        
     header.setIcons({ button1: App.ICON_TRASH, button2: App.ICON_ARROW_LEFT });
     header.setEventHandlers({
         
@@ -235,7 +235,7 @@ export function load_selectTranslation (clientKey) {
                         card.setDeleteable();
                     });
 
-                    Ordbase.translate('header_delete_translation', text => header.setTheme({ textBig: text, deleteable: true }));                        
+                    Ordbase.translate('delete_translation', text => header.setTheme({ textBig: text, deleteable: true }));                        
                     header.setIcons({ button1: App.ICON_NONE,  button2: App.ICON_TIMES, });
                     header.setEventHandlers({
                         button2_onclick: e => { 
@@ -244,7 +244,7 @@ export function load_selectTranslation (clientKey) {
                             //
                             // @cleanup Repetitive 3 lines - JSolsvik 10.08.17
                             //
-                            Ordbase.translate('header_select_translation', text => header.setTheme({ textBig: text, selectable: true }));    
+                            Ordbase.translate('select_translation', text => header.setTheme({ textBig: text, selectable: true }));    
                             header.setIcons({ button1: App.ICON_TRASH, button2: App.ICON_ARROW_LEFT, });       
                             header.setEventHandlers({ button2_onclick: e => { load_selectClient() }});        
                             generator.focus();            
@@ -315,6 +315,8 @@ function makeTranslationCard({ cardPrototype = force('cardPrototype'),
     let card = new Component_TranslationCard;
 
     card.setTranslationKey(groupMeta.key);
+    Ordbase.translate('update_translation', text =>  card.setSubmitButtontext(text));
+    Ordbase.translate('checkbox_text',      text => card.setCheckboxText(text));
 
     languageKeyArray.forEach(languageKey => {
         let item = groupMeta.items.find(item => item.languageKey == languageKey);
