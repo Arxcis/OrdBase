@@ -60,8 +60,8 @@ export function load_newClient(clientKey) {
         async_client_create({ 
             header: header,
             client: form.getClient(), 
-            containerArray: generator.getContainerKeyArray(), 
-            languageArray: flipper.getLanguageKeyArray(), 
+            containerKeyArray: generator.getContainerKeyArray(), 
+            languageKeyArray: flipper.getLanguageKeyArray(), 
             success: () => load_selectClient(),
         });            
     });
@@ -112,10 +112,12 @@ function async_client_create({ success        = force('success'),
 
             Route.container_setClientContainerArray({
                 clientKey: client.key, 
-                clientContainerArray: containerArray.map(containerKey => { return {containerKey: containerKey, clientKey: client.key }})
+                clientContainerArray: containerKeyArray.map(containerKey => { return {containerKey: containerKey, clientKey: client.key }})
             }).then(res => {
                 if (res.status != App.HTTP_CREATED) { 
                     App.flashError(`code ${res.status}: clientContainers could not be created`);
+                    console.log(res.status);
+                    
                 } else {
                     success();        
                 }
@@ -129,6 +131,7 @@ function async_client_create({ success        = force('success'),
             }).then(res => {
                 if (res.status != App.HTTP_CREATED) { 
                     App.flashError(`code ${res.status}: clientLanguages could not be created`);
+                    console.log(res.status);
                 }
                 else {
                     success();        

@@ -34,8 +34,6 @@ export function load_editClient(clientKey) {
                 generator.makeItem({key: containerKey, selected: true}); 
             });
 
-            console.log(containerKeyArray, containerNonEmptyArray);
-
             containerNonEmptyArray.forEach(container => {
                 let found = containerKeyArray.find(containerKey => { return container.key == containerKey; })
                 if (found === undefined)
@@ -49,14 +47,14 @@ export function load_editClient(clientKey) {
 
     async_language_getArray_client_getClientLanguageKeyArray({
         clientKey: clientKey, 
-        success: (languageArray, languageKeyArray) => {
+        success: (languageArray, clientLanguageKeyArray) => {
 
-            languageArray.forEach(lang => {
-                flipper.makeItem({ key: lang.key,  text: `${lang.name} - ${lang.key}`,  selected: false });
+            languageArray.forEach(language => {
+                flipper.makeItem({ key: language.key,  text: `${language.name} - ${language.key}`,  selected: false });
             });
 
-            languageKeyArray.forEach(key => {
-                flipper.selectItem(key);
+            clientLanguageKeyArray.forEach(clientLanguageKey => {
+                flipper.selectItem(clientLanguageKey);
             })            
         }
     });
@@ -92,8 +90,8 @@ export function load_editClient(clientKey) {
 
         async_client_update({ 
             client:         form.getClient(), 
-            containerArray: generator.getContainerKeyArray(), 
-            languageArray:  flipper.getLanguageKeyArray(), 
+            containerKeyArray: generator.getContainerKeyArray(), 
+            languageKeyArray:  flipper.getLanguageKeyArray(), 
             success: () => load_selectClient(),
         });
     });
@@ -180,7 +178,7 @@ function async_client_update({ success = force('success'),
 
             Route.container_setClientContainerArray({
                 clientKey: client.key, 
-                clientContainerArray: containerArray.map(containerKey => { return {containerKey: containerKey, clientKey: client.key }})
+                clientContainerArray: containerKeyArray.map(containerKey => { return {containerKey: containerKey, clientKey: client.key }})
             }).then(res => {
                 if (res.status != App.HTTP_CREATED) { 
                     App.flashError(`code ${res.status}: clientContainers could not be updated`);

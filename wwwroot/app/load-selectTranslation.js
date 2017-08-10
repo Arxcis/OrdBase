@@ -376,7 +376,7 @@ function async_container_getClientContainerKeyArray ({  success  = force('succes
                                                      clientKey   = force('clientKey') }) {
 
     Route.container_getClientContainerArray({clientKey: clientKey}).then(clientContainerArray => {        
-        if (containerKeyArray.length > 0) 
+        if (clientContainerArray.length > 0) 
             success(clientContainerArray.map(clientContainer => { return clientContainer.containerKey }));
         else {
             App.flashError('There are no containers in this client...');
