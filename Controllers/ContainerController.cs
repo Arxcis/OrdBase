@@ -29,18 +29,18 @@ namespace OrdBaseCore.Controllers
         }
 
         [HttpGet("api/container/active")]
-        public IEnumerable<ClientContainer> GetActiveContainers([FromQuery] ClientQuery query) 
+        public IEnumerable<ClientContainer> GetClientContainerArray([FromQuery] ClientQuery query) 
         {
-            return _containerRepo.GetClientContainers(query);
+            return _containerRepo.GetClientContainerArray(query);
         }
 
         [HttpPost("api/container/active")]
-        public IActionResult  SetActiveContainers([FromQuery] ClientQuery query, [FromBody] IEnumerable<ClientContainer> clientContainerArray)
+        public IActionResult  SetClientContainerArray([FromQuery] ClientQuery query, [FromBody] IEnumerable<ClientContainer> clientContainerArray)
         {
             if (clientContainerArray ==  null)
                 return  BadRequest();
 
-            return _containerRepo.SetClientContainers(query, clientContainerArray);
+            return _containerRepo.SetClientContainerArray(query, clientContainerArray);
         }
     }
 }

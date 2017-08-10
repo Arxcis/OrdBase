@@ -37,7 +37,7 @@ namespace OrdBaseCore.Repositories
         }
 
 
-        public IEnumerable<ClientContainer> GetClientContainers(ClientQuery query)
+        public IEnumerable<ClientContainer> GetClientContainerArray(ClientQuery query)
         {
             return (from cc in _context.ClientContainer
                     where cc.ClientKey == query.ClientKey || query.ClientKey == null
@@ -50,7 +50,7 @@ namespace OrdBaseCore.Repositories
                     .ToArray();
         }     
 
-        public IActionResult SetClientContainers(ClientQuery query, IEnumerable<ClientContainer> clientContainerArray)
+        public IActionResult SetClientContainerArray(ClientQuery query, IEnumerable<ClientContainer> clientContainerArray)
         {
             var _clientContainers = _context.ClientContainer.Where(cc => cc.ClientKey == query.ClientKey);
             _context.RemoveRange(_clientContainers);

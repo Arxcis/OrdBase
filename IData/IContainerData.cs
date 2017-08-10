@@ -8,7 +8,7 @@ namespace OrdBaseCore.IData
     {
         IEnumerable<Container> Get(string containerKey);
         IEnumerable<Container> GetNonEmpty(ClientQuery query);
-        IEnumerable<ClientContainer> GetClientContainers(ClientQuery query);
-        IActionResult SetClientContainers(ClientQuery query, IEnumerable<ClientContainer> clientContainerArray);
+        IEnumerable<ClientContainer> GetClientContainerArray(ClientQuery query);
+        IActionResult SetClientContainerArray(ClientQuery query, IEnumerable<ClientContainer> clientContainerArray);
     }	
 }

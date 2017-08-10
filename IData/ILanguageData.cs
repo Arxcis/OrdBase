@@ -8,7 +8,7 @@ namespace OrdBaseCore.IData
     {
         IEnumerable<Language> Get(string languageKey);
         IActionResult Create(Language Language);
-        IEnumerable<ClientLanguage> GetClientLanguages([FromQuery] ClientQuery query);
-        IActionResult SetClientLanguages(ClientQuery query, IEnumerable<ClientLanguage> clientLanguageArray);
+        IEnumerable<ClientLanguage> GetClientLanguageArray([FromQuery] ClientQuery query);
+        IActionResult SetClientLanguageArray(ClientQuery query, IEnumerable<ClientLanguage> clientLanguageArray);
     }	
 }

@@ -31,18 +31,18 @@ namespace OrdBaseCore.Controllers
         }
 
         [HttpGet("api/language/active")]
-        public IEnumerable<ClientLanguage> GetClientLanguages([FromQuery] ClientQuery query) 
+        public IEnumerable<ClientLanguage> GetClientLanguageArray([FromQuery] ClientQuery query) 
         {
-            return _languageRepo.GetClientLanguages(query);
+            return _languageRepo.GetClientLanguageArray(query);
         }
 
         [HttpPost("api/language/active")]
-        public IActionResult SetClientLanguages([FromQuery] ClientQuery query, [FromBody] IEnumerable<ClientLanguage> clientLanguageArray) 
+        public IActionResult SetClientLanguageArray([FromQuery] ClientQuery query, [FromBody] IEnumerable<ClientLanguage> clientLanguageArray) 
         {
             if (clientLanguageArray == null)
                 return  BadRequest();
 
-            return _languageRepo.SetClientLanguages(query, clientLanguageArray);
+            return _languageRepo.SetClientLanguageArray(query, clientLanguageArray);
         }
     
     }
