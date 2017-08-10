@@ -59,10 +59,6 @@ window.addEventListener('DOMContentLoaded', () => {
         if (e.keyCode === KEY_HOME)    
             load_selectClient();
     })
-
-    Ordbase.OnLanguageChange(newLang => {
-        load_selectClient();
-    })
-
+    
     load_selectClient();
 });

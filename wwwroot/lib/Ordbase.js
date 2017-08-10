@@ -31,7 +31,7 @@ export function OnLanguageChange(handler) {
 }
 
 export function translate(translationKey, success) {
-
+    console.log('lang: ', html.getAttribute('lang')); 
     containerPromise.then(keyvalueArray => {
         let text = keyvalueArray.find(keyvalue => { return keyvalue.key == translationKey }).value;
         success(text);

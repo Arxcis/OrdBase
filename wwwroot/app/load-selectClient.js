@@ -21,6 +21,12 @@ import { load_selectTranslation } from './load-selectTranslation.js';
 export function load_selectClient() {
 
     //
+    // -1. Set up Ordbase
+    //
+    Ordbase.OnLanguageChange(() => { load_selectClient(); });
+    Ordbase.async_loadContainer('Ordbase', 'select_client_page');
+
+    //
     // 0. Create component instances
     //
     const header = new Component_Header;
@@ -29,8 +35,6 @@ export function load_selectClient() {
     //
     // 1. Fire async call
     //
-    Ordbase.async_loadContainer('Ordbase', 'select_client_page');
-
     async_client_getArray({
         success: clientArray => {
             clientArray.forEach(client => {
