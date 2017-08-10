@@ -2,6 +2,8 @@
 
 import * as App from './App.js';
 import * as Route from '../lib/Route.js';
+import * as Ordbase from '../lib/Ordbase.js';
+
 import { force } from '../lib/Util.js'; 
 
 import { View_SelectTranslation } from '../views/select-translation.js';
@@ -20,6 +22,12 @@ import { load_selectClient }    from './load-selectClient.js';
 //
 export function load_selectTranslation (clientKey) {
     
+    //
+    // -1. Set up Ordbase
+    //
+    Ordbase.OnLanguageChange(() => { load_selectTranslation(clientKey); });
+    Ordbase.async_loadContainer('Ordbase', 'select_translation_page');
+
     //
     // 0. Init components
     //
@@ -80,7 +88,12 @@ export function load_selectTranslation (clientKey) {
                             },
                         });
 
-                        header.setTheme({ textBig: 'Select translation', selectable: true })
+                        //
+                        // @cleanup Repetitive 3 lines - JSolsvik 10.08.17
+                        //
+                        Ordbase.translate('select_translation', text => header.setTheme({ textBig: text, selectable: true }));
+                        header.setIcons({ button1: App.ICON_TRASH, button2: App.ICON_ARROW_LEFT, });       
+                        header.setEventHandlers({ button2_onclick: e => { load_selectClient() }});
                     },
                 });
             });
@@ -121,13 +134,12 @@ export function load_selectTranslation (clientKey) {
                 } 
             })
 
-            // @TODO close other open cards
-            header.setTheme({textBig: 'Edit translation', editable: true});
+            Ordbase.translate('edit_translation', text => header.setTheme({ textBig: text, editable: true }));
             card.open({ languageCount: languageKeyArray.length });            
         },
 
         onclose: () => {
-            header.setTheme({textBig: 'Select translation', selectable: true});
+            Ordbase.translate('select_translation', text => header.setTheme({ textBig: text, selectable: true }));
         },
 
         ondelete:(card, e) => { 
@@ -138,8 +150,14 @@ export function load_selectTranslation (clientKey) {
                 translationKey: card.getTranslationKey(),
                 success: () => {
                     card.delete();
-                    generator.getCardArray().forEach(_card => _card.close()); 
-                    generator.focus();
+                    generator.getCardArray().forEach(_card => _card.setOpenable()); 
+
+                    //
+                    // @cleanup Repetitive 3 lines - JSolsvik 10.08.17
+                    //
+                    Ordbase.translate('select_translation', text => header.setTheme({ textBig: text, selectable: true }));                    
+                    header.setIcons({ button1: App.ICON_TRASH, button2: App.ICON_ARROW_LEFT, });       
+                    header.setEventHandlers({ button2_onclick: e => { load_selectClient() }});  
                 }
             });
         },
@@ -187,13 +205,21 @@ export function load_selectTranslation (clientKey) {
                     });
                 }
             });
+
+            //
+            // @cleanup Repetitive 3 lines - JSolsvik 10.08.17
+            //
+            Ordbase.translate('select_translation', text => header.setTheme({ textBig: text, selectable: true }));
+            header.setIcons({ button1: App.ICON_TRASH, button2: App.ICON_ARROW_LEFT, });       
+            header.setEventHandlers({ button2_onclick: e => { load_selectClient() }});
         },
     });
 
     //
     // 2. Setup header
     //
-    header.setTheme({textSmall: 'Ordbase', textBig: 'Select Translation', selectable: true})
+
+    Ordbase.translate('select_translation', text => header.setTheme({textSmall: 'Ordbase', textBig: text, selectable: true }));                        
     header.setIcons({ button1: App.ICON_TRASH, button2: App.ICON_ARROW_LEFT });
     header.setEventHandlers({
         
@@ -209,12 +235,16 @@ export function load_selectTranslation (clientKey) {
                         card.setDeleteable();
                     });
 
-                    header.setTheme({deleteable: true, textBig: 'Delete Translation'});
-                    header.setIcons({ button1: '',  button2: App.ICON_TIMES, });
+                    Ordbase.translate('delete_translation', text => header.setTheme({ textBig: text, deleteable: true }));                        
+                    header.setIcons({ button1: App.ICON_NONE,  button2: App.ICON_TIMES, });
                     header.setEventHandlers({
                         button2_onclick: e => { 
-                            cardArray.forEach(card => card.setOpenable());            
-                            header.setTheme({textBig: 'Select Translation', selectable: true});
+                            cardArray.forEach(card => card.setOpenable());  
+
+                            //
+                            // @cleanup Repetitive 3 lines - JSolsvik 10.08.17
+                            //
+                            Ordbase.translate('select_translation', text => header.setTheme({ textBig: text, selectable: true }));    
                             header.setIcons({ button1: App.ICON_TRASH, button2: App.ICON_ARROW_LEFT, });       
                             header.setEventHandlers({ button2_onclick: e => { load_selectClient() }});        
                             generator.focus();            
@@ -223,7 +253,7 @@ export function load_selectTranslation (clientKey) {
                     generator.focus();     
                 }
             } else {
-                App.flashError('There is nothing to delete in this container...');
+                Ordbase.translate('error_nothing_to_delete', text => App.flashError(text));
                 picker.focus();
             }                
         },
@@ -285,6 +315,8 @@ function makeTranslationCard({ cardPrototype = force('cardPrototype'),
     let card = new Component_TranslationCard;
 
     card.setTranslationKey(groupMeta.key);
+    Ordbase.translate('update_translation', text =>  card.setSubmitButtontext(text));
+    Ordbase.translate('checkbox_text',      text => card.setCheckboxText(text));
 
     languageKeyArray.forEach(languageKey => {
         let item = groupMeta.items.find(item => item.languageKey == languageKey);

@@ -12,6 +12,7 @@ Questions about the software: jonasjso@stud.ntnu.no
 [2. Data model](#data-model) <br>
 [3. API Reference](#api-reference) <br>
 [4. Development environment](#development-environment) <br>
+[5. Performance](#performance) <br>
 
 <br>
 
@@ -420,3 +421,105 @@ To open a project in VS Code run:
 ```
 $ code .
 ``` 
+
+<br>
+<div id="performance"></div>
+
+
+## 5. Performance
+Last updated: 10.08.17 by Jonas Solsvik
+
+<br>
+
+### Caching
+
+**Discussion**
+
+Since Ordbase is mostly serving translations which should not change much over time, there is great opportunity to exploit caching in every way possible. Initially it was suggested to build caching mechanisms for other services talking to Ordbase, aswell as in-browser caching mechanisms. 
+
+After some consideration, it seems like using the HTTP Protocol built in caching-mechanisms, is a better route to walk first. As long as we just use the protocol, we do not have to build any caching mechanisms ourselves, and just let the network do the work for us. - JSolsvik 10.08.17
+
+ASP.NET Core supports this really well. In Startup.cs we do:
+```cs 
+services.AddMvc((options) => {
+    options.CacheProfiles.Add("api_cache", new CacheProfile() {  
+        Duration = 60 * 60 * 24,  
+            Location = ResponseCacheLocation.Any  
+    });
+});
+```
+
+We can now use this cache profile in the Controlllers
+```cs
+
+[ResponseCache(CacheProfileName="api_cache")]  
+[HttpGet("api/translation/keyvalue")]
+public IEnumerable<KeyValuePair<string,string>> GetKeyValue([FromQuery] TranslationQuery query)
+{
+    return _translationRepo.GetKeyValue(query); 
+}
+``` 
+
+To also make sure that bundle.js is cacheable by the browser, we have to enable caching for static files:
+```cs
+app.UseStaticFiles(new StaticFileOptions  
+{
+    OnPrepareResponse = ctx =>
+    {
+        const int durationInSeconds = 60 * 60 * 24;
+        ctx.Context.Response.Headers[HeaderNames.CacheControl] = "public,max-age=" + durationInSeconds;
+    }
+});
+```
+
+The result is this beauty here:
+![](docs/img/cached-waterfall.png)
+
+Read blog post about it [here](http://www.c-sharpcorner.com/article/response-caching-in-asp-net-core/);
+
+<br>
+
+### Database Indexing
+
+**Discussion**
+
+They way the Translation-table is laid out, has big implications for how fast it will be to retrieve data from it. In every-day use it seems like the most frequest request to Ordbase will be to fetch an entire container of translations. If we follow the principle of *optimize for the common case*, we should make sure that the ClientKey, LanguageKey and ContainerKey, are indexed in such a way that makes retrieving an entire container of translations becomes as fast as possible. We should not care about potential slowdowns of other requests, as they will happen several orders of magnitudes less frequently. - JSolsvik 10.08.17
+
+
+<br>
+
+### Reducing amount of requests
+
+**Discussion**
+
+By bundling all javascript together in a Bundle.js using *webpack*, we can reduce the amount of requests that has to be made tremendously. Also inlining the shared CSS into index.html. The most important part of reducing amount of request, is to reduce the amount needed before the page can be fully drawn. Everything that is not needed until later in the user experience, can be post-poned. - JSolsvik 10.08.17
+
+
+<br>
+
+**Discussion**
+
+### Reducing transmitted data
+
+**Discussion**
+
+In regards to serving Translations to other services, Ordbase serves a key-value-pair format for the common-case, namely fetching translations on a specific client-language-container. This will gretly reduce amount of data transmitted.
+
+In regards to the administrator front-end for Ordbase, the amount of data can be reduced by ripping out unecessarry frameworks and libraries. 
+
+**Font-awesome stats**
+
+Example by clearing out all unused icons in the Font-Awesome.css and Font-Awesome.woff2 files, the size of these files reduced from 31kB -> 1kB and 76kB -> 1.3kB respectively.  A 46x reduction in size, just on optimizing the Font-awesome library.
+
+
+**Bundle.js stats**
+
+Minifying using:
+```
+uglifyjs bundle.js -c -m -o bundle.min.js 
+```
+..reduced from 112kb -> 47kB,  a 2.38x improvement
+
+
+GZipping Bundle.js, reduced data size from 47kB -> 9.7kB. a 4.8x improvement = 11x in total
+
