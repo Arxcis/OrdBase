@@ -62,10 +62,7 @@ export function load_selectClient() {
     //
     // 3. Set up header
     //
-    Ordbase.translate2('header_ordbase', 'header_select_client', (text1, text2) => {   
-        header.setTheme({ textSmall: text1, textBig: text2, selectable: true })
-    });
-
+    Ordbase.translate('select_client', text => {  header.setTheme({ textSmall: 'Ordbase', textBig: text, selectable: true }) });
     header.setIcons({ button1: App.ICON_PENCIL, button2: App.ICON_PLUS });   
     header.setEventHandlers({
 
@@ -75,13 +72,13 @@ export function load_selectClient() {
             
             if (!cardArray[0].isEditable()) {
                 cardArray.forEach(card => card.setEditable());           
-                Ordbase.translate('header_edit_client', text => header.setTheme({ textBig: text, editable: true }));
+                Ordbase.translate('edit_client', text => header.setTheme({ textBig: text, editable: true }));
                 header.setIcons({ button1: '', button2: App.ICON_TIMES, });
                 header.setEventHandlers({
 
                     button2_onclick: e => { 
                         cardArray.forEach(card => card.setSelectable());            
-                        Ordbase.translate('header_select_client', text => header.setTheme({textBig: text, selectable: true}));
+                        Ordbase.translate('select_client', text => header.setTheme({textBig: text, selectable: true}));
                         header.setIcons({ button1: App.ICON_PENCIL, button2: App.ICON_PLUS, });       
                         header.setEventHandlers({ button2_onclick: e => { load_newClient() }});        
                         view.focus();            

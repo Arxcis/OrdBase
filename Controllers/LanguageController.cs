@@ -29,5 +29,21 @@ namespace OrdBaseCore.Controllers
                 
             return _languageRepo.Create(language);
         }
+
+        [HttpGet("api/language/active")]
+        public IEnumerable<string> GetActiveLanguages([FromQuery] ClientQuery query) 
+        {
+            return _languageRepo.GetActiveLanguages(query);
+        }
+
+        [HttpPost("api/language/active")]
+        public IActionResult SetActiveLanguages([FromQuery] ClientQuery query, [FromBody] string[] languageArray) 
+        {
+            if (languageArray == null)
+                return  BadRequest();
+
+            return _languageRepo.SetActiveLanguages(query, languageArray);
+        }
+    
     }
 }

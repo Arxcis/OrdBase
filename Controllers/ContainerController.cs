@@ -22,10 +22,25 @@ namespace OrdBaseCore.Controllers
             return _containerRepo.Get(containerKey);
         }
 
-        [Route("api/container/noempty")]
-        public IEnumerable<Container> GetNoEmpty([FromQuery] string clientKey)
+        [Route("api/container/nonempty")]
+        public IEnumerable<Container> GetNonEmpty([FromQuery] ClientQuery query)
         {
-            return _containerRepo.GetNoEmpty(clientKey);
+            return _containerRepo.GetNonEmpty(query);
+        }
+
+        [HttpGet("api/container/active")]
+        public IEnumerable<Container> GetActiveContainers([FromQuery] ClientQuery query) 
+        {
+            return _containerRepo.GetActiveContainers(query);
+        }
+
+        [HttpPost("api/container/active")]
+        public IActionResult  SetActiveContainers([FromQuery] ClientQuery query, [FromBody] string[] containerArray)
+        {
+            if (containerArray ==  null)
+                return  BadRequest();
+
+            return _containerRepo.SetActiveContainers(query, containerArray);
         }
     }
 }
