@@ -29,6 +29,13 @@ namespace OrdBaseCore.Repositories
                     select l)
                     .ToArray();
         }
+        public IEnumerable<ClientLanguage> GetClientLanguages(ClientQuery query) 
+        {
+            return (from cl in _context.ClientLanguage
+                    where cl.ClientKey == query.ClientKey || query.ClientKey == null
+                    select cl)
+                    .ToArray();
+        }
 
         //
         // CREATE
@@ -38,6 +45,18 @@ namespace OrdBaseCore.Repositories
             _context.Language.Add(language);
             _context.SaveChanges();
             return new NoContentResult{};
+        }
+
+        public IActionResult SetLanguages(ClientQuery query, IEnumerable<ClientLanguage> clientLanguageArray)
+        {
+            var _clientLanguages = _context.ClientLanguage.Where(cl => cl.ClientKey == query.ClientKey);
+            _context.RemoveRange(_clientLanguages);
+            _context.SaveChanges();
+
+            _context.AddRange(clientLanguageArray);
+            _context.SaveChanges();
+
+            return new StatusCodeResult(201);            
         }
 
         //

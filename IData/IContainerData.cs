@@ -7,8 +7,8 @@ namespace OrdBaseCore.IData
     public interface IContainerData
     {
         IEnumerable<Container> Get(string containerKey);
-        IEnumerable<Container> GetNoEmpty(string clientKey);
-        IEnumerable<Container> GetActiveContainers(ClientQuery query);
-        IActionResult SetActiveContainers(ClientQuery query, string[] containerArray);
+        IEnumerable<Container> GetNonEmpty(ClientQuery query);
+        IEnumerable<ClientContainer> GetClientContainers(ClientQuery query);
+        IActionResult SetClientContainers(ClientQuery query, IEnumerable<ClientContainer> clientContainerArray);
     }	
 }
