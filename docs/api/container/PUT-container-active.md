@@ -1,4 +1,4 @@
-# GET - api/container/noempty
+# PUT - api/container/active
 
 Last updated: 08.08.17 by Jonas Solsvik
 
