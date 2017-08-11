@@ -24,7 +24,7 @@ export function load_selectClient() {
     // -1. Set up Ordbase
     //
     Ordbase.OnLanguageChange(() => { load_selectClient(); });
-    Ordbase.async_loadContainer('Ordbase', 'select_client_page');
+    Ordbase.async_loadContainer('Ordbase', 'SelectClient');
 
     //
     // 0. Create component instances
@@ -62,7 +62,7 @@ export function load_selectClient() {
     //
     // 3. Set up header
     //
-    Ordbase.translate('select_client', text => {  header.setTheme({ textSmall: 'Ordbase', textBig: text, selectable: true }) });
+    Ordbase.translate('selectClient', text => {  header.setTheme({ textSmall: 'Ordbase', textBig: text, selectable: true }) });
     header.setIcons({ button1: App.ICON_PENCIL, button2: App.ICON_PLUS });   
     header.setEventHandlers({
 
@@ -72,13 +72,13 @@ export function load_selectClient() {
             
             if (!cardArray[0].isEditable()) {
                 cardArray.forEach(card => card.setEditable());           
-                Ordbase.translate('edit_client', text => header.setTheme({ textBig: text, editable: true }));
+                Ordbase.translate('editClient', text => header.setTheme({ textBig: text, editable: true }));
                 header.setIcons({ button1: '', button2: App.ICON_TIMES, });
                 header.setEventHandlers({
 
                     button2_onclick: e => { 
                         cardArray.forEach(card => card.setSelectable());            
-                        Ordbase.translate('select_client', text => header.setTheme({textBig: text, selectable: true}));
+                        Ordbase.translate('selectClient', text => header.setTheme({textBig: text, selectable: true}));
                         header.setIcons({ button1: App.ICON_PENCIL, button2: App.ICON_PLUS, });       
                         header.setEventHandlers({ button2_onclick: e => { load_newClient() }});        
                         view.focus();            
@@ -110,7 +110,7 @@ function async_client_getArray({ success = force('success') }) {
             if (clientArray.length > 0)  
                 success(clientArray);
             else
-                App.flashError(Ordbase.translate('error_no_clients'));
+                App.flashError(Ordbase.translate('errorNoClients'));
         })
         .catch(err => App.flashError(err));
     }
@@ -120,7 +120,7 @@ function async_client_getArray({ success = force('success') }) {
                 success(clientArray);
             }
             else { 
-                App.flashError(Ordbase.translate('error_no_clients'));
+                App.flashError(Ordbase.translate('errorNoClients'));
             }   
         });
         preload_clientArrayPromise = null;
