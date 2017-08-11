@@ -79,7 +79,7 @@ api/{resource}/{optional modifier}/?{query parameters}
 | GET    | api/language         | query { languageKey }       | [link](docs/api/language/GET-language.md)
 | GET    | api/language/active  | query { clientKey   }       | [link](docs/api/language/GET-language-active.md)
 | POST   | api/language         | json  { Language    }       | [link](docs/api/language/POST-language.md)
-| POST   | api/language/active  | query { clientKey   } <br> json  { Language[]  }       | [link](docs/api/language/POST-language-active.md)
+| PUT    | api/language/active  | query { clientKey   } <br> json  { Language[]  }       | [link](docs/api/language/POST-language-active.md)
 
 <br>
 
@@ -90,7 +90,7 @@ api/{resource}/{optional modifier}/?{query parameters}
 | GET    | api/container          | query { containerKey } | [link](docs/api/container/GET-container.md)
 | GET    | api/container/nonempty | query { clientKey }    | [link](docs/api/container/GET-container-nonempty.md)
 | GET    | api/container/active   | query { clientKey }    | [link](docs/api/container/GET-container-active.md)
-| POST   | api/container/active   | query { clientKey   } <br> json { Container[] }  | [link](docs/api/container/POST-container-active.md)
+| PUT   | api/container/active   | query { clientKey   } <br> json { Container[] }  | [link](docs/api/container/POST-container-active.md)
 
 
 <br>
